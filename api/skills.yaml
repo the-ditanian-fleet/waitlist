@@ -1,0 +1,295 @@
+---
+global:
+  armor:
+    - name: EM Armor Compensation
+      min: 4
+      elite: 5
+    - name: Explosive Armor Compensation
+      min: 4
+      elite: 5
+    - name: Thermal Armor Compensation
+      min: 4
+      elite: 5
+    - name: Kinetic Armor Compensation
+      min: 4
+      elite: 5
+    - name: Armor Layering
+      min: 3
+      elite: 4
+    - name: Hull Upgrades
+      min: 5
+      elite: 5
+    - name: Armor Rigging
+      min: 3
+      elite: 4
+    - name: Mechanics
+      min: 4 # not on skillchecker
+      elite: 5
+  gunnery:
+    - name: Controlled Bursts
+      min: 3
+      elite: 4
+    - name: Motion Prediction
+      min: 3
+      elite: 5
+    - name: Rapid Firing
+      min: 3
+      elite: 4 # 5 on skillchecker
+    - name: Sharpshooter
+      min: 3
+      elite: 5
+    - name: Surgical Strike
+      min: 3
+      elite: 4 # skillchecker says 5
+    - name: Trajectory Analysis
+      min: 4
+      elite: 4
+  navigation:
+    - name: Acceleration Control
+      min: 3
+      elite: 4
+    - name: Evasive Maneuvering
+      min: 3
+      elite: 4
+    - name: High Speed Maneuvering
+      min: 3
+      elite: 4
+    - name: Warp Drive Operation
+      min: 3
+      elite: 5
+    - name: Navigation
+      min: 5
+      elite: 5
+    - name: Astronautics Rigging
+      elite: 4 # Not on skillchecker
+  drones:
+    - name: Drones
+      min: 5
+      elite: 5
+    - name: Gallente Drone Specialization
+      elite: 4
+    - name: Drone Durability
+      min: 3
+      elite: 4
+    - name: Drone Navigation
+      min: 3
+      elite: 4
+    - name: Drone Avionics
+      min: 3
+      elite: 4
+    - name: Advanced Drone Avionics
+      elite: 4
+    - name: Drone Interfacing
+      min: 3
+      elite: 4
+    - name: Drone Sharpshooting
+      min: 3
+      elite: 4
+  engineering:
+    - name: Thermodynamics
+      min: 3
+      elite: 4
+    - name: Capacitor Management
+      min: 4 # not in gdoc
+      elite: 5
+    - name: CPU Management
+      elite: 5
+    - name: Capacitor Systems Operation
+      min: 4 # not in gdoc
+      elite: 5
+    - name: Power Grid Management
+      elite: 5
+    - name: Spaceship Command
+      elite: 5
+    - name: Nanite Interfacing
+      elite: 4
+    - name: Nanite Operation
+      elite: 4
+  targeting:
+    - name: Target Management
+      min: 4
+      elite: 5
+    - name: Long Range Targeting
+      min: 3
+      elite: 5
+    - name: Signature Analysis
+      min: 3
+      elite: 5
+  neural_enhancement:
+    - name: Biology
+      min: 3
+      elite: 5
+    - name: Cybernetics
+      min: 3
+      elite: 5
+    - name: Neurotoxin Control
+      elite: 4
+    - name: Neurotoxin Recovery
+      elite: 4
+  shields:
+    - name: Shield Management
+      min: 3 # not in gdoc
+      elite: 4
+    - name: Shield Operation
+      min: 3 # not in gdoc
+      elite: 4
+logi:
+  all:
+    - name: Advanced Target Management
+      min: 3
+    - name: Capacitor Management
+      min: 5
+    - name: Capacitor Systems Operation
+      min: 5
+    - name: Remote Armor Repair Systems
+      min: 5
+    - name: Acceleration Control
+      min: 3
+    - name: Hull Upgrades
+      min: 5
+ships:
+  Nightmare:
+    - name: Amarr Battleship
+      min: 3
+      elite: 4
+    - name: Capacitor Emission Systems
+      min: 3
+      elite: 4
+    - name: Large Energy Turret
+      min: 4
+      elite: 5
+    - name: Large Pulse Laser Specialization
+      elite: 4
+    - name: Remote Armor Repair Systems
+      min: 3
+      elite: 4
+    - name: Micro Jump Drive Operation
+      min: 3
+      elite: 4
+    - name: Light Drone Operation
+      min: 3
+      elite: 5
+    - name: Medium Drone Operation
+      min: 3
+      elite: 5
+    - name: Heavy Drone Operation
+      min: 3
+      elite: 5
+    - name: Science
+      elite: 5
+    - name: Energy Weapon Rigging
+      elite: 4
+    - name: Radar Sensor Compensation
+      elite: 4
+  Paladin:
+    - name: Large Energy Turret
+      min: 4
+      elite: 5
+    - name: Large Pulse Laser Specialization
+      elite: 4
+    - name: Marauders
+      elite: 5
+    - name: Capacitor Emission Systems
+      min: 3
+      elite: 4
+    - name: Remote Armor Repair Systems
+      min: 3
+      elite: 4
+    - name: Micro Jump Drive Operation
+      min: 3
+      elite: 4
+    - name: Light Drone Operation
+      min: 3
+      elite: 5
+    - name: Medium Drone Operation
+      min: 3
+      elite: 5
+    - name: Repair Drone Operation
+      elite: 5 # not on skillchecker?
+    - name: Science
+      elite: 5
+    - name: Energy Weapon Rigging
+      elite: 4
+    - name: Advanced Target Management
+      elite: 4
+    - name: Radar Sensor Compensation
+      elite: 4
+  Leshak:
+    - name: Remote Armor Repair Systems
+      min: 3
+      elite: 4
+    - name: Capacitor Emission Systems
+      min: 3
+      elite: 4
+    - name: Precursor Battleship
+      min: 5
+      elite: 5
+    - name: Large Precursor Weapon
+      min: 5
+    - name: Large Disintegrator Specialization
+      min: 4
+      elite: 5
+    - name: Heavy Drone Operation
+      min: 3
+      elite: 5
+    - name: Rapid Firing
+      elite: 5
+    - name: Radar Sensor Compensation
+      elite: 4
+    - name: Weapon Upgrades
+      min: 5
+    - name: Advanced Weapon Upgrades
+      min: 1
+  Vindicator:
+    - name: Large Hybrid Turret
+      min: 4
+      elite: 5
+    - name: Large Blaster Specialization
+      elite: 4
+    - name: Gallente Battleship
+      min: 3
+      elite: 4
+    - name: Minmatar Battleship
+      min: 3
+      elite: 4
+    - name: Heavy Drone Operation
+      min: 3
+      elite: 5
+    - name: Propulsion Jamming
+      elite: 4
+    - name: Magnetometric Sensor Compensation
+      elite: 4
+  Megathron:
+    - name: Gallente Battleship
+      min: 3
+    - name: Large Hybrid Turret
+      min: 4
+  Guardian:
+    - name: Afterburner
+      min: 4
+    - name: Capacitor Emission Systems
+      min: 5
+    - name: Evasive Maneuvering
+      min: 3
+    - name: Fuel Conservation
+      min: 4
+    - name: Logistics Cruisers
+      min: 5
+  Oneiros:
+    - name: Afterburner
+      min: 4
+    - name: Evasive Maneuvering
+      min: 3
+    - name: Fuel Conservation
+      min: 4
+    - name: Logistics Cruisers
+      min: 5
+    - name: Sensor Linking
+      min: 4
+  Nestor:
+    - name: Advanced Target Management
+      min: 5
+    - name: Amarr Battleship
+      min: 5
+    - name: High Speed Maneuvering
+      min: 5

@@ -1,0 +1,35 @@
+.page-waitlist {
+  $image-size: 40px;
+  .waitlist-body {
+    padding: 0;
+  }
+  .waitlist-row {
+    > * {
+      margin-right: 10px;
+    }
+    margin: 0;
+    padding: 0;
+    height: $image-size;
+
+    img {
+      float: left;
+      height: $image-size;
+      margin-right: 10px;
+    }
+    span {
+      display: inline-block;
+      box-sizing: border-box;
+      height: $image-size;
+      line-height: $image-size;
+    }
+  }
+  .waitlist-buttons {
+    float: right;
+    .button {
+      margin-top: 5px;
+    }
+    height: $image-size;
+    margin: 0;
+    padding: 0;
+  }
+}
