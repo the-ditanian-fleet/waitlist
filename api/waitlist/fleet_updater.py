@@ -1,9 +1,13 @@
 import threading
 import time
+import logging
 import sqlalchemy
 from . import esi
 from .database import Session, Fleet, FleetSquad, WaitlistEntry, WaitlistEntryFit
 from .data import messager
+
+
+LOG = logging.getLogger(__name__)
 
 
 def notify_waitlist_update(waitlist_id: int) -> None:
@@ -27,13 +31,17 @@ def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
     waitlist_ids = set()
     for entry_fit in session.query(WaitlistEntryFit):
         if entry_fit.character_id in member_ids:
-            waitlist_ids.add(entry_fit.entry.waitlist_id)
             session.query(WaitlistEntryFit).filter(
                 WaitlistEntryFit.entry_id == entry_fit.entry_id
             ).delete()
-            session.query(WaitlistEntry).filter(
-                WaitlistEntry.id == entry_fit.entry_id
-            ).delete()
+            entry = (
+                session.query(WaitlistEntry)
+                .filter(WaitlistEntry.id == entry_fit.entry_id)
+                .one_or_none()
+            )
+            if entry:
+                session.delete(entry)  # type: ignore
+                waitlist_ids.add(entry.waitlist_id)
 
     session.commit()
     for waitlist_id in waitlist_ids:
@@ -43,16 +51,18 @@ def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
 def fleet_updater() -> None:
     while True:
         session = Session()
+        sleep_time = 6  # ESI docs say fleets are cached for "up to 5 seconds"
         try:
             for fleet in session.query(Fleet).all():
                 update_fleet(session, fleet)
-        except Exception as exc:  # pylint: disable=broad-except
-            print(exc)
-            time.sleep(30)
+        except Exception:  # pylint: disable=broad-except
+            session.rollback()
+            LOG.exception("Failed to run fleet updater")
+            sleep_time = 30
         finally:
             session.close()
 
-        time.sleep(6)  # ESI docs say fleets are cached for "up to 5 seconds"
+        time.sleep(sleep_time)
 
 
 def create_fleet_updater() -> threading.Thread:

@@ -1,4 +1,5 @@
 from typing import Optional
+import logging
 from flask import Flask, send_from_directory, g
 from . import (
     auth,
@@ -13,6 +14,8 @@ from . import (
     sse,
 )
 from .webutil import ViewReturn
+
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 app.secret_key = config.CONFIG["app"]["secret"]
