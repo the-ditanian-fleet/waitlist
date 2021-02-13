@@ -5,7 +5,8 @@ import { Waitlist } from "../Pages/Waitlist";
 import { Fleet, FleetRegister } from "../Pages/Fleet";
 import { Authenticate, AuthContext } from "../Auth";
 import { ToastContext, ToastDisplay } from "../Toast";
-import { EventContext, EventNotifier } from "../Event";
+import { EventContext } from "../Event";
+import { EventNotifier } from "../Components/Event";
 
 import "./index.css";
 
@@ -35,6 +36,9 @@ function Menu() {
             ) : null}
           </div>
           <div className="navbar-end">
+            <div className="navbar-item">
+              <EventNotifier />
+            </div>
             <div className="navbar-item">
               <div className="buttons">
                 <NavLink to="/auth/logout" className="button is-light">
@@ -80,7 +84,6 @@ export default class App extends React.Component {
       <React.StrictMode>
         <ToastContext.Provider value={this.addToast}>
           <EventContext.Provider value={this.state.events}>
-            <EventNotifier />
             <AuthContext.Provider value={this.state.auth}>
               <Router>
                 <div className="container">
