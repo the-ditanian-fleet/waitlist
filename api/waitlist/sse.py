@@ -28,6 +28,8 @@ def sse() -> ViewReturn:
     buckets = []
     buckets.append("waitlist")
     buckets.append("account;%d" % g.account_id)
+    if g.is_admin:
+        buckets.append("xup")
 
     # Remove database connections
     if g.db:

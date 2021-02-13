@@ -16,12 +16,20 @@ async function setWaitlistOpen(waitlistId, isOpen) {
 export function Fleet() {
   const [fleets, setFleets] = React.useState(null);
   const toastContext = React.useContext(ToastContext);
+
   React.useEffect(() => {
     fetch("/api/fleet/status")
       .then((response) => response.json())
       .then(setFleets)
       .catch(genericCatch(toastContext));
   }, [toastContext]);
+
+  React.useEffect(() => {
+    // FCs will need this, request it now
+    if (window.Notification && Notification.permission === "default") {
+      Notification.requestPermission();
+    }
+  }, []);
 
   return (
     <>

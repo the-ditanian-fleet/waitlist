@@ -139,6 +139,7 @@ def xup() -> ViewReturn:
     g.db.commit()
 
     notify_waitlist_update(waitlist.id)
+    messager.MESSAGER.send_json(["xup"], "message", {"message": "New x-up in waitlist"})
 
     return "OK"
 

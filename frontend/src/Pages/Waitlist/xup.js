@@ -45,6 +45,10 @@ async function xUp({ character, eft, toastContext, setEft }) {
       type: "success",
     });
     setEft("");
+
+    if (window.Notification) {
+      Notification.requestPermission();
+    }
   } else {
     addToast(toastContext, {
       title: "X-up failed!",
