@@ -188,7 +188,11 @@ export function Waitlist() {
       }
     };
     eventContext.addEventListener("waitlist_update", handleEvent);
-    return () => eventContext.removeEventListener("waitlist_update", handleEvent);
+    eventContext.addEventListener("open", updateAndSet);
+    return function () {
+      eventContext.removeEventListener("waitlist_update", handleEvent);
+      eventContext.removeEventListener("open", updateAndSet);
+    };
   }, [updateAndSet, eventContext, waitlistId]);
 
   if (waitlistData === null) {
