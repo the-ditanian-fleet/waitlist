@@ -75,10 +75,10 @@ export function DpsSkills({ group, mySkills }) {
         </div>
         <div className="column">
           <SkillTable
-            title="Gunnery"
+            title="Engineering"
             group={group}
             current={mySkills.current}
-            requirements={mySkills.requirements.global.gunnery}
+            requirements={mySkills.requirements.global.engineering}
             ids={mySkills.ids}
           />
         </div>
@@ -104,10 +104,10 @@ export function DpsSkills({ group, mySkills }) {
       <div className="columns">
         <div className="column">
           <SkillTable
-            title="Engineering"
+            title="Gunnery"
             group={group}
             current={mySkills.current}
-            requirements={mySkills.requirements.global.engineering}
+            requirements={mySkills.requirements.global.gunnery}
             ids={mySkills.ids}
           />
         </div>
