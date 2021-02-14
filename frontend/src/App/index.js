@@ -73,6 +73,12 @@ export default class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (!this.state.events) {
+      this.setState({ events: new EventSource("/api/sse/stream") });
+    }
+  }
+
   addToast = (toast) => {
     this.setState({ toasts: [...this.state.toasts, toast] });
   };
@@ -84,10 +90,6 @@ export default class App extends React.Component {
           <Authenticate value={this.state.auth} onAuth={(auth) => this.setState({ auth })} />
         </Router>
       );
-    }
-
-    if (!this.state.events) {
-      this.setState({ events: new EventSource("/api/sse/stream") });
     }
 
     return (
