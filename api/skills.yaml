@@ -30,7 +30,7 @@ global:
       elite: 4
       gold: 5
     - name: Mechanics
-      min: 4 # not on skillchecker
+      min: 4
       elite: 5
       gold: 5
   gunnery:
@@ -44,7 +44,7 @@ global:
       gold: 5
     - name: Rapid Firing
       min: 3
-      elite: 4 # 5 on skillchecker
+      elite: 4
       gold: 5
     - name: Sharpshooter
       min: 3
@@ -52,7 +52,7 @@ global:
       gold: 5
     - name: Surgical Strike
       min: 3
-      elite: 4 # skillchecker says 5
+      elite: 4
       gold: 5
     - name: Trajectory Analysis
       min: 4
@@ -80,7 +80,7 @@ global:
       elite: 5
       gold: 5
     - name: Astronautics Rigging
-      elite: 4 # Not on skillchecker
+      elite: 4
       gold: 5
   drones:
     - name: Drones
@@ -119,14 +119,14 @@ global:
       elite: 4
       gold: 5
     - name: Capacitor Management
-      min: 4 # not in gdoc
+      min: 4
       elite: 5
       gold: 5
     - name: CPU Management
       elite: 5
       gold: 5
     - name: Capacitor Systems Operation
-      min: 4 # not in gdoc
+      min: 4
       elite: 5
       gold: 5
     - name: Power Grid Management
@@ -171,11 +171,11 @@ global:
       gold: 5
   shields:
     - name: Shield Management
-      min: 3 # not in gdoc
+      min: 3
       elite: 4
       gold: 5
     - name: Shield Operation
-      min: 3 # not in gdoc
+      min: 3
       elite: 4
       gold: 5
 logi:
@@ -270,7 +270,7 @@ ships:
       elite: 5
       gold: 5
     - name: Repair Drone Operation
-      elite: 5 # not on skillchecker?
+      elite: 5
       gold: 5
     - name: Science
       elite: 5
@@ -378,4 +378,4 @@ ships:
     - name: Amarr Battleship
       min: 5
     - name: High Speed Maneuvering
-      min: 5
+      min: 4
