@@ -41,6 +41,14 @@ async function invite(id) {
   });
 }
 
+async function openWindow(target_id, character_id) {
+  return await fetch(`/api/open_window`, {
+    method: "POST",
+    body: JSON.stringify({ target_id, character_id }),
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
 function XFit({ entry, fit, onAction }) {
   const toastContext = React.useContext(ToastContext);
   var charName = fit.character ? fit.character.name : "Name hidden";
@@ -135,6 +143,20 @@ function XEntry({ entry, i, onAction }) {
       {i}
       {". "}
       <a href={"char:" + entry.character.id}>{entry.character.name}</a>
+      {entry.can_manage ? (
+        <>
+          {" ("}
+          <button
+            className="button-link"
+            onClick={(evt) =>
+              openWindow(entry.character.id, authContext.id).then(toastHttp(toastContext, null))
+            }
+          >
+            Open
+          </button>
+          {")"}
+        </>
+      ) : null}
     </span>
   ) : (
     <span>

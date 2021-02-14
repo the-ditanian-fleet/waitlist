@@ -13,7 +13,11 @@ LOGIN_SCOPES = [
     "esi-skills.read_skills.v1",
     "esi-clones.read_implants.v1",
 ]
-FC_SCOPES = ["esi-fleets.read_fleet.v1", "esi-fleets.write_fleet.v1"]
+FC_SCOPES = [
+    "esi-fleets.read_fleet.v1",
+    "esi-fleets.write_fleet.v1",
+    "esi-ui.open_window.v1",
+]
 
 LOGIN_URL_FMT = (
     "https://login.eveonline.com/oauth/authorize?response_type=code"

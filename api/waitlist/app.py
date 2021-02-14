@@ -12,6 +12,7 @@ from . import (
     config,
     database,
     sse,
+    window,
 )
 from .webutil import ViewReturn
 
@@ -26,6 +27,7 @@ app.register_blueprint(alts.bp)
 app.register_blueprint(fleet.bp)
 app.register_blueprint(category.bp)
 app.register_blueprint(sse.bp)
+app.register_blueprint(window.bp)
 
 
 @app.route("/", defaults={"path": ""})
