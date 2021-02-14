@@ -44,7 +44,7 @@ global:
       gold: 5
     - name: Rapid Firing
       min: 3
-      elite: 4
+      elite: 5
       gold: 5
     - name: Sharpshooter
       min: 3
@@ -52,7 +52,7 @@ global:
       gold: 5
     - name: Surgical Strike
       min: 3
-      elite: 4
+      elite: 5
       gold: 5
     - name: Trajectory Analysis
       min: 4
@@ -307,9 +307,6 @@ ships:
       gold: 5
     - name: Heavy Drone Operation
       min: 3
-      elite: 5
-      gold: 5
-    - name: Rapid Firing
       elite: 5
       gold: 5
     - name: Radar Sensor Compensation
