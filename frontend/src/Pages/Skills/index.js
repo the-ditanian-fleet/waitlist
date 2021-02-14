@@ -264,6 +264,12 @@ export function Skills() {
           Elite
         </button>
         <button
+          onClick={(evt) => setGroup("gold")}
+          className={"button " + (group === "gold" ? "is-active" : "")}
+        >
+          Elite GOLD
+        </button>
+        <button
           onClick={(evt) => setGroup("logi")}
           className={"button " + (group === "logi" ? "is-active" : "")}
         >

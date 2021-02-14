@@ -4,135 +4,180 @@ global:
     - name: EM Armor Compensation
       min: 4
       elite: 5
+      gold: 5
     - name: Explosive Armor Compensation
       min: 4
       elite: 5
+      gold: 5
     - name: Thermal Armor Compensation
       min: 4
       elite: 5
+      gold: 5
     - name: Kinetic Armor Compensation
       min: 4
       elite: 5
+      gold: 5
     - name: Armor Layering
       min: 3
       elite: 4
+      gold: 5
     - name: Hull Upgrades
       min: 5
       elite: 5
+      gold: 5
     - name: Armor Rigging
       min: 3
       elite: 4
+      gold: 5
     - name: Mechanics
       min: 4 # not on skillchecker
       elite: 5
+      gold: 5
   gunnery:
     - name: Controlled Bursts
       min: 3
       elite: 4
+      gold: 5
     - name: Motion Prediction
       min: 3
       elite: 5
+      gold: 5
     - name: Rapid Firing
       min: 3
       elite: 4 # 5 on skillchecker
+      gold: 5
     - name: Sharpshooter
       min: 3
       elite: 5
+      gold: 5
     - name: Surgical Strike
       min: 3
       elite: 4 # skillchecker says 5
+      gold: 5
     - name: Trajectory Analysis
       min: 4
       elite: 4
+      gold: 5
   navigation:
     - name: Acceleration Control
       min: 3
       elite: 4
+      gold: 5
     - name: Evasive Maneuvering
       min: 3
       elite: 4
+      gold: 5
     - name: High Speed Maneuvering
       min: 3
       elite: 4
+      gold: 5
     - name: Warp Drive Operation
       min: 3
       elite: 5
+      gold: 5
     - name: Navigation
       min: 5
       elite: 5
+      gold: 5
     - name: Astronautics Rigging
       elite: 4 # Not on skillchecker
+      gold: 5
   drones:
     - name: Drones
       min: 5
       elite: 5
+      gold: 5
     - name: Gallente Drone Specialization
       elite: 4
+      gold: 5
     - name: Drone Durability
       min: 3
       elite: 4
+      gold: 5
     - name: Drone Navigation
       min: 3
       elite: 4
+      gold: 5
     - name: Drone Avionics
       min: 3
       elite: 4
+      gold: 5
     - name: Advanced Drone Avionics
       elite: 4
+      gold: 5
     - name: Drone Interfacing
       min: 3
       elite: 4
+      gold: 5
     - name: Drone Sharpshooting
       min: 3
       elite: 4
+      gold: 5
   engineering:
     - name: Thermodynamics
       min: 3
       elite: 4
+      gold: 5
     - name: Capacitor Management
       min: 4 # not in gdoc
       elite: 5
+      gold: 5
     - name: CPU Management
       elite: 5
+      gold: 5
     - name: Capacitor Systems Operation
       min: 4 # not in gdoc
       elite: 5
+      gold: 5
     - name: Power Grid Management
       elite: 5
+      gold: 5
     - name: Spaceship Command
       elite: 5
+      gold: 5
     - name: Nanite Interfacing
       elite: 4
+      gold: 5
     - name: Nanite Operation
       elite: 4
+      gold: 5
   targeting:
     - name: Target Management
       min: 4
       elite: 5
+      gold: 5
     - name: Long Range Targeting
       min: 3
       elite: 5
+      gold: 5
     - name: Signature Analysis
       min: 3
       elite: 5
+      gold: 5
   neural_enhancement:
     - name: Biology
       min: 3
       elite: 5
+      gold: 5
     - name: Cybernetics
       min: 3
       elite: 5
+      gold: 5
     - name: Neurotoxin Control
       elite: 4
+      gold: 5
     - name: Neurotoxin Recovery
       elite: 4
+      gold: 5
   shields:
     - name: Shield Management
       min: 3 # not in gdoc
       elite: 4
+      gold: 5
     - name: Shield Operation
       min: 3 # not in gdoc
       elite: 4
+      gold: 5
 logi:
   all:
     - name: Advanced Target Management
@@ -152,90 +197,124 @@ ships:
     - name: Amarr Battleship
       min: 3
       elite: 4
+      gold: 5
     - name: Capacitor Emission Systems
       min: 3
       elite: 4
+      gold: 5
     - name: Large Energy Turret
       min: 4
       elite: 5
+      gold: 5
     - name: Large Pulse Laser Specialization
       elite: 4
+      gold: 5
     - name: Remote Armor Repair Systems
       min: 3
       elite: 4
+      gold: 5
     - name: Micro Jump Drive Operation
       min: 3
       elite: 4
+      gold: 5
     - name: Light Drone Operation
       min: 3
       elite: 5
+      gold: 5
     - name: Medium Drone Operation
       min: 3
       elite: 5
+      gold: 5
     - name: Heavy Drone Operation
       min: 3
       elite: 5
+      gold: 5
     - name: Science
       elite: 5
+      gold: 5
     - name: Energy Weapon Rigging
       elite: 4
+      gold: 5
     - name: Radar Sensor Compensation
       elite: 4
+      gold: 5
   Paladin:
     - name: Large Energy Turret
       min: 4
       elite: 5
+      gold: 5
     - name: Large Pulse Laser Specialization
       elite: 4
+      gold: 5
     - name: Marauders
       elite: 5
+      gold: 5
     - name: Capacitor Emission Systems
       min: 3
       elite: 4
+      gold: 5
     - name: Remote Armor Repair Systems
       min: 3
       elite: 4
+      gold: 5
     - name: Micro Jump Drive Operation
       min: 3
       elite: 4
+      gold: 5
     - name: Light Drone Operation
       min: 3
       elite: 5
+      gold: 5
     - name: Medium Drone Operation
       min: 3
       elite: 5
+      gold: 5
     - name: Repair Drone Operation
       elite: 5 # not on skillchecker?
+      gold: 5
     - name: Science
       elite: 5
+      gold: 5
     - name: Energy Weapon Rigging
       elite: 4
+      gold: 5
     - name: Advanced Target Management
-      elite: 4
+      elite: 3
+      gold: 3
     - name: Radar Sensor Compensation
       elite: 4
+      gold: 5
   Leshak:
     - name: Remote Armor Repair Systems
       min: 3
       elite: 4
+      gold: 5
     - name: Capacitor Emission Systems
       min: 3
       elite: 4
+      gold: 5
     - name: Precursor Battleship
       min: 5
       elite: 5
+      gold: 5
     - name: Large Precursor Weapon
       min: 5
+      elite: 5
+      gold: 5
     - name: Large Disintegrator Specialization
       min: 4
       elite: 5
+      gold: 5
     - name: Heavy Drone Operation
       min: 3
       elite: 5
+      gold: 5
     - name: Rapid Firing
       elite: 5
+      gold: 5
     - name: Radar Sensor Compensation
       elite: 4
+      gold: 5
     - name: Weapon Upgrades
       min: 5
     - name: Advanced Weapon Upgrades
@@ -244,21 +323,28 @@ ships:
     - name: Large Hybrid Turret
       min: 4
       elite: 5
+      gold: 5
     - name: Large Blaster Specialization
       elite: 4
+      gold: 5
     - name: Gallente Battleship
       min: 3
       elite: 4
+      gold: 5
     - name: Minmatar Battleship
       min: 3
       elite: 4
+      gold: 5
     - name: Heavy Drone Operation
       min: 3
       elite: 5
+      gold: 5
     - name: Propulsion Jamming
       elite: 4
+      gold: 5
     - name: Magnetometric Sensor Compensation
       elite: 4
+      gold: 5
   Megathron:
     - name: Gallente Battleship
       min: 3
