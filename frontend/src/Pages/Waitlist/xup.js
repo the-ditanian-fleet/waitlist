@@ -95,7 +95,7 @@ export default function Xup({ onAction }) {
               onClick={(evt) =>
                 xUp({ character, eft, toastContext, setEft }).then(onAction).catch(genericCatch)
               }
-              disabled={eft.trim().length < 50}
+              disabled={eft.trim().length < 50 || !eft.startsWith("[")}
             >
               X-up
             </button>
