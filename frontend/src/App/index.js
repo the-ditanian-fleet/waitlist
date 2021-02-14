@@ -11,6 +11,8 @@ import { EventNotifier } from "../Components/Event";
 import "./index.css";
 
 function Menu() {
+  const [menuActive, setMenuActive] = React.useState(false);
+
   return (
     <AuthContext.Consumer>
       {(whoami) => (
@@ -19,31 +21,39 @@ function Menu() {
             <NavLink className="navbar-item" exact activeClassName="is-active" to="/">
               <img src="https://i.imgur.com/b1UBgma.png" alt="The Ditanian Fleet" />
             </NavLink>
+
+            <a className="navbar-burger" onClick={(evt) => setMenuActive(!menuActive)}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </a>
           </div>
-          <div className="navbar-menu is-active">
-            <NavLink className="navbar-item" exact activeClassName="is-active" to="/">
-              Waitlist
-            </NavLink>
-            <NavLink className="navbar-item" exact activeClassName="is-active" to="/skills">
-              Skills
-            </NavLink>
-            {whoami.is_admin ? (
-              <>
-                <NavLink className="navbar-item" exact activeClassName="is-active" to="/fleet">
-                  Fleet
-                </NavLink>
-              </>
-            ) : null}
-          </div>
-          <div className="navbar-end">
-            <div className="navbar-item">
-              <EventNotifier />
+          <div className={"navbar-menu " + (menuActive ? "is-active" : "")}>
+            <div className="navbar-start">
+              <NavLink className="navbar-item" exact activeClassName="is-active" to="/">
+                Waitlist
+              </NavLink>
+              <NavLink className="navbar-item" exact activeClassName="is-active" to="/skills">
+                Skills
+              </NavLink>
+              {whoami.is_admin ? (
+                <>
+                  <NavLink className="navbar-item" exact activeClassName="is-active" to="/fleet">
+                    Fleet
+                  </NavLink>
+                </>
+              ) : null}
             </div>
-            <div className="navbar-item">
-              <div className="buttons">
-                <NavLink to="/auth/logout" className="button is-light">
-                  Log out {whoami.name}
-                </NavLink>
+            <div className="navbar-end">
+              <div className="navbar-item">
+                <EventNotifier />
+              </div>
+              <div className="navbar-item">
+                <div className="buttons">
+                  <NavLink to="/auth/logout" className="button is-light">
+                    Log out {whoami.name}
+                  </NavLink>
+                </div>
               </div>
             </div>
           </div>

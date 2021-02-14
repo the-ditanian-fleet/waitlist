@@ -32,7 +32,8 @@
     "rules": {
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
-      "react/jsx-uses-react": "off"
+      "react/jsx-uses-react": "off",
+      "jsx-a11y/anchor-is-valid": "off"
     }
   },
   "browserslist": {
