@@ -65,12 +65,12 @@ export default function Xup({ onAction }) {
   const [character, setCharacter] = React.useState(authContext.id);
 
   return (
-    <div className="box">
-      <div className="field">
+    <div className="panel">
+      <p className="panel-heading">
+        X-up with fit (<a href="https://i.imgur.com/8Gh05lg.png">EFT format</a>)
+      </p>
+      <div className="panel-block">
         <div className="control">
-          <label className="label">
-            X-up with fit (<a href="https://i.imgur.com/8Gh05lg.png">EFT format</a>)
-          </label>
           <textarea
             className="textarea"
             placeholder={exampleFit}
@@ -80,24 +80,26 @@ export default function Xup({ onAction }) {
           ></textarea>
         </div>
       </div>
-      <div className="field is-grouped">
-        <div className="control">
-          <div className="select">
-            <select value={character} onChange={(evt) => setCharacter(evt.target.value)}>
-              <option>{authContext.name}</option>
-            </select>
+      <div className="panel-block">
+        <div className="field is-grouped">
+          <div className="control is-expanded">
+            <div className="select">
+              <select value={character} onChange={(evt) => setCharacter(evt.target.value)}>
+                <option>{authContext.name}</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div className="control">
-          <button
-            className="button is-success"
-            onClick={(evt) =>
-              xUp({ character, eft, toastContext, setEft }).then(onAction).catch(genericCatch)
-            }
-            disabled={eft.trim().length < 50}
-          >
-            X-up
-          </button>
+          <div className="control is-pulled-right">
+            <button
+              className="button is-success"
+              onClick={(evt) =>
+                xUp({ character, eft, toastContext, setEft }).then(onAction).catch(genericCatch)
+              }
+              disabled={eft.trim().length < 50}
+            >
+              X-up
+            </button>
+          </div>
         </div>
       </div>
     </div>
