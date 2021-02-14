@@ -232,9 +232,6 @@ ships:
     - name: Science
       elite: 5
       gold: 5
-    - name: Energy Weapon Rigging
-      elite: 4
-      gold: 5
     - name: Radar Sensor Compensation
       elite: 4
       gold: 5
@@ -274,9 +271,6 @@ ships:
       gold: 5
     - name: Science
       elite: 5
-      gold: 5
-    - name: Energy Weapon Rigging
-      elite: 4
       gold: 5
     - name: Advanced Target Management
       elite: 3
