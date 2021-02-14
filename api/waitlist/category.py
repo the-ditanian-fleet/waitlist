@@ -62,6 +62,7 @@ def categorize(fit_dna: str) -> Tuple[str, str]:
             module_count = 1
         if module_id_s.endswith("_"):
             module_id_s = module_id_s[:-1]
+            continue  # Ignore modules in cargo
         module_id = int(module_id_s)
         modules_sum.setdefault(module_id, 0)
         modules_sum[module_id] += module_count
