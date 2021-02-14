@@ -76,7 +76,7 @@ global:
       elite: 5
       gold: 5
     - name: Navigation
-      min: 5
+      min: 4
       elite: 5
       gold: 5
     - name: Astronautics Rigging
