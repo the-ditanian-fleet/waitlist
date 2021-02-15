@@ -3,6 +3,9 @@ import sqlite3
 
 DATABASE = sqlite3.connect("sqlite-latest.sqlite", check_same_thread=False)
 
+ID_CACHE: Dict[str, int] = {}
+NAME_CACHE: Dict[int, str] = {}
+
 
 def type_names(ids: List[int]) -> Dict[int, str]:
     result = {}
@@ -42,3 +45,17 @@ def type_categories(ids: List[int]) -> Dict[int, int]:
     for type_id, group_id in type_groups:
         result[type_id] = group_categories[group_id]
     return result
+
+
+def id_of(name: str) -> int:
+    if not name in ID_CACHE:
+        ids = type_ids([name])
+        ID_CACHE[name] = ids[name]
+    return ID_CACHE[name]
+
+
+def name_of(type_id: int) -> str:
+    if not type_id in NAME_CACHE:
+        names = type_names([type_id])
+        NAME_CACHE[type_id] = names[type_id]
+    return NAME_CACHE[type_id]

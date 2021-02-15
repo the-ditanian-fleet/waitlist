@@ -52,7 +52,7 @@ async function xUp({ character, eft, toastContext, setEft }) {
   } else {
     addToast(toastContext, {
       title: "X-up failed!",
-      message: "Server returned " + result.status,
+      message: "Server returned " + result.status + ": " + (await result.text()),
       type: "error",
     });
   }

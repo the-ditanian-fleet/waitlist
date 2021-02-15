@@ -74,6 +74,7 @@ function XFit({ entry, fit, onAction }) {
           alt={fit.hull.name}
         />{" "}
         {charName}&apos;s {fit.hull.name}
+        {` (${fit.category})`}
       </span>
     );
   } else {
@@ -81,6 +82,7 @@ function XFit({ entry, fit, onAction }) {
       <span>
         <img src={"https://imageserver.eveonline.com/Type/28606_64.png"} alt="" /> {charName}&apos;s
         ship
+        {` (${fit.category})`}
       </span>
     );
   }
@@ -122,6 +124,13 @@ function XFit({ entry, fit, onAction }) {
         )}
       </div>
       {fitDescription}
+      {fit.tags
+        ? fit.tags.map((tag) => (
+            <span key={tag} className="tag">
+              {tag}
+            </span>
+          ))
+        : null}
     </div>
   );
 }

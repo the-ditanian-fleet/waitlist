@@ -1,7 +1,9 @@
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List, Optional, Any
 from flask import Blueprint
 from . import auth, evedb
 from .webutil import ViewReturn
+from .evedb import id_of, name_of
+from .data import skills
 
 bp = Blueprint("category", __name__)
 
@@ -48,8 +50,51 @@ CATEGORIZATION = [
 ]
 CATEGORIZATION_LOOKUP = evedb.type_ids(list(item[0] for item in CATEGORIZATION))
 
+LOGI_IDS = {id_of("Nestor"), id_of("Guardian"), id_of("Oneiros")}
 
-def categorize(fit_dna: str) -> Tuple[str, str]:
+
+def has_minimum_comps(skilldata: Dict[int, int]) -> bool:
+    if skilldata.get(id_of("EM Armor Compensation"), 0) < 2:
+        return False
+    if skilldata.get(id_of("Explosive Armor Compensation"), 0) < 2:
+        return False
+    if skilldata.get(id_of("Thermal Armor Compensation"), 0) < 2:
+        return False
+    if skilldata.get(id_of("Kinetic Armor Compensation"), 0) < 2:
+        return False
+    return True
+
+
+def _skillcheck_section(
+    skilldata: Dict[int, int], requirements: List[Dict[str, Any]], group: str
+) -> bool:
+    for skillreq in requirements:
+        skill_id = skills.SKILL_IDS[skillreq["name"]]
+        if group in skillreq and skilldata.get(skill_id, 0) < skillreq[group]:
+            return False
+    return True
+
+
+def skillcheck(ship: int, skilldata: Dict[int, int], group: str) -> bool:
+    is_logi = ship in LOGI_IDS
+    for groupname, requirements in skills.MIN_SKILLS["global"].items():
+        if is_logi and groupname == "gunnery":
+            # Logi don't have guns.
+            continue
+
+        if not _skillcheck_section(skilldata, requirements, group):
+            return False
+
+    if name_of(ship) in skills.MIN_SKILLS["ships"]:
+        if not _skillcheck_section(
+            skilldata, skills.MIN_SKILLS["ships"][name_of(ship)], group
+        ):
+            return False
+
+    return True
+
+
+def dna_to_sum(fit_dna: str) -> Dict[int, int]:
     modules_sum: Dict[int, int] = {}
     for dna_piece in fit_dna.split(":"):
         if not dna_piece:
@@ -66,9 +111,33 @@ def categorize(fit_dna: str) -> Tuple[str, str]:
         module_id = int(module_id_s)
         modules_sum.setdefault(module_id, 0)
         modules_sum[module_id] += module_count
+    return modules_sum
 
+
+def check_valid(_fit_dna: str, skilldata: Dict[int, int]) -> Optional[str]:
+    if not has_minimum_comps(skilldata):
+        return "Missing minimum Armor Compensation skills"
+
+    return None
+
+
+def categorize(fit_dna: str, skilldata: Dict[int, int]) -> Tuple[str, List[str]]:
+    ship = int(fit_dna.split(":")[0])
+
+    modules_sum = dna_to_sum(fit_dna)
+    detected_category = "meta4"  # Default
     for module_name, category in CATEGORIZATION:
         if CATEGORIZATION_LOOKUP[module_name] in modules_sum:
-            return category, ""
+            detected_category = category
+            break
 
-    return "meta4", ""  # Default
+    tags: List[str] = []
+    if not skillcheck(ship, skilldata, "min"):
+        detected_category = "meta4"
+        tags.append("NO-MINSKILLS")
+    elif skillcheck(ship, skilldata, "gold"):
+        tags.append("GOLD-SKILLS")
+    elif skillcheck(ship, skilldata, "elite"):
+        tags.append("ELITE-SKILLS")
+
+    return detected_category, tags

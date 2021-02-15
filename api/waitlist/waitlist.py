@@ -12,7 +12,7 @@ from .database import (
     FleetSquad,
 )
 from .webutil import ViewReturn
-from .data import messager
+from .data import messager, skills
 
 bp = Blueprint("waitlist", __name__)
 
@@ -66,6 +66,9 @@ def get_waitlist() -> ViewReturn:
             if can_see_full:
                 fit["dna"] = fitting.dna
                 fit["character"] = {"name": character.name, "id": character.id}
+                fit["tags"] = list(
+                    filter(lambda tag: len(tag) > 0, fitentry.tags.split(","))
+                )
             fits.append(fit)
 
         waitlist_entries.append(
@@ -118,6 +121,8 @@ def xup() -> ViewReturn:
         waitlist_entry = WaitlistEntry(waitlist_id=waitlist.id, account_id=g.account_id)
         g.db.add(waitlist_entry)
 
+    skilldata = skills.load_character_skills(g.character_id)
+
     for dna in dnas:
         fitting = g.db.query(Fitting).filter(Fitting.dna == dna).one_or_none()
         if not fitting:
@@ -125,14 +130,18 @@ def xup() -> ViewReturn:
             fitting = Fitting(dna=dna, hull=hull)
             g.db.add(fitting)
 
-        category_name, tags = category.categorize(dna)
+        fit_error = category.check_valid(dna, skilldata)
+        if fit_error:
+            return fit_error, 400
+
+        category_name, tags = category.categorize(dna, skilldata)
         xup_fit = WaitlistEntryFit(
             character_id=g.character_id,
             entry=waitlist_entry,
             fit=fitting,
             category=category_name,
             approved=False,
-            tags=tags,
+            tags=",".join(tags),
         )
         g.db.add(xup_fit)
 
