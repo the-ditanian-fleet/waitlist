@@ -91,6 +91,11 @@ def skillcheck(ship: int, skilldata: Dict[int, int], group: str) -> bool:
         ):
             return False
 
+    if is_logi:
+        for groupname, requirements in skills.MIN_SKILLS["logi"].items():
+            if not _skillcheck_section(skilldata, requirements, group):
+                return False
+
     return True
 
 
