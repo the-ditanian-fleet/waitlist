@@ -1,6 +1,7 @@
 from flask import Blueprint, g, request
 from .webutil import ViewReturn
-from . import esi, auth
+from . import auth
+from .data import esi
 
 bp = Blueprint("window", __name__)
 

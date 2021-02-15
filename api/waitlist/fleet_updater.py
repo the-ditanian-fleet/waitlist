@@ -2,9 +2,8 @@ import threading
 import time
 import logging
 import sqlalchemy
-from . import esi
-from .database import Session, Fleet, FleetSquad, WaitlistEntry, WaitlistEntryFit
-from .data import messager
+from .data import messager, esi
+from .data.database import Session, Fleet, FleetSquad, WaitlistEntry, WaitlistEntryFit
 
 
 LOG = logging.getLogger(__name__)

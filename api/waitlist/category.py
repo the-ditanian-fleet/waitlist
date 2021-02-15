@@ -1,9 +1,9 @@
 from typing import Dict, Tuple, List, Optional, Any
 from flask import Blueprint
-from . import auth, evedb
+from . import auth
 from .webutil import ViewReturn
-from .evedb import id_of, name_of
-from .data import skills
+from .data import skills, evedb
+from .data.evedb import id_of, name_of
 
 bp = Blueprint("category", __name__)
 

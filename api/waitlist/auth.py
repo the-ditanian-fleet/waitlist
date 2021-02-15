@@ -2,7 +2,7 @@ from functools import wraps
 from typing import Callable, TypeVar, Any, Tuple, cast
 from flask import Blueprint, request, session, g
 import requests
-from . import database, esi, config
+from .data import esi, database, config
 
 bp = Blueprint("auth", __name__)
 req_session = requests.Session()

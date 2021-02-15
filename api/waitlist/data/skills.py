@@ -1,8 +1,8 @@
 from typing import Dict, Tuple, List, Any
 from datetime import datetime
 import yaml
-from ..database import SkillCurrent, SkillHistory, Session
-from .. import esi, evedb
+from .database import SkillCurrent, SkillHistory, Session
+from . import esi, evedb
 
 
 def load_skill_info() -> Tuple[Dict[str, Any], List[int], Dict[str, int]]:

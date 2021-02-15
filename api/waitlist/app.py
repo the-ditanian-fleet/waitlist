@@ -9,12 +9,11 @@ from . import (
     fleet,
     category,
     fleet_updater,
-    config,
-    database,
     sse,
     window,
 )
 from .webutil import ViewReturn
+from .data import database, config
 
 logging.basicConfig(level=logging.INFO)
 

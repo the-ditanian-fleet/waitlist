@@ -1,6 +1,6 @@
 import re
 from typing import Dict, List, Tuple
-from . import evedb
+from .data import evedb
 
 
 def split_eft(eft_input: str) -> List[str]:

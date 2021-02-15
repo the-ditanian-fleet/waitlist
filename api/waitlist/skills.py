@@ -1,7 +1,7 @@
 from flask import Blueprint, g
-from . import auth, esi
-from .database import Character
-from .data import skills
+from . import auth
+from .data import skills, esi
+from .data.database import Character
 from .webutil import ViewReturn
 
 bp = Blueprint("skills", __name__)

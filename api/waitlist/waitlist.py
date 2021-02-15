@@ -1,8 +1,9 @@
 from typing import Dict, List, Tuple
 from flask import Blueprint, request, g
 
-from . import auth, eft2dna, evedb, esi, category
-from .database import (
+from . import auth, eft2dna, category
+from .data import messager, skills, esi, evedb
+from .data.database import (
     Waitlist,
     WaitlistEntry,
     WaitlistEntryFit,
@@ -12,7 +13,6 @@ from .database import (
     FleetSquad,
 )
 from .webutil import ViewReturn
-from .data import messager, skills
 
 bp = Blueprint("waitlist", __name__)
 

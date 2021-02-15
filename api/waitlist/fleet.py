@@ -1,9 +1,10 @@
 from typing import Dict, List
 from flask import Blueprint, g, request
 
-from . import auth, esi, category
-from .database import Character, Fleet, FleetSquad
+from . import auth, category
 from .webutil import ViewReturn
+from .data import esi
+from .data.database import Character, Fleet, FleetSquad
 
 bp = Blueprint("fleet", __name__)
 
