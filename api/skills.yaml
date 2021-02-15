@@ -125,7 +125,7 @@ global:
       elite: 5
       gold: 5
     - name: Capacitor Systems Operation
-      min: 4
+      min: 3
       elite: 5
       gold: 5
     - name: Power Grid Management
