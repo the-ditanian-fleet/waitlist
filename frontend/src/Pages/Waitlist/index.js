@@ -89,7 +89,7 @@ function XFit({ entry, fit, onAction }) {
 
   return (
     <div className="waitlist-row">
-      <div className="buttons are-small waitlist-buttons">
+      <div className="buttons are-small waitlist-buttons is-pulled-right">
         {entry.can_manage ? (
           <>
             {fit.approved ? (
