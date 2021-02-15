@@ -170,11 +170,9 @@ global:
       gold: 5
   shields:
     - name: Shield Management
-      min: 3
       elite: 4
       gold: 5
     - name: Shield Operation
-      min: 3
       elite: 4
       gold: 5
 logi:
@@ -334,6 +332,7 @@ ships:
       elite: 5
       gold: 5
     - name: Propulsion Jamming
+      min: 4
       elite: 4
       gold: 5
     - name: Magnetometric Sensor Compensation

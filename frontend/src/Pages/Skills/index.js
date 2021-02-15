@@ -45,6 +45,14 @@ function SkillTable({ group, title, current, requirements, ids }) {
     );
   });
 
+  if (!entries.length) {
+    entries.push(
+      <tr key="noskills">
+        <td>No skill requirements.</td>
+      </tr>
+    );
+  }
+
   return (
     <div className="column">
       <table className="table is-striped">
