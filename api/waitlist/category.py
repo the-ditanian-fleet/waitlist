@@ -212,8 +212,9 @@ def categorize(
 
     tags: List[str] = []
     if not skillcheck(ship, skilldata, "min"):
-        detected_category = "meta4"
         tags.append("NO-MINSKILLS")
+        if detected_category != "logi":
+            detected_category = "meta4"
     elif skillcheck(ship, skilldata, "gold"):
         tags.append("GOLD-SKILLS")
     elif skillcheck(ship, skilldata, "elite"):
