@@ -47,10 +47,15 @@ def type_categories(ids: List[int]) -> Dict[int, int]:
     return result
 
 
-def id_of(name: str) -> int:
+def id_of(name: str, fuzzy: bool = False) -> int:
     if not name in ID_CACHE:
-        ids = type_ids([name])
-        ID_CACHE[name] = ids[name]
+        if not fuzzy:
+            ids = type_ids([name])
+            ID_CACHE[name] = ids[name]
+        else:
+            query = "SELECT typeID FROM invTypes WHERE typeName LIKE ?"
+            (type_id,) = DATABASE.cursor().execute(query, (name,)).fetchone()
+            ID_CACHE[name] = type_id
     return ID_CACHE[name]
 
 

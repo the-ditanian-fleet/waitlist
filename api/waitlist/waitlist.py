@@ -2,7 +2,7 @@ from typing import Dict, List, Tuple
 from flask import Blueprint, request, g
 
 from . import auth, eft2dna, category
-from .data import messager, skills, esi, evedb
+from .data import messager, skills, esi, evedb, implants
 from .data.database import (
     Waitlist,
     WaitlistEntry,
@@ -122,6 +122,7 @@ def xup() -> ViewReturn:
         g.db.add(waitlist_entry)
 
     skilldata = skills.load_character_skills(g.character_id)
+    implantdata = implants.load_character_implants(g.character_id)
 
     for dna in dnas:
         fitting = g.db.query(Fitting).filter(Fitting.dna == dna).one_or_none()
@@ -134,7 +135,7 @@ def xup() -> ViewReturn:
         if fit_error:
             return fit_error, 400
 
-        category_name, tags = category.categorize(dna, skilldata)
+        category_name, tags = category.categorize(dna, skilldata, implantdata)
         xup_fit = WaitlistEntryFit(
             character_id=g.character_id,
             entry=waitlist_entry,

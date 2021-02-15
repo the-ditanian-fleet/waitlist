@@ -126,7 +126,81 @@ def check_valid(_fit_dna: str, skilldata: Dict[int, int]) -> Optional[str]:
     return None
 
 
-def categorize(fit_dna: str, skilldata: Dict[int, int]) -> Tuple[str, List[str]]:
+def implant_tags(  # pylint: disable=too-many-branches
+    ship: int, implants: List[int]
+) -> List[str]:
+    tags = []
+    have_slots = {7: False, 8: False, 9: False, 10: False}
+
+    # Base set, slot 1-6
+    base_set = None
+    if (
+        id_of("High-grade Amulet Alpha") in implants
+        and id_of("High-grade Amulet Beta") in implants
+        and id_of("High-grade Amulet Gamma") in implants
+        and id_of("High-grade Amulet Delta") in implants
+        and id_of("High-grade Amulet Epsilon") in implants
+    ):
+        if id_of("% WS-618", fuzzy=True) in implants:
+            base_set = "HYBRID"
+        elif id_of("High-grade Amulet Omega") in implants:
+            base_set = "AMULET"
+
+    if (
+        id_of("High-grade Ascendancy Alpha") in implants
+        and id_of("High-grade Ascendancy Beta") in implants
+        and id_of("High-grade Ascendancy Gamma") in implants
+        and id_of("High-grade Ascendancy Delta") in implants
+        and id_of("High-grade Ascendancy Epsilon") in implants
+    ):
+        if id_of("% WS-618", fuzzy=True) in implants:
+            base_set = "WARPSPEED"
+        elif id_of("High-grade Ascendancy Omega") in implants:
+            base_set = "WARPSPEED"
+
+    # Slot 7
+    for implant in ["Ogdin's Eye %", "% MR-706"]:
+        if id_of(implant, fuzzy=True) in implants:
+            have_slots[7] = True
+
+    # Slot 8
+    if id_of("% EM-806", fuzzy=True) in implants:
+        have_slots[8] = True
+    if id_of("% MR-807", fuzzy=True) in implants and ship == id_of("Vindicator"):
+        have_slots[8] = True
+
+    # Slot 9
+    for implant in ["% RF-906", "% SS-906", "Pashan's Turret Customization Mindlink"]:
+        if id_of(implant, fuzzy=True) in implants:
+            have_slots[9] = True
+
+    # Slot 10
+    if ship in [id_of("Nightmare"), id_of("Paladin")]:
+        if id_of("% LE-1006", fuzzy=True) in implants:
+            have_slots[10] = True
+        if id_of("% LE-1006", fuzzy=True) in implants:
+            have_slots[10] = True
+        if id_of("Pashan's Turret Handling Mindlink") in implants:
+            have_slots[10] = True
+    elif ship == id_of("Vindicator") and id_of("% LH-1006", fuzzy=True) in implants:
+        have_slots[10] = True
+    elif ship == id_of("Leshak"):
+        if id_of("% HG-1006", fuzzy=True) in implants:
+            have_slots[10] = True
+        if id_of("% HG-1008", fuzzy=True) in implants:
+            have_slots[10] = True
+
+    if base_set and all(have_slots.values()):
+        tags.append("%s1-10" % base_set)
+    elif base_set:
+        tags.append("%s1-6" % base_set)
+
+    return tags
+
+
+def categorize(
+    fit_dna: str, skilldata: Dict[int, int], implants: List[int]
+) -> Tuple[str, List[str]]:
     ship = int(fit_dna.split(":")[0])
 
     modules_sum = dna_to_sum(fit_dna)
@@ -144,5 +218,7 @@ def categorize(fit_dna: str, skilldata: Dict[int, int]) -> Tuple[str, List[str]]
         tags.append("GOLD-SKILLS")
     elif skillcheck(ship, skilldata, "elite"):
         tags.append("ELITE-SKILLS")
+
+    tags.extend(implant_tags(ship, implants))
 
     return detected_category, tags
