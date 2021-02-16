@@ -109,7 +109,7 @@ function XFit({ entry, fit, onAction }) {
                 Approve
               </button>
             )}
-            <NavLink className="button" to={`/skills?character_id=${entry.character.id}`}>
+            <NavLink className="button" to={`/skills?character_id=${fit.character.id}`}>
               Skills
             </NavLink>
           </>
