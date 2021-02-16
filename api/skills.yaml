@@ -253,6 +253,9 @@ ships:
       min: 3
       elite: 4
       gold: 5
+    - name: Remote Hull Repair Systems
+      elite: 4
+      gold: 5
     - name: Micro Jump Drive Operation
       min: 3
       elite: 4
@@ -311,6 +314,12 @@ ships:
       min: 5
     - name: Advanced Weapon Upgrades
       min: 1
+    - name: Remote Hull Repair Systems
+      elite: 4
+      gold: 5
+    - name: Repair Drone Operation
+      elite: 5
+      gold: 5
   Vindicator:
     - name: Large Hybrid Turret
       min: 4
