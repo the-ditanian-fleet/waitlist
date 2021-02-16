@@ -1,4 +1,5 @@
 from typing import Dict, List, Tuple
+import datetime
 from flask import Blueprint, request, g
 
 from . import auth, eft2dna, category
@@ -11,6 +12,7 @@ from .data.database import (
     Fitting,
     Fleet,
     FleetSquad,
+    FitHistory,
 )
 from .webutil import ViewReturn
 
@@ -136,15 +138,23 @@ def xup() -> ViewReturn:
             return fit_error, 400
 
         category_name, tags = category.categorize(dna, skilldata, implantdata)
-        xup_fit = WaitlistEntryFit(
-            character_id=g.character_id,
-            entry=waitlist_entry,
-            fit=fitting,
-            category=category_name,
-            approved=False,
-            tags=",".join(tags),
+        g.db.add(
+            WaitlistEntryFit(
+                character_id=g.character_id,
+                entry=waitlist_entry,
+                fit=fitting,
+                category=category_name,
+                approved=False,
+                tags=",".join(tags),
+            )
         )
-        g.db.add(xup_fit)
+        g.db.add(
+            FitHistory(
+                character_id=g.character_id,
+                fit=fitting,
+                logged_at=datetime.datetime.now(),
+            )
+        )
 
     g.db.commit()
 

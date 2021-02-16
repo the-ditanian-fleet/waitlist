@@ -121,6 +121,17 @@ class WaitlistEntryFit(Base):
     fit = relationship("Fitting")
 
 
+class FitHistory(Base):
+    __tablename__ = "fit_history"
+    id = Column(Integer, primary_key=True)
+    character_id = Column(BigInteger, ForeignKey("character.id"), nullable=False)
+    fit_id = Column(Integer, ForeignKey("fitting.id"), nullable=False)
+    logged_at = Column(DateTime, nullable=False)
+
+    character = relationship("Character")
+    fit = relationship("Fitting")
+
+
 class Fleet(Base):
     __tablename__ = "fleet"
     id = Column(BigInteger, nullable=False, primary_key=True)
