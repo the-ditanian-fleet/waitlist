@@ -158,15 +158,17 @@ export function DpsSkills({ group, mySkills }) {
             ids={mySkills.ids}
           />
         </div>
-        <div className="column">
-          <SkillTable
-            title="Nightmare"
-            group={group}
-            current={mySkills.current}
-            requirements={mySkills.requirements.ships.Nightmare}
-            ids={mySkills.ids}
-          />
-        </div>
+        {group == "gold" ? null : (
+          <div className="column">
+            <SkillTable
+              title="Nightmare"
+              group={group}
+              current={mySkills.current}
+              requirements={mySkills.requirements.ships.Nightmare}
+              ids={mySkills.ids}
+            />
+          </div>
+        )}
         <div className="column">
           <SkillTable
             title="Paladin"
