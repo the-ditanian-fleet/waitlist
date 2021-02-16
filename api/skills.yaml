@@ -79,8 +79,6 @@ global:
       min: 4
       elite: 5
       gold: 5
-    - name: Astronautics Rigging
-      gold: 5
   drones:
     - name: Drones
       min: 5
@@ -194,44 +192,33 @@ ships:
     - name: Amarr Battleship
       min: 3
       elite: 4
-      gold: 5
     - name: Capacitor Emission Systems
       min: 3
       elite: 4
-      gold: 5
     - name: Large Energy Turret
       min: 4
       elite: 5
-      gold: 5
     - name: Large Pulse Laser Specialization
       elite: 4
-      gold: 5
     - name: Remote Armor Repair Systems
       min: 3
       elite: 4
-      gold: 5
     - name: Micro Jump Drive Operation
       min: 3
       elite: 4
-      gold: 5
     - name: Light Drone Operation
       min: 3
       elite: 5
-      gold: 5
     - name: Medium Drone Operation
       min: 3
       elite: 5
-      gold: 5
     - name: Heavy Drone Operation
       min: 3
       elite: 5
-      gold: 5
     - name: Science
       elite: 5
-      gold: 5
     - name: Radar Sensor Compensation
       elite: 4
-      gold: 5
   Paladin:
     - name: Large Energy Turret
       min: 4
@@ -272,13 +259,13 @@ ships:
     - name: Science
       elite: 5
       gold: 5
-    - name: Energy Weapon Rigging
-      gold: 5
     - name: Advanced Target Management
       elite: 3
       gold: 3
     - name: Radar Sensor Compensation
       elite: 4
+      gold: 5
+    - name: Astronautics Rigging
       gold: 5
   Leshak:
     - name: Remote Armor Repair Systems
@@ -317,6 +304,8 @@ ships:
       gold: 4
     - name: Repair Drone Operation
       elite: 5
+      gold: 5
+    - name: Astronautics Rigging
       gold: 5
   Vindicator:
     - name: Large Hybrid Turret

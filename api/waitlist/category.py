@@ -90,6 +90,11 @@ def skillcheck(ship: int, skilldata: Dict[int, int], group: str) -> bool:
             skilldata, skills.MIN_SKILLS["ships"][name_of(ship)], group
         ):
             return False
+    elif group != "min":
+        # When checking for anything but minimum skills, we should have the ship defined before
+        # we consider a pilot to actually have them. This stops us from calling unknown ships
+        # elite just because we have no requirements listed.
+        return False
 
     if is_logi:
         for groupname, requirements in skills.MIN_SKILLS["logi"].items():
