@@ -18,7 +18,7 @@ def notify_waitlist_update(waitlist_id: int) -> None:
 def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
     try:
         members = esi.get("/v1/fleets/%d/members" % fleet.id, fleet.boss_id).json()
-    except esi.HTTP404:
+    except (esi.HTTP404, esi.HTTP403):
         # Fleet no longer exists
         session.query(FleetSquad).filter(FleetSquad.fleet_id == fleet.id).delete()
         session.delete(fleet)  # type: ignore

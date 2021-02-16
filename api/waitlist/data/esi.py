@@ -98,6 +98,10 @@ class HTTPError(Exception):
         self.text = text
 
 
+class HTTP403(HTTPError):
+    pass
+
+
 class HTTP404(HTTPError):
     pass
 
@@ -108,7 +112,9 @@ class HTTP520(HTTPError):
 
 def _raise_for_status(response: requests.Response) -> None:
     exception: Optional[Type[HTTPError]] = None
-    if response.status_code == 404:
+    if response.status_code == 403:
+        exception = HTTP403
+    elif response.status_code == 404:
         exception = HTTP404
     elif response.status_code == 520:
         exception = HTTP520
