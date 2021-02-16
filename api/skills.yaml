@@ -366,6 +366,14 @@ ships:
     - name: Sensor Linking
       min: 4
   Nestor:
+    - name: EM Armor Compensation
+      min: 5
+    - name: Explosive Armor Compensation
+      min: 5
+    - name: Thermal Armor Compensation
+      min: 5
+    - name: Kinetic Armor Compensation
+      min: 5
     - name: Advanced Target Management
       min: 5
     - name: Amarr Battleship
