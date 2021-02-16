@@ -158,7 +158,7 @@ export function DpsSkills({ group, mySkills }) {
             ids={mySkills.ids}
           />
         </div>
-        {group == "gold" ? null : (
+        {group === "gold" ? null : (
           <div className="column">
             <SkillTable
               title="Nightmare"
