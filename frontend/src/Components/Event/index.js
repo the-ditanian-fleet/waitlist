@@ -74,7 +74,7 @@ export function EventNotifier() {
 
   return (
     <>
-      <Modal open={modalOpen} onClose={(evt) => setModalOpen(false)}>
+      <Modal open={modalOpen} setOpen={setModalOpen}>
         <div className="box">
           <div className="control">
             <label className="checkbox">

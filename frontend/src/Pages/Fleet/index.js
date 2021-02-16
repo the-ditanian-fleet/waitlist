@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../Auth";
 import { genericCatch, ToastContext, toastHttp } from "../../Toast";
+import { Confirm } from "../../Components/Modal";
 
 async function setWaitlistOpen(waitlistId, isOpen) {
   return await fetch("/api/waitlist/set_open", {
@@ -13,8 +14,20 @@ async function setWaitlistOpen(waitlistId, isOpen) {
   });
 }
 
+async function closeFleet(characterId) {
+  return await fetch("/api/fleet/close", {
+    method: "POST",
+    body: JSON.stringify({ character_id: characterId }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+
 export function Fleet() {
   const [fleets, setFleets] = React.useState(null);
+  const [fleetCloseModalOpen, setFleetCloseModalOpen] = React.useState(false);
+  const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
 
   React.useEffect(() => {
@@ -52,6 +65,9 @@ export function Fleet() {
         >
           Close waitlist
         </button>
+        <button className="button is-danger" onClick={(evt) => setFleetCloseModalOpen(true)}>
+          Kick everyone from fleet
+        </button>
       </div>
       <div className="content">
         <p>
@@ -73,6 +89,18 @@ export function Fleet() {
               STATUS: Fleet {fleet.id}, boss {fleet.boss.name}
             </div>
           ))}
+      <Confirm
+        open={fleetCloseModalOpen}
+        setOpen={setFleetCloseModalOpen}
+        title="Kick everyone from fleet"
+        onConfirm={(evt) =>
+          closeFleet(authContext.current.id)
+            .then(toastHttp(toastContext), genericCatch(toastContext))
+            .finally(() => setFleetCloseModalOpen(false))
+        }
+      >
+        Are you sure?
+      </Confirm>
     </>
   );
 }

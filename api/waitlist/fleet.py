@@ -83,3 +83,30 @@ def register_fleet() -> ViewReturn:
 
     g.db.commit()
     return "OK"
+
+
+@bp.route("/api/fleet/close", methods=["POST"])
+@auth.login_required
+@auth.select_character()
+@auth.admin_only
+def close_fleet() -> ViewReturn:
+    try:
+        fleet = esi.get(
+            "/v1/characters/%d/fleet" % g.character_id, g.character_id
+        ).json()
+        fleet_id = fleet["fleet_id"]
+
+    except esi.HTTP404:
+        return "Not in a fleet", 404
+
+    for member in esi.get("/v1/fleets/%d/members" % fleet_id, g.character_id).json():
+        if member["character_id"] == g.character_id:
+            # Don't kick ourselves
+            continue
+
+        esi.delete(
+            "/v1/fleets/%d/members/%d/" % (fleet_id, member["character_id"]),
+            g.character_id,
+        )
+
+    return "OK"

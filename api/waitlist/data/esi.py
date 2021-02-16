@@ -163,3 +163,23 @@ def post(
     result = session.post(url, **kwargs)
     _raise_for_status(result)
     return result
+
+
+def delete(
+    path: str,
+    character_id: int,
+    headers: Optional[Dict[str, str]] = None,
+    **kwargs: Dict[str, Any]
+) -> requests.Response:
+    url = "https://esi.evetech.net" + path
+
+    if headers is None:
+        headers = {}
+    token = access_token(character_id)
+    headers["Authorization"] = "Bearer %s" % token
+    headers["User-Agent"] = "waitlist, by Xifon Naari"
+
+    kwargs["headers"] = headers
+    result = session.delete(url, **kwargs)
+    _raise_for_status(result)
+    return result
