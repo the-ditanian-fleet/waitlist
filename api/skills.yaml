@@ -229,8 +229,6 @@ ships:
     - name: Science
       elite: 5
       gold: 5
-    - name: Energy Weapon Rigging
-      gold: 5
     - name: Radar Sensor Compensation
       elite: 4
       gold: 5
@@ -255,7 +253,7 @@ ships:
       gold: 5
     - name: Remote Hull Repair Systems
       elite: 4
-      gold: 5
+      gold: 4
     - name: Micro Jump Drive Operation
       min: 3
       elite: 4
@@ -316,7 +314,7 @@ ships:
       min: 1
     - name: Remote Hull Repair Systems
       elite: 4
-      gold: 5
+      gold: 4
     - name: Repair Drone Operation
       elite: 5
       gold: 5
