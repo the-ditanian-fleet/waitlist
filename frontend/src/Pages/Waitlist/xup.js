@@ -62,7 +62,6 @@ export default function Xup({ onAction }) {
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
   const [eft, setEft] = React.useState("");
-  const [character, setCharacter] = React.useState(authContext.id);
 
   return (
     <div className="panel">
@@ -82,18 +81,16 @@ export default function Xup({ onAction }) {
       </div>
       <div className="panel-block">
         <div className="field is-grouped">
-          <div className="control is-expanded">
-            <div className="select">
-              <select value={character} onChange={(evt) => setCharacter(evt.target.value)}>
-                <option>{authContext.name}</option>
-              </select>
-            </div>
-          </div>
-          <div className="control is-pulled-right">
+          <p className="control">
+            <button className="button is-static">{authContext.current.name}</button>
+          </p>
+          <div className="control">
             <button
               className="button is-success"
               onClick={(evt) =>
-                xUp({ character, eft, toastContext, setEft }).then(onAction).catch(genericCatch)
+                xUp({ character: authContext.current.id, eft, toastContext, setEft })
+                  .then(onAction)
+                  .catch(genericCatch)
               }
               disabled={eft.trim().length < 50 || !eft.startsWith("[")}
             >

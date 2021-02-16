@@ -3,11 +3,11 @@ import { useLocation, Switch, Route } from "react-router-dom";
 
 export const AuthContext = React.createContext(null);
 
-function AuthStart({ fc = false }) {
+function AuthStart({ fc = false, alt = false }) {
   const [message, setMessage] = React.useState("Redirecting to EVE login");
 
   React.useEffect(() => {
-    fetch("/api/auth/login_url" + (fc ? "?fc=true" : ""))
+    fetch("/api/auth/login_url?" + (fc ? "fc=true&" : "") + (alt ? "alt=true&" : ""))
       .then((response) => {
         if (response.status === 200) {
           return response.text();
@@ -23,7 +23,7 @@ function AuthStart({ fc = false }) {
           setMessage(error);
         }
       );
-  }, [fc]);
+  }, [fc, alt]);
 
   return <p>{message}</p>;
 }
@@ -31,6 +31,7 @@ function AuthStart({ fc = false }) {
 export function AuthCallback() {
   const query = new URLSearchParams(useLocation().search);
   const code = query.get("code");
+  const state = query.get("state");
 
   const [message, setMessage] = React.useState("Processing login...");
   React.useEffect(() => {
@@ -38,7 +39,11 @@ export function AuthCallback() {
 
     fetch("/api/auth/cb", {
       method: "POST",
-      body: code,
+      body: JSON.stringify({
+        code,
+        state,
+      }),
+      headers: { "Content-Type": "application/json" },
     }).then((response) => {
       if (response.status === 200) {
         // Force page refresh
@@ -47,7 +52,7 @@ export function AuthCallback() {
         setMessage("An error occurred.");
       }
     });
-  }, [code]);
+  }, [code, state]);
 
   if (!code) {
     setMessage("Invalid code");
@@ -75,9 +80,8 @@ function AuthPage({ value, onAuth }) {
       if (response.status === 200) {
         return response.json().then((response) => {
           onAuth({
-            id: response.id,
-            name: response.name,
-            is_admin: response.is_admin,
+            ...response,
+            current: response.characters[0],
           });
         });
       } else if (response.status === 401) {
@@ -100,7 +104,10 @@ export function Authenticate({ value, onAuth }) {
         <AuthStart />
       </Route>
       <Route exact path="/auth/start/fc">
-        <AuthStart fc={true} />
+        <AuthStart fc={true} alt={true} />
+      </Route>
+      <Route exact path="/auth/start/alt">
+        <AuthStart alt={true} />
       </Route>
       <Route exact path="/auth/cb">
         <AuthCallback />

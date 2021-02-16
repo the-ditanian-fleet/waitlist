@@ -144,7 +144,7 @@ function XEntry({ entry, i, onAction }) {
     fits.push(<XFit key={fit.id} entry={entry} fit={fit} onAction={onAction} />);
   });
 
-  var isSelf = entry.character && entry.character.id === authContext.id;
+  var isSelf = entry.character && entry.character.id === authContext.account_id;
   var needsApproval = entry.can_manage && entry.fits.filter((fit) => !fit.approved).length;
 
   var charLink = entry.character ? (
@@ -158,7 +158,9 @@ function XEntry({ entry, i, onAction }) {
           <button
             className="button-link"
             onClick={(evt) =>
-              openWindow(entry.character.id, authContext.id).then(toastHttp(toastContext, null))
+              openWindow(entry.character.id, authContext.current.id).then(
+                toastHttp(toastContext, null)
+              )
             }
           >
             Open

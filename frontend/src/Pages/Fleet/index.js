@@ -81,7 +81,7 @@ async function registerFleet({ fleetInfo, categoryMatches, authContext }) {
   return await fetch("/api/fleet/register", {
     method: "POST",
     body: JSON.stringify({
-      character_id: authContext.id,
+      character_id: authContext.current.id,
       assignments: categoryMatches,
       fleet_id: fleetInfo.fleet_id,
     }),
@@ -98,8 +98,9 @@ export function FleetRegister() {
   const [categories, setCategories] = React.useState(null);
   const [categoryMatches, setCategoryMatches] = React.useState({});
 
+  const characterId = authContext.current.id;
   React.useEffect(() => {
-    fetch("/api/fleet/info?character_id=" + authContext.id)
+    fetch("/api/fleet/info?character_id=" + characterId)
       .then((response) => response.json())
       .then(setFleetInfo)
       .catch(genericCatch(toastContext));
@@ -108,7 +109,7 @@ export function FleetRegister() {
       .then((response) => response.json())
       .then(setCategories)
       .catch(genericCatch(toastContext));
-  }, [authContext.id, toastContext]);
+  }, [characterId, toastContext]);
 
   if (!fleetInfo || !categories) {
     return <em>Loading fleet information...</em>;

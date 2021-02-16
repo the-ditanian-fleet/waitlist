@@ -10,7 +10,7 @@ import { EventNotifier } from "../Components/Event";
 
 import "./index.css";
 
-function Menu() {
+function Menu({ onChangeCharacter }) {
   const [menuActive, setMenuActive] = React.useState(false);
 
   return (
@@ -49,11 +49,35 @@ function Menu() {
                 <EventNotifier />
               </div>
               <div className="navbar-item">
-                <div className="buttons">
-                  <NavLink to="/auth/logout" className="button is-light">
-                    Log out {whoami.name}
-                  </NavLink>
+                <div className="field has-addons">
+                  <p className="control">
+                    <span
+                      className="select"
+                      value={whoami.id}
+                      onChange={(evt) =>
+                        onChangeCharacter && onChangeCharacter(parseInt(evt.target.value))
+                      }
+                    >
+                      <select>
+                        {whoami.characters.map((character) => (
+                          <option key={character.id} value={character.id}>
+                            {character.name}
+                          </option>
+                        ))}
+                      </select>
+                    </span>
+                  </p>
+                  <p className="control">
+                    <NavLink className="button" to="/auth/start/alt">
+                      +
+                    </NavLink>
+                  </p>
                 </div>
+              </div>
+              <div className="navbar-item">
+                <NavLink to="/auth/logout" className="button is-light">
+                  Log out
+                </NavLink>
               </div>
             </div>
           </div>
@@ -83,6 +107,13 @@ export default class App extends React.Component {
     this.setState({ toasts: [...this.state.toasts, toast] });
   };
 
+  changeCharacter = (newChar) => {
+    var newState = { ...this.state.auth };
+    var theChar = this.state.auth.characters.filter((char) => char.id === newChar)[0];
+    newState.current = theChar;
+    this.setState({ auth: newState });
+  };
+
   render() {
     if (!this.state.auth) {
       return (
@@ -99,7 +130,7 @@ export default class App extends React.Component {
             <AuthContext.Provider value={this.state.auth}>
               <Router>
                 <div className="container">
-                  <Menu />
+                  <Menu onChangeCharacter={(char) => this.changeCharacter(char)} />
                   <ToastDisplay
                     toasts={this.state.toasts}
                     setToasts={(toasts) => this.setState({ toasts })}

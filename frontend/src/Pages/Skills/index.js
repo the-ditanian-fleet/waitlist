@@ -241,7 +241,7 @@ export function Skills() {
   const [group, setGroup] = React.useState("elite");
   const authContext = React.useContext(AuthContext);
   const queryParams = new URLSearchParams(useLocation().search);
-  var characterId = queryParams.get("character_id") || authContext.id;
+  var characterId = queryParams.get("character_id") || authContext.current.id;
 
   React.useEffect(() => {
     var loadId = characterId; // Shadow

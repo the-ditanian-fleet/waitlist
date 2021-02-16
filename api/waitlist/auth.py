@@ -21,7 +21,7 @@ FC_SCOPES = [
 
 LOGIN_URL_FMT = (
     "https://login.eveonline.com/oauth/authorize?response_type=code"
-    + "&redirect_uri={redir_uri}&client_id={client_id}&scope={scopes}"
+    + "&redirect_uri={redir_uri}&client_id={client_id}&scope={scopes}&state={state}"
 )
 
 DecoratorType = TypeVar("DecoratorType", bound=Callable[..., Any])
@@ -98,23 +98,38 @@ def select_character(
 def login_url() -> str:
     scopes = []
     scopes += LOGIN_SCOPES
+    state = ""
+
     if "fc" in request.args:
         scopes += FC_SCOPES
+    if "alt" in request.args:
+        state = "alt"
 
     return LOGIN_URL_FMT.format(
-        redir_uri=REDIR_URI, client_id=esi.AUTH_ID, scopes=" ".join(scopes)
+        redir_uri=REDIR_URI, client_id=esi.AUTH_ID, scopes=" ".join(scopes), state=state
     )
 
 
 @bp.route("/api/auth/cb", methods=["POST"])
 def callback() -> Tuple[str, int]:
-    if request.data is None or request.data == b"":
-        return "Bad request", 400
-
     _access_token, _refresh_token, character_id = esi.process_auth(
-        "authorization_code", request.data.decode("ascii")
+        "authorization_code", request.json["code"]
     )
-    session["account_id"] = character_id
+
+    if "state" in request.json and request.json["state"] == "alt":
+        if "account_id" not in session:
+            session["account_id"] = character_id
+
+        if session["account_id"] != character_id:
+            alt = database.AltCharacter(
+                account_id=session["account_id"], alt_id=character_id
+            )
+            g.db.merge(alt)
+            g.db.commit()
+
+    else:
+        session["account_id"] = character_id
+
     return "OK", 200
 
 
@@ -129,14 +144,36 @@ def whoami() -> Tuple[Any, int]:
     if not char:
         return "Character data missing from db", 401
 
+    characters = [
+        {
+            "id": char.id,
+            "name": char.name,
+        }
+    ]
+    for _alt_record, alt_character in (
+        g.db.query(database.AltCharacter, database.Character)
+        .join(database.AltCharacter.alt)
+        .filter(database.AltCharacter.account_id == char.id)
+    ):
+        characters.append({"id": alt_character.id, "name": alt_character.name})
+
     return {
-        "id": char.id,
-        "name": char.name,
+        "account_id": g.account_id,
         "is_admin": g.is_admin,
+        "characters": characters,
     }, 200
 
 
 @bp.route("/api/auth/logout")
 def logout() -> str:
+    if "account_id" in session:
+        account_id = session["account_id"]
+        g.db.query(database.AltCharacter).filter(
+            database.AltCharacter.account_id == account_id
+        ).delete()
+        g.db.query(database.AltCharacter).filter(
+            database.AltCharacter.alt_id == account_id
+        ).delete()
+        g.db.commit()
     session.clear()
     return "OK"
