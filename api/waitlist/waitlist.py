@@ -242,9 +242,10 @@ def invite() -> ViewReturn:
     if not fleet:
         return "Fleet not configured", 400
 
-    entry_fit, entry = (
-        g.db.query(WaitlistEntryFit, WaitlistEntry)
+    entry_fit, entry, fitting = (
+        g.db.query(WaitlistEntryFit, WaitlistEntry, Fitting)
         .join(WaitlistEntryFit.entry)
+        .join(WaitlistEntryFit.fit)
         .filter(WaitlistEntryFit.id == fit_entry_id)
         .one()
     )
@@ -272,7 +273,9 @@ def invite() -> ViewReturn:
         return exc.text, exc.code
 
     messager.MESSAGER.send(
-        ["account;%d" % entry.account_id], "wakeup", "You have been invited to fleet"
+        ["account;%d" % entry.account_id],
+        "wakeup",
+        "You have been invited to fleet with %s" % evedb.name_of(fitting.hull),
     )
 
     return "OK"
