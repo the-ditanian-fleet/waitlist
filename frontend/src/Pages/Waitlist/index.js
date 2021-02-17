@@ -33,10 +33,10 @@ async function removeEntry(id) {
   return await result.text();
 }
 
-async function invite(id) {
+async function invite(id, character_id) {
   return await fetch("/api/waitlist/invite", {
     method: "POST",
-    body: JSON.stringify({ id: id }),
+    body: JSON.stringify({ id, character_id }),
     headers: { "Content-Type": "application/json" },
   });
 }
@@ -51,6 +51,7 @@ async function openWindow(target_id, character_id) {
 
 function XFit({ entry, fit, onAction }) {
   const toastContext = React.useContext(ToastContext);
+  const authContext = React.useContext(AuthContext);
   var charName = fit.character ? fit.character.name : "Name hidden";
   var fitDescription;
   if (fit.dna && fit.hull) {
@@ -95,7 +96,11 @@ function XFit({ entry, fit, onAction }) {
             {fit.approved ? (
               <button
                 className="button"
-                onClick={(evt) => invite(fit.id).then(toastHttp(toastContext, null)).then(onAction)}
+                onClick={(evt) =>
+                  invite(fit.id, authContext.current.id)
+                    .then(toastHttp(toastContext, null))
+                    .then(onAction)
+                }
               >
                 Invite
               </button>

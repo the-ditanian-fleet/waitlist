@@ -244,11 +244,12 @@ def remove_x() -> ViewReturn:
 
 @bp.route("/api/waitlist/invite", methods=["POST"])
 @auth.login_required
+@auth.select_character()
 @auth.admin_only
 def invite() -> ViewReturn:
     fit_entry_id = request.json["id"]
 
-    fleet = g.db.query(Fleet).filter(Fleet.boss_id == g.account_id).one_or_none()
+    fleet = g.db.query(Fleet).filter(Fleet.boss_id == g.character_id).one_or_none()
     if not fleet:
         return "Fleet not configured", 400
 
@@ -271,7 +272,7 @@ def invite() -> ViewReturn:
     try:
         esi.post(
             "/v1/fleets/%d/members/" % fleet.id,
-            g.account_id,
+            g.character_id,
             json={
                 "character_id": entry_fit.character_id,
                 "role": "squad_member",
