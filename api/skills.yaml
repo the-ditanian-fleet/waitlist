@@ -295,6 +295,8 @@ ships:
     - name: Radar Sensor Compensation
       elite: 4
       gold: 5
+    - name: Rapid Firing
+      min: 5
     - name: Weapon Upgrades
       min: 5
     - name: Advanced Weapon Upgrades
