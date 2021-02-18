@@ -1,3 +1,4 @@
+import datetime
 from sqlalchemy import (
     create_engine,
     Column,
@@ -101,6 +102,7 @@ class WaitlistEntry(Base):
     id = Column(Integer, primary_key=True)
     waitlist_id = Column(Integer, ForeignKey("waitlist.id"), nullable=False)
     account_id = Column(BigInteger, ForeignKey("character.id"), nullable=False)
+    joined = Column(DateTime, default=datetime.datetime.now)
 
     waitlist = relationship("Waitlist")
     account = relationship("Character")

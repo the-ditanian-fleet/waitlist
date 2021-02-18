@@ -187,14 +187,17 @@ function XEntry({ entry, i, onAction }) {
     >
       <div className="message-header">
         {charLink}
-        {entry.can_remove ? (
-          <button
-            className="delete is-small"
-            onClick={(evt) =>
-              removeEntry(entry.id).then(onAction).catch(genericCatch(toastContext))
-            }
-          ></button>
-        ) : null}
+        <div>
+          <span className="tag is-light">{entry.waittime}</span>
+          {entry.can_remove ? (
+            <button
+              className="delete is-small"
+              onClick={(evt) =>
+                removeEntry(entry.id).then(onAction).catch(genericCatch(toastContext))
+              }
+            ></button>
+          ) : null}
+        </div>
       </div>
       <div className="message-body waitlist-body">{fits}</div>
     </article>
