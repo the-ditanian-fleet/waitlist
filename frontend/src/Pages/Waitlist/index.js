@@ -5,6 +5,7 @@ import { ToastContext, genericCatch, toastHttp } from "../../Toast";
 import { AuthContext } from "../../Auth";
 import { EventContext } from "../../Event";
 import { NavLink } from "react-router-dom";
+import { TimeDisplay } from "./TimeDisplay.js";
 
 async function approveFit(id) {
   const result = await fetch("/api/waitlist/approve", {
@@ -181,6 +182,8 @@ function XEntry({ entry, i, onAction }) {
     </span>
   );
 
+  var joined_at = new Date(entry.joined_at);
+
   return (
     <article
       className={"message is-small " + (isSelf ? "is-success" : needsApproval ? "is-warning" : "")}
@@ -188,7 +191,7 @@ function XEntry({ entry, i, onAction }) {
       <div className="message-header">
         {charLink}
         <div>
-          <span className="tag is-light">{entry.waittime}</span>
+          <TimeDisplay relativeTo={joined_at} />
           {entry.can_remove ? (
             <button
               className="delete is-small"
