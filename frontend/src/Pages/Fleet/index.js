@@ -89,6 +89,7 @@ export function Fleet() {
               STATUS: Fleet {fleet.id}, boss {fleet.boss.name}
             </div>
           ))}
+      <FleetMembers />
       <Confirm
         open={fleetCloseModalOpen}
         setOpen={setFleetCloseModalOpen}
@@ -119,6 +120,48 @@ async function registerFleet({ fleetInfo, categoryMatches, authContext }) {
   });
 }
 
+function FleetMembers() {
+  const authContext = React.useContext(AuthContext);
+  const toastContext = React.useContext(ToastContext);
+  const [fleetMembers, setFleetMembers] = React.useState(null);
+  const characterId = authContext.current.id;
+
+  React.useEffect(() => {
+    fetch("/api/fleet/members?character_id=" + characterId)
+      .then((response) => response.json())
+      .then(setFleetMembers)
+      .catch((err) => setFleetMembers(null)); // What's error handling?
+  }, [toastContext, characterId]);
+
+  if (!fleetMembers) {
+    return null;
+  }
+
+  return (
+    <>
+      <h3 className="title">Current fleet</h3>
+      <table className="table is-narrow is-fullwidth">
+        <tbody>
+          {fleetMembers &&
+            fleetMembers.members.map((member) => (
+              <tr key={member.id}>
+                <td>{member.name}</td>
+                <td>{member.ship.name}</td>
+                <td>
+                  <div className="buttons">
+                    <NavLink className="button" to={"/skills?character_id=" + member.id}>
+                      Skills
+                    </NavLink>
+                  </div>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </>
+  );
+}
+
 export function FleetRegister() {
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
@@ -141,10 +184,6 @@ export function FleetRegister() {
 
   if (!fleetInfo || !categories) {
     return <em>Loading fleet information...</em>;
-  }
-
-  if (!fleetInfo.is_fleet_boss) {
-    return <span>You must be the Fleet&apos;s Boss to claim a fleet!</span>;
   }
 
   return (

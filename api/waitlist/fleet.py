@@ -3,7 +3,7 @@ from flask import Blueprint, g, request
 
 from . import auth, tdf
 from .webutil import ViewReturn
-from .data import esi
+from .data import esi, evedb
 from .data.database import Character, Fleet, FleetSquad
 
 bp = Blueprint("fleet", __name__)
@@ -33,23 +33,72 @@ def fleet_status() -> ViewReturn:
 @auth.select_character()
 @auth.admin_only
 def fleet_info() -> ViewReturn:
-    basic_info = esi.get(
-        "/v1/characters/%d/fleet" % g.character_id, g.character_id
-    ).json()
-    fleet_id = basic_info["fleet_id"]
-    members = esi.get("/v1/fleets/%d/members" % fleet_id, g.character_id).json()
-    wings = esi.get("/v1/fleets/%d/wings" % fleet_id, g.character_id).json()
+    try:
+        basic_info = esi.get(
+            "/v1/characters/%d/fleet" % g.character_id, g.character_id
+        ).json()
+    except esi.HTTP403:
+        return "Missing ESI scopes", 403
+    except esi.HTTP404:
+        return "You are not in a fleet", 404
 
-    boss_in_fleet = list(filter(lambda member: "Boss" in member["role_name"], members))[
-        0
-    ]
+    try:
+        wings = esi.get(
+            "/v1/fleets/%d/wings" % basic_info["fleet_id"], g.character_id
+        ).json()
+    except esi.HTTP404:
+        return "You are not the fleet boss", 404
 
     return {
         **basic_info,
-        "members": members,
         "wings": wings,
-        "fleet_boss": boss_in_fleet["character_id"],
-        "is_fleet_boss": boss_in_fleet["character_id"] == g.character_id,
+    }
+
+
+@bp.route("/api/fleet/members")
+@auth.login_required
+@auth.select_character()
+@auth.admin_only
+def fleet_members() -> ViewReturn:
+    try:
+        basic_info = esi.get(
+            "/v1/characters/%d/fleet" % g.character_id, g.character_id
+        ).json()
+    except esi.HTTP403:
+        return "Missing ESI scopes", 403
+    except esi.HTTP404:
+        return "You are not in a fleet", 404
+
+    fleet = g.db.query(Fleet).filter(Fleet.id == basic_info["fleet_id"]).one_or_none()
+    if not fleet:
+        return "Fleet not configured", 404
+
+    members_raw = esi.get("/v1/fleets/%d/members" % fleet.id, fleet.boss_id).json()
+
+    characters = {
+        character.id: character
+        for character in g.db.query(Character)
+        .filter(Character.id.in_([member["character_id"] for member in members_raw]))
+        .all()
+    }
+
+    members = []
+    for member in members_raw:
+        character_id = member["character_id"]
+        character = characters[character_id] if character_id in characters else None
+        members.append(
+            {
+                "id": character_id,
+                "name": character.name if character else None,
+                "ship": {
+                    "id": member["ship_type_id"],
+                    "name": evedb.name_of(member["ship_type_id"]),
+                },
+            }
+        )
+
+    return {
+        "members": members,
     }
 
 
