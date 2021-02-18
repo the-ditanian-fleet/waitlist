@@ -72,9 +72,6 @@ def get_waitlist() -> ViewReturn:
                     filter(lambda tag: len(tag) > 0, fitentry.tags.split(","))
                 )
             fits.append(fit)
-        
-        timediff = datetime.datetime.now() - entry.joined
-        waittime = "%02d:%02d" % (timediff.seconds // 3600, (timediff.seconds // 60) % 60)
 
         waitlist_entries.append(
             dict(
@@ -83,7 +80,7 @@ def get_waitlist() -> ViewReturn:
                 character={"name": account.name, "id": account.id}
                 if can_see_full
                 else None,
-                waittime=waittime,
+                joined_at=entry.joined_at,
                 can_manage=g.is_admin,
                 can_remove=g.is_admin or g.account_id == account.id,
             )
