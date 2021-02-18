@@ -1,7 +1,7 @@
 from typing import Dict, List
 from flask import Blueprint, g, request
 
-from . import auth, category
+from . import auth, tdf
 from .webutil import ViewReturn
 from .data import esi
 from .data.database import Character, Fleet, FleetSquad
@@ -68,7 +68,7 @@ def register_fleet() -> ViewReturn:
     fleet.boss_id = g.character_id
 
     g.db.query(FleetSquad).filter(FleetSquad.fleet_id == fleet_id).delete()
-    for category_id, _category_name in category.CATEGORIES.items():
+    for category_id, _category_name in tdf.CATEGORIES.items():
         if category_id not in assignments:
             raise Exception("Missing category assignment for %s" % category_id)
 

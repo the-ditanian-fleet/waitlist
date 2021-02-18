@@ -2,7 +2,7 @@ from typing import Dict, List, Tuple
 import datetime
 from flask import Blueprint, request, g
 
-from . import auth, eft2dna, category
+from . import auth, eft2dna, tdf
 from .data import messager, skills, esi, evedb, implants
 from .data.database import (
     Waitlist,
@@ -61,7 +61,7 @@ def get_waitlist() -> ViewReturn:
             fit = {
                 "id": fitentry.id,
                 "approved": bool(fitentry.approved),
-                "category": category.CATEGORIES[fitentry.category],
+                "category": tdf.CATEGORIES[fitentry.category],
             }
             if can_see_full or fitentry.approved:
                 fit["hull"] = {"id": fitting.hull, "name": hull_names[fitting.hull]}
@@ -133,11 +133,11 @@ def xup() -> ViewReturn:
             fitting = Fitting(dna=dna, hull=hull)
             g.db.add(fitting)
 
-        fit_error = category.check_valid(dna, skilldata)
+        fit_error = tdf.check_valid(dna, skilldata)
         if fit_error:
             return fit_error, 400
 
-        category_name, tags = category.categorize(dna, skilldata, implantdata)
+        category_name, tags = tdf.categorize(dna, skilldata, implantdata)
         g.db.add(
             WaitlistEntryFit(
                 character_id=g.character_id,

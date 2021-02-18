@@ -6,7 +6,7 @@ from . import esi, evedb
 
 
 def load_skill_info() -> Tuple[Dict[str, Any], List[int], Dict[str, int]]:
-    with open("./skills.yaml", "r") as fileh:
+    with open("./waitlist/tdf/skills.yaml", "r") as fileh:
         skills_raw: Dict[str, Any] = yaml.safe_load(fileh)
     all_names = set()
     for _section, groups in skills_raw.items():
