@@ -97,8 +97,8 @@ export default class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    if (!this.state.events) {
+  componentDidUpdate() {
+    if (this.state.auth && !this.state.events) {
       this.setState({ events: new EventSource("/api/sse/stream") });
     }
   }
