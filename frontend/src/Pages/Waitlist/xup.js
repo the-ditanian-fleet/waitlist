@@ -1,6 +1,7 @@
 import React from "react";
 import { ToastContext, addToast, genericCatch } from "../../Toast";
 import { AuthContext } from "../../Auth";
+import { Modal } from "../../Components/Modal";
 
 const exampleFit = String.raw`
 [Vindicator, Vindicator]
@@ -62,11 +63,18 @@ export default function Xup({ onAction }) {
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
   const [eft, setEft] = React.useState("");
+  const [helpModalOpen, setHelpModalOpen] = React.useState(false);
 
   return (
     <div className="panel">
+      <Modal open={helpModalOpen} setOpen={setHelpModalOpen}>
+        <img
+          src="https://i.imgur.com/8Gh05lg.png"
+          alt="On the bottom left of the Fitting window you will find a copy button"
+        />
+      </Modal>
       <p className="panel-heading">
-        X-up with fit (<a href="https://i.imgur.com/8Gh05lg.png">EFT format</a>)
+        X-up with fit (<a onClick={(evt) => setHelpModalOpen(true)}>EFT format</a>)
       </p>
       <div className="panel-block">
         <div className="control">
