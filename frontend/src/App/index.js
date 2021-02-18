@@ -8,7 +8,7 @@ import { ToastContext, ToastDisplay } from "../Toast";
 import { EventContext } from "../Event";
 import { EventNotifier } from "../Components/Event";
 
-import "./index.css";
+import "./index.scss";
 
 function Menu({ onChangeCharacter }) {
   const [menuActive, setMenuActive] = React.useState(false);
