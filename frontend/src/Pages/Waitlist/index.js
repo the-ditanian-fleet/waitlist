@@ -182,8 +182,6 @@ function XEntry({ entry, i, onAction }) {
     </span>
   );
 
-  var joined_at = new Date(entry.joined_at);
-
   return (
     <article
       className={"message is-small " + (isSelf ? "is-success" : needsApproval ? "is-warning" : "")}
@@ -191,7 +189,7 @@ function XEntry({ entry, i, onAction }) {
       <div className="message-header">
         {charLink}
         <div>
-          <TimeDisplay relativeTo={joined_at} />
+          <TimeDisplay relativeTo={entry.joined_at} />
           {entry.can_remove ? (
             <button
               className="delete is-small"

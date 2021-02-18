@@ -17,8 +17,9 @@ export class TimeDisplay extends React.Component {
   }
 
   render() {
-    var time = new Date(this.state.time - this.props.relativeTo.getTimezoneOffset() * 60000);
-    var timeDiff = Math.abs(Math.round((this.props.relativeTo - time) / 1000 / 60));
+    var time = this.state.time;
+    var joinedAt = new Date(this.props.relativeTo);
+    var timeDiff = Math.round((time - joinedAt) / 1000 / 60);
     return <span className="tag is-light">{timeDiff} min</span>;
   }
 }
