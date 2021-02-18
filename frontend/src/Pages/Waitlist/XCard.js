@@ -15,6 +15,16 @@ import {
   faStream,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import _ from "lodash";
+
+const tagBadges = {
+  "WARPSPEED1-10": ["https://dir-x.net/tdf/badges/w.png", "Warp Speed Implants"],
+  "HYBRID1-10": ["https://dir-x.net/tdf/badges/h.png", "Hybrid Implants"],
+  "AMULET1-10": ["https://dir-x.net/tdf/badges/a.png", "Amulet Implants"],
+  ELITE: ["https://dir-x.net/tdf/badges/e.png", "Elite"],
+  "ELITE-GOLD": ["https://dir-x.net/tdf/badges/egold.png", "Elite GOLD"],
+  "NO-MINSKILLS": ["https://dir-x.net/tdf/badges/alpha.png", "Below minimum skills"],
+};
 
 async function approveFit(id) {
   const result = await fetch("/api/waitlist/approve", {
@@ -76,6 +86,10 @@ XCardDOM.Head.Badges = styled.div`
   margin-left: auto;
   display: flex;
   flex-shrink: 0;
+  img {
+    height: 1.5em;
+    margin-right: 0.25em;
+  }
 `;
 XCardDOM.Content = styled.div`
   display: flex;
@@ -126,6 +140,55 @@ function ImplantDisplay({ implants }) {
   return <FitDisplay name="Capsule" dna={`670:${podDna}::`} />;
 }
 
+const FitAnalysisDOM = styled.div`
+  margin-bottom: 1em;
+
+  h2 {
+    font-size: 1.5em;
+  }
+  strong {
+    font-weight: bold;
+  }
+`;
+
+function FitAnalysis({ source }) {
+  const idLookup = source._ids || {};
+  const analysis = [];
+  _.forEach(source.missing || {}, (count, itemId) => {
+    analysis.push(
+      <p key={itemId}>
+        Missing <strong>{idLookup[itemId]}</strong>: {count}
+      </p>
+    );
+  });
+  _.forEach(source.extra, (count, itemId) => {
+    analysis.push(
+      <p key={itemId}>
+        Extra <strong>{idLookup[itemId]}</strong>: {count}
+      </p>
+    );
+  });
+  _.forEach(source.downgraded || {}, (downgrades, originalItem) => {
+    _.forEach(downgrades, (count, newItem) => {
+      analysis.push(
+        <p key={`${originalItem} ${newItem}`}>
+          Downgraded <strong>{idLookup[originalItem]}</strong> to{" "}
+          <strong>{idLookup[newItem]}</strong>: {count}
+        </p>
+      );
+    });
+  });
+  if (!source.name && !analysis) {
+    return null;
+  }
+  return (
+    <FitAnalysisDOM>
+      {source.name ? <h2>{source.name}</h2> : null}
+      {analysis}
+    </FitAnalysisDOM>
+  );
+}
+
 function ShipDisplay({ fit }) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
@@ -135,9 +198,12 @@ function ShipDisplay({ fit }) {
       <>
         {modalOpen ? (
           <Modal open={true} setOpen={setModalOpen}>
-            <Box style={{ display: "flex" }}>
-              <FitDisplay name={`${namePrefix} ${fit.hull.name}`} dna={fit.dna} />
-              {fit.implants ? <ImplantDisplay implants={fit.implants} /> : null}
+            <Box>
+              {fit.fit_analysis ? <FitAnalysis source={fit.fit_analysis} /> : null}
+              <div style={{ display: "flex" }}>
+                <FitDisplay name={`${namePrefix} ${fit.hull.name}`} dna={fit.dna} />
+                {fit.implants ? <ImplantDisplay implants={fit.implants} /> : null}
+              </div>
             </Box>
           </Modal>
         ) : null}
@@ -189,6 +255,15 @@ export function XCard({ entry, fit, onAction }) {
   const accountName = entry.character ? entry.character.name : "Name hidden";
   var isSelf = entry.character && entry.character.id === authContext.account_id;
   var needsApproval = entry.can_manage && !fit.approved;
+  var tagText = [];
+  var tagImages = [];
+  _.forEach(fit.tags || [], (tag) => {
+    if (tag in tagBadges) {
+      tagImages.push(<img key={tag} src={tagBadges[tag][0]} alt={tagBadges[tag][1]} />);
+    } else {
+      tagText.push(tag);
+    }
+  });
 
   return (
     <XCardDOM variant={isSelf ? "success" : needsApproval ? "warning" : "secondary"}>
@@ -199,6 +274,7 @@ export function XCard({ entry, fit, onAction }) {
           <span>{accountName}</span>
         )}
         <XCardDOM.Head.Badges>
+          {tagImages}
           <TimeDisplay relativeTo={entry.joined_at} />
         </XCardDOM.Head.Badges>
       </XCardDOM.Head>
@@ -206,7 +282,9 @@ export function XCard({ entry, fit, onAction }) {
         <ShipDisplay fit={fit} />
       </XCardDOM.Content>
       <XCardDOM.Content>
-        {fit.tags && fit.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}
+        {tagText.map((tag) => (
+          <Badge key={tag}>{tag}</Badge>
+        ))}
       </XCardDOM.Content>
       <XCardDOM.Footer>
         {entry.can_remove ? (

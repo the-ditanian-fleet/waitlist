@@ -1,4 +1,5 @@
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Any
+import json
 from flask import Blueprint, request, g
 
 from . import auth, eft2dna, tdf
@@ -23,6 +24,13 @@ def notify_waitlist_update(waitlist_id: int) -> None:
     messager.MESSAGER.send_json(
         ["waitlist"], "waitlist_update", {"waitlist_id": waitlist_id}
     )
+
+
+def _add_ids(fit_analysis: Dict[str, Any]) -> Dict[str, Any]:
+    new_analysis = {**fit_analysis}
+    if "_ids" in fit_analysis:
+        new_analysis["_ids"] = evedb.type_names(fit_analysis["_ids"])
+    return new_analysis
 
 
 @bp.route("/api/waitlist")
@@ -63,6 +71,9 @@ def get_waitlist() -> ViewReturn:
                 "approved": bool(fitentry.approved),
                 "category": tdf.CATEGORIES[fitentry.category],
             }
+
+            tags = list(filter(lambda tag: len(tag) > 0, fitentry.tags.split(",")))
+
             if can_see_full or fitentry.approved:
                 fit["hull"] = {"id": fitting.hull, "name": evedb.name_of(fitting.hull)}
             if can_see_full:
@@ -72,9 +83,11 @@ def get_waitlist() -> ViewReturn:
                 )
 
                 fit["character"] = {"name": character.name, "id": character.id}
-                fit["tags"] = list(
-                    filter(lambda tag: len(tag) > 0, fitentry.tags.split(","))
-                )
+                fit["tags"] = tags
+                if fitentry.fit_analysis:
+                    fit["fit_analysis"] = _add_ids(json.loads(fitentry.fit_analysis))
+            else:
+                fit["tags"] = list(filter(lambda tag: tag in tdf.PUBLIC_TAGS, tags))
             fits.append(fit)
 
         waitlist_entries.append(
@@ -152,20 +165,20 @@ def xup() -> ViewReturn:
             fitting = Fitting(dna=dna, hull=hull)
             g.db.add(fitting)
 
-        fit_error = tdf.check_valid(dna, skilldata)
-        if fit_error:
-            return fit_error, 400
+        fit_check = tdf.check_fit(dna, skilldata, implantdata)
+        if fit_check.errors:
+            return fit_check.errors[0], 400
 
-        category_name, tags = tdf.categorize(dna, skilldata, implantdata)
         g.db.add(
             WaitlistEntryFit(
                 character_id=g.character_id,
                 entry=waitlist_entry,
                 fit=fitting,
-                category=category_name,
-                approved=False,
-                tags=",".join(tags),
+                category=fit_check.category,
+                approved=fit_check.approved,
+                tags=",".join(sorted(list(fit_check.tags))),
                 implant_set=implant_set,
+                fit_analysis=json.dumps(fit_check.fit_check),
             )
         )
         g.db.add(

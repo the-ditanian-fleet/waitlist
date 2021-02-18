@@ -1,0 +1,51 @@
+categories:
+  logi: Logistics
+  cqc: CQC
+  sniper: Sniper
+  leshak: Leshak
+  starter: Starter
+
+rules:
+  # Logi
+  - item: Oneiros
+    category: logi
+  - item: Guardian
+    category: logi
+  - item: Nestor
+    category: logi
+  # Starter tank
+  - item: Multispectrum Energized Membrane II
+    category: starter
+  - item: Centum C-Type Explosive Energized Membrane
+    category: starter
+  - item: Corpum C-Type Explosive Energized Membrane
+    category: starter
+  # Fleet annoyances
+  - item: 500MN Quad LiF Restrained Microwarpdrive
+    category: starter
+  # Starter damage mods
+  - item: Magnetic Field Stabilizer II
+    category: starter
+  - item: Stasis Webifier II
+    category: starter
+  - item: Modal Mega Neutron Particle Accelerator I
+    category: starter
+  - item: Tachyon Modulated Energy Beam I
+    category: starter
+  - item: Drone Link Augmentor I
+    category: starter
+  - item: Heat Sink II
+    category: starter
+  - item: Mega Modulated Pulse Energy Beam I
+    category: starter
+  # Ships
+  - item: Megathron
+    category: starter
+  - item: Vindicator
+    category: cqc
+  - item: Paladin
+    category: sniper
+  - item: Nightmare
+    category: sniper
+  - item: Leshak
+    category: leshak

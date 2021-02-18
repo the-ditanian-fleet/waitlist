@@ -1,0 +1,139 @@
+---
+alternatives:
+# Module alternatives specified as a three-level nested list, of modulegroup, tiers,
+# and then modules in that tier. Should include modules that have abyssals, as the meta database
+# doesn't store that information in a useful way.
+- - - Entropic Radiation Sink II
+  - - Abyssal Entropic Radiation Sink
+
+- - - Agency 'Pyrolancea' DB3 Dose I
+  - - Agency 'Pyrolancea' DB5 Dose II
+  - - Agency 'Pyrolancea' DB7 Dose III
+  - - Agency 'Pyrolancea' DB9 Dose IV
+
+- - - Stasis Webifier II
+  - - True Sansha Stasis Webifier
+    - Caldari Navy Stasis Webifier
+    - Dark Blood Stasis Webifier
+    - Domination Stasis Webifier
+    - Dread Guristas Stasis Webifier
+    - Federation Navy Stasis Webifier
+    - Khanid Navy Stasis Webifier
+    - Republic Fleet Stasis Webifier
+    - Shadow Serpentis Stasis Webifier
+  - - Abyssal Stasis Webifier
+
+- - - 500MN Quad LiF Restrained Microwarpdrive
+  - - Core C-Type 500MN Microwarpdrive
+    - Gist C-Type 500MN Microwarpdrive
+  - - Core B-Type 500MN Microwarpdrive
+    - Gist B-Type 500MN Microwarpdrive
+  - - Core A-Type 500MN Microwarpdrive
+    - Gist A-Type 500MN Microwarpdrive
+  - - Core X-Type 500MN Microwarpdrive
+    - Gist X-Type 500MN Microwarpdrive
+  - - 500MN Abyssal Microwarpdrive
+
+- - - Magnetic Field Stabilizer II
+  - - Federation Navy Magnetic Field Stabilizer
+    - Shadow Serpentis Magnetic Field Stabilizer
+  - - Abyssal Magnetic Field Stabilizer
+
+- - - Heat Sink II
+  - - Imperial Navy Heat Sink
+    - Ammatar Navy Heat Sink
+    - Dark Blood Heat Sink
+    - True Sansha Heat Sink
+  - - Abyssal Heat Sink
+
+- - - Republic Fleet Large Cap Battery
+    - Domination Large Cap Battery
+    - Thukker Large Cap Battery
+  - - Large Abyssal Cap Battery
+
+# Same as above, but these are never allowed to be downgraded
+no_downgrade:
+- - - 1600mm Steel Plates II
+  - - Imperial Navy 1600mm Steel Plates
+    - Syndicate 1600mm Steel Plates
+    - Federation Navy 1600mm Steel Plates
+  - - Large Abyssal Armor Plates
+
+- - - Federation Navy 10MN Afterburner
+  - - Gistum C-Type 10MN Afterburner
+    - Corelum C-Type 10MN Afterburner
+  - - Gistum B-Type 10MN Afterburner
+    - Corelum B-Type 10MN Afterburner
+  - - Gistum A-Type 10MN Afterburner
+    - Corelum A-Type 10MN Afterburner
+  - - 10MN Abyssal Afterburner
+
+- - - Multispectrum Energized Membrane II
+  - - Centii B-Type Multispectrum Coating
+    - Coreli B-Type Multispectrum Coating
+    - Corpii B-Type Multispectrum Coating
+  - - Centii A-Type Multispectrum Coating
+    - Coreli A-Type Multispectrum Coating
+    - Corpii A-Type Multispectrum Coating
+  - - Centum B-Type Multispectrum Energized Membrane
+    - Corpum B-Type Multispectrum Energized Membrane
+  - - Centum A-Type Multispectrum Energized Membrane
+    - Corpum A-Type Multispectrum Energized Membrane
+
+from_meta: # Automagically determine alternatives. List the absolute minimum module only.
+- Sensor Booster II
+- Tracking Computer II
+- Magnetic Field Stabilizer II
+- Ogre II
+- Hammerhead II
+- Hobgoblin II
+- Large Remote Armor Repairer II
+- Large Inductive Compact Remote Capacitor Transmitter
+- Supratidal Entropic Disintegrator II
+- Imperial Navy Drone Damage Amplifier
+- Modal Mega Neutron Particle Accelerator I
+- Remote Tracking Computer II
+- Dark Blood Capacitor Power Relay
+- Imperial Navy Cap Recharger
+
+from_meta_no_downgrade: # Same as above, but never allow downgrading.
+- Damage Control II
+- Centum C-Type Explosive Energized Membrane
+- Centum C-Type Thermal Energized Membrane
+- Centum C-Type EM Energized Membrane
+- Centum C-Type Kinetic Energized Membrane
+
+accept_t1: # Meta information missing, but luckily we can just match it naively
+- Heavy Shield Maintenance Bot II
+- Heavy Armor Maintenance Bot II
+- Heavy Hull Maintenance Bot II
+- Medium Shield Maintenance Bot II
+- Medium Armor Maintenance Bot II
+- Medium Hull Maintenance Bot II
+- Light Shield Maintenance Bot II
+- Light Armor Maintenance Bot II
+- Light Hull Maintenance Bot II
+- Small Tractor Beam II
+
+identification: # Modules/groups we use to look at to figure out what we're flying
+- Damage Control II
+- 1600mm Steel Plates II
+- Multispectrum Energized Membrane II
+- Large Explosive Armor Reinforcer I
+- Large Explosive Armor Reinforcer II
+- Large EM Armor Reinforcer I
+- Large Thermal Armor Reinforcer I
+- Large Kinetic Armor Reinforcer I
+- Large Trimark Armor Pump I
+- Large Trimark Armor Pump II
+- Large Hyperspatial Velocity Optimizer I
+- Large Hyperspatial Velocity Optimizer II
+- Large Remote Repair Augmentor II
+- Medium Remote Repair Augmentor II
+- Medium Capacitor Control Circuit II
+
+banned: # Never approve fits that contain these
+- Abyssal Damage Control
+- Corelum A-Type Multispectrum Energized Membrane
+- Corelum B-Type Multispectrum Energized Membrane
+- Corelum C-Type Multispectrum Energized Membrane

@@ -12,6 +12,7 @@ from sqlalchemy import (
     UniqueConstraint,
     SmallInteger,
     DateTime,
+    Text,
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
@@ -140,6 +141,7 @@ class WaitlistEntryFit(Base):
     approved = Column(Boolean, nullable=False)
     tags = Column(String(255), nullable=False)
     category = Column(String(10), nullable=False)
+    fit_analysis = Column(Text, nullable=True)
 
     character = relationship("Character")
     entry = relationship("WaitlistEntry")

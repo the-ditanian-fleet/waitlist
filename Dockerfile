@@ -16,8 +16,16 @@ RUN sqlite3 minimum.sqlite " \
     create table invTypes as select * from ext.invTypes; \
     create index invTypes_name on invTypes (typeName); \
     create index invTypes_typeID on invTypes (typeID); \
+    \
     create table invGroups as select * from ext.invGroups; \
     create index invGroups_groupID on invGroups (groupID); \
+    \
+    create table invMetaTypes as select * from ext.invMetaTypes; \
+    create index invMetaTypes_typeID on invMetaTypes (typeID); \
+    create index invMetaTypes_parentTypeID on invMetaTypes (parentTypeID); \
+    \
+    create table dgmTypeAttributes as select * from ext.dgmTypeAttributes where attributeID IN (633); \
+    create index dgmTypeAttributes_typeID on dgmTypeAttributes (typeID); \
 "
 
 FROM python:3.6

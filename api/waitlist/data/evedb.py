@@ -47,6 +47,31 @@ def type_categories(ids: List[int]) -> Dict[int, int]:
     return result
 
 
+def type_variations(type_id: int) -> Dict[int, int]:
+    cursor = DATABASE.cursor()
+    (parent,) = cursor.execute(
+        "SELECT parentTypeID FROM invMetaTypes WHERE typeID=?", (type_id,)
+    ).fetchone()
+
+    metas: Dict[int, int] = {parent: 0}
+    for variation, meta, meta_group_id in cursor.execute(
+        """select invMetaTypes.typeID, coalesce(valueInt, valueFloat), metaGroupID
+        from invMetaTypes left join dgmTypeAttributes
+        on invMetaTypes.typeID = dgmTypeAttributes.typeID
+        and attributeID = 633
+        where parentTypeID=?""",
+        (parent,),
+    ):
+        if meta is not None:
+            metas[variation] = int(meta)
+        elif meta_group_id == 1:  # T1
+            metas[variation] = 0
+        elif meta_group_id == 2:  # T2
+            metas[variation] = 5
+
+    return metas
+
+
 def id_of(name: str, fuzzy: bool = False) -> int:
     if not name in ID_CACHE:
         if not fuzzy:
