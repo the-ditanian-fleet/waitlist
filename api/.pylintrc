@@ -2,7 +2,8 @@
 disable=
     missing-function-docstring,
     missing-module-docstring,
-    missing-class-docstring
+    missing-class-docstring,
+    unsubscriptable-object
 
 [TYPECHECK]
 ignored-modules=sqlalchemy.orm.session
