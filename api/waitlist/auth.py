@@ -75,7 +75,7 @@ def select_character(
                     return "Missing character_id in request", 400
                 character_id = int(request.args["character_id"])
 
-            if character_id != g.account_id and not admin_ok:
+            if character_id != g.account_id and not (admin_ok and g.is_admin):
                 if (
                     not g.db.query(database.AltCharacter)
                     .filter(
