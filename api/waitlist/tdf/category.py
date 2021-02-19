@@ -7,7 +7,7 @@ CATEGORIES = {
     "leshak": "Leshak",
     "cqc": "CQC",
     "sniper": "Sniper",
-    "meta4": "Meta 4",
+    "starter": "Starter",
 }
 
 
@@ -16,22 +16,22 @@ CATEGORIZATION = [
     ("Oneiros", "logi"),
     ("Guardian", "logi"),
     ("Nestor", "logi"),
-    # Meta4 tank
-    ("Multispectrum Energized Membrane II", "meta4"),
-    ("Centum C-Type Explosive Energized Membrane", "meta4"),
-    ("Corpum C-Type Explosive Energized Membrane", "meta4"),
+    # Starter tank
+    ("Multispectrum Energized Membrane II", "starter"),
+    ("Centum C-Type Explosive Energized Membrane", "starter"),
+    ("Corpum C-Type Explosive Energized Membrane", "starter"),
     # Fleet annoyances
-    ("500MN Quad LiF Restrained Microwarpdrive", "meta4"),
-    # Meta4 damage mods
-    ("Magnetic Field Stabilizer II", "meta4"),
-    ("Stasis Webifier II", "meta4"),
-    ("Modal Mega Neutron Particle Accelerator I", "meta4"),
-    ("Tachyon Modulated Energy Beam I", "meta4"),
-    ("Drone Link Augmentor I", "meta4"),
-    ("Heat Sink II", "meta4"),
-    ("Mega Modulated Pulse Energy Beam I", "meta4"),
+    ("500MN Quad LiF Restrained Microwarpdrive", "starter"),
+    # Starter damage mods
+    ("Magnetic Field Stabilizer II", "starter"),
+    ("Stasis Webifier II", "starter"),
+    ("Modal Mega Neutron Particle Accelerator I", "starter"),
+    ("Tachyon Modulated Energy Beam I", "starter"),
+    ("Drone Link Augmentor I", "starter"),
+    ("Heat Sink II", "starter"),
+    ("Mega Modulated Pulse Energy Beam I", "starter"),
     # Ships
-    ("Megathron", "meta4"),
+    ("Megathron", "starter"),
     ("Vindicator", "cqc"),
     ("Paladin", "sniper"),
     ("Nightmare", "sniper"),
@@ -198,7 +198,7 @@ def categorize(
     ship = int(fit_dna.split(":")[0])
 
     modules_sum = dna_to_sum(fit_dna)
-    detected_category = "meta4"  # Default
+    detected_category = "starter"  # Default
     for module_name, category in CATEGORIZATION:
         if CATEGORIZATION_LOOKUP[module_name] in modules_sum:
             detected_category = category
@@ -208,7 +208,7 @@ def categorize(
     if not skillcheck(ship, skilldata, "min"):
         tags.append("NO-MINSKILLS")
         if detected_category != "logi":
-            detected_category = "meta4"
+            detected_category = "starter"
     elif skillcheck(ship, skilldata, "gold"):
         tags.append("GOLD-SKILLS")
     elif skillcheck(ship, skilldata, "elite"):
