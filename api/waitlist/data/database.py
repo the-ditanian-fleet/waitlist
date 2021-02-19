@@ -102,7 +102,7 @@ class WaitlistEntry(Base):
     id = Column(Integer, primary_key=True)
     waitlist_id = Column(Integer, ForeignKey("waitlist.id"), nullable=False)
     account_id = Column(BigInteger, ForeignKey("character.id"), nullable=False)
-    joined_at = Column(DateTime, default=datetime.datetime.now, nullable=False)
+    joined_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
 
     waitlist = relationship("Waitlist")
     account = relationship("Character")
@@ -128,7 +128,7 @@ class FitHistory(Base):
     id = Column(Integer, primary_key=True)
     character_id = Column(BigInteger, ForeignKey("character.id"), nullable=False)
     fit_id = Column(Integer, ForeignKey("fitting.id"), nullable=False)
-    logged_at = Column(DateTime, nullable=False)
+    logged_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
 
     character = relationship("Character")
     fit = relationship("Fitting")
@@ -172,7 +172,7 @@ class SkillHistory(Base):
     skill_id = Column(Integer, nullable=False)
     old_level = Column(SmallInteger, nullable=False)
     new_level = Column(SmallInteger, nullable=False)
-    logged_at = Column(DateTime, nullable=False)
+    logged_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
 
     character = relationship("Character")
 

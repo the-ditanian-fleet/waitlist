@@ -1,5 +1,4 @@
 from typing import Dict, Tuple, List, Any
-from datetime import datetime
 import yaml
 from .database import SkillCurrent, SkillHistory, Session
 from . import esi, evedb
@@ -52,7 +51,6 @@ def load_character_skills(character_id: int) -> Dict[int, int]:
                             skill_id=skill_id,
                             old_level=skill_obj.level,
                             new_level=trained_skill_level,
-                            logged_at=datetime.now(),
                         )
                     )
                     skill_obj.level = trained_skill_level
@@ -72,7 +70,6 @@ def load_character_skills(character_id: int) -> Dict[int, int]:
                             skill_id=skill_id,
                             old_level=0,
                             new_level=trained_skill_level,
-                            logged_at=datetime.now(),
                         )
                     )
         session.commit()

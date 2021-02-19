@@ -1,5 +1,4 @@
 from typing import Dict, List, Tuple
-import datetime
 from flask import Blueprint, request, g
 
 from . import auth, eft2dna, tdf
@@ -153,7 +152,6 @@ def xup() -> ViewReturn:
             FitHistory(
                 character_id=g.character_id,
                 fit=fitting,
-                logged_at=datetime.datetime.now(),
             )
         )
 
