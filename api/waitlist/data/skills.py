@@ -35,6 +35,8 @@ def load_character_skills(character_id: int) -> Dict[int, int]:
             stored_skills[skill.skill_id] = skill
 
         levels = {}
+        skills_add = []
+        history_add = []
         for skill in skills_raw["skills"]:
             skill_id = skill["skill_id"]
             trained_skill_level = skill["trained_skill_level"]
@@ -45,7 +47,7 @@ def load_character_skills(character_id: int) -> Dict[int, int]:
             if skill_id in stored_skills:
                 skill_obj = stored_skills[skill_id]
                 if skill_obj.level != trained_skill_level:
-                    session.add(
+                    history_add.append(
                         SkillHistory(
                             character_id=character_id,
                             skill_id=skill_id,
@@ -56,7 +58,7 @@ def load_character_skills(character_id: int) -> Dict[int, int]:
                     skill_obj.level = trained_skill_level
 
             else:
-                session.add(
+                skills_add.append(
                     SkillCurrent(
                         character_id=character_id,
                         skill_id=skill_id,
@@ -64,7 +66,7 @@ def load_character_skills(character_id: int) -> Dict[int, int]:
                     )
                 )
                 if stored_skills:
-                    session.add(
+                    history_add.append(
                         SkillHistory(
                             character_id=character_id,
                             skill_id=skill_id,
@@ -72,6 +74,10 @@ def load_character_skills(character_id: int) -> Dict[int, int]:
                             new_level=trained_skill_level,
                         )
                     )
+        if skills_add:
+            session.add_all(skills_add)
+        if history_add:
+            session.add_all(history_add)
         session.commit()
 
         return levels
