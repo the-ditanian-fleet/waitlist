@@ -15,7 +15,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from .config import CONFIG
 
-engine = create_engine(CONFIG["database"]["connect"])
+engine = create_engine(
+    CONFIG["database"]["connect"],
+    isolation_level=CONFIG["database"].get("isolation_level", None),
+)
 Session = sessionmaker(bind=engine)
 
 Base = declarative_base()
