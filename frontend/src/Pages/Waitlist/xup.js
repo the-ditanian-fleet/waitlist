@@ -64,6 +64,7 @@ export default function Xup({ onAction }) {
   const authContext = React.useContext(AuthContext);
   const [eft, setEft] = React.useState("");
   const [helpModalOpen, setHelpModalOpen] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   return (
     <div className="panel">
@@ -94,12 +95,14 @@ export default function Xup({ onAction }) {
           </p>
           <div className="control">
             <button
-              className="button is-success"
-              onClick={(evt) =>
+              className={"button is-success " + (isSubmitting ? "is-loading" : "")}
+              onClick={(evt) => {
+                setIsSubmitting(true);
                 xUp({ character: authContext.current.id, eft, toastContext, setEft })
                   .then(onAction)
                   .catch(genericCatch)
-              }
+                  .finally((evt) => setIsSubmitting(false));
+              }}
               disabled={eft.trim().length < 50 || !eft.startsWith("[")}
             >
               X-up
