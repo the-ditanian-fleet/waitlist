@@ -172,8 +172,6 @@ def implant_tags(  # pylint: disable=too-many-branches
     if ship in [id_of("Nightmare"), id_of("Paladin")]:
         if id_of("% LE-1006", fuzzy=True) in implants:
             have_slots[10] = True
-        if id_of("% LE-1006", fuzzy=True) in implants:
-            have_slots[10] = True
         if id_of("Pashan's Turret Handling Mindlink") in implants:
             have_slots[10] = True
     elif ship == id_of("Vindicator") and id_of("% LH-1006", fuzzy=True) in implants:
