@@ -99,7 +99,14 @@ export default class App extends React.Component {
 
   componentDidUpdate() {
     if (this.state.auth && !this.state.events) {
-      this.setState({ events: new EventSource("/api/sse/stream") });
+      var events = new EventSource("/api/sse/stream");
+      events.addEventListener("error", (err) => {
+        events.close();
+        setTimeout(() => {
+          this.setState({ events: null });
+        }, 5000 + Math.random() * 10000);
+      });
+      this.setState({ events });
     }
   }
 
