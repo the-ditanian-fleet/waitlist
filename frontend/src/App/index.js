@@ -9,6 +9,7 @@ import { EventContext } from "../Event";
 import { EventNotifier } from "../Components/Event";
 
 import "./index.scss";
+import logoImage from "./logo.png";
 
 function Menu({ onChangeCharacter }) {
   const [menuActive, setMenuActive] = React.useState(false);
@@ -19,7 +20,7 @@ function Menu({ onChangeCharacter }) {
         <nav className="navbar">
           <div className="navbar-brand">
             <NavLink className="navbar-item" exact activeClassName="is-active" to="/">
-              <img src="https://i.imgur.com/b1UBgma.png" alt="The Ditanian Fleet" />
+              <img src={logoImage} alt="The Ditanian Fleet" />
             </NavLink>
 
             <a className="navbar-burger" onClick={(evt) => setMenuActive(!menuActive)}>
