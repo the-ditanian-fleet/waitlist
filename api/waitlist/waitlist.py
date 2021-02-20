@@ -96,6 +96,10 @@ def xup() -> ViewReturn:
     if len(dnas) > 10:
         return "Too many fits", 400
 
+    # Load external resources before doing database writes
+    skilldata = skills.load_character_skills(g.character_id)
+    implantdata = implants.load_character_implants(g.character_id)
+
     waitlist = (
         g.db.query(Waitlist).filter(Waitlist.id == request.json["waitlist_id"]).one()
     )
@@ -122,9 +126,6 @@ def xup() -> ViewReturn:
     else:
         waitlist_entry = WaitlistEntry(waitlist_id=waitlist.id, account_id=g.account_id)
         g.db.add(waitlist_entry)
-
-    skilldata = skills.load_character_skills(g.character_id)
-    implantdata = implants.load_character_implants(g.character_id)
 
     for dna in dnas:
         fitting = g.db.query(Fitting).filter(Fitting.dna == dna).one_or_none()
