@@ -50,6 +50,31 @@ async function openWindow(target_id, character_id) {
   });
 }
 
+function coalesceCalls(func, wait) {
+  var timer = null;
+  var nextCall = null;
+
+  return function () {
+    if (timer) {
+      nextCall = [this, arguments];
+      return;
+    }
+
+    timer = setInterval(function () {
+      if (nextCall) {
+        var context = nextCall[0];
+        var args = nextCall[1];
+        nextCall = null;
+        func.apply(context, args);
+      } else {
+        clearInterval(timer);
+        timer = null;
+      }
+    }, wait);
+    func.apply(this, arguments);
+  };
+}
+
 function XFit({ entry, fit, onAction }) {
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
@@ -223,17 +248,18 @@ export function Waitlist() {
   React.useEffect(() => {
     if (!eventContext) return;
 
+    const updateFn = coalesceCalls(updateAndSet, 1000 + Math.random() * 2000);
     const handleEvent = function (event) {
       var data = JSON.parse(event.data);
       if (data.waitlist_id === waitlistId) {
-        updateAndSet();
+        updateFn();
       }
     };
     eventContext.addEventListener("waitlist_update", handleEvent);
-    eventContext.addEventListener("open", updateAndSet);
+    eventContext.addEventListener("open", updateFn);
     return function () {
       eventContext.removeEventListener("waitlist_update", handleEvent);
-      eventContext.removeEventListener("open", updateAndSet);
+      eventContext.removeEventListener("open", updateFn);
     };
   }, [updateAndSet, eventContext, waitlistId]);
 
