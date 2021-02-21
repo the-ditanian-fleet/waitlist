@@ -1,4 +1,6 @@
 import datetime
+from typing import Dict, Any
+import sqlalchemy
 from sqlalchemy import (
     create_engine,
     Column,
@@ -15,10 +17,21 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from .config import CONFIG
 
-engine = create_engine(
-    CONFIG["database"]["connect"],
-    isolation_level=CONFIG["database"].get("isolation_level", None),
-)
+
+def make_engine(cfg: Dict[str, str]) -> sqlalchemy.engine.Engine:
+    kwargs: Dict[str, Any] = {}
+
+    for arg_name in ["pool_size"]:  # Ints
+        if arg_name in cfg:
+            kwargs[arg_name] = int(cfg[arg_name])
+    for arg_name in ["isolation_level"]:  # Strs
+        if arg_name in cfg:
+            kwargs[arg_name] = str(cfg[arg_name])
+
+    return create_engine(cfg["connect"], **kwargs)
+
+
+engine = make_engine(dict(CONFIG["database"]))
 Session = sessionmaker(bind=engine)
 
 Base = declarative_base()
