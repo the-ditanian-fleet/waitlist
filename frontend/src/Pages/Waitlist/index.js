@@ -1,54 +1,11 @@
 import React from "react";
-import Xup from "./xup";
-import "./waitlist.scss";
-import { ToastContext, genericCatch, toastHttp } from "../../Toast";
-import { AuthContext } from "../../Auth";
+import { ToastContext, genericCatch } from "../../Toast";
 import { EventContext } from "../../Event";
-import { NavLink } from "react-router-dom";
-import { TimeDisplay } from "./TimeDisplay.js";
-
-async function approveFit(id) {
-  const result = await fetch("/api/waitlist/approve", {
-    method: "POST",
-    body: JSON.stringify({ id: id }),
-    headers: { "Content-Type": "application/json" },
-  });
-  return await result.text();
-}
-
-async function removeFit(id) {
-  const result = await fetch("/api/waitlist/remove_fit", {
-    method: "POST",
-    body: JSON.stringify({ id: id }),
-    headers: { "Content-Type": "application/json" },
-  });
-  return await result.text();
-}
-
-async function removeEntry(id) {
-  const result = await fetch("/api/waitlist/remove_x", {
-    method: "POST",
-    body: JSON.stringify({ id: id }),
-    headers: { "Content-Type": "application/json" },
-  });
-  return await result.text();
-}
-
-async function invite(id, character_id) {
-  return await fetch("/api/waitlist/invite", {
-    method: "POST",
-    body: JSON.stringify({ id, character_id }),
-    headers: { "Content-Type": "application/json" },
-  });
-}
-
-async function openWindow(target_id, character_id) {
-  return await fetch(`/api/open_window`, {
-    method: "POST",
-    body: JSON.stringify({ target_id, character_id }),
-    headers: { "Content-Type": "application/json" },
-  });
-}
+import styled from "styled-components";
+import _ from "lodash";
+import { XCard } from "./XCard";
+import { InputGroup, Button, Buttons, NavButton } from "../../Components/Form";
+import { AuthContext } from "../../Auth";
 
 function coalesceCalls(func, wait) {
   var timer = null;
@@ -75,162 +32,17 @@ function coalesceCalls(func, wait) {
   };
 }
 
-function XFit({ entry, fit, onAction }) {
-  const toastContext = React.useContext(ToastContext);
-  const authContext = React.useContext(AuthContext);
-  var charName = fit.character ? fit.character.name : "Name hidden";
-  var fitDescription;
-  if (fit.dna && fit.hull) {
-    fitDescription = (
-      <span>
-        <a href={"fitting:" + fit.dna}>
-          <img
-            src={"https://imageserver.eveonline.com/Type/" + fit.hull.id + "_64.png"}
-            alt={fit.hull.name}
-          />{" "}
-          {charName}&apos;s {fit.hull.name}
-        </a>
-        {` (${fit.category})`}
-      </span>
-    );
-  } else if (fit.hull) {
-    fitDescription = (
-      <span>
-        <img
-          src={"https://imageserver.eveonline.com/Type/" + fit.hull.id + "_64.png"}
-          alt={fit.hull.name}
-        />{" "}
-        {charName}&apos;s {fit.hull.name}
-        {` (${fit.category})`}
-      </span>
-    );
-  } else {
-    fitDescription = (
-      <span>
-        <img src={"https://imageserver.eveonline.com/Type/28606_64.png"} alt="" /> {charName}&apos;s
-        ship
-        {` (${fit.category})`}
-      </span>
-    );
-  }
-
-  return (
-    <div className="waitlist-row">
-      <div className="buttons are-small waitlist-buttons is-pulled-right">
-        {entry.can_manage ? (
-          <>
-            {fit.approved ? (
-              <button
-                className="button"
-                onClick={(evt) =>
-                  invite(fit.id, authContext.current.id)
-                    .then(toastHttp(toastContext, null))
-                    .then(onAction)
-                }
-              >
-                Invite
-              </button>
-            ) : (
-              <button
-                className="button"
-                onClick={(evt) =>
-                  approveFit(fit.id).then(onAction).catch(genericCatch(toastContext))
-                }
-              >
-                Approve
-              </button>
-            )}
-            <NavLink className="button" to={`/skills?character_id=${fit.character.id}`}>
-              Skills
-            </NavLink>
-          </>
-        ) : null}
-        {!entry.can_remove ? null : (
-          <button
-            className="delete"
-            onClick={(evt) => removeFit(fit.id).then(onAction).catch(genericCatch(toastContext))}
-          >
-            Delete
-          </button>
-        )}
-      </div>
-      {fitDescription}
-      {fit.tags
-        ? fit.tags.map((tag) => (
-            <span key={tag} className="tag">
-              {tag}
-            </span>
-          ))
-        : null}
-    </div>
-  );
-}
-
-function XEntry({ entry, i, onAction }) {
-  const toastContext = React.useContext(ToastContext);
-  const authContext = React.useContext(AuthContext);
-  var fits = [];
-
-  entry.fits.forEach((fit) => {
-    fits.push(<XFit key={fit.id} entry={entry} fit={fit} onAction={onAction} />);
+async function removeEntry(id) {
+  const result = await fetch("/api/waitlist/remove_x", {
+    method: "POST",
+    body: JSON.stringify({ id: id }),
+    headers: { "Content-Type": "application/json" },
   });
-
-  var isSelf = entry.character && entry.character.id === authContext.account_id;
-  var needsApproval = entry.can_manage && entry.fits.filter((fit) => !fit.approved).length;
-
-  var charLink = entry.character ? (
-    <span>
-      {i}
-      {". "}
-      <a href={"char:" + entry.character.id}>{entry.character.name}</a>
-      {entry.can_manage ? (
-        <>
-          {" ("}
-          <button
-            className="button-link"
-            onClick={(evt) =>
-              openWindow(entry.character.id, authContext.current.id).then(
-                toastHttp(toastContext, null)
-              )
-            }
-          >
-            Open
-          </button>
-          {")"}
-        </>
-      ) : null}
-    </span>
-  ) : (
-    <span>
-      {i}
-      {". "}Name hidden
-    </span>
-  );
-
-  return (
-    <article
-      className={"message is-small " + (isSelf ? "is-success" : needsApproval ? "is-warning" : "")}
-    >
-      <div className="message-header">
-        {charLink}
-        <div>
-          <TimeDisplay relativeTo={entry.joined_at} />
-          {entry.can_remove ? (
-            <button
-              className="delete is-small"
-              onClick={(evt) =>
-                removeEntry(entry.id).then(onAction).catch(genericCatch(toastContext))
-              }
-            ></button>
-          ) : null}
-        </div>
-      </div>
-      <div className="message-body waitlist-body">{fits}</div>
-    </article>
-  );
+  return await result.text();
 }
 
 export function Waitlist() {
+  const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
   const eventContext = React.useContext(EventContext);
   const [waitlistId, _setWaitlistId] = React.useState(1); //eslint-disable-line
@@ -270,25 +82,73 @@ export function Waitlist() {
     return <em>The waitlist is currently closed.</em>;
   }
 
-  var waitlist = [];
-  var i = 0;
-  waitlistData.waitlist.forEach((entry) => {
-    i++;
-    waitlist.push(<XEntry key={entry.id} entry={entry} i={i} onAction={updateAndSet} />);
-  });
-
-  if (!waitlistData.waitlist.length) {
-    waitlist = <p>The waitlist is currently empty.</p>;
-  }
+  var myEntry = _.find(
+    waitlistData.waitlist,
+    (entry) => entry.character && entry.character.id === authContext.account_id
+  );
 
   return (
-    <div className="page-waitlist">
-      <div className="columns">
-        <div className="column">
-          <Xup onAction={updateAndSet} />
-        </div>
-        <div className="column">{waitlist}</div>
-      </div>
-    </div>
+    <>
+      <Buttons>
+        <InputGroup>
+          <NavButton variant={myEntry ? null : "primary"} to="/xup">
+            Join waitlist
+          </NavButton>
+          <Button
+            variant={myEntry ? "danger" : null}
+            onClick={(evt) => removeEntry(myEntry.id)}
+            disabled={myEntry ? false : true}
+          >
+            Leave waitlist
+          </Button>
+        </InputGroup>
+      </Buttons>
+      <CompactWaitlist waitlist={waitlistData} />
+    </>
+  );
+}
+
+const CompactWaitlistDOM = styled.div`
+  display: flex;
+  em {
+    font-style: italic;
+  }
+`;
+CompactWaitlistDOM.Category = styled.div`
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 0.5em;
+
+  > h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+  }
+`;
+
+function CompactWaitlist({ waitlist }) {
+  var categories = [];
+  var categoryIndex = {};
+  _.forEach(waitlist.categories, (category, i) => {
+    categories.push([category, []]);
+    categoryIndex[category] = i;
+  });
+  _.forEach(waitlist.waitlist, (entry) => {
+    _.forEach(entry.fits, (fit) => {
+      const categoryI = categoryIndex[fit.category];
+      categories[categoryI][1].push(<XCard key={fit.id} entry={entry} fit={fit} />);
+    });
+  });
+  return (
+    <>
+      <CompactWaitlistDOM>
+        {categories.map((category) => (
+          <CompactWaitlistDOM.Category key={category[0]}>
+            <h2>{category[0]}</h2>
+            {category[1]}
+            {category[1].length ? null : <em>Nobody here!</em>}
+          </CompactWaitlistDOM.Category>
+        ))}
+      </CompactWaitlistDOM>
+    </>
   );
 }

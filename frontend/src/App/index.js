@@ -1,92 +1,48 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Skills } from "../Pages/Skills";
 import { Waitlist } from "../Pages/Waitlist";
 import { Fleet, FleetRegister } from "../Pages/Fleet";
+import { Xup } from "../Pages/Xup";
 import { Authenticate, AuthContext } from "../Auth";
 import { ToastContext, ToastDisplay } from "../Toast";
 import { EventContext } from "../Event";
-import { EventNotifier } from "../Components/Event";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 
-import "./index.scss";
-import logoImage from "./logo.png";
+import { Menu } from "./Menu";
+import "./reset.css";
+import theme from "./theme.js";
 
-function Menu({ onChangeCharacter }) {
-  const [menuActive, setMenuActive] = React.useState(false);
+const GlobalStyle = createGlobalStyle`
+  html {
+    overflow-y: scroll;
+    text-rendering: optimizeLegibility;
+    font-size: 16px;
+    min-width: 300px;
+  }
+  body {
+    min-height: 100vh;
+    background-color: ${(props) => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.text};
+    font-family: ${(props) => props.theme.font.family};
+    line-height: 1.5;
+    font-weight: 400;
+  }
+`;
 
-  return (
-    <AuthContext.Consumer>
-      {(whoami) => (
-        <nav className="navbar">
-          <div className="navbar-brand">
-            <NavLink className="navbar-item" exact activeClassName="is-active" to="/">
-              <img src={logoImage} alt="The Ditanian Fleet" />
-            </NavLink>
-
-            <a className="navbar-burger" onClick={(evt) => setMenuActive(!menuActive)}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </a>
-          </div>
-          <div className={"navbar-menu " + (menuActive ? "is-active" : "")}>
-            <div className="navbar-start">
-              <NavLink className="navbar-item" exact activeClassName="is-active" to="/">
-                Waitlist
-              </NavLink>
-              <NavLink className="navbar-item" exact activeClassName="is-active" to="/skills">
-                Skills
-              </NavLink>
-              {whoami.is_admin ? (
-                <>
-                  <NavLink className="navbar-item" exact activeClassName="is-active" to="/fleet">
-                    Fleet
-                  </NavLink>
-                </>
-              ) : null}
-            </div>
-            <div className="navbar-end">
-              <div className="navbar-item">
-                <EventNotifier />
-              </div>
-              <div className="navbar-item">
-                <div className="field has-addons">
-                  <p className="control">
-                    <span
-                      className="select"
-                      value={whoami.id}
-                      onChange={(evt) =>
-                        onChangeCharacter && onChangeCharacter(parseInt(evt.target.value))
-                      }
-                    >
-                      <select>
-                        {whoami.characters.map((character) => (
-                          <option key={character.id} value={character.id}>
-                            {character.name}
-                          </option>
-                        ))}
-                      </select>
-                    </span>
-                  </p>
-                  <p className="control">
-                    <NavLink className="button" to="/auth/start/alt">
-                      +
-                    </NavLink>
-                  </p>
-                </div>
-              </div>
-              <div className="navbar-item">
-                <NavLink to="/auth/logout" className="button is-light">
-                  Log out
-                </NavLink>
-              </div>
-            </div>
-          </div>
-        </nav>
-      )}
-    </AuthContext.Consumer>
-  );
-}
+const Container = styled.div`
+  max-width: 1350px;
+  margin: auto;
+  @media only screen and (max-width: 1360px) {
+    max-width: 1180px;
+  }
+  @media only screen and (max-width: 1190px) {
+    max-width: 960px;
+  }
+  @media only screen and (max-width: 970px) {
+    max-width: 750px;
+  }
+`;
 
 export default class App extends React.Component {
   constructor(props) {
@@ -95,6 +51,7 @@ export default class App extends React.Component {
       auth: null,
       toasts: [],
       events: null,
+      useDarkTheme: false,
     };
   }
 
@@ -133,41 +90,51 @@ export default class App extends React.Component {
 
     return (
       <React.StrictMode>
-        <ToastContext.Provider value={this.addToast}>
-          <EventContext.Provider value={this.state.events}>
-            <AuthContext.Provider value={this.state.auth}>
-              <Router>
-                <div className="container">
-                  <Menu onChangeCharacter={(char) => this.changeCharacter(char)} />
-                  <ToastDisplay
-                    toasts={this.state.toasts}
-                    setToasts={(toasts) => this.setState({ toasts })}
-                  />
-                  <Switch>
-                    <Route path="/auth">
-                      <Authenticate
-                        value={this.state.auth}
-                        onAuth={(auth) => this.setState({ auth })}
-                      />
-                    </Route>
-                    <Route exact path="/skills">
-                      <Skills />
-                    </Route>
-                    <Route exact path="/fleet">
-                      <Fleet />
-                    </Route>
-                    <Route exact path="/fleet/register">
-                      <FleetRegister />
-                    </Route>
-                    <Route exact path="/">
-                      <Waitlist />
-                    </Route>
-                  </Switch>
-                </div>
-              </Router>
-            </AuthContext.Provider>
-          </EventContext.Provider>
-        </ToastContext.Provider>
+        <ThemeProvider theme={this.state.useDarkTheme ? theme.dark : theme.light}>
+          <GlobalStyle />
+          <ToastContext.Provider value={this.addToast}>
+            <EventContext.Provider value={this.state.events}>
+              <AuthContext.Provider value={this.state.auth}>
+                <Router>
+                  <Container>
+                    <Menu
+                      onChangeCharacter={(char) => this.changeCharacter(char)}
+                      useDarkTheme={this.state.useDarkTheme}
+                      setUseDarkTheme={(newTheme) => this.setState({ useDarkTheme: newTheme })}
+                    />
+                    <ToastDisplay
+                      toasts={this.state.toasts}
+                      setToasts={(toasts) => this.setState({ toasts })}
+                    />
+                    <Switch>
+                      <Route path="/auth">
+                        <Authenticate
+                          value={this.state.auth}
+                          onAuth={(auth) => this.setState({ auth })}
+                        />
+                      </Route>
+                      <Route exact path="/skills">
+                        <Skills />
+                      </Route>
+                      <Route exact path="/fleet">
+                        <Fleet />
+                      </Route>
+                      <Route exact path="/fleet/register">
+                        <FleetRegister />
+                      </Route>
+                      <Route exact path="/xup">
+                        <Xup />
+                      </Route>
+                      <Route exact path="/">
+                        <Waitlist />
+                      </Route>
+                    </Switch>
+                  </Container>
+                </Router>
+              </AuthContext.Provider>
+            </EventContext.Provider>
+          </ToastContext.Provider>
+        </ThemeProvider>
       </React.StrictMode>
     );
   }

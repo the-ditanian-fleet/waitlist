@@ -1,34 +1,65 @@
 import React from "react";
+import ReactDOM from "react-dom";
+import styled from "styled-components";
 
 export const ToastContext = React.createContext(() => {});
 
-function Toast({ id, title, message, type, onDismiss }) {
+const ToastDOM = styled.div`
+  position: fixed;
+  background-color: ${(props) => props.theme.colors[props.variant].color};
+  color: ${(props) => props.theme.colors[props.variant].text};
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 400px;
+  transition-property: bottom, right, opacity, padding;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.3s;
+  box-sizing: content-box;
+`;
+ToastDOM.Container = styled.div`
+  > ${ToastDOM} {
+    display: none;
+  }
+  > ${ToastDOM}:nth-last-child(1) {
+    display: block;
+    padding: 20px;
+    bottom: 50px;
+    right: 50px;
+    opacity: 1;
+  }
+  > ${ToastDOM}:nth-last-child(2) {
+    display: block;
+    padding: 15px;
+    bottom: 90px;
+    right: 55px;
+    opacity: 0.8;
+  }
+  > ${ToastDOM}:nth-last-child(3) {
+    display: block;
+    padding: 10px;
+    bottom: 130px;
+    right: 60px;
+    opacity: 0.6;
+  }
+`;
+ToastDOM.Title = styled.strong`
+  font-weight: bold;
+`;
+
+function Toast({ title, message, variant }) {
   return (
-    <div
-      className={
-        "notification is-" +
-        (type === "error" ? "danger" : type === "warning" ? "warning" : "success")
-      }
-    >
-      <button className="delete" onClick={onDismiss}></button>
+    <ToastDOM variant={variant}>
       {title ? (
         <>
-          <strong>{title}</strong>{" "}
+          <ToastDOM.Title>{title}</ToastDOM.Title>{" "}
         </>
       ) : null}
       {message}
-    </div>
+    </ToastDOM>
   );
 }
 
 export function ToastDisplay({ toasts, setToasts }) {
-  const dismiss = React.useCallback(
-    (id) => {
-      setToasts(toasts.filter((toast) => toast.id !== id));
-    },
-    [toasts, setToasts]
-  );
-
   React.useEffect(() => {
     var timer = setInterval(() => {
       const now = new Date();
@@ -40,19 +71,20 @@ export function ToastDisplay({ toasts, setToasts }) {
     return () => clearInterval(timer);
   }, [toasts, setToasts]);
 
-  return (
-    <>
+  return ReactDOM.createPortal(
+    <ToastDOM.Container>
       {toasts.map((toast) => (
-        <Toast key={toast.id} {...toast} onDismiss={(evt) => dismiss(toast.id)}></Toast>
+        <Toast key={toast.id} {...toast}></Toast>
       ))}
-    </>
+    </ToastDOM.Container>,
+    document.body
   );
 }
 
-export function addToast(context, { title = "", message, type, time = 10000 }) {
+export function addToast(context, { title = "", message, variant, time = 10000 }) {
   var id = Math.random().toString(36);
   var expire = new Date(new Date().getTime() + time);
-  context({ id, title, message, type, expire });
+  context({ id, title, message, variant, expire });
 }
 
 export function genericCatch(context) {
@@ -61,7 +93,7 @@ export function genericCatch(context) {
     addToast(context, {
       title: "JS error.",
       message: "An error occurred. It has been logged to the console.",
-      type: "error",
+      variant: "danger",
     });
   };
 }
@@ -72,14 +104,14 @@ export function toastHttp(context, success = "Success") {
       if (success) {
         addToast(context, {
           message: success,
-          type: "success",
+          variant: "success",
         });
       }
     } else {
       addToast(context, {
         title: "Error!",
         message: await response.text(),
-        type: "error",
+        variant: "danger",
       });
     }
   };

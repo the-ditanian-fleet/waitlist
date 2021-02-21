@@ -6,12 +6,12 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "bulma": "^0.9.2",
+    "lodash": "^4.17.21",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
-    "sass": "^1.32.7"
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "eslint": "^7.19.0",

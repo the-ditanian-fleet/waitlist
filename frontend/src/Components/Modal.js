@@ -1,34 +1,62 @@
+import ReactDOM from "react-dom";
+import styled from "styled-components";
+import { Box } from "./Box";
+import { InputGroup, Button } from "./Form";
+
+const ModalDom = styled.div`
+  display: ${(props) => (props.open ? "flex" : "none")};
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 50;
+`;
+ModalDom.Background = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: ${(props) => props.theme.colors.modal};
+`;
+ModalDom.Content = styled.div`
+  position: relative;
+  margin: auto;
+
+  > ${Box} {
+    min-width: 300px;
+    min-height: 200px;
+  }
+`;
+
 export function Modal({ children, open = false, setOpen }) {
-  return (
-    <div className={"modal " + (open ? "is-active" : "")}>
-      <div className="modal-background" onClick={(evt) => setOpen(false)}></div>
-      <div className="modal-content">{children}</div>
-      <button onClick={(evt) => setOpen(false)} className="modal-close is-large"></button>
-    </div>
+  return ReactDOM.createPortal(
+    <ModalDom open={open}>
+      <ModalDom.Background onClick={(evt) => setOpen(false)}></ModalDom.Background>
+      <ModalDom.Content>{children}</ModalDom.Content>
+    </ModalDom>,
+    document.body
   );
 }
 
-export function Confirm({ children, open = false, setOpen, onConfirm, title = "Please confirm!" }) {
+export function Confirm({ children, onConfirm, title = "Please confirm!", setOpen, ...props }) {
   return (
-    <div className={"modal " + (open ? "is-active" : "")}>
-      <div className="modal-background" onClick={(evt) => setOpen(false)}></div>
-      <div className="modal-card">
-        <header className="modal-card-head">
-          <p className="modal-card-title">{title}</p>
-          <button className="delete" onClick={(evt) => setOpen(false)}></button>
-        </header>
-        <section className="modal-card-body">{children}</section>
-        <footer className="modal-card-foot">
-          <div className="buttons is-right">
-            <button className="button is-danger" onClick={(evt) => onConfirm()}>
+    <>
+      <Modal setOpen={setOpen} {...props}>
+        <Box>
+          <h2 style={{ fontWeight: "bolder" }}>{title}</h2>
+          {children}
+          <InputGroup>
+            <Button variant="danger" onClick={onConfirm}>
               Yes
-            </button>
-            <button className="button is-info" onClick={(evt) => setOpen(false)}>
+            </Button>
+            <Button variant="secondary" onClick={(evt) => setOpen(false)}>
               No
-            </button>
-          </div>
-        </footer>
-      </div>
-    </div>
+            </Button>
+          </InputGroup>
+        </Box>
+      </Modal>
+    </>
   );
 }

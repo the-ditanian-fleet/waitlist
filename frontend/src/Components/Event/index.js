@@ -4,6 +4,8 @@ import { EventContext } from "../../Event";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faBellSlash } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "../Modal";
+import { Button } from "../Form";
+import { Box } from "../Box";
 
 import soundFile from "./bell-ringing-04.mp3";
 const storageKey = "EventNotifierSettings";
@@ -75,9 +77,9 @@ export function EventNotifier() {
   return (
     <>
       <Modal open={modalOpen} setOpen={setModalOpen}>
-        <div className="box">
-          <div className="control">
-            <label className="checkbox">
+        <Box>
+          <p>
+            <label>
               <input
                 checked={settings.enableSound}
                 onChange={(evt) => setSettings({ ...settings, enableSound: !!evt.target.checked })}
@@ -85,23 +87,17 @@ export function EventNotifier() {
               />{" "}
               Enable sound notifications
             </label>
-          </div>
-          <div className="control">
-            <button
-              className="button"
-              onClick={(evt) => handleWakeup({ data: "This is a test alert" })}
-            >
-              Send test notification
-            </button>
-          </div>
-        </div>
+          </p>
+          <Button onClick={(evt) => handleWakeup({ data: "This is a test alert" })}>
+            Send test notification
+          </Button>
+          <audio ref={playerRef} loop>
+            <source src={soundFile} type="audio/mp3" />
+          </audio>
+        </Box>
       </Modal>
-      <audio ref={playerRef} loop>
-        <source src={soundFile} type="audio/mp3" />
-      </audio>
-      <button
+      <Button
         onClick={(evt) => setModalOpen(true)}
-        className="button"
         title={
           settings.enableSound
             ? "Sound alerts are currently enabled"
@@ -109,7 +105,7 @@ export function EventNotifier() {
         }
       >
         <FontAwesomeIcon fixedWidth icon={settings.enableSound ? faBell : faBellSlash} />
-      </button>
+      </Button>
     </>
   );
 }

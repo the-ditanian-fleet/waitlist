@@ -1,8 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../Auth";
 import { genericCatch, ToastContext, toastHttp } from "../../Toast";
 import { Confirm } from "../../Components/Modal";
+import { Button, Buttons, NavButton } from "../../Components/Form";
+import { Content } from "../../Components/Content";
 
 async function setWaitlistOpen(waitlistId, isOpen) {
   return await fetch("/api/waitlist/set_open", {
@@ -46,30 +47,23 @@ export function Fleet() {
 
   return (
     <>
-      <div className="buttons">
-        <NavLink className="button" to="/fleet/register">
-          Configure fleet
-        </NavLink>
-        <NavLink className="button" to="/auth/start/fc">
-          ESI re-auth as FC
-        </NavLink>
-        <button
-          className="button is-success"
+      <Buttons>
+        <NavButton to="/fleet/register">Configure fleet</NavButton>
+        <NavButton to="/auth/start/fc">ESI re-auth as FC</NavButton>
+        <Button
+          variant="success"
           onClick={() => setWaitlistOpen(1, true).then(toastHttp(toastContext))}
         >
           Open waitlist
-        </button>
-        <button
-          className="button"
-          onClick={() => setWaitlistOpen(1, false).then(toastHttp(toastContext))}
-        >
+        </Button>
+        <Button onClick={() => setWaitlistOpen(1, false).then(toastHttp(toastContext))}>
           Close waitlist
-        </button>
-        <button className="button is-danger" onClick={(evt) => setFleetCloseModalOpen(true)}>
+        </Button>
+        <Button variant="danger" onClick={(evt) => setFleetCloseModalOpen(true)}>
           Kick everyone from fleet
-        </button>
-      </div>
-      <div className="content">
+        </Button>
+      </Buttons>
+      <Content>
         <p>
           <em>Xifon needs more time to build this page.</em> Anyway, it works. Make sure you re-auth
           via ESI, then create an in-game fleet with your comp. Click the &quot;Configure
@@ -81,14 +75,14 @@ export function Fleet() {
           To hand over the fleet, transfer the star (Boss role). Then the new FC should go via
           &quot;Configure fleet&quot; again, as if it was a new fleet.
         </p>
-      </div>
-      {!fleets
-        ? null
-        : fleets.fleets.map((fleet) => (
-            <div key={fleet.id}>
-              STATUS: Fleet {fleet.id}, boss {fleet.boss.name}
-            </div>
-          ))}
+        {!fleets
+          ? null
+          : fleets.fleets.map((fleet) => (
+              <div key={fleet.id}>
+                STATUS: Fleet {fleet.id}, boss {fleet.boss.name}
+              </div>
+            ))}
+      </Content>
       <FleetMembers />
       <Confirm
         open={fleetCloseModalOpen}
@@ -140,7 +134,7 @@ function FleetMembers() {
   return (
     <>
       <h3 className="title">Current fleet</h3>
-      <table className="table is-narrow is-fullwidth">
+      <table style={{ width: "100%" }}>
         <tbody>
           {fleetMembers &&
             fleetMembers.members.map((member) => (
@@ -148,11 +142,7 @@ function FleetMembers() {
                 <td>{member.name}</td>
                 <td>{member.ship.name}</td>
                 <td>
-                  <div className="buttons">
-                    <NavLink className="button" to={"/skills?character_id=" + member.id}>
-                      Skills
-                    </NavLink>
-                  </div>
+                  <NavButton to={"/skills?character_id=" + member.id}>Skills</NavButton>
                 </td>
               </tr>
             ))}
