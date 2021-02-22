@@ -4,9 +4,9 @@ from ..data.evedb import id_of, name_of
 
 CATEGORIES = {
     "logi": "Logistics",
-    "leshak": "Leshak",
     "cqc": "CQC",
     "sniper": "Sniper",
+    "leshak": "Leshak",
     "starter": "Starter",
 }
 

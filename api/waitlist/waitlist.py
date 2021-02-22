@@ -85,7 +85,11 @@ def get_waitlist() -> ViewReturn:
             )
         )
 
-    return {"waitlist": waitlist_entries, "open": True}
+    return {
+        "waitlist": waitlist_entries,
+        "open": True,
+        "categories": list(tdf.CATEGORIES.values()),
+    }
 
 
 @bp.route("/api/waitlist/xup", methods=["POST"])
