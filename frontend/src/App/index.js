@@ -51,7 +51,7 @@ export default class App extends React.Component {
       auth: null,
       toasts: [],
       events: null,
-      useDarkTheme: false,
+      theme: (window.localStorage && window.localStorage.getItem("theme")) || "light",
     };
   }
 
@@ -90,7 +90,7 @@ export default class App extends React.Component {
 
     return (
       <React.StrictMode>
-        <ThemeProvider theme={this.state.useDarkTheme ? theme.dark : theme.light}>
+        <ThemeProvider theme={theme[this.state.theme]}>
           <GlobalStyle />
           <ToastContext.Provider value={this.addToast}>
             <EventContext.Provider value={this.state.events}>
@@ -99,8 +99,13 @@ export default class App extends React.Component {
                   <Container>
                     <Menu
                       onChangeCharacter={(char) => this.changeCharacter(char)}
-                      useDarkTheme={this.state.useDarkTheme}
-                      setUseDarkTheme={(newTheme) => this.setState({ useDarkTheme: newTheme })}
+                      theme={this.state.theme}
+                      setTheme={(newTheme) => {
+                        this.setState({ theme: newTheme });
+                        if (window.localStorage) {
+                          window.localStorage.setItem("theme", newTheme);
+                        }
+                      }}
                     />
                     <ToastDisplay
                       toasts={this.state.toasts}

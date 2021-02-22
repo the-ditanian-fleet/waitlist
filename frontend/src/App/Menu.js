@@ -46,7 +46,7 @@ NavBar.End = styled.div`
   align-items: center;
 `;
 
-export function Menu({ onChangeCharacter, useDarkTheme, setUseDarkTheme }) {
+export function Menu({ onChangeCharacter, theme, setTheme }) {
   return (
     <AuthContext.Consumer>
       {(whoami) => (
@@ -84,8 +84,8 @@ export function Menu({ onChangeCharacter, useDarkTheme, setUseDarkTheme }) {
               </InputGroup>
               <InputGroup>
                 <EventNotifier />
-                <Button onClick={(evt) => setUseDarkTheme(!useDarkTheme)}>
-                  <FontAwesomeIcon fixedWidth icon={useDarkTheme ? faMoon : faSun} />
+                <Button onClick={(evt) => setTheme(theme === "dark" ? "light" : "dark")}>
+                  <FontAwesomeIcon fixedWidth icon={theme === "dark" ? faMoon : faSun} />
                 </Button>
                 <NavButton exact to="/auth/logout" variant="secondary">
                   Log out
