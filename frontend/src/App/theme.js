@@ -73,7 +73,7 @@ const theme = {
 
       outline: "hsla(213, 100%, 40%, 0.2)",
       modal: "hsla(0, 0%, 0%, 0.80)",
-      shadow: "hsla(0, 0%, 30%, 0.1)",
+      shadow: "hsla(0, 0%, 0%, 0.1)",
 
       input: {
         color: "transparent",
