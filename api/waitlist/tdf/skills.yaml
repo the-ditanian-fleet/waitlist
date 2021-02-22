@@ -177,16 +177,19 @@ logi:
   all:
     - name: Advanced Target Management
       min: 3
+      gold: 5
     - name: Capacitor Management
       min: 5
+      gold: 5
     - name: Capacitor Systems Operation
       min: 5
-    - name: Remote Armor Repair Systems
-      min: 5
+      gold: 5
     - name: Acceleration Control
       min: 3
+      gold: 5
     - name: Hull Upgrades
       min: 5
+      gold: 5
 ships:
   Nightmare:
     - name: Amarr Battleship
@@ -344,37 +347,69 @@ ships:
   Guardian:
     - name: Afterburner
       min: 4
+      gold: 5
     - name: Capacitor Emission Systems
       min: 5
+      gold: 5
     - name: Evasive Maneuvering
       min: 3
+      gold: 5
     - name: Fuel Conservation
       min: 4
+      gold: 5
     - name: Logistics Cruisers
       min: 5
+      gold: 5
+    - name: Remote Armor Repair Systems
+      min: 5
+      gold: 5
+    - name: Radar Sensor Compensation
+      gold: 5
   Oneiros:
     - name: Afterburner
       min: 4
+      gold: 5
     - name: Evasive Maneuvering
       min: 3
+      gold: 5
     - name: Fuel Conservation
       min: 4
+      gold: 5
     - name: Logistics Cruisers
-      min: 5
-    - name: Sensor Linking
       min: 4
+      gold: 5
+    - name: Sensor Linking
+      min: 3
+      gold: 5
+    - name: Remote Armor Repair Systems
+      min: 4
+      gold: 5
+    - name: Magnetometric Sensor Compensation
+      gold: 5
   Nestor:
     - name: EM Armor Compensation
       min: 5
+      gold: 5
     - name: Explosive Armor Compensation
       min: 5
+      gold: 5
     - name: Thermal Armor Compensation
       min: 5
+      gold: 5
     - name: Kinetic Armor Compensation
       min: 5
+      gold: 5
     - name: Advanced Target Management
       min: 5
+      gold: 5
     - name: Amarr Battleship
       min: 5
+      gold: 5
+    - name: Remote Armor Repair Systems
+      min: 5
+      gold: 5
     - name: High Speed Maneuvering
       min: 4
+      gold: 5
+    - name: Magnetometric Sensor Compensation
+      gold: 5
