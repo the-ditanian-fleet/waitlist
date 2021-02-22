@@ -87,7 +87,9 @@ export function Menu({ onChangeCharacter, useDarkTheme, setUseDarkTheme }) {
                 <Button onClick={(evt) => setUseDarkTheme(!useDarkTheme)}>
                   <FontAwesomeIcon fixedWidth icon={useDarkTheme ? faMoon : faSun} />
                 </Button>
-                <Button variant="secondary">Log out</Button>
+                <NavButton exact to="/auth/logout" variant="secondary">
+                  Log out
+                </NavButton>
               </InputGroup>
             </NavBar.End>
           </NavBar.Menu>
