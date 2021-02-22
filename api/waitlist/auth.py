@@ -129,6 +129,7 @@ def callback() -> Tuple[str, int]:
 
     else:
         session["account_id"] = character_id
+        session.permanent = True
 
     return "OK", 200
 
