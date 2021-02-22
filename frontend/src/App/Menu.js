@@ -3,6 +3,8 @@ import { AuthContext } from "../Auth";
 import logoImage from "./logo.png";
 import styled from "styled-components";
 import { InputGroup, Button, Select, NavButton } from "../Components/Form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { EventNotifier } from "../Components/Event";
 
 const NavBar = styled.div`
@@ -82,6 +84,9 @@ export function Menu({ onChangeCharacter, useDarkTheme, setUseDarkTheme }) {
               </InputGroup>
               <InputGroup>
                 <EventNotifier />
+                <Button onClick={(evt) => setUseDarkTheme(!useDarkTheme)}>
+                  <FontAwesomeIcon fixedWidth icon={useDarkTheme ? faMoon : faSun} />
+                </Button>
                 <Button variant="secondary">Log out</Button>
               </InputGroup>
             </NavBar.End>
