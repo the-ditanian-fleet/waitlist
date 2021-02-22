@@ -22,6 +22,7 @@ function handleMessage(event) {
 
 export function EventNotifier() {
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [isPlaying, setIsPlaying] = React.useState(false);
   const eventContext = React.useContext(EventContext);
   const playerRef = React.useRef(null);
 
@@ -38,6 +39,14 @@ export function EventNotifier() {
     }
   }, [settings]);
 
+  React.useEffect(() => {
+    if (!playerRef) return;
+    if (isPlaying) {
+      playerRef.current.play();
+    } else {
+      playerRef.current.pause();
+    }
+  }, [isPlaying, playerRef]);
   const handleWakeup = React.useCallback(
     (event) => {
       if (window.Notification && Notification.permission === "granted") {
@@ -47,16 +56,9 @@ export function EventNotifier() {
         Notification.requestPermission();
       }
 
-      setTimeout(() => {
-        // Delay the actual sound by 10ms, to not block the JS thread sending the other notification
-        if (settings.enableSound && playerRef.current) {
-          playerRef.current.play();
-          alert(event.data);
-          playerRef.current.pause();
-        } else {
-          alert(event.data);
-        }
-      }, 10);
+      if (settings.enableSound && playerRef.current) {
+        setIsPlaying(event.data);
+      }
     },
     [settings]
   );
@@ -90,6 +92,14 @@ export function EventNotifier() {
           </p>
           <Button onClick={(evt) => handleWakeup({ data: "This is a test alert" })}>
             Send test notification
+          </Button>
+        </Box>
+      </Modal>
+      <Modal open={isPlaying} setOpen={setIsPlaying}>
+        <Box>
+          <p>{isPlaying}</p>
+          <Button onClick={(evt) => setIsPlaying(false)} variant="success">
+            OK
           </Button>
           <audio ref={playerRef} loop>
             <source src={soundFile} type="audio/mp3" />
