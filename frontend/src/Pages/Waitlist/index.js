@@ -47,6 +47,7 @@ export function Waitlist() {
   const eventContext = React.useContext(EventContext);
   const [waitlistId, _setWaitlistId] = React.useState(1); //eslint-disable-line
   const [waitlistData, setWaitlistData] = React.useState(null);
+  const [displayMode, setDisplayMode] = React.useState("columns");
   const updateAndSet = React.useCallback(() => {
     fetch("/api/waitlist?waitlist_id=" + waitlistId)
       .then((response) => response.json())
@@ -102,19 +103,41 @@ export function Waitlist() {
             Leave waitlist
           </Button>
         </InputGroup>
+        <InputGroup>
+          <Button active={displayMode === "columns"} onClick={(evt) => setDisplayMode("columns")}>
+            Columns
+          </Button>
+          <Button active={displayMode === "matrix"} onClick={(evt) => setDisplayMode("matrix")}>
+            Matrix
+          </Button>
+          <Button active={displayMode === "compact"} onClick={(evt) => setDisplayMode("compact")}>
+            Compact
+          </Button>
+          <Button active={displayMode === "linear"} onClick={(evt) => setDisplayMode("linear")}>
+            Linear
+          </Button>
+        </InputGroup>
       </Buttons>
-      <CompactWaitlist waitlist={waitlistData} />
+      {displayMode === "columns" ? (
+        <ColumnWaitlist waitlist={waitlistData} />
+      ) : displayMode === "compact" ? (
+        <CompactWaitlist waitlist={waitlistData} />
+      ) : displayMode === "linear" ? (
+        <LinearWaitlist waitlist={waitlistData} />
+      ) : displayMode === "matrix" ? (
+        <MatrixWaitlist waitlist={waitlistData} />
+      ) : null}
     </>
   );
 }
 
-const CompactWaitlistDOM = styled.div`
+const ColumnWaitlistDOM = styled.div`
   display: flex;
   em {
     font-style: italic;
   }
 `;
-CompactWaitlistDOM.Category = styled.div`
+ColumnWaitlistDOM.Category = styled.div`
   flex-grow: 1;
   flex-basis: 0;
   padding: 0.5em;
@@ -123,9 +146,12 @@ CompactWaitlistDOM.Category = styled.div`
     font-size: 1.5em;
     margin-bottom: 0.5em;
   }
+  > div {
+    margin-bottom: 1.5em;
+  }
 `;
 
-function CompactWaitlist({ waitlist }) {
+function ColumnWaitlist({ waitlist }) {
   var categories = [];
   var categoryIndex = {};
   _.forEach(waitlist.categories, (category, i) => {
@@ -135,20 +161,130 @@ function CompactWaitlist({ waitlist }) {
   _.forEach(waitlist.waitlist, (entry) => {
     _.forEach(entry.fits, (fit) => {
       const categoryI = categoryIndex[fit.category];
-      categories[categoryI][1].push(<XCard key={fit.id} entry={entry} fit={fit} />);
+      categories[categoryI][1].push(
+        <div key={fit.id}>
+          <XCard entry={entry} fit={fit} />
+        </div>
+      );
     });
   });
   return (
     <>
-      <CompactWaitlistDOM>
+      <ColumnWaitlistDOM>
         {categories.map((category) => (
-          <CompactWaitlistDOM.Category key={category[0]}>
+          <ColumnWaitlistDOM.Category key={category[0]}>
             <h2>{category[0]}</h2>
             {category[1]}
             {category[1].length ? null : <em>Nobody here!</em>}
-          </CompactWaitlistDOM.Category>
+          </ColumnWaitlistDOM.Category>
         ))}
-      </CompactWaitlistDOM>
+      </ColumnWaitlistDOM>
     </>
+  );
+}
+
+const CompactWaitlistDOM = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  > div {
+    padding: 0.5em;
+  }
+`;
+
+function CompactWaitlist({ waitlist }) {
+  var allCards = [];
+  _.forEach(waitlist.waitlist, (entry) => {
+    _.forEach(entry.fits, (fit) => {
+      allCards.push(
+        <div key={fit.id}>
+          <XCard entry={entry} fit={fit} />
+        </div>
+      );
+    });
+  });
+
+  return <CompactWaitlistDOM>{allCards}</CompactWaitlistDOM>;
+}
+
+const LinearWaitlistDOM = styled.div``;
+LinearWaitlistDOM.Entry = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+  > div {
+    padding: 0.5em;
+  }
+`;
+
+function LinearWaitlist({ waitlist }) {
+  return (
+    <LinearWaitlistDOM>
+      {waitlist.waitlist.map((entry) => (
+        <LinearWaitlistDOM.Entry key={entry.id}>
+          {entry.fits.map((fit) => (
+            <div key={fit.id}>
+              <XCard fit={fit} entry={entry} />
+            </div>
+          ))}
+        </LinearWaitlistDOM.Entry>
+      ))}
+    </LinearWaitlistDOM>
+  );
+}
+
+const MatrixWaitlistDOM = styled.table`
+  width: 100%;
+  table-layout: fixed;
+  text-align: left;
+
+  > thead > tr > th {
+    width: 1%;
+    > h2 {
+      font-size: 1.5em;
+    }
+  }
+  th,
+  td {
+    padding: 0.5em;
+  }
+`;
+
+function MatrixWaitlist({ waitlist }) {
+  var categories = [];
+  var categoryIndex = {};
+  _.forEach(waitlist.categories, (category, i) => {
+    categories.push([category, []]);
+    categoryIndex[category] = i;
+  });
+
+  return (
+    <MatrixWaitlistDOM>
+      <thead>
+        <tr>
+          {categories.map((category) => (
+            <th key={category[0]}>
+              <h2>{category[0]}</h2>
+            </th>
+          ))}
+        </tr>
+        {waitlist.waitlist.map((entry) => {
+          var byCategory = categories.map((cat) => []);
+          _.forEach(entry.fits, (fit) => {
+            byCategory[categoryIndex[fit.category]].push(
+              <div key={fit.id}>
+                <XCard fit={fit} entry={entry} />
+              </div>
+            );
+          });
+          return (
+            <tr key={entry.id}>
+              {byCategory.map((fits, i) => (
+                <td key={i}>{fits}</td>
+              ))}
+            </tr>
+          );
+        })}
+      </thead>
+    </MatrixWaitlistDOM>
   );
 }

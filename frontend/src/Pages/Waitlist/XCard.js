@@ -57,7 +57,7 @@ const XCardDOM = styled.div`
   border-radius: 5px;
   font-size: 0.9em;
   box-shadow: 0px 3px 10px 5px ${(props) => props.theme.colors.shadow};
-  margin-bottom: 1.5em;
+  min-width: 245px;
 
   a {
     color: inherit;
