@@ -131,13 +131,6 @@ export function DpsSkills({ group, mySkills }) {
           ids={mySkills.ids}
         />
         <SkillTable
-          title="Navigation"
-          group={group}
-          current={mySkills.current}
-          requirements={mySkills.requirements.global.navigation}
-          ids={mySkills.ids}
-        />
-        <SkillTable
           title="Gunnery"
           group={group}
           current={mySkills.current}
@@ -145,10 +138,10 @@ export function DpsSkills({ group, mySkills }) {
           ids={mySkills.ids}
         />
         <SkillTable
-          title="Targeting"
+          title="Navigation"
           group={group}
           current={mySkills.current}
-          requirements={mySkills.requirements.global.targeting}
+          requirements={mySkills.requirements.global.navigation}
           ids={mySkills.ids}
         />
         <SkillTable
@@ -156,6 +149,13 @@ export function DpsSkills({ group, mySkills }) {
           group={group}
           current={mySkills.current}
           requirements={mySkills.requirements.global.neural_enhancement}
+          ids={mySkills.ids}
+        />
+        <SkillTable
+          title="Targeting"
+          group={group}
+          current={mySkills.current}
+          requirements={mySkills.requirements.global.targeting}
           ids={mySkills.ids}
         />
         <SkillTable
@@ -169,10 +169,10 @@ export function DpsSkills({ group, mySkills }) {
       <SkillDom.Category>
         <SkillDom.Category.Name>Ship-specific</SkillDom.Category.Name>
         <SkillTable
-          title="Vindicator"
+          title="Paladin"
           group={group}
           current={mySkills.current}
-          requirements={mySkills.requirements.ships.Vindicator}
+          requirements={mySkills.requirements.ships.Paladin}
           ids={mySkills.ids}
         />
         {group === "gold" ? null : (
@@ -185,17 +185,17 @@ export function DpsSkills({ group, mySkills }) {
           />
         )}
         <SkillTable
-          title="Paladin"
-          group={group}
-          current={mySkills.current}
-          requirements={mySkills.requirements.ships.Paladin}
-          ids={mySkills.ids}
-        />
-        <SkillTable
           title="Leshak"
           group={group}
           current={mySkills.current}
           requirements={mySkills.requirements.ships.Leshak}
+          ids={mySkills.ids}
+        />
+        <SkillTable
+          title="Vindicator"
+          group={group}
+          current={mySkills.current}
+          requirements={mySkills.requirements.ships.Vindicator}
           ids={mySkills.ids}
         />
       </SkillDom.Category>
