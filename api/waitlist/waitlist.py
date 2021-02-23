@@ -170,6 +170,7 @@ def xup() -> ViewReturn:
             FitHistory(
                 character_id=g.character_id,
                 fit=fitting,
+                implant_set=implant_set,
             )
         )
 

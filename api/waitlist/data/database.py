@@ -152,10 +152,12 @@ class FitHistory(Base):
     id = Column(Integer, primary_key=True)
     character_id = Column(BigInteger, ForeignKey("character.id"), nullable=False)
     fit_id = Column(Integer, ForeignKey("fitting.id"), nullable=False)
+    implant_set_id = Column(Integer, ForeignKey("implant_set.id"), nullable=False)
     logged_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
 
     character = relationship("Character")
     fit = relationship("Fitting")
+    implant_set = relationship("ImplantSet")
 
 
 class Fleet(Base):
