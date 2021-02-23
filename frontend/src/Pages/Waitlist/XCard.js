@@ -5,6 +5,8 @@ import { AuthContext } from "../../Auth";
 import { NavLink } from "react-router-dom";
 import { TimeDisplay } from "./TimeDisplay.js";
 import { Badge } from "../../Components/Badge";
+import { Box } from "../../Components/Box";
+import { Modal } from "../../Components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrashAlt,
@@ -100,19 +102,44 @@ XCardDOM.Footer = styled.div`
   }
 `;
 
+function FitDisplay({ name, dna }) {
+  React.useEffect(() => {
+    if (window.eveui) {
+      window.eveui.expand();
+    }
+  });
+
+  return (
+    <div>
+      <a data-eveui-expand href={`fitting:${dna}`}>
+        {name}
+      </a>
+    </div>
+  );
+}
+
 function ShipDisplay({ fit }) {
+  const [modalOpen, setModalOpen] = React.useState(false);
+
   const namePrefix = fit.character ? `${fit.character.name}'s ` : "";
   if (fit.dna && fit.hull) {
     return (
       <>
-        <a style={{ flexShrink: 1 }} href={"fitting:" + fit.dna}>
+        {modalOpen ? (
+          <Modal open={true} setOpen={setModalOpen}>
+            <Box>
+              <FitDisplay name={`${namePrefix} ${fit.hull.name}`} dna={fit.dna} />
+            </Box>
+          </Modal>
+        ) : null}
+        <a onClick={(evt) => setModalOpen(true)}>
           <img
             style={{ height: "40px" }}
             src={"https://imageserver.eveonline.com/Type/" + fit.hull.id + "_64.png"}
             alt={fit.hull.name}
           />
         </a>
-        <a style={{ flexShrink: 1 }} href={"fitting:" + fit.dna}>
+        <a style={{ flexShrink: 1 }} onClick={(evt) => setModalOpen(true)}>
           {namePrefix}
           {fit.hull.name}
         </a>
