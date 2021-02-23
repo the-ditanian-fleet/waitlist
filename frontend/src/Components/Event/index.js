@@ -13,7 +13,7 @@ const storageKey = "EventNotifierSettings";
 function handleMessage(event) {
   const message = JSON.parse(event.data);
   if (window.Notification && Notification.permission === "granted") {
-    new Notification(message.message);
+    new Notification(message.message, { silent: true });
   } else if (window.Notification && Notification.permission === "default") {
     // RIP, we didn't ask for permission first!?
     Notification.requestPermission();
