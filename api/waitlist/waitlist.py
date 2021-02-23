@@ -67,7 +67,9 @@ def get_waitlist() -> ViewReturn:
                 fit["hull"] = {"id": fitting.hull, "name": evedb.name_of(fitting.hull)}
             if can_see_full:
                 fit["dna"] = fitting.dna
-                fit["implants"] = list(map(int, implant_set.implants.split(":")))
+                fit["implants"] = list(
+                    map(int, filter(lambda x: x, implant_set.implants.split(":")))
+                )
 
                 fit["character"] = {"name": character.name, "id": character.id}
                 fit["tags"] = list(
