@@ -12,6 +12,7 @@ from .data.database import (
     Fleet,
     FleetSquad,
     FitHistory,
+    ImplantSet,
 )
 from .webutil import ViewReturn
 
@@ -36,17 +37,17 @@ def get_waitlist() -> ViewReturn:
         return {"open": False}
 
     waitlist_entries = []
-    wl_by_entry: Dict[int, List[Tuple[WaitlistEntryFit, Character, Fitting]]] = {}
-    hull_ids = set()
+    wl_by_entry: Dict[
+        int, List[Tuple[WaitlistEntryFit, Character, Fitting, ImplantSet]]
+    ] = {}
     for fit in (
-        g.db.query(WaitlistEntryFit, Character, Fitting)
+        g.db.query(WaitlistEntryFit, Character, Fitting, ImplantSet)
         .join(WaitlistEntryFit.character)
         .join(WaitlistEntryFit.fit)
+        .join(WaitlistEntryFit.implant_set)
     ):
         wl_by_entry.setdefault(fit[0].entry_id, []).append(fit)
-        hull_ids.add(fit[2].hull)
 
-    hull_names = evedb.type_names(list(hull_ids))
     for entry, account in (
         g.db.query(WaitlistEntry, Character)
         .join(WaitlistEntry.account)
@@ -56,16 +57,18 @@ def get_waitlist() -> ViewReturn:
 
         fits_raw = wl_by_entry.get(entry.id, [])
         fits = []
-        for fitentry, character, fitting in fits_raw:
+        for fitentry, character, fitting, implant_set in fits_raw:
             fit = {
                 "id": fitentry.id,
                 "approved": bool(fitentry.approved),
                 "category": tdf.CATEGORIES[fitentry.category],
             }
             if can_see_full or fitentry.approved:
-                fit["hull"] = {"id": fitting.hull, "name": hull_names[fitting.hull]}
+                fit["hull"] = {"id": fitting.hull, "name": evedb.name_of(fitting.hull)}
             if can_see_full:
                 fit["dna"] = fitting.dna
+                fit["implants"] = list(map(int, implant_set.implants.split(":")))
+
                 fit["character"] = {"name": character.name, "id": character.id}
                 fit["tags"] = list(
                     filter(lambda tag: len(tag) > 0, fitentry.tags.split(","))
@@ -131,6 +134,15 @@ def xup() -> ViewReturn:
         waitlist_entry = WaitlistEntry(waitlist_id=waitlist.id, account_id=g.account_id)
         g.db.add(waitlist_entry)
 
+    implant_set = (
+        g.db.query(ImplantSet)
+        .filter(ImplantSet.implants == ":".join(map(str, sorted(implantdata))))
+        .one_or_none()
+    )
+    if not implant_set:
+        implant_set = ImplantSet(implants=":".join(map(str, sorted(implantdata))))
+        g.db.add(implant_set)
+
     for dna in dnas:
         fitting = g.db.query(Fitting).filter(Fitting.dna == dna).one_or_none()
         if not fitting:
@@ -151,6 +163,7 @@ def xup() -> ViewReturn:
                 category=category_name,
                 approved=False,
                 tags=",".join(tags),
+                implant_set=implant_set,
             )
         )
         g.db.add(

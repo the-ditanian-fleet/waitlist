@@ -118,6 +118,11 @@ function FitDisplay({ name, dna }) {
   );
 }
 
+function ImplantDisplay({ implants }) {
+  const podDna = implants.map((implant) => `${implant};1`).join(":");
+  return <FitDisplay name="Capsule" dna={`670:${podDna}::`} />;
+}
+
 function ShipDisplay({ fit }) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
@@ -127,8 +132,9 @@ function ShipDisplay({ fit }) {
       <>
         {modalOpen ? (
           <Modal open={true} setOpen={setModalOpen}>
-            <Box>
+            <Box style={{ display: "flex" }}>
               <FitDisplay name={`${namePrefix} ${fit.hull.name}`} dna={fit.dna} />
+              {fit.implants ? <ImplantDisplay implants={fit.implants} /> : null}
             </Box>
           </Modal>
         ) : null}

@@ -104,6 +104,12 @@ class Fitting(Base):
     hull = Column(Integer, nullable=False)
 
 
+class ImplantSet(Base):
+    __tablename__ = "implant_set"
+    id = Column(Integer, nullable=False, primary_key=True)
+    implants = Column(String(256), nullable=False, unique=True)
+
+
 class Waitlist(Base):
     __tablename__ = "waitlist"
     id = Column(Integer, primary_key=True)
@@ -130,6 +136,7 @@ class WaitlistEntryFit(Base):
     character_id = Column(BigInteger, ForeignKey("character.id"), nullable=False)
     entry_id = Column(Integer, ForeignKey("waitlist_entry.id"), nullable=False)
     fit_id = Column(Integer, ForeignKey("fitting.id"), nullable=False)
+    implant_set_id = Column(Integer, ForeignKey("implant_set.id"), nullable=False)
     approved = Column(Boolean, nullable=False)
     tags = Column(String(255), nullable=False)
     category = Column(String(10), nullable=False)
@@ -137,6 +144,7 @@ class WaitlistEntryFit(Base):
     character = relationship("Character")
     entry = relationship("WaitlistEntry")
     fit = relationship("Fitting")
+    implant_set = relationship("ImplantSet")
 
 
 class FitHistory(Base):
