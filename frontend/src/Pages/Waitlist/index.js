@@ -116,6 +116,9 @@ export function Waitlist() {
           <Button active={displayMode === "linear"} onClick={(evt) => setDisplayMode("linear")}>
             Linear
           </Button>
+          <Button active={displayMode === "rows"} onClick={(evt) => setDisplayMode("rows")}>
+            Rows
+          </Button>
         </InputGroup>
       </Buttons>
       {displayMode === "columns" ? (
@@ -126,6 +129,8 @@ export function Waitlist() {
         <LinearWaitlist waitlist={waitlistData} />
       ) : displayMode === "matrix" ? (
         <MatrixWaitlist waitlist={waitlistData} />
+      ) : displayMode === "rows" ? (
+        <RowWaitlist waitlist={waitlistData} />
       ) : null}
     </>
   );
@@ -286,5 +291,58 @@ function MatrixWaitlist({ waitlist }) {
         })}
       </thead>
     </MatrixWaitlistDOM>
+  );
+}
+
+const RowWaitlistDOM = styled.div`
+  em {
+    font-style: italic;
+  }
+  > div > h2 {
+    padding: 0.333em;
+    font-size: 1.5em;
+  }
+`;
+RowWaitlistDOM.Category = styled.div`
+  padding: 1em 0.5em;
+  display: flex;
+  overflow-x: auto;
+
+  > div {
+    margin: 0 0.75em;
+  }
+`;
+
+function RowWaitlist({ waitlist }) {
+  var categories = [];
+  var categoryIndex = {};
+  _.forEach(waitlist.categories, (category, i) => {
+    categories.push([category, []]);
+    categoryIndex[category] = i;
+  });
+  _.forEach(waitlist.waitlist, (entry) => {
+    _.forEach(entry.fits, (fit) => {
+      const categoryI = categoryIndex[fit.category];
+      categories[categoryI][1].push(
+        <div key={fit.id}>
+          <XCard key={fit.id} entry={entry} fit={fit} />
+        </div>
+      );
+    });
+  });
+  return (
+    <>
+      <RowWaitlistDOM>
+        {categories.map((category) => (
+          <div key={category[0]}>
+            <h2>{category[0]}</h2>
+            <RowWaitlistDOM.Category>
+              {category[1]}
+              {category[1].length ? null : <em>Nobody here!</em>}
+            </RowWaitlistDOM.Category>
+          </div>
+        ))}
+      </RowWaitlistDOM>
+    </>
   );
 }
