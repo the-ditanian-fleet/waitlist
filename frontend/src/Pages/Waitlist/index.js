@@ -295,18 +295,19 @@ function MatrixWaitlist({ waitlist }) {
 }
 
 const RowWaitlistDOM = styled.div`
+  overflow-x: auto;
+
   em {
     font-style: italic;
   }
   > div > h2 {
-    padding: 0.333em;
+    padding: 0.333em 0 0 0.333em;
     font-size: 1.5em;
   }
 `;
 RowWaitlistDOM.Category = styled.div`
-  padding: 1em 0.5em;
+  padding: 0.5em 0.5em;
   display: flex;
-  overflow-x: auto;
 
   > div {
     margin: 0 0.75em;
