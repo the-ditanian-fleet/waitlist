@@ -86,6 +86,9 @@ XCardDOM.Content = styled.div`
     margin-right: 0.5em;
     align-self: flex-start;
   }
+  a {
+    cursor: pointer;
+  }
 `;
 XCardDOM.Footer = styled.div`
   display: flex;
