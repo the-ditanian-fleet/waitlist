@@ -43,6 +43,7 @@ NavBar.Link = styled(NavLink).attrs((props) => ({
 NavBar.End = styled.div`
   margin-left: auto;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 `;
 

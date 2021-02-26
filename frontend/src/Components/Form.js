@@ -89,6 +89,7 @@ export const Textarea = styled.textarea`
 
 export const InputGroup = styled.div`
   display: flex;
+  flex-wrap: wrap;
 
   > * {
     z-index: 1;
@@ -116,6 +117,7 @@ export const InputGroup = styled.div`
 
 export const Buttons = styled.div`
   display: flex;
+  flex-wrap: wrap;
 
   > * {
     margin-bottom: 0.5em;
