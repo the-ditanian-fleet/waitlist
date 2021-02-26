@@ -81,6 +81,10 @@ export const Select = styled.select`
 export const Textarea = styled.textarea`
   ${inputStyle}
   padding: 1em;
+
+  &:focus::placeholder {
+    color: transparent;
+  }
 `;
 
 export const InputGroup = styled.div`
