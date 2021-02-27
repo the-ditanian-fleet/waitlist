@@ -14,6 +14,7 @@ import {
   faExternalLinkAlt,
   faStream,
   faPlus,
+  faExclamationTriangle,
 } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 
@@ -86,9 +87,12 @@ XCardDOM.Head.Badges = styled.div`
   margin-left: auto;
   display: flex;
   flex-shrink: 0;
+  align-items: center;
+  > * {
+    margin-left: 0.25em;
+  }
   img {
     height: 1.5em;
-    margin-right: 0.25em;
   }
 `;
 XCardDOM.Content = styled.div`
@@ -265,6 +269,12 @@ export function XCard({ entry, fit, onAction }) {
     }
   });
 
+  const approvalFlag = fit.approved ? null : (
+    <span title="Pending approval">
+      <FontAwesomeIcon icon={faExclamationTriangle} />
+    </span>
+  );
+
   return (
     <XCardDOM variant={isSelf ? "success" : needsApproval ? "warning" : "secondary"}>
       <XCardDOM.Head>
@@ -275,6 +285,7 @@ export function XCard({ entry, fit, onAction }) {
         )}
         <XCardDOM.Head.Badges>
           {tagImages}
+          {approvalFlag}
           <TimeDisplay relativeTo={entry.joined_at} />
         </XCardDOM.Head.Badges>
       </XCardDOM.Head>
