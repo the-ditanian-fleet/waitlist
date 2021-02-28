@@ -3,6 +3,7 @@ import { AuthContext } from "../../Auth";
 import { useLocation } from "react-router-dom";
 import { Badge } from "../../Components/Badge";
 import { InputGroup, Button } from "../../Components/Form";
+import { SkillHistory } from "./SkillHistory";
 
 import styled from "styled-components";
 
@@ -287,6 +288,7 @@ export function Skills() {
       ) : (
         <DpsSkills group={group} mySkills={mySkills} />
       )}
+      <SkillHistory characterId={characterId} />
     </>
   );
 }
