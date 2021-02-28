@@ -1,6 +1,6 @@
 from flask import Blueprint, g
 from . import auth
-from .data import skills, esi
+from .data import skills
 from .data.database import Character
 from .webutil import ViewReturn
 
@@ -25,13 +25,3 @@ def get_skills() -> ViewReturn:
         "ids": skills.SKILL_IDS,
         "character_name": character.name,
     }
-
-
-@bp.route("/api/implants")
-@auth.login_required
-def implants() -> ViewReturn:
-    return dict(
-        implants=esi.get(
-            "/v2/characters/%d/implants/" % g.character_id, g.character_id
-        ).json()
-    )
