@@ -139,6 +139,7 @@ class WaitlistEntryFit(Base):
     fit_id = Column(Integer, ForeignKey("fitting.id"), nullable=False)
     implant_set_id = Column(Integer, ForeignKey("implant_set.id"), nullable=False)
     approved = Column(Boolean, nullable=False)
+    reject_reason = Column(Text, nullable=True)
     tags = Column(String(255), nullable=False)
     category = Column(String(10), nullable=False)
     fit_analysis = Column(Text, nullable=True)

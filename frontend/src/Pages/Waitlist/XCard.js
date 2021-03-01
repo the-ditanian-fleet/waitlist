@@ -16,6 +16,7 @@ import {
   faPlus,
   faExclamationTriangle,
   faInfoCircle,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 
@@ -32,6 +33,15 @@ async function approveFit(id) {
   const result = await fetch("/api/waitlist/approve", {
     method: "POST",
     body: JSON.stringify({ id: id }),
+    headers: { "Content-Type": "application/json" },
+  });
+  return await result.text();
+}
+
+async function rejectFit(id, reject_reason) {
+  const result = await fetch("/api/waitlist/reject", {
+    method: "POST",
+    body: JSON.stringify({ id, reject_reason }),
     headers: { "Content-Type": "application/json" },
   });
   return await result.text();
@@ -122,6 +132,15 @@ XCardDOM.Footer = styled.div`
     flex-grow: 1;
     flex-basis: 0;
   }
+`;
+XCardDOM.Rejection = styled.div`
+  padding: 0.5em;
+  margin: 0.5em;
+  width: 100%;
+  text-align: center;
+  background-color: ${(props) => props.theme.colors.danger.color};
+  border-radius: 5px;
+  color: ${(props) => props.theme.colors.danger.text};
 `;
 
 function FitDisplay({ name, dna }) {
@@ -277,7 +296,11 @@ export function XCard({ entry, fit, onAction }) {
   );
 
   return (
-    <XCardDOM variant={isSelf ? "success" : needsApproval ? "warning" : "secondary"}>
+    <XCardDOM
+      variant={
+        fit.reject_reason ? "danger" : isSelf ? "success" : needsApproval ? "warning" : "secondary"
+      }
+    >
       <XCardDOM.Head>
         {entry.character ? (
           <a href={"char:" + entry.character.id}>{accountName}</a>
@@ -298,6 +321,11 @@ export function XCard({ entry, fit, onAction }) {
           <Badge key={tag}>{tag}</Badge>
         ))}
       </XCardDOM.Content>
+      {fit.reject_reason ? (
+        <XCardDOM.Content>
+          <XCardDOM.Rejection>{fit.reject_reason}</XCardDOM.Rejection>
+        </XCardDOM.Content>
+      ) : null}
       <XCardDOM.Footer>
         {entry.can_remove ? (
           <a
@@ -338,14 +366,31 @@ export function XCard({ entry, fit, onAction }) {
                 <FontAwesomeIcon icon={faPlus} />
               </a>
             ) : (
-              <a
-                title="Approve"
-                onClick={(evt) =>
-                  approveFit(fit.id).then(onAction).catch(genericCatch(toastContext))
-                }
-              >
-                <FontAwesomeIcon icon={faCheck} />
-              </a>
+              <>
+                <a
+                  title="Reject"
+                  onClick={(evt) => {
+                    var rejectionReason = prompt(
+                      "Why is the fit being rejected? (Will be displayed to pilot)"
+                    );
+                    if (rejectionReason) {
+                      rejectFit(fit.id, rejectionReason)
+                        .then(onAction)
+                        .catch(genericCatch(toastContext));
+                    }
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTimes} />
+                </a>
+                <a
+                  title="Approve"
+                  onClick={(evt) =>
+                    approveFit(fit.id).then(onAction).catch(genericCatch(toastContext))
+                  }
+                >
+                  <FontAwesomeIcon icon={faCheck} />
+                </a>
+              </>
             )}
           </>
         ) : null}

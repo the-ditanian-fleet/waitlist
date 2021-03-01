@@ -86,6 +86,8 @@ def get_waitlist() -> ViewReturn:
                 fit["tags"] = tags
                 if fitentry.fit_analysis:
                     fit["fit_analysis"] = _add_ids(json.loads(fitentry.fit_analysis))
+                if fitentry.reject_reason:
+                    fit["reject_reason"] = fitentry.reject_reason
             else:
                 fit["tags"] = list(filter(lambda tag: tag in tdf.PUBLIC_TAGS, tags))
             fits.append(fit)
@@ -207,6 +209,25 @@ def approve() -> ViewReturn:
         g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == fit_entry_id).one()
     )
     fit_entry.approved = True
+    fit_entry.reject_reason = None
+    g.db.commit()
+
+    notify_waitlist_update(fit_entry.entry.waitlist_id)
+
+    return "OK"
+
+
+@bp.route("/api/waitlist/reject", methods=["POST"])
+@auth.login_required
+@auth.admin_only
+def reject() -> ViewReturn:
+    fit_entry_id = request.json["id"]
+
+    fit_entry = (
+        g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == fit_entry_id).one()
+    )
+    fit_entry.approved = False
+    fit_entry.reject_reason = str(request.json["reject_reason"])
     g.db.commit()
 
     notify_waitlist_update(fit_entry.entry.waitlist_id)
