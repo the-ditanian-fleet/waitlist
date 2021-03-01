@@ -120,4 +120,14 @@ const theme = {
   }),
 };
 
+theme.ninjaholic = _.merge({}, theme.dark, {
+  colors: {
+    background: "#290052",
+    accent1: "#380070",
+    accent2: "#4f009e",
+    accent3: "#8c1aff",
+    accent4: "#bf80ff",
+  },
+});
+
 export default theme;
