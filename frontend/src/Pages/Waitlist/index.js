@@ -6,6 +6,7 @@ import _ from "lodash";
 import { XCard } from "./XCard";
 import { InputGroup, Button, Buttons, NavButton } from "../../Components/Form";
 import { AuthContext } from "../../Auth";
+import { NotepadWaitlist } from "./NotepadWaitlist";
 
 function coalesceCalls(func, wait) {
   var timer = null;
@@ -119,6 +120,11 @@ export function Waitlist() {
           <Button active={displayMode === "rows"} onClick={(evt) => setDisplayMode("rows")}>
             Rows
           </Button>
+          {authContext.is_admin ? (
+            <Button active={displayMode === "notepad"} onClick={(evt) => setDisplayMode("notepad")}>
+              Notepad
+            </Button>
+          ) : null}
         </InputGroup>
       </Buttons>
       {displayMode === "columns" ? (
@@ -131,6 +137,8 @@ export function Waitlist() {
         <MatrixWaitlist waitlist={waitlistData} />
       ) : displayMode === "rows" ? (
         <RowWaitlist waitlist={waitlistData} />
+      ) : displayMode === "notepad" ? (
+        <NotepadWaitlist waitlist={waitlistData} />
       ) : null}
     </>
   );
