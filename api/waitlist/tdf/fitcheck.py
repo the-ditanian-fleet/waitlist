@@ -33,6 +33,7 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
         self.base_implants: Optional[str] = None
         self.fit: Optional[fits.FitSpec] = None
         self.fitcheck: Optional[fits.CheckResult] = None
+        self.disable_approval = False
 
     def _add_tag(self, tag: str) -> None:
         self.result.tags.add(tag)
@@ -41,6 +42,7 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
         if not skills.has_minimum_comps(self.skills):
             self.result.errors.append("Missing minimum Armor Compensation skills")
         elif not skills.skillcheck(self.ship, self.skills, "min"):
+            self.disable_approval = True
             self._add_tag("NO-MINSKILLS")
         elif skills.skillcheck(self.ship, self.skills, "gold"):
             self._add_tag("GOLD-SKILLS")
@@ -157,18 +159,24 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
                 self.result.category = then_category
                 return
 
-    def set_approval(self) -> None:
-        if "NO-MINSKILLS" in self.result.tags:
-            return
-        if self.fitcheck and self.fitcheck.is_ok:
-            self.result.approved = True
-
     def check_banned_modules(self) -> None:
         for module_id in BANNED_MODULES:
             if self.modules.get(module_id, 0):
                 self.result.errors.append(
                     "Fit contains banned module: %s" % name_of(module_id)
                 )
+
+    def check_logi_implants(self) -> None:
+        if self.ship in [id_of("Nestor"), id_of("Guardian")]:
+            if not id_of("% EM-806", fuzzy=True) in self.implants:
+                self.disable_approval = True
+                self._add_tag("NO-EM-806")
+
+    def set_approval(self) -> None:
+        if self.disable_approval:
+            return
+        if self.fitcheck and self.fitcheck.is_ok:
+            self.result.approved = True
 
     def merge_tags(self) -> None:
         tags = self.result.tags  # Alias, not a copy
@@ -188,6 +196,7 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
         self.check_fit()
         self.check_category()
         self.check_banned_modules()
+        self.check_logi_implants()
         self.set_approval()
         self.merge_tags()
         return self.result
