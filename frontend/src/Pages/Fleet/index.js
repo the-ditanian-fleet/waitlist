@@ -3,7 +3,7 @@ import { AuthContext } from "../../Auth";
 import { genericCatch, ToastContext, toastHttp } from "../../Toast";
 import { Confirm } from "../../Components/Modal";
 import { Button, Buttons, NavButton } from "../../Components/Form";
-import { Content } from "../../Components/Content";
+import { Content } from "../../Components/Page";
 
 async function setWaitlistOpen(waitlistId, isOpen) {
   return await fetch("/api/waitlist/set_open", {
@@ -143,6 +143,7 @@ function FleetMembers() {
                 <td>{member.ship.name}</td>
                 <td>
                   <NavButton to={"/skills?character_id=" + member.id}>Skills</NavButton>
+                  <NavButton to={"/pilot?character_id=" + member.id}>Information</NavButton>
                 </td>
               </tr>
             ))}

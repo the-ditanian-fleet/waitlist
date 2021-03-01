@@ -1,4 +1,4 @@
-import { Content } from "../../Components/Content";
+import { Content } from "../../Components/Page";
 import { Textarea } from "../../Components/Form";
 import _ from "lodash";
 

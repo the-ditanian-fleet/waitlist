@@ -27,7 +27,7 @@ def get_skills() -> ViewReturn:
     }
 
 
-@bp.route("/api/skills/history")
+@bp.route("/api/history/skills")
 @auth.login_required
 @auth.select_character(admin_ok=True)
 def get_skills_history() -> ViewReturn:

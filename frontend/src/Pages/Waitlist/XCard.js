@@ -15,6 +15,7 @@ import {
   faStream,
   faPlus,
   faExclamationTriangle,
+  faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 
@@ -321,6 +322,9 @@ export function XCard({ entry, fit, onAction }) {
             </a>
             <NavLink title="Show skills" to={"/skills?character_id=" + fit.character.id}>
               <FontAwesomeIcon icon={faStream} />
+            </NavLink>
+            <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
+              <FontAwesomeIcon icon={faInfoCircle} />
             </NavLink>
             {fit.approved ? (
               <a

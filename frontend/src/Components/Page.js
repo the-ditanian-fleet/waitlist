@@ -20,13 +20,24 @@ export const Content = styled.div`
 
   h1 {
     font-size: 3em;
+    margin-bottom: 0.5em;
   }
 
   h2 {
     font-size: 1.5em;
+    font-weight: bold;
   }
 
   h3 {
     font-size: 1.2em;
   }
+`;
+
+export const PageTitle = styled.h1`
+  font-size: 3em;
+  margin-bottom: 0.5em;
+`;
+
+export const Title = styled.h2`
+  font-size: 1.5em;
 `;

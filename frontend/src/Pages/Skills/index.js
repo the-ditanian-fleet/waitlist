@@ -3,16 +3,11 @@ import { AuthContext } from "../../Auth";
 import { useLocation } from "react-router-dom";
 import { Badge } from "../../Components/Badge";
 import { InputGroup, Button } from "../../Components/Form";
-import { SkillHistory } from "./SkillHistory";
+import { PageTitle } from "../../Components/Page";
 
 import styled from "styled-components";
 
 const SkillDom = {};
-
-SkillDom.Title = styled.h1`
-  font-size: 3em;
-  margin-bottom: 0.5em;
-`;
 
 SkillDom.Category = styled.div`
   display: flex;
@@ -263,7 +258,7 @@ export function Skills() {
   var mySkills = skills[characterId];
   return (
     <>
-      <SkillDom.Title>Skills for {mySkills.character_name}</SkillDom.Title>
+      <PageTitle>Skills for {mySkills.character_name}</PageTitle>
       <InputGroup style={{ marginBottom: "1em" }}>
         <Button onClick={(evt) => setGroup("min")} active={group === "min"}>
           Minimum skills
@@ -288,7 +283,6 @@ export function Skills() {
       ) : (
         <DpsSkills group={group} mySkills={mySkills} />
       )}
-      <SkillHistory characterId={characterId} />
     </>
   );
 }

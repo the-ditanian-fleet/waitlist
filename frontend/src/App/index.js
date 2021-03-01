@@ -4,6 +4,7 @@ import { Skills } from "../Pages/Skills";
 import { Waitlist } from "../Pages/Waitlist";
 import { Fleet, FleetRegister } from "../Pages/Fleet";
 import { Xup } from "../Pages/Xup";
+import { Pilot } from "../Pages/Pilot";
 import { Authenticate, AuthContext } from "../Auth";
 import { ToastContext, ToastDisplay } from "../Toast";
 import { EventContext } from "../Event";
@@ -27,6 +28,12 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${(props) => props.theme.font.family};
     line-height: 1.5;
     font-weight: 400;
+  }
+  em, i {
+    font-style: italic;
+  }
+  strong, b {
+    font-weight: bold;
   }
 `;
 
@@ -129,6 +136,9 @@ export default class App extends React.Component {
                       </Route>
                       <Route exact path="/xup">
                         <Xup />
+                      </Route>
+                      <Route exact path="/pilot">
+                        <Pilot />
                       </Route>
                       <Route exact path="/">
                         <Waitlist />
