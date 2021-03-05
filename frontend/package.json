@@ -10,11 +10,11 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.2",
+    "react-scripts": "4.0.3",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
-    "eslint": "^7.19.0",
+    "eslint": "^7.21.0",
     "eslint-plugin-react": "^7.22.0",
     "prettier": "^2.2.1"
   },
