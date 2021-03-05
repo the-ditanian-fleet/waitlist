@@ -2,7 +2,7 @@ from typing import List, Dict, Set, Optional, Any
 import yaml
 from ..eft2dna import split_dna
 from ..data.evedb import id_of, name_of
-from . import skills, fits, modules
+from . import skills, fits, modules, implants
 
 BANNED_MODULES = modules.load_banned()
 
@@ -24,10 +24,10 @@ class FitCheckResult:  # pylint: disable=too-few-public-methods
 
 
 class FitChecker:  # pylint: disable=too-many-instance-attributes
-    def __init__(self, dna: str, skilldata: Dict[int, int], implants: List[int]):
+    def __init__(self, dna: str, skilldata: Dict[int, int], implantdata: List[int]):
         self.ship, self.modules, self.cargo = split_dna(dna)
         self.skills = skilldata
-        self.implants = implants
+        self.implants = implantdata
 
         self.result = FitCheckResult()
         self.base_implants: Optional[str] = None
@@ -49,74 +49,10 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
         elif skills.skillcheck(self.ship, self.skills, "elite"):
             self._add_tag("ELITE-SKILLS")
 
-    def check_implants(self) -> None:  # pylint: disable=too-many-branches
-        have_slots = {7: False, 8: False, 9: False, 10: False}
+    def check_implants(self) -> None:
+        self.base_implants, is_full = implants.detect_implants(self.ship, self.implants)
 
-        # Base set, slot 1-6
-        if (
-            id_of("High-grade Amulet Alpha") in self.implants
-            and id_of("High-grade Amulet Beta") in self.implants
-            and id_of("High-grade Amulet Gamma") in self.implants
-            and id_of("High-grade Amulet Delta") in self.implants
-            and id_of("High-grade Amulet Epsilon") in self.implants
-        ):
-            if id_of("% WS-618", fuzzy=True) in self.implants:
-                self.base_implants = "HYBRID"
-            elif id_of("High-grade Amulet Omega") in self.implants:
-                self.base_implants = "AMULET"
-
-        if (
-            id_of("High-grade Ascendancy Alpha") in self.implants
-            and id_of("High-grade Ascendancy Beta") in self.implants
-            and id_of("High-grade Ascendancy Gamma") in self.implants
-            and id_of("High-grade Ascendancy Delta") in self.implants
-            and id_of("High-grade Ascendancy Epsilon") in self.implants
-        ):
-            if id_of("% WS-618", fuzzy=True) in self.implants:
-                self.base_implants = "WARPSPEED"
-            elif id_of("High-grade Ascendancy Omega") in self.implants:
-                self.base_implants = "WARPSPEED"
-
-        # Slot 7
-        for implant in ["Ogdin's Eye %", "% MR-706"]:
-            if id_of(implant, fuzzy=True) in self.implants:
-                have_slots[7] = True
-
-        # Slot 8
-        if id_of("% EM-806", fuzzy=True) in self.implants:
-            have_slots[8] = True
-        if id_of("% MR-807", fuzzy=True) in self.implants and self.ship == id_of(
-            "Vindicator"
-        ):
-            have_slots[8] = True
-
-        # Slot 9
-        for implant in [
-            "% RF-906",
-            "% SS-906",
-            "Pashan's Turret Customization Mindlink",
-        ]:
-            if id_of(implant, fuzzy=True) in self.implants:
-                have_slots[9] = True
-
-        # Slot 10
-        if self.ship in [id_of("Nightmare"), id_of("Paladin")]:
-            if id_of("% LE-1006", fuzzy=True) in self.implants:
-                have_slots[10] = True
-            if id_of("Pashan's Turret Handling Mindlink") in self.implants:
-                have_slots[10] = True
-        elif (
-            self.ship == id_of("Vindicator")
-            and id_of("% LH-1006", fuzzy=True) in self.implants
-        ):
-            have_slots[10] = True
-        elif self.ship == id_of("Leshak"):
-            if id_of("% HG-1006", fuzzy=True) in self.implants:
-                have_slots[10] = True
-            if id_of("% HG-1008", fuzzy=True) in self.implants:
-                have_slots[10] = True
-
-        if self.base_implants and all(have_slots.values()):
+        if self.base_implants and is_full:
             self._add_tag("%s1-10" % self.base_implants)
 
     def check_fit(self) -> None:
@@ -150,7 +86,8 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
 
     def check_category(self) -> None:
         if "NO-MINSKILLS" in self.result.tags:
-            self.result.category = "starter"
+            if self.result.category != "logi":
+                self.result.category = "starter"
             return
 
         items = {self.ship: 1, **self.modules}
@@ -203,6 +140,6 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
 
 
 def check_fit(
-    dna: str, skilldata: Dict[int, int], implants: List[int]
+    dna: str, skilldata: Dict[int, int], implantdata: List[int]
 ) -> FitCheckResult:
-    return FitChecker(dna, skilldata, implants).run()
+    return FitChecker(dna, skilldata, implantdata).run()
