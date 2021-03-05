@@ -35,7 +35,7 @@ def detect_implants(
     # Slot 10
     have_slots[10] = _have_slot10(ship, implants)
 
-    return base_set, all(have_slots)
+    return base_set, all(have_slots.values())
 
 
 def _have_slot10(ship: int, implants: List[int]) -> bool:
@@ -50,10 +50,10 @@ def _have_slot10(ship: int, implants: List[int]) -> bool:
             return True
         if id_of("Pashan's Turret Handling Mindlink") in implants:
             return True
-    elif ship == id_of("Vindicator") or anything_goes:
+    if ship == id_of("Vindicator") or anything_goes:
         if id_of("% LH-1006", fuzzy=True) in implants:
             return True
-    elif ship == id_of("Leshak") or anything_goes:
+    if ship == id_of("Leshak") or anything_goes:
         if id_of("% HG-1006", fuzzy=True) in implants:
             return True
         if id_of("% HG-1008", fuzzy=True) in implants:
