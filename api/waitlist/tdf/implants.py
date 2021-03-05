@@ -33,20 +33,33 @@ def detect_implants(
             have_slots[9] = True
 
     # Slot 10
-    if ship in [id_of("Nightmare"), id_of("Paladin")]:
-        if id_of("% LE-1006", fuzzy=True) in implants:
-            have_slots[10] = True
-        if id_of("Pashan's Turret Handling Mindlink") in implants:
-            have_slots[10] = True
-    elif ship == id_of("Vindicator") and id_of("% LH-1006", fuzzy=True) in implants:
-        have_slots[10] = True
-    elif ship == id_of("Leshak"):
-        if id_of("% HG-1006", fuzzy=True) in implants:
-            have_slots[10] = True
-        if id_of("% HG-1008", fuzzy=True) in implants:
-            have_slots[10] = True
+    have_slots[10] = _have_slot10(ship, implants)
 
     return base_set, all(have_slots)
+
+
+def _have_slot10(ship: int, implants: List[int]) -> bool:
+    anything_goes = ship in [
+        id_of("Nestor"),
+        id_of("Guardian"),
+        id_of("Oneiros"),
+    ]
+
+    if ship in [id_of("Nightmare"), id_of("Paladin")] or anything_goes:
+        if id_of("% LE-1006", fuzzy=True) in implants:
+            return True
+        if id_of("Pashan's Turret Handling Mindlink") in implants:
+            return True
+    elif ship == id_of("Vindicator") or anything_goes:
+        if id_of("% LH-1006", fuzzy=True) in implants:
+            return True
+    elif ship == id_of("Leshak") or anything_goes:
+        if id_of("% HG-1006", fuzzy=True) in implants:
+            return True
+        if id_of("% HG-1008", fuzzy=True) in implants:
+            return True
+
+    return False
 
 
 def _detect_base(implants: List[int]) -> Optional[str]:
