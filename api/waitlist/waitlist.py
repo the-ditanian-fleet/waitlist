@@ -128,6 +128,9 @@ def xup() -> ViewReturn:
         g.db.query(Waitlist).filter(Waitlist.id == request.json["waitlist_id"]).one()
     )
 
+    if not waitlist.is_open:
+        return "Waitlist is closed", 400
+
     waitlist_entry = (
         g.db.query(WaitlistEntry)
         .filter(
