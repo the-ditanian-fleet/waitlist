@@ -137,4 +137,11 @@ theme.ninjaholic = _.merge({}, theme.dark, {
   },
 });
 
+theme["Midnight Blue"] = _.merge({}, theme.dark, {
+  colors: {
+    background: "#0a0a2c",
+    accent1: "#0e0e54",
+  },
+});
+
 export default theme;
