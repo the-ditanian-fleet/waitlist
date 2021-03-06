@@ -85,16 +85,15 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
         self.result.fit_check["_ids"] = sorted(list(fit_check_ids))
 
     def check_category(self) -> None:
-        if "NO-MINSKILLS" in self.result.tags:
-            if self.result.category != "logi":
-                self.result.category = "starter"
-            return
-
         items = {self.ship: 1, **self.modules}
         for item_id, then_category in CATEGORY_RULES:
             if items.get(item_id, 0):
                 self.result.category = then_category
-                return
+                break
+
+        if "NO-MINSKILLS" in self.result.tags:
+            if self.result.category != "logi":
+                self.result.category = "starter"
 
     def check_banned_modules(self) -> None:
         for module_id in BANNED_MODULES:
