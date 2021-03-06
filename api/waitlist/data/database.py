@@ -206,4 +206,11 @@ class SkillHistory(Base):
     character = relationship("Character")
 
 
+class Ban(Base):
+    __tablename__ = "ban"
+    kind = Column(String(10), nullable=False, primary_key=True)
+    id = Column(BigInteger, nullable=False, primary_key=True)
+    expires_at = Column(DateTime)
+
+
 Base.metadata.create_all(engine)

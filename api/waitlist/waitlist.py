@@ -1,6 +1,8 @@
-from typing import Dict, List, Tuple, Any
+from typing import Dict, List, Tuple, Any, Optional
 import json
+import datetime
 from flask import Blueprint, request, g
+from sqlalchemy import or_, and_
 
 from . import auth, eft2dna, tdf
 from .data import messager, skills, esi, evedb, implants
@@ -14,6 +16,7 @@ from .data.database import (
     FleetSquad,
     FitHistory,
     ImplantSet,
+    Ban,
 )
 from .webutil import ViewReturn
 
@@ -112,6 +115,27 @@ def get_waitlist() -> ViewReturn:
     }
 
 
+def _am_i_banned() -> bool:
+    esi_info = esi.get("/v4/characters/%d/" % g.character_id, g.character_id).json()
+    corporation_id: Optional[int] = esi_info.get("corporation_id", None)
+    alliance_id: Optional[int] = esi_info.get("alliance_id", None)
+
+    conditions = [and_(Ban.kind == "character", Ban.id == g.character_id)]
+    if corporation_id:
+        conditions.append(and_(Ban.kind == "corporation", Ban.id == corporation_id))
+    if alliance_id:
+        conditions.append(and_(Ban.kind == "alliance", Ban.id == alliance_id))
+
+    for ban_record in g.db.query(Ban).filter(or_(*conditions)):
+        if (
+            not ban_record.expires_at
+            or ban_record.expires_at > datetime.datetime.utcnow()
+        ):
+            return True
+
+    return False
+
+
 @bp.route("/api/waitlist/xup", methods=["POST"])
 @auth.login_required
 @auth.select_character()
@@ -130,6 +154,9 @@ def xup() -> ViewReturn:
 
     if not waitlist.is_open:
         return "Waitlist is closed", 400
+
+    if _am_i_banned():
+        return "Action not permitted (banned)", 400
 
     waitlist_entry = (
         g.db.query(WaitlistEntry)
