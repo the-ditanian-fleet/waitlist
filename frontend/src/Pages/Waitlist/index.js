@@ -94,7 +94,7 @@ export function Waitlist() {
       <Buttons>
         <InputGroup>
           <NavButton variant={myEntry ? null : "primary"} to="/xup">
-            Join waitlist
+            {myEntry ? "Update fit(s)" : "Join waitlist"}
           </NavButton>
           <Button
             variant={myEntry ? "danger" : null}
