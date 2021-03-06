@@ -13,7 +13,11 @@ def search() -> ViewReturn:
     search_like = "%{}%".format(request.args["query"])
 
     results = []
-    for character in g.db.query(Character).filter(Character.name.like(search_like)):
+    for character in (
+        g.db.query(Character)
+        .filter(Character.name.like(search_like))
+        .order_by(Character.name.asc())
+    ):
         results.append(
             {
                 "id": character.id,
