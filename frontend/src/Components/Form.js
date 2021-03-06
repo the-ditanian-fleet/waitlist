@@ -67,6 +67,11 @@ export const NavButton = styled(NavLink).attrs((props) => ({
   line-height: 2.5em;
 `;
 
+export const Input = styled.input`
+  ${inputStyle}
+  height: 2.5em;
+`;
+
 export const Select = styled.select`
   ${inputStyle}
   height: 2.5em;

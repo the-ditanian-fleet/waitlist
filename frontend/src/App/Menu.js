@@ -61,9 +61,14 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
               Skills
             </NavBar.Link>
             {whoami.is_admin ? (
-              <NavBar.Link exact to="/fleet">
-                Fleet
-              </NavBar.Link>
+              <>
+                <NavBar.Link exact to="/fleet">
+                  Fleet
+                </NavBar.Link>
+                <NavBar.Link exact to="/search">
+                  Search
+                </NavBar.Link>
+              </>
             ) : null}
             <NavBar.End>
               <InputGroup style={{ marginRight: "2em" }}>

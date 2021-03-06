@@ -5,6 +5,7 @@ import { Waitlist } from "../Pages/Waitlist";
 import { Fleet, FleetRegister } from "../Pages/Fleet";
 import { Xup } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
+import { Search } from "../Pages/Search";
 import { Authenticate, AuthContext } from "../Auth";
 import { ToastContext, ToastDisplay } from "../Toast";
 import { EventContext } from "../Event";
@@ -139,6 +140,9 @@ export default class App extends React.Component {
                       </Route>
                       <Route exact path="/pilot">
                         <Pilot />
+                      </Route>
+                      <Route exact path="/search">
+                        <Search />
                       </Route>
                       <Route exact path="/">
                         <Waitlist />

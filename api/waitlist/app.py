@@ -13,6 +13,7 @@ from . import (
     window,
     pilot,
     xup_history,
+    search,
 )
 from .webutil import ViewReturn
 from .data import database, config
@@ -31,6 +32,7 @@ app.register_blueprint(sse.bp)
 app.register_blueprint(window.bp)
 app.register_blueprint(pilot.bp)
 app.register_blueprint(xup_history.bp)
+app.register_blueprint(search.bp)
 
 
 @app.route("/", defaults={"path": ""})
