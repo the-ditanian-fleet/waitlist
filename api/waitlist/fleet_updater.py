@@ -1,6 +1,7 @@
 import threading
 import time
 import logging
+from typing import Any, Dict
 import sqlalchemy
 from .data import messager, esi
 from .data.database import Session, Fleet, FleetSquad, WaitlistEntry, WaitlistEntryFit
@@ -17,7 +18,7 @@ def notify_waitlist_update(waitlist_id: int) -> None:
 
 def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
     try:
-        members = esi.get("/v1/fleets/%d/members" % fleet.id, fleet.boss_id).json()
+        members_raw = esi.get("/v1/fleets/%d/members" % fleet.id, fleet.boss_id).json()
     except (esi.HTTP404, esi.HTTP403):
         # Fleet no longer exists
         session.query(FleetSquad).filter(FleetSquad.fleet_id == fleet.id).delete()
@@ -25,9 +26,16 @@ def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
         session.commit()
         return
 
-    member_ids = set(member["character_id"] for member in members)
+    members = {member["character_id"]: member for member in members_raw}
 
+    _update_waitlist(session, members)
+
+
+def _update_waitlist(
+    session: sqlalchemy.orm.session.Session, members: Dict[int, Dict[str, Any]]
+) -> None:
     waitlist_ids = set()
+    member_ids = set(members.keys())
     for entry_fit in session.query(WaitlistEntryFit):
         if entry_fit.character_id in member_ids:
             session.query(WaitlistEntryFit).filter(
@@ -43,6 +51,7 @@ def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
                 waitlist_ids.add(entry.waitlist_id)
 
     session.commit()
+
     for waitlist_id in waitlist_ids:
         notify_waitlist_update(waitlist_id)
 
