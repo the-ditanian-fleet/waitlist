@@ -78,6 +78,11 @@ export function GuideIndex() {
           Information about badges
         </NavLink>
       </p>
+      <p>
+        <NavLink exact to="/guide/tips">
+          General tips
+        </NavLink>
+      </p>
     </Content>
   );
 }
