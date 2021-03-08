@@ -60,6 +60,9 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
             <NavBar.Link exact to="/skills">
               Skills
             </NavBar.Link>
+            <NavBar.Link exact to="/guide">
+              Guides
+            </NavBar.Link>
             {whoami.is_admin ? (
               <>
                 <NavBar.Link exact to="/fleet">
