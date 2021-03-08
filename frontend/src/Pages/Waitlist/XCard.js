@@ -20,13 +20,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 
+import wBadge from "../Guide/guides/badges/w.png";
+import hBadge from "../Guide/guides/badges/h.png";
+import aBadge from "../Guide/guides/badges/a.png";
+import eBadge from "../Guide/guides/badges/e.png";
+import egoldBadge from "../Guide/guides/badges/egold.png";
+import alphaBadge from "../Guide/guides/badges/alpha.png";
+
 const tagBadges = {
-  "WARPSPEED1-10": ["https://dir-x.net/tdf/badges/w.png", "Warp Speed Implants"],
-  "HYBRID1-10": ["https://dir-x.net/tdf/badges/h.png", "Hybrid Implants"],
-  "AMULET1-10": ["https://dir-x.net/tdf/badges/a.png", "Amulet Implants"],
-  ELITE: ["https://dir-x.net/tdf/badges/e.png", "Elite"],
-  "ELITE-GOLD": ["https://dir-x.net/tdf/badges/egold.png", "Elite GOLD"],
-  "NO-MINSKILLS": ["https://dir-x.net/tdf/badges/alpha.png", "Below minimum skills"],
+  "WARPSPEED1-10": [wBadge, "Warp Speed Implants"],
+  "HYBRID1-10": [hBadge, "Hybrid Implants"],
+  "AMULET1-10": [aBadge, "Amulet Implants"],
+  ELITE: [eBadge, "Elite"],
+  "ELITE-GOLD": [egoldBadge, "Elite GOLD"],
+  "NO-MINSKILLS": [alphaBadge, "Below minimum skills"],
 };
 
 async function approveFit(id) {
