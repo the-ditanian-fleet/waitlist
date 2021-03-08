@@ -167,6 +167,7 @@ class Fleet(Base):
     __tablename__ = "fleet"
     id = Column(BigInteger, nullable=False, primary_key=True)
     boss_id = Column(BigInteger, ForeignKey("character.id"), nullable=False)
+    is_updating = Column(Boolean)
 
     boss = relationship("Character")
 
