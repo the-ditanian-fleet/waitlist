@@ -1,8 +1,8 @@
-# TeamSpeak Badges
+# Badges
 
 ## Uses
 
-Badges are a tool in Teamspeak mostly for FCs to quickly see what the fleet composition looks like and to check a pilots fitting meets requirements. Used to quickly verify information about a pilot without the need for every FC to know exactly what every pilot has on every toon they have in the whole game.
+Badges are a tool mostly for FCs to quickly see what the fleet composition looks like and to check a pilots fitting meets requirements. Used to quickly verify information about a pilot without the need for every FC to know exactly what every pilot has on every toon they have in the whole game.
 
 And some people like them.
 
@@ -97,9 +97,9 @@ Permitted to fly Nestor Logistics.
 
 ![](alpha.png)
 
-### Alpha Account
+### Missing minimum skills
 
-The player is currently using an alpha account.
+The player is missing some important skills.
 
 ## Fleet Commanders
 
