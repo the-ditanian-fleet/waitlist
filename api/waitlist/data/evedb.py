@@ -1,7 +1,7 @@
 from typing import List, Dict
 import sqlite3
 
-DATABASE = sqlite3.connect("sqlite-latest.sqlite", check_same_thread=False)
+DATABASE = sqlite3.connect("sqlite-shrunk.sqlite", check_same_thread=False)
 
 ID_CACHE: Dict[str, int] = {}
 NAME_CACHE: Dict[int, str] = {}
