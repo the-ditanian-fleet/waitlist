@@ -4,7 +4,14 @@ import logging
 from typing import Any, Dict, Set
 import sqlalchemy
 from .data import messager, esi
-from .data.database import Session, Fleet, FleetSquad, WaitlistEntry, WaitlistEntryFit
+from .data.database import (
+    Session,
+    Fleet,
+    FleetSquad,
+    WaitlistEntry,
+    WaitlistEntryFit,
+    FleetActivity,
+)
 
 
 LOG = logging.getLogger(__name__)
@@ -32,6 +39,7 @@ def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
     members = {member["character_id"]: member for member in members_raw}
 
     waitlist_ids = _update_waitlist(session, members)
+    _update_activity(session, fleet, members)
 
     # (almost) All done!
     fleet.is_updating = False
@@ -62,6 +70,54 @@ def _update_waitlist(
                 waitlist_ids.add(entry.waitlist_id)
 
     return waitlist_ids
+
+
+def _update_activity(
+    session: sqlalchemy.orm.session.Session,
+    fleet: Fleet,
+    members: Dict[int, Dict[str, Any]],
+) -> None:
+    stored = {
+        activity.character_id: activity
+        for activity in session.query(FleetActivity)
+        .filter(FleetActivity.fleet_id == fleet.id, FleetActivity.has_left.in_([False]))
+        .order_by(FleetActivity.last_seen.asc())
+    }
+
+    current_time = int(time.time())
+
+    if len(members) < 8:
+        # Don't track anything if the fleet is very, very small
+        members = {}
+
+    for member in members.values():
+        character_id = member["character_id"]
+
+        # Detect ship changes: archive with has_left=True if it happens
+        if character_id in stored:
+            if stored[character_id].hull != member["ship_type_id"]:
+                stored[character_id].has_left = True
+                stored[character_id].last_seen = current_time
+                del stored[character_id]
+
+        if not character_id in stored:
+            stored[character_id] = FleetActivity(
+                character_id=character_id,
+                fleet_id=fleet.id,
+                first_seen=current_time,
+                last_seen=current_time,
+                hull=member["ship_type_id"],
+            )
+            session.add(stored[character_id])
+
+        this_entry = stored[character_id]
+        if current_time - this_entry.last_seen > 60:
+            # Reduce database writes by only writing once per minute
+            this_entry.last_seen = current_time
+
+    for stored_entry in stored.values():
+        if stored_entry.character_id not in members:
+            stored_entry.has_left = True
 
 
 def fleet_updater() -> None:

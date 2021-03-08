@@ -214,4 +214,18 @@ class Ban(Base):
     expires_at = Column(DateTime)
 
 
+class FleetActivity(Base):
+    __tablename__ = "fleet_activity"
+    id = Column(Integer, nullable=False, primary_key=True)
+    character_id = Column(BigInteger, ForeignKey("character.id"), nullable=False)
+    fleet_id = Column(BigInteger, nullable=False, index=True)
+
+    first_seen = Column(Integer, nullable=False)
+    last_seen = Column(Integer, nullable=False)
+    hull = Column(Integer, nullable=False)
+    has_left = Column(Boolean, default=False, nullable=False)
+
+    character = relationship("Character")
+
+
 Base.metadata.create_all(engine)
