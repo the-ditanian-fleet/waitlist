@@ -48,12 +48,21 @@ export function Waitlist() {
   const eventContext = React.useContext(EventContext);
   const [waitlistId, _setWaitlistId] = React.useState(1); //eslint-disable-line
   const [waitlistData, setWaitlistData] = React.useState(null);
-  const [displayMode, setDisplayMode] = React.useState("columns");
+  const [displayMode, writeDisplayMode] = React.useState(
+    (window.localStorage && window.localStorage.getItem("waitlistMode")) || "columns"
+  );
   const updateAndSet = React.useCallback(() => {
     fetch("/api/waitlist?waitlist_id=" + waitlistId)
       .then((response) => response.json())
       .then(setWaitlistData, genericCatch(toastContext));
   }, [waitlistId, setWaitlistData, toastContext]);
+
+  const setDisplayMode = (newMode) => {
+    if (window.localStorage) {
+      window.localStorage.setItem("waitlistMode", newMode);
+    }
+    writeDisplayMode(newMode);
+  };
 
   React.useEffect(() => {
     updateAndSet();
