@@ -64,6 +64,11 @@ export function GuideIndex() {
         </NavLink>
       </p>
       <p>
+        <NavLink exact to="/guide/xup">
+          First Fleet guide
+        </NavLink>
+      </p>
+      <p>
         <NavLink exact to="/guide/logi">
           Logistics guide
         </NavLink>
