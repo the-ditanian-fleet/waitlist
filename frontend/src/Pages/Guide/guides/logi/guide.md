@@ -36,7 +36,7 @@ To add a member of the fleet to your watchlist you simple right click their name
 
 You can also add an entire squad to your watchlist by right clicking on the squad commander position in the fleet window > add members to watch list.
 
-(add pics of a colour coded wl here as example)
+![](watchlist.png)
 
 ### Broadcasts
 
@@ -53,7 +53,7 @@ The broadcast buttons we use are:
 
 You should colour code these different broadcasts to make them easier to see. Click the menu on the top left of the fleet window to do this in the broadcast settings menu.
 
-(insert pic here)
+![](broadcasts.png)
 
 All armor/shield broadcasts should be locked up!
 
