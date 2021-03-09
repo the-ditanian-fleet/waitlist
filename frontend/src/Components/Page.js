@@ -3,7 +3,9 @@ import styled from "styled-components";
 export const Content = styled.div`
   color: ${(props) => props.theme.colors.text};
 
-  p {
+  p,
+  ul,
+  ol {
     margin-bottom: 1em;
     line-height: 1.5em;
   }
@@ -64,6 +66,8 @@ export const Content = styled.div`
   }
 
   ol {
+    list-style-type: number;
+    padding-left: 2em;
   }
 `;
 

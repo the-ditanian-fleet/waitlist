@@ -74,6 +74,11 @@ export function GuideIndex() {
         </NavLink>
       </p>
       <p>
+        <NavLink exact to="/guide/bastion">
+          Using Bastion
+        </NavLink>
+      </p>
+      <p>
         <NavLink exact to="/guide/badges">
           Information about badges
         </NavLink>
