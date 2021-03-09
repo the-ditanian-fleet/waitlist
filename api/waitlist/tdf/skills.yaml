@@ -294,7 +294,7 @@ ships:
       gold: 4
     - name: Micro Jump Drive Operation
       min: 3
-      elite: 5
+      elite: 4
       gold: 5
     - name: Medium Drone Operation
       min: 3
