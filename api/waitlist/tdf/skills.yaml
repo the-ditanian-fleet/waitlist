@@ -264,7 +264,7 @@ ships:
       gold: 5
     - name: Advanced Target Management
       elite: 3
-      gold: 3
+      gold: 5
     - name: Radar Sensor Compensation
       elite: 4
       gold: 5
