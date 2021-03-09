@@ -49,3 +49,5 @@ rules:
     category: sniper
   - item: Leshak
     category: leshak
+  - item: Kronos
+    category: cqc
