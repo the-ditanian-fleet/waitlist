@@ -5,6 +5,7 @@ from typing import Any, Dict, Set
 import sqlalchemy
 from .data import messager, esi
 from .data.database import (
+    Character,
     Session,
     Fleet,
     FleetSquad,
@@ -38,6 +39,7 @@ def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
 
     members = {member["character_id"]: member for member in members_raw}
 
+    _update_characters(session, fleet, members)
     waitlist_ids = _update_waitlist(session, members)
     _update_activity(session, fleet, members)
 
@@ -48,6 +50,32 @@ def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
     # Do this after releasing the lock, in case the notifications take a while
     for waitlist_id in waitlist_ids:
         notify_waitlist_update(waitlist_id)
+
+
+def _update_characters(
+    session: sqlalchemy.orm.session.Session,
+    fleet: Fleet,
+    members: Dict[int, Dict[str, Any]],
+) -> None:
+    "Ensure we have names for everyone in fleet stored"
+
+    in_db = {
+        character.id: True
+        for character in session.query(Character).filter(
+            Character.id.in_(members.keys())
+        )
+    }
+    for character_id in members.keys():
+        if character_id not in in_db:
+            character_info = esi.get(
+                "/v4/characters/%d/" % character_id, fleet.boss_id
+            ).json()
+            session.add(
+                Character(
+                    id=character_id,
+                    name=character_info["name"],
+                )
+            )
 
 
 def _update_waitlist(
