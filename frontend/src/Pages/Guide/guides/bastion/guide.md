@@ -1,43 +1,45 @@
 # Bastion guide
 
-Bastion is for experienced incursion runners only. What I mean by this if you don’t know any of the following don’t use bastion.
+With the Bastions of War changes, marauders now do double damage while in Bastion. This is obviously huge, but comes at the downside of being unable to receive reps from logi. This guide should cover most things you need to know to run Bastion whilst receving SRP.
 
-1.  How agro works in incursions
-2.  Know all incursion sites
-3.  Understands how logis work
-4.  Able to communicate with the FC
-5.  Knows the different Sansha
+Pilot error is NOT COVERED under SRP. If you Bastion by mistake at the wrong time, no SRP. If you jump out of rep range, no SRP.
 
-## General rules if you want srp
+Bastion is for experienced incursion runners only. This means to use it you MUST:
 
-1.  Auto repeat is off at all times
-2.  You do not bastion until agro is established on one target
-3.  If someone dies on grid you are to turn bastion off for the rest of the site or if in the middle of the site that wave (ask FC before using bastion if there is a death in fleet.)
-4.  Full hybrid or amulet pod required for SRP
-5.  Wait for agro to be on one ship before using a bastion mod at the start of the site.
-6.  No abysal plates on bastion ships
-7.  Be aware when you use the micro jump drive your ship does go to full speed. If you are going to bump someone else that is also jumping in front of you wait for them to jump before you do it yourself two people jumping while bumping nesters can’t help you when you’re 100km away so be aware of your surroundings.
-8.  Pilot error is not covered under SRP if you bastion by mistake at the wrong time no srp, if you jump out of rep range no srp
+1.  Know how aggro works in incursions.
+2.  Know all the incursion sites
+3.  Know how logistics work (espcially armor reps).
+4.  Know the different Sansha rats.
+5.  Be able to communicate with the FC.
+
+## General rules if you want SRP
+
+1.  Auto repeat is off at all times.
+2.  You do not Bastion until aggro is established on one target at the start of a wave/site.
+3.  If someone dies on-grid you are to turn Bastion off for the rest of the site.
+4.  Full Hybrid or Amulet pod is required for SRP.
+5.  No abyssal plates on Bastion ships.
+6.  Be aware when using the micro jump drive of your direction, and of bumps. If you jump poorly and die due to being out of logi range, this is pilot error and WILL NOT be covered under SRP. (Being bumped by another fleet member is also not covered under SRP). If you're not confident, DO NOT USE IT.
 
 ## TPPH
 
-Pally First two rooms activate bastion on beacon then jump after 1 cycle to get near the gate.
+Paladin: First two rooms, If CONFIDENT WITH MJD, burn AWAY from the gate for 2 microwarpdrive cycles, activate Bastion for 1 cycle, then turn around and jump to the gate. Otherwise, just burn to gate normally.
 
-Kronos First two rooms burn with microwardrive towards the gate after at max speed turn off micro and turn bastion on for 1 cycle to slide.
+Kronos: First two rooms, burn with microwarpdrive towards the gate after at max speed turn off micro and turn bastion on for 1 cycle to slide.
 
-Third room bastion on the beacon and then look towards 2nd and 3rd spawn and jump Burn 1 cycle back towards spawn.
+Third room (both): Bastion 1 cycle, then jump towards the left-upper side of the tower. Burn 1 microwarpdrive cycle back towards spawn. Paladins want to end up ABOVE the 2nd/3rd wave spawns.
 
 ## NRF
 
-Pally One cycle on beacon then angle up about 20 degrees and jump. (you want to try and put yourself between sniper targets for 2nd and 3rd wave) Stay here until last wave where on the last wave do once cycle of bastion then jump out to sniper targets
+Paladin: Bastion 1 cycle on the beacon, then angle up about 20 degrees and jump. (You want to try and put yourself between the sniper spawns for 2nd and 3rd wave). Stay here until last wave, where on the last wave do 1 cycle of Bastion, then jump towards sniper targets.
 
-Kronos Burn towards second wave CQC spawn 2 microwarpdrive at max speed doing a bastion slide. Put yourself between second and third wave and at the end of the 3rd wave burn over to final cqc anchor spot
+Kronos: Microwarpdrive to between second and third wave (the furthest small tower). At the end of the 3rd wave burn over to final wave CQC anchor spot.
 
 ## TCRC
 
-TCRCs are special as we know you’re mostly likely to grab agro because of your high dps if you get agro while in bastion speak up quick let fc know you’re in bastion and for how long so FC can watch you and can try and save you. If you have no mic you will type in fleet “FC in bastion out in ##” you should have already broadcasted for armor. 1 second before coming out you will hit spotted enemy so logi can start spamming reps. If you fail to do this, you will not get SRP.
+TCRCs are special as we know you’re mostly likely to grab aggro because of your high dps. If you get aggro while in Bastion speak up quickly, let the FC know you’re in Bastion, and for how long so FC can watch you and can try and save you. If you have no mic you will type in fleet “FC in bastion out in ##”, you should have already broadcasted for armor. 1 second before coming out you will hit spotted enemy so logi can start spamming reps. If you fail to do this, you will not get SRP.
 
-1.  after agro is on the meat shield and the meat shield is stable you are able to do one cycle on the beacon. (I’d recommend putting meat shield on your watch list because if you need to battlerep him do it!. If he dies and you’re in bastion you’re most likely next target and we can’t rep you)
-2.  during the one cycle kill tags after the cycle is done jump to the left of the tower
-3.  Wait for the agro swap from the meat shield to whoever but wait for full switch!!! Once this happens you should have enough time for one cycle if you are quick two but please get use to one cycle before trying two.
-4.  Keep doing the cycles after agro switch and don’t use bastion if tower is below 60% hull
+1.  After aggro is on the meat shield and the meat shield is stable you are able to do one cycle on the beacon. (I’d recommend putting meat shield on your watch list because if you need to battlerep him do it! If he dies and you’re in Bastion you’re most likely next target and we can’t rep you.)
+2.  During the one cycle kill tagged Deltoles/Outunis. After the cycle is done jump to the left of the tower.
+3.  WAIT for the aggro swap from the meat shield to whoever but wait for full switch!!! Once this happens you should have enough time for 1 cycle of bastion. If you are quick you CAN get 2 cycles but please get used to 1 cycle before trying 2.
+4.  After each FULL switch you can Bastion 1 cycle. DO NOT Bastion when the tower is in hull.
