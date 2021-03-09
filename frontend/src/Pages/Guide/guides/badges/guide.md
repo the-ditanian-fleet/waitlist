@@ -6,9 +6,24 @@ Badges are a tool mostly for FCs to quickly see what the fleet composition looks
 
 And some people like them.
 
-To attain an implant badge, mail any FC with a screenshot of the set. For others, mail an FC and they will start the process of you getting it.
+To attain an implant badge, ask an FC (not the active one) to check your implants. For others, ask an FC and they will start the process of you getting it.
 
 ## Implants
+
+![](h.png)
+
+### Hybrid Set
+
+    Slot 1: High-grade Amulet Alpha
+    Slot 2: High-grade Amulet Beta
+    Slot 3: High-grade Amulet Gamma
+    Slot 4: High-grade Amulet Delta
+    Slot 5: High-grade Amulet Epsilon
+    Slot 6: WS-618
+    Slot 7: Ogdin's Eye Coordination Enhancer or better
+    Slot 8: EM-806 or MR-807
+    Slot 9: RF-906 or better
+    Slot 10: LH-1006 or LE-1006 or better
 
 ![](a.png)
 
@@ -35,21 +50,6 @@ To attain an implant badge, mail any FC with a screenshot of the set. For others
     Slot 4: High-grade Ascendency Delta
     Slot 5: High-grade Ascendency Epsilon
     Slot 6: High-grade Ascendency Omega or WS-618
-    Slot 7: Ogdin's Eye Coordination Enhancer or better
-    Slot 8: EM-806 or MR-807
-    Slot 9: RF-906 or better
-    Slot 10: LH-1006 or LE-1006 or better
-
-![](h.png)
-
-### Hybrid Set
-
-    Slot 1: High-grade Amulet Alpha
-    Slot 2: High-grade Amulet Beta
-    Slot 3: High-grade Amulet Gamma
-    Slot 4: High-grade Amulet Delta
-    Slot 5: High-grade Amulet Epsilon
-    Slot 6: WS-618
     Slot 7: Ogdin's Eye Coordination Enhancer or better
     Slot 8: EM-806 or MR-807
     Slot 9: RF-906 or better
