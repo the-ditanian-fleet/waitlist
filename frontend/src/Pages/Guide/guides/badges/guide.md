@@ -139,4 +139,4 @@ Does this need explaining?
 
 ### Council Member
 
-Voted into council by the other Fleet Commanders of TDF.
+Member of the TDF council, which makes decisions that impact the community.
