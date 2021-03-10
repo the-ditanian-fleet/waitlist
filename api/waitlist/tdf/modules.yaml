@@ -101,6 +101,7 @@ from_meta: # Automagically determine alternatives. List the absolute minimum mod
 - Remote Tracking Computer II
 - Dark Blood Capacitor Power Relay
 - Imperial Navy Cap Recharger
+- True Sansha Power Diagnostic System
 
 from_meta_no_downgrade: # Same as above, but never allow downgrading.
 - Damage Control II
