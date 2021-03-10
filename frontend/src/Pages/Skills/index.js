@@ -3,8 +3,10 @@ import { AuthContext } from "../../Auth";
 import { useLocation } from "react-router-dom";
 import { Badge } from "../../Components/Badge";
 import { PageTitle } from "../../Components/Page";
+import { InputGroup, Button, Buttons } from "../../Components/Form";
 
 import styled from "styled-components";
+import _ from "lodash";
 
 const SkillDom = {};
 
@@ -12,17 +14,10 @@ SkillDom.Category = styled.div`
   display: flex;
   flex-wrap: wrap;
   > * {
-    flex-grow: 1;
+    flex-grow: 0;
     flex-basis: 25%;
     min-width: 280px;
   }
-`;
-
-SkillDom.Category.Name = styled.h2`
-  flex-basis: 100%;
-  font-size: 2em;
-  font-weight: 600;
-  margin-top: 10px;
 `;
 
 SkillDom.Table = styled.div`
@@ -50,6 +45,18 @@ SkillDom.Table.Row = styled.div`
     margin-left: auto;
   }
 `;
+
+const categoryOrder = [
+  "Tank",
+  "Engineering",
+  "Drones",
+  "Navigation",
+  "Gunnery",
+  "Targeting",
+  "Neural Enhancement",
+  "Spaceship Command",
+];
+const knownCategories = new Set(categoryOrder);
 
 const LevelIndicator = ({ current, skill }) => {
   if (current === 5) {
@@ -94,20 +101,23 @@ const LevelIndicator = ({ current, skill }) => {
   return null;
 };
 
-function SkillTable({ title, current, requirements, ids }) {
+function SkillTable({ title, current, requirements, ids, category }) {
   var entries = [];
-  requirements.forEach((skill) => {
-    var currentLevel = current[ids[skill.name]];
+  category.forEach((skillId) => {
+    if (!(skillId in requirements)) {
+      return;
+    }
+    const skill = requirements[skillId];
 
     entries.push(
-      <SkillDom.Table.Row key={skill.name}>
-        {skill.name} <LevelIndicator current={currentLevel} skill={skill} />
+      <SkillDom.Table.Row key={skillId}>
+        {ids[skillId]} <LevelIndicator current={current[skillId]} skill={skill} />
       </SkillDom.Table.Row>
     );
   });
 
   if (!entries.length) {
-    entries.push(<em key="noskills">No skill requirements.</em>);
+    return null;
   }
 
   return (
@@ -118,120 +128,29 @@ function SkillTable({ title, current, requirements, ids }) {
   );
 }
 
-export function DpsSkills({ mySkills }) {
-  return (
-    <>
-      <SkillDom.Category>
-        <SkillDom.Category.Name>All ships</SkillDom.Category.Name>
-        <SkillTable
-          title="Armor"
-          current={mySkills.current}
-          requirements={mySkills.requirements.global.armor}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Engineering"
-          current={mySkills.current}
-          requirements={mySkills.requirements.global.engineering}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Drones"
-          current={mySkills.current}
-          requirements={mySkills.requirements.global.drones}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Gunnery"
-          current={mySkills.current}
-          requirements={mySkills.requirements.global.gunnery}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Navigation"
-          current={mySkills.current}
-          requirements={mySkills.requirements.global.navigation}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Neural Enhancement"
-          current={mySkills.current}
-          requirements={mySkills.requirements.global.neural_enhancement}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Targeting"
-          current={mySkills.current}
-          requirements={mySkills.requirements.global.targeting}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Shields"
-          current={mySkills.current}
-          requirements={mySkills.requirements.global.shields}
-          ids={mySkills.ids}
-        />
-      </SkillDom.Category>
-      <SkillDom.Category>
-        <SkillDom.Category.Name>Ship-specific</SkillDom.Category.Name>
-        <SkillTable
-          title="Paladin"
-          current={mySkills.current}
-          requirements={mySkills.requirements.ships.Paladin}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Nightmare"
-          current={mySkills.current}
-          requirements={mySkills.requirements.ships.Nightmare}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Leshak"
-          current={mySkills.current}
-          requirements={mySkills.requirements.ships.Leshak}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Vindicator"
-          current={mySkills.current}
-          requirements={mySkills.requirements.ships.Vindicator}
-          ids={mySkills.ids}
-        />
-      </SkillDom.Category>
-    </>
-  );
-}
+export function SkillList({ mySkills, shipName }) {
+  const ids = _.invert(mySkills.ids);
 
-export function LogiSkills({ mySkills }) {
+  const categories = [...categoryOrder];
+  _.forEach(_.keys(mySkills.categories), (categoryName) => {
+    if (!knownCategories.has(categoryName)) {
+      categories.push(categoryName);
+    }
+  });
+
   return (
     <>
       <SkillDom.Category>
-        <SkillDom.Category.Name>Logistics</SkillDom.Category.Name>
-        <SkillTable
-          title="All ships"
-          current={mySkills.current}
-          requirements={mySkills.requirements.logi.all}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Guardian"
-          current={mySkills.current}
-          requirements={mySkills.requirements.ships.Guardian}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Oneiros"
-          current={mySkills.current}
-          requirements={mySkills.requirements.ships.Oneiros}
-          ids={mySkills.ids}
-        />
-        <SkillTable
-          title="Nestor"
-          current={mySkills.current}
-          requirements={mySkills.requirements.ships.Nestor}
-          ids={mySkills.ids}
-        />
+        {categories.map((category) => (
+          <SkillTable
+            key={category}
+            title={category}
+            current={mySkills.current}
+            requirements={mySkills.requirements[shipName]}
+            category={mySkills.categories[category]}
+            ids={ids}
+          />
+        ))}
       </SkillDom.Category>
     </>
   );
@@ -239,6 +158,7 @@ export function LogiSkills({ mySkills }) {
 
 export function Skills() {
   const [skills, setSkills] = React.useState({});
+  const [ship, setShip] = React.useState("Vindicator");
   const authContext = React.useContext(AuthContext);
   const queryParams = new URLSearchParams(useLocation().search);
   var characterId = queryParams.get("character_id") || authContext.current.id;
@@ -258,12 +178,41 @@ export function Skills() {
   return (
     <>
       <PageTitle>Skills for {mySkills.character_name}</PageTitle>
+      <Buttons style={{ marginBottom: "1em" }}>
+        <InputGroup>
+          <Button active={ship === "Vindicator"} onClick={(evt) => setShip("Vindicator")}>
+            Vindicator
+          </Button>
+          <Button active={ship === "Nightmare"} onClick={(evt) => setShip("Nightmare")}>
+            Nightmare
+          </Button>
+          <Button active={ship === "Paladin"} onClick={(evt) => setShip("Paladin")}>
+            Paladin
+          </Button>
+          <Button active={ship === "Kronos"} onClick={(evt) => setShip("Kronos")}>
+            Kronos
+          </Button>
+          <Button active={ship === "Leshak"} onClick={(evt) => setShip("Leshak")}>
+            Leshak
+          </Button>
+        </InputGroup>
+        <InputGroup>
+          <Button active={ship === "Oneiros"} onClick={(evt) => setShip("Oneiros")}>
+            Oneiros
+          </Button>
+          <Button active={ship === "Guardian"} onClick={(evt) => setShip("Guardian")}>
+            Guardian
+          </Button>
+          <Button active={ship === "Nestor"} onClick={(evt) => setShip("Nestor")}>
+            Nestor
+          </Button>
+        </InputGroup>
+      </Buttons>
       <div style={{ marginBottom: "1em" }}>
         Legend: <Badge variant="danger">Starter</Badge> <Badge variant="warning">Basic</Badge>{" "}
         <Badge variant="secondary">Elite</Badge> <Badge variant="success">Elite GOLD</Badge>
       </div>
-      <DpsSkills mySkills={mySkills} />
-      <LogiSkills mySkills={mySkills} />
+      <SkillList mySkills={mySkills} shipName={ship} />
     </>
   );
 }

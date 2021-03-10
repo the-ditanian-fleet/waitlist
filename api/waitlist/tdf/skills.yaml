@@ -1,454 +1,570 @@
 ---
-global:
-  armor:
-    - name: EM Armor Compensation
-      min: 4
-      elite: 5
-      gold: 5
-    - name: Explosive Armor Compensation
-      min: 4
-      elite: 5
-      gold: 5
-    - name: Thermal Armor Compensation
-      min: 4
-      elite: 5
-      gold: 5
-    - name: Kinetic Armor Compensation
-      min: 4
-      elite: 5
-      gold: 5
-    - name: Armor Layering
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Hull Upgrades
-      min: 5
-      elite: 5
-      gold: 5
-    - name: Armor Rigging
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Mechanics
-      min: 4
-      elite: 5
-      gold: 5
-  gunnery:
-    - name: Controlled Bursts
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Motion Prediction
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Rapid Firing
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Sharpshooter
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Surgical Strike
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Trajectory Analysis
-      min: 4
-      elite: 4
-      gold: 5
-  navigation:
-    - name: Acceleration Control
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Evasive Maneuvering
-      min: 3
-      elite: 4
-      gold: 5
-    - name: High Speed Maneuvering
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Warp Drive Operation
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Navigation
-      min: 4
-      elite: 5
-      gold: 5
-  drones:
-    - name: Drones
-      min: 5
-      elite: 5
-      gold: 5
-    - name: Gallente Drone Specialization
-      elite: 4
-      gold: 5
-    - name: Drone Durability
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Drone Navigation
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Drone Avionics
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Advanced Drone Avionics
-      elite: 4
-      gold: 5
-    - name: Drone Interfacing
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Drone Sharpshooting
-      min: 3
-      elite: 4
-      gold: 5
-  engineering:
-    - name: Thermodynamics
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Capacitor Management
-      min: 4
-      elite: 5
-      gold: 5
-    - name: CPU Management
-      elite: 5
-      gold: 5
-    - name: Capacitor Systems Operation
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Power Grid Management
-      elite: 5
-      gold: 5
-    - name: Spaceship Command
-      elite: 5
-      gold: 5
-    - name: Nanite Interfacing
-      elite: 4
-      gold: 5
-    - name: Nanite Operation
-      elite: 4
-      gold: 5
-  targeting:
-    - name: Target Management
-      min: 4
-      elite: 5
-      gold: 5
-    - name: Long Range Targeting
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Signature Analysis
-      min: 3
-      elite: 5
-      gold: 5
-  neural_enhancement:
-    - name: Biology
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Cybernetics
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Neurotoxin Control
-      elite: 4
-      gold: 5
-    - name: Neurotoxin Recovery
-      elite: 4
-      gold: 5
-  shields:
-    - name: Shield Management
-      elite: 4
-      gold: 5
-    - name: Shield Operation
-      elite: 4
-      gold: 5
-logi:
-  all:
-    - name: Advanced Target Management
-      min: 3
-      gold: 5
-    - name: Capacitor Management
-      min: 5
-      gold: 5
-    - name: Capacitor Systems Operation
-      min: 5
-      gold: 5
-    - name: Acceleration Control
-      min: 3
-      gold: 5
-    - name: Hull Upgrades
-      min: 5
-      gold: 5
-ships:
-  Nightmare:
-    - name: Amarr Battleship
-      min: 3
-      elite: 4
-    - name: Capacitor Emission Systems
-      min: 3
-      elite: 4
-    - name: Large Energy Turret
-      min: 4
-      elite: 5
-    - name: Large Pulse Laser Specialization
-      elite: 4
-    - name: Remote Armor Repair Systems
-      min: 3
-      elite: 4
-    - name: Micro Jump Drive Operation
-      min: 3
-      elite: 4
-    - name: Light Drone Operation
-      min: 3
-      elite: 5
-    - name: Medium Drone Operation
-      min: 3
-      elite: 5
-    - name: Heavy Drone Operation
-      min: 3
-      elite: 5
-    - name: Science
-      elite: 5
-    - name: Radar Sensor Compensation
-      elite: 4
-  Paladin:
-    - name: Large Energy Turret
-      min: 4
-      elite: 5
-      gold: 5
-    - name: Large Pulse Laser Specialization
-      elite: 4
-      gold: 5
-    - name: Marauders
-      elite: 5
-      gold: 5
-    - name: Capacitor Emission Systems
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Remote Armor Repair Systems
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Remote Hull Repair Systems
-      elite: 4
-      gold: 4
-    - name: Micro Jump Drive Operation
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Light Drone Operation
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Medium Drone Operation
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Repair Drone Operation
-      elite: 5
-      gold: 5
-    - name: Science
-      elite: 5
-      gold: 5
-    - name: Advanced Target Management
-      elite: 3
-      gold: 5
-    - name: Radar Sensor Compensation
-      elite: 4
-      gold: 5
-    - name: Astronautics Rigging
-      gold: 5
-  Kronos:
-    - name: Large Hybrid Turret
-      min: 4
-      elite: 5
-      gold: 5
-    - name: Large Blaster Specialization
-      elite: 4
-      gold: 5
-    - name: Marauders
-      elite: 4
-      gold: 5
-    - name: Capacitor Emission Systems
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Remote Armor Repair Systems
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Remote Hull Repair Systems
-      elite: 4
-      gold: 4
-    - name: Micro Jump Drive Operation
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Medium Drone Operation
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Repair Drone Operation
-      elite: 5
-      gold: 5
-    - name: Advanced Target Management
-      elite: 3
-      gold: 5
-    - name: Magnetometric Sensor Compensation
-      elite: 4
-      gold: 5
-  Leshak:
-    - name: Remote Armor Repair Systems
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Capacitor Emission Systems
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Precursor Battleship
-      min: 5
-      elite: 5
-      gold: 5
-    - name: Large Precursor Weapon
-      min: 5
-      elite: 5
-      gold: 5
-    - name: Large Disintegrator Specialization
-      min: 4
-      elite: 5
-      gold: 5
-    - name: Heavy Drone Operation
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Radar Sensor Compensation
-      elite: 4
-      gold: 5
-    - name: Rapid Firing
-      min: 5
-    - name: Weapon Upgrades
-      min: 5
-    - name: Advanced Weapon Upgrades
-      min: 1
-    - name: Remote Hull Repair Systems
-      elite: 4
-      gold: 4
-    - name: Repair Drone Operation
-      elite: 5
-      gold: 5
-    - name: Astronautics Rigging
-      gold: 5
-  Vindicator:
-    - name: Large Hybrid Turret
-      min: 4
-      elite: 5
-      gold: 5
-    - name: Large Blaster Specialization
-      elite: 4
-      gold: 5
-    - name: Gallente Battleship
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Minmatar Battleship
-      min: 3
-      elite: 4
-      gold: 5
-    - name: Heavy Drone Operation
-      min: 3
-      elite: 5
-      gold: 5
-    - name: Propulsion Jamming
-      min: 4
-      elite: 4
-      gold: 5
-    - name: Magnetometric Sensor Compensation
-      elite: 4
-      gold: 5
-  Megathron:
-    - name: Gallente Battleship
-      min: 3
-    - name: Large Hybrid Turret
-      min: 4
-  Guardian:
-    - name: Afterburner
-      min: 4
-      gold: 5
-    - name: Capacitor Emission Systems
-      min: 5
-      gold: 5
-    - name: Evasive Maneuvering
-      min: 3
-      gold: 5
-    - name: Fuel Conservation
-      min: 4
-      gold: 5
-    - name: Logistics Cruisers
-      min: 5
-      gold: 5
-    - name: Remote Armor Repair Systems
-      min: 5
-      gold: 5
-    - name: Radar Sensor Compensation
-      gold: 5
-  Oneiros:
-    - name: Afterburner
-      min: 4
-      gold: 5
-    - name: Evasive Maneuvering
-      min: 3
-      gold: 5
-    - name: Fuel Conservation
-      min: 4
-      gold: 5
-    - name: Logistics Cruisers
-      min: 4
-      gold: 5
-    - name: Sensor Linking
-      min: 3
-      gold: 5
-    - name: Remote Armor Repair Systems
-      min: 4
-      gold: 5
-    - name: Magnetometric Sensor Compensation
-      gold: 5
-  Nestor:
-    - name: EM Armor Compensation
-      min: 5
-      gold: 5
-    - name: Explosive Armor Compensation
-      min: 5
-      gold: 5
-    - name: Thermal Armor Compensation
-      min: 5
-      gold: 5
-    - name: Kinetic Armor Compensation
-      min: 5
-      gold: 5
-    - name: Advanced Target Management
-      min: 5
-      gold: 5
-    - name: Amarr Battleship
-      min: 5
-      gold: 5
-    - name: Remote Armor Repair Systems
-      min: 5
-      gold: 5
-    - name: High Speed Maneuvering
-      min: 4
-      gold: 5
-    - name: Magnetometric Sensor Compensation
-      gold: 5
+categories:
+  # List of categories and what skills are in it. All skills must be in one category.
+  Tank:
+    - EM Armor Compensation
+    - Explosive Armor Compensation
+    - Thermal Armor Compensation
+    - Kinetic Armor Compensation
+    - Hull Upgrades
+    - Mechanics
+    - Shield Management
+    - Shield Operation
+  Gunnery:
+    - Controlled Bursts
+    - Motion Prediction
+    - Rapid Firing
+    - Sharpshooter
+    - Surgical Strike
+    - Trajectory Analysis
+    - Large Energy Turret
+    - Large Pulse Laser Specialization
+    - Large Hybrid Turret
+    - Large Blaster Specialization
+    - Large Precursor Weapon
+    - Large Disintegrator Specialization
+  Navigation:
+    - Navigation
+    - Spaceship Command
+    - Acceleration Control
+    - Evasive Maneuvering
+    - High Speed Maneuvering
+    - Warp Drive Operation
+    - Micro Jump Drive Operation
+    - Afterburner
+    - Fuel Conservation
+    - Armor Rigging
+    - Armor Layering
+    - Astronautics Rigging
+  Drones:
+    - Drones
+    - Gallente Drone Specialization
+    - Drone Durability
+    - Drone Navigation
+    - Drone Avionics
+    - Advanced Drone Avionics
+    - Drone Interfacing
+    - Drone Sharpshooting
+    - Light Drone Operation
+    - Medium Drone Operation
+    - Heavy Drone Operation
+    - Repair Drone Operation
+  Engineering:
+    - Thermodynamics
+    - Capacitor Management
+    - CPU Management
+    - Capacitor Systems Operation
+    - Capacitor Emission Systems
+    - Power Grid Management
+    - Nanite Interfacing
+    - Nanite Operation
+    - Weapon Upgrades
+    - Advanced Weapon Upgrades
+    - Propulsion Jamming
+    - Science
+    - Sensor Linking
+    - Remote Armor Repair Systems
+    - Remote Hull Repair Systems
+  Targeting:
+    - Target Management
+    - Advanced Target Management
+    - Long Range Targeting
+    - Signature Analysis
+    - Radar Sensor Compensation
+    - Magnetometric Sensor Compensation
+  Neural Enhancement:
+    - Biology
+    - Cybernetics
+    - Neurotoxin Control
+    - Neurotoxin Recovery
+  Spaceship Command:
+    - Amarr Battleship
+    - Gallente Battleship
+    - Minmatar Battleship
+    - Precursor Battleship
+    - Logistics Cruisers
+    - Marauders
+
+_generic: &generic
+  # Generic skills: everyone needs these
+  EM Armor Compensation:
+    min: 4
+    elite: 5
+    gold: 5
+  Explosive Armor Compensation:
+    min: 4
+    elite: 5
+    gold: 5
+  Thermal Armor Compensation:
+    min: 4
+    elite: 5
+    gold: 5
+  Kinetic Armor Compensation:
+    min: 4
+    elite: 5
+    gold: 5
+  Armor Layering:
+    min: 3
+    elite: 4
+    gold: 5
+  Hull Upgrades:
+    min: 5
+    elite: 5
+    gold: 5
+  Armor Rigging:
+    min: 3
+    elite: 4
+    gold: 5
+  Mechanics:
+    min: 4
+    elite: 5
+    gold: 5
+  Acceleration Control:
+    min: 3
+    elite: 4
+    gold: 5
+  Evasive Maneuvering:
+    min: 3
+    elite: 4
+    gold: 5
+  High Speed Maneuvering:
+    min: 3
+    elite: 4
+    gold: 5
+  Warp Drive Operation:
+    min: 3
+    elite: 5
+    gold: 5
+  Navigation:
+    min: 4
+    elite: 5
+    gold: 5
+  Drones:
+    min: 5
+    elite: 5
+    gold: 5
+  Gallente Drone Specialization:
+    elite: 4
+    gold: 5
+  Drone Durability:
+    min: 3
+    elite: 4
+    gold: 5
+  Drone Navigation:
+    min: 3
+    elite: 4
+    gold: 5
+  Drone Avionics:
+    min: 3
+    elite: 4
+    gold: 5
+  Advanced Drone Avionics:
+    elite: 4
+    gold: 5
+  Drone Interfacing:
+    min: 3
+    elite: 4
+    gold: 5
+  Drone Sharpshooting:
+    min: 3
+    elite: 4
+    gold: 5
+  Thermodynamics:
+    min: 3
+    elite: 4
+    gold: 5
+  Capacitor Management:
+    min: 4
+    elite: 5
+    gold: 5
+  CPU Management:
+    elite: 5
+    gold: 5
+  Capacitor Systems Operation:
+    min: 3
+    elite: 5
+    gold: 5
+  Power Grid Management:
+    elite: 5
+    gold: 5
+  Spaceship Command:
+    elite: 5
+    gold: 5
+  Nanite Interfacing:
+    elite: 4
+    gold: 5
+  Nanite Operation:
+    elite: 4
+    gold: 5
+  Target Management:
+    min: 4
+    elite: 5
+    gold: 5
+  Long Range Targeting:
+    min: 3
+    elite: 5
+    gold: 5
+  Signature Analysis:
+    min: 3
+    elite: 5
+    gold: 5
+  Biology:
+    min: 3
+    elite: 5
+    gold: 5
+  Cybernetics:
+    min: 3
+    elite: 5
+    gold: 5
+  Neurotoxin Control:
+    elite: 4
+    gold: 5
+  Neurotoxin Recovery:
+    elite: 4
+    gold: 5
+  Shield Management:
+    elite: 4
+    gold: 5
+  Shield Operation:
+    elite: 4
+    gold: 5
+
+_gunnery: &gunnery
+  # Gunnery skills: need these if you have guns
+  Controlled Bursts:
+    min: 3
+    elite: 4
+    gold: 5
+  Motion Prediction:
+    min: 3
+    elite: 5
+    gold: 5
+  Rapid Firing:
+    min: 3
+    elite: 5
+    gold: 5
+  Sharpshooter:
+    min: 3
+    elite: 5
+    gold: 5
+  Surgical Strike:
+    min: 3
+    elite: 5
+    gold: 5
+  Trajectory Analysis:
+    min: 4
+    elite: 4
+    gold: 5
+
+_logistics: &logistics
+  # Logistics skills: all logi pilots need these
+  Advanced Target Management:
+    min: 3
+    gold: 5
+  Capacitor Management:
+    min: 5
+    gold: 5
+  Capacitor Systems Operation:
+    min: 5
+    gold: 5
+  Acceleration Control:
+    min: 3
+    gold: 5
+  Hull Upgrades:
+    min: 5
+    gold: 5
+
+# Start of per-ship skills
+Nightmare:
+  <<: *generic
+  <<: *gunnery
+  Amarr Battleship:
+    min: 3
+    elite: 4
+  Capacitor Emission Systems:
+    min: 3
+    elite: 4
+  Large Energy Turret:
+    min: 4
+    elite: 5
+  Large Pulse Laser Specialization:
+    elite: 4
+  Remote Armor Repair Systems:
+    min: 3
+    elite: 4
+  Micro Jump Drive Operation:
+    min: 3
+    elite: 4
+  Light Drone Operation:
+    min: 3
+    elite: 5
+  Medium Drone Operation:
+    min: 3
+    elite: 5
+  Heavy Drone Operation:
+    min: 3
+    elite: 5
+  Science:
+    elite: 5
+  Radar Sensor Compensation:
+    elite: 4
+
+Paladin:
+  <<: *generic
+  <<: *gunnery
+  Large Energy Turret:
+    min: 4
+    elite: 5
+    gold: 5
+  Large Pulse Laser Specialization:
+    elite: 4
+    gold: 5
+  Marauders:
+    min: 3
+    elite: 5
+    gold: 5
+  Capacitor Emission Systems:
+    min: 3
+    elite: 4
+    gold: 5
+  Remote Armor Repair Systems:
+    min: 3
+    elite: 4
+    gold: 5
+  Remote Hull Repair Systems:
+    elite: 4
+    gold: 4
+  Micro Jump Drive Operation:
+    min: 3
+    elite: 4
+    gold: 5
+  Light Drone Operation:
+    min: 3
+    elite: 5
+    gold: 5
+  Medium Drone Operation:
+    min: 3
+    elite: 5
+    gold: 5
+  Repair Drone Operation:
+    elite: 5
+    gold: 5
+  Science:
+    elite: 5
+    gold: 5
+  Advanced Target Management:
+    elite: 3
+    gold: 5
+  Radar Sensor Compensation:
+    elite: 4
+    gold: 5
+  Amarr Battleship:
+    min: 5
+  Astronautics Rigging:
+    gold: 5
+
+Kronos:
+  <<: *generic
+  <<: *gunnery
+  Large Hybrid Turret:
+    min: 4
+    elite: 5
+    gold: 5
+  Large Blaster Specialization:
+    elite: 4
+    gold: 5
+  Marauders:
+    min: 3
+    elite: 4
+    gold: 5
+  Capacitor Emission Systems:
+    min: 3
+    elite: 4
+    gold: 5
+  Remote Armor Repair Systems:
+    min: 3
+    elite: 4
+    gold: 5
+  Remote Hull Repair Systems:
+    elite: 4
+    gold: 4
+  Micro Jump Drive Operation:
+    min: 3
+    elite: 4
+    gold: 5
+  Medium Drone Operation:
+    min: 3
+    elite: 5
+    gold: 5
+  Repair Drone Operation:
+    elite: 5
+    gold: 5
+  Advanced Target Management:
+    elite: 3
+    gold: 5
+  Magnetometric Sensor Compensation:
+    elite: 4
+    gold: 5
+  Gallente Battleship:
+    min: 5
+
+Leshak:
+  <<: *generic
+  <<: *gunnery
+  Remote Armor Repair Systems:
+    min: 3
+    elite: 4
+    gold: 5
+  Capacitor Emission Systems:
+    min: 3
+    elite: 4
+    gold: 5
+  Precursor Battleship:
+    min: 5
+    elite: 5
+    gold: 5
+  Large Precursor Weapon:
+    min: 5
+    elite: 5
+    gold: 5
+  Large Disintegrator Specialization:
+    min: 4
+    elite: 5
+    gold: 5
+  Heavy Drone Operation:
+    min: 3
+    elite: 5
+    gold: 5
+  Radar Sensor Compensation:
+    elite: 4
+    gold: 5
+  Rapid Firing:
+    min: 5
+  Weapon Upgrades:
+    min: 5
+  Advanced Weapon Upgrades:
+    min: 1
+  Remote Hull Repair Systems:
+    elite: 4
+    gold: 4
+  Repair Drone Operation:
+    elite: 5
+    gold: 5
+  Astronautics Rigging:
+    gold: 5
+
+Vindicator:
+  <<: *generic
+  <<: *gunnery
+  Large Hybrid Turret:
+    min: 4
+    elite: 5
+    gold: 5
+  Large Blaster Specialization:
+    elite: 4
+    gold: 5
+  Gallente Battleship:
+    min: 3
+    elite: 4
+    gold: 5
+  Minmatar Battleship:
+    min: 3
+    elite: 4
+    gold: 5
+  Heavy Drone Operation:
+    min: 3
+    elite: 5
+    gold: 5
+  Propulsion Jamming:
+    min: 4
+    elite: 4
+    gold: 5
+  Magnetometric Sensor Compensation:
+    elite: 4
+    gold: 5
+
+Megathron:
+  <<: *generic
+  <<: *gunnery
+  Gallente Battleship:
+    min: 3
+  Large Hybrid Turret:
+    min: 4
+
+Guardian:
+  <<: *generic
+  <<: *logistics
+  Afterburner:
+    min: 4
+    gold: 5
+  Capacitor Emission Systems:
+    min: 5
+    gold: 5
+  Evasive Maneuvering:
+    min: 3
+    gold: 5
+  Fuel Conservation:
+    min: 4
+    gold: 5
+  Logistics Cruisers:
+    min: 5
+    gold: 5
+  Remote Armor Repair Systems:
+    min: 5
+    gold: 5
+  Radar Sensor Compensation:
+    gold: 5
+
+Oneiros:
+  <<: *generic
+  <<: *logistics
+  Afterburner:
+    min: 4
+    gold: 5
+  Evasive Maneuvering:
+    min: 3
+    gold: 5
+  Fuel Conservation:
+    min: 4
+    gold: 5
+  Logistics Cruisers:
+    min: 4
+    gold: 5
+  Sensor Linking:
+    min: 3
+    gold: 5
+  Remote Armor Repair Systems:
+    min: 4
+    gold: 5
+  Magnetometric Sensor Compensation:
+    gold: 5
+
+Nestor:
+  <<: *generic
+  <<: *logistics
+  EM Armor Compensation:
+    min: 5
+    gold: 5
+  Explosive Armor Compensation:
+    min: 5
+    gold: 5
+  Thermal Armor Compensation:
+    min: 5
+    gold: 5
+  Kinetic Armor Compensation:
+    min: 5
+    gold: 5
+  Advanced Target Management:
+    min: 5
+    gold: 5
+  Amarr Battleship:
+    min: 5
+    gold: 5
+  Remote Armor Repair Systems:
+    min: 5
+    gold: 5
+  High Speed Maneuvering:
+    min: 4
+    gold: 5
+  Magnetometric Sensor Compensation:
+    gold: 5

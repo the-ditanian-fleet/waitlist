@@ -21,7 +21,8 @@ def get_skills() -> ViewReturn:
 
     return {
         "current": overview,
-        "requirements": skills.MIN_SKILLS,
+        "categories": skills.CATEGORIES,
+        "requirements": skills.REQUIREMENTS,
         "ids": skills.SKILL_IDS,
         "character_name": character.name,
     }
