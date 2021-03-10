@@ -52,52 +52,46 @@ SkillDom.Table.Row = styled.div`
 `;
 
 const LevelIndicator = ({ current, skill }) => {
-  var nextLevel = null;
   if (current === 5) {
     return <Badge variant="success">{current}</Badge>;
   }
-  if ("gold" in skill) {
-    if (current >= skill.gold) {
-      return <Badge variant="success">{current}</Badge>;
+
+  var nextLevel = null;
+
+  for (const [group, variant] of [
+    ["gold", "success"],
+    ["elite", "secondary"],
+    ["min", "warning"],
+  ]) {
+    if (group in skill) {
+      if (current >= skill[group]) {
+        return (
+          <Badge variant={variant}>
+            {current}
+            {nextLevel}
+          </Badge>
+        );
+      }
+      nextLevel = ` / ${skill[group]}`;
     }
-    nextLevel = ` / ${skill.gold}`;
   }
-  if ("elite" in skill) {
-    if (current >= skill.elite) {
+
+  for (const [group, variant] of [
+    ["min", "danger"],
+    ["elite", "warning"],
+    ["gold", "secondary"],
+  ]) {
+    if (group in skill) {
       return (
-        <Badge variant="secondary">
+        <Badge variant={variant}>
           {current}
           {nextLevel}
         </Badge>
       );
     }
-    nextLevel = ` / ${skill.elite}`;
   }
-  if ("min" in skill) {
-    if (current >= skill.min) {
-      return (
-        <Badge variant="warning">
-          {current}
-          {nextLevel}
-        </Badge>
-      );
-    }
-    nextLevel = ` / ${skill.min}`;
-  }
-  if ("min" in skill && current < skill["min"]) {
-    return (
-      <Badge variant="danger">
-        {current}
-        {nextLevel}
-      </Badge>
-    );
-  }
-  return (
-    <Badge variant="warning">
-      {current}
-      {nextLevel}
-    </Badge>
-  );
+
+  return null;
 };
 
 function SkillTable({ title, current, requirements, ids }) {
