@@ -2,12 +2,21 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import { useParams, NavLink } from "react-router-dom";
 import { Content } from "../../Components/Page";
+import styled from "styled-components";
 
 const guideData = {};
 function importAll(r) {
   r.keys().forEach((key) => (guideData[key] = r(key)));
 }
 importAll(require.context("./guides", true, /\.(md|jpg|png)$/));
+
+const GuideContent = styled(Content)`
+  max-width: 800px;
+
+  img {
+    max-width: 100%;
+  }
+`;
 
 export function Guide() {
   const { guideName } = useParams();
@@ -48,9 +57,9 @@ export function Guide() {
   }
 
   return (
-    <Content style={{ maxWidth: "800px" }}>
+    <GuideContent style={{ maxWidth: "800px" }}>
       <ReactMarkdown transformImageUri={resolveImage}>{loadedData}</ReactMarkdown>
-    </Content>
+    </GuideContent>
   );
 }
 
@@ -66,6 +75,11 @@ export function GuideIndex() {
       <p>
         <NavLink exact to="/guide/xup">
           First Fleet guide
+        </NavLink>
+      </p>
+      <p>
+        <NavLink exact to="/guide/dps">
+          Anchoring
         </NavLink>
       </p>
       <p>
