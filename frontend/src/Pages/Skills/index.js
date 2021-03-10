@@ -53,7 +53,7 @@ SkillDom.Table.Row = styled.div`
 
 const LevelIndicator = ({ current, skill }) => {
   var nextLevel = null;
-  if (current == 5) {
+  if (current === 5) {
     return <Badge variant="success">{current}</Badge>;
   }
   if ("gold" in skill) {
