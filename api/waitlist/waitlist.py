@@ -191,16 +191,31 @@ def xup() -> ViewReturn:
         g.db.add(implant_set)
 
     for dna in dnas:
+        # Store the fit DNA if it's not already stored
         fitting = g.db.query(Fitting).filter(Fitting.dna == dna).one_or_none()
         if not fitting:
             hull = int(dna.split(":")[0])
             fitting = Fitting(dna=dna, hull=hull)
             g.db.add(fitting)
 
+        # Check fit to tag/approve/categorize/etc
         fit_check = tdf.check_fit(dna, skilldata, implantdata)
         if fit_check.errors:
             return fit_check.errors[0], 400
 
+        # Replace the previous x'up if we see the same hull twice
+        existing_x_for_hull = (
+            g.db.query(WaitlistEntryFit, Fitting)
+            .join(WaitlistEntryFit.fit)
+            .filter(
+                WaitlistEntryFit.entry == waitlist_entry, Fitting.hull == fitting.hull
+            )
+            .one_or_none()
+        )
+        if existing_x_for_hull:
+            g.db.delete(existing_x_for_hull[0])
+
+        # X!
         g.db.add(
             WaitlistEntryFit(
                 character_id=g.character_id,
@@ -213,6 +228,8 @@ def xup() -> ViewReturn:
                 fit_analysis=json.dumps(fit_check.fit_check),
             )
         )
+
+        # Log the fit in history
         g.db.add(
             FitHistory(
                 character_id=g.character_id,
