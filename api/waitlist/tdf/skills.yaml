@@ -54,7 +54,6 @@ categories:
     - Capacitor Management
     - CPU Management
     - Capacitor Systems Operation
-    - Capacitor Emission Systems
     - Power Grid Management
     - Nanite Interfacing
     - Nanite Operation
@@ -63,6 +62,7 @@ categories:
     - Propulsion Jamming
     - Science
     - Sensor Linking
+    - Capacitor Emission Systems
     - Remote Armor Repair Systems
     - Remote Hull Repair Systems
   Targeting:
@@ -82,6 +82,8 @@ categories:
     - Gallente Battleship
     - Minmatar Battleship
     - Precursor Battleship
+    - Amarr Cruiser
+    - Gallente Cruiser
     - Logistics Cruisers
     - Marauders
 
@@ -514,6 +516,8 @@ Guardian:
     gold: 5
   Radar Sensor Compensation:
     gold: 5
+  Amarr Cruiser:
+    min: 5
 
 Oneiros:
   <<: *generic
@@ -538,6 +542,8 @@ Oneiros:
     gold: 5
   Magnetometric Sensor Compensation:
     gold: 5
+  Gallente Cruiser:
+    min: 5
 
 Nestor:
   <<: *generic
