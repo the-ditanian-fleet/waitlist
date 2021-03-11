@@ -153,6 +153,32 @@ function FleetMembers() {
   );
 }
 
+function detectSquads({ matches, categories, wings }) {
+  var newMatches = { ...matches };
+  var hadChanges = false;
+  for (const [catID, catName] of Object.entries(categories)) {
+    if (!(catID in matches)) {
+      for (const wing of wings) {
+        if (wing.name.match(/on\s+grid/i)) {
+          for (const squad of wing.squads) {
+            if (
+              squad.name.toLowerCase().includes(catName.toLowerCase()) ||
+              squad.name.toLowerCase().includes(catID.toLowerCase())
+            ) {
+              newMatches[catID] = `${wing.id},${squad.id}`;
+              hadChanges = true;
+            }
+          }
+        }
+      }
+    }
+  }
+  if (hadChanges) {
+    return newMatches;
+  }
+  return null;
+}
+
 export function FleetRegister() {
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
@@ -172,6 +198,19 @@ export function FleetRegister() {
       .then(setCategories)
       .catch(genericCatch(toastContext));
   }, [characterId, toastContext]);
+
+  React.useEffect(() => {
+    if (!categories || !fleetInfo) return;
+
+    var newMatches = detectSquads({
+      matches: categoryMatches,
+      categories,
+      wings: fleetInfo.wings,
+    });
+    if (newMatches) {
+      setCategoryMatches(newMatches);
+    }
+  }, [fleetInfo, categories, categoryMatches, setCategoryMatches]);
 
   if (!fleetInfo || !categories) {
     return <em>Loading fleet information...</em>;
