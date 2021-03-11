@@ -61,7 +61,7 @@ As a logi you should always try to follow lasers to see who is currently taking 
 
 ## FC?! WHAT DO?!?
 
-Upon entering a site cruiser logi should immediately burn forward,then establish an orbit of 7500m on your nestor of choice.You can do this by holding W and clicking on a nestor in your watchlist. Orbit with prop mod on always.
+Upon entering a site cruiser logi should immediately burn forward,then establish an orbit of 7500m on your Nestor of choice. You can do this by holding W and clicking on a Nestor in your watchlist. Orbit with prop mod on always.
 
 Nestors should burn directly to their anchors by using the Q command in space.
 
@@ -77,7 +77,7 @@ In an emergency, such as a late broadcast, you might find that as you lock the t
 
 ### Nestor
 
-On your watchlist it is important to have all other Logi pilots, the boosters, the FC, as well as any known agro magnets. It is recommended to always keep your other nestor pilots locked up as well as pre-locking any agro magnets if needed.
+On your watchlist it is important to have all other Logi pilots, the boosters, the FC, as well as any known agro magnets. It is recommended to always keep your other Nestor pilots locked up as well as pre-locking any agro magnets if needed.
 
 Nestors bring both DPS and Logi drones and it is important to learn when to use what drones. For eg in a contest you will always drop your DPS drones, but in other sites like a tcrc you may want to launch Armor bots to handle troll agro. And then launch DPS drones once you are at the tower. As always listen to the FC and do as they instruct.
 
@@ -133,7 +133,7 @@ The FC will order the Meatshield (usually a Damnation) to enter the site first a
 
 As a cruiser you do not want to take the gate first when FC calls gate status, you have one of the fastest warp speeds. So count to 3 before taking the gate. Nestors should take it immediately on hearing Gate status.
 
-Upon landing immediately lock the meatshield before doing anything else and dump all reps on them. Then Nestors will burn forward in the direction of the Shield Transfer Array, Cruisers will burn forwards before establishing their orbits. Once the meatshield is stable cruisers should decycle down to 1 rep, and nestors down to 3 and be ready to rep the next person.
+Upon landing immediately lock the meatshield before doing anything else and dump all reps on them. Then Nestors will burn forward in the direction of the Shield Transfer Array, Cruisers will burn forwards before establishing their orbits. Once the meatshield is stable cruisers should decycle down to 1 rep, and Nestors down to 3 and be ready to rep the next person.
 
 Agro shifts quite alot in this site and there are two types of agro:
 
