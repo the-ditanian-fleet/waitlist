@@ -2,7 +2,7 @@ import React from "react";
 import { AuthContext } from "../../Auth";
 import { genericCatch, ToastContext, toastHttp } from "../../Toast";
 import { Confirm } from "../../Components/Modal";
-import { Button, Buttons, NavButton } from "../../Components/Form";
+import { Button, Buttons, NavButton, Select } from "../../Components/Form";
 import { Content } from "../../Components/Page";
 
 async function setWaitlistOpen(waitlistId, isOpen) {
@@ -224,8 +224,8 @@ export function FleetRegister() {
         value={categoryMatches}
         onChange={setCategoryMatches}
       />
-      <button
-        className="button is-success"
+      <Button
+        variant="primary"
         onClick={(evt) =>
           registerFleet({ authContext, fleetInfo, categoryMatches }).then(
             toastHttp(toastContext),
@@ -234,7 +234,7 @@ export function FleetRegister() {
         }
       >
         Continue
-      </button>
+      </Button>
     </>
   );
 }
@@ -258,21 +258,20 @@ function CategoryMatcher({ categories, wings, onChange, value }) {
       </option>
     ));
     catDom.push(
-      <div key={catID} className="field">
-        <label className="label">{catName}</label>
-        <div className="control">
-          <div className="select">
-            <select
-              value={value[catID]}
-              onChange={(evt) => onChange({ ...value, [catID]: evt.target.value.split(",") })}
-            >
-              <option></option>
-              {squadSelection}
-            </select>
-          </div>
-        </div>
-      </div>
+      <p key={catID}>
+        <label className="label">
+          {catName}
+          <br />
+        </label>
+        <Select
+          value={value[catID]}
+          onChange={(evt) => onChange({ ...value, [catID]: evt.target.value.split(",") })}
+        >
+          <option></option>
+          {squadSelection}
+        </Select>
+      </p>
     );
   }
-  return <b>{catDom}</b>;
+  return <Content>{catDom}</Content>;
 }
