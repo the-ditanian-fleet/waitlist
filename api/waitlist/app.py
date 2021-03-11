@@ -15,6 +15,7 @@ from . import (
     xup_history,
     search,
     bans,
+    fittings,
 )
 from .webutil import ViewReturn
 from .data import database, config
@@ -35,6 +36,7 @@ app.register_blueprint(pilot.bp)
 app.register_blueprint(xup_history.bp)
 app.register_blueprint(search.bp)
 app.register_blueprint(bans.bp)
+app.register_blueprint(fittings.bp)
 
 
 @app.route("/", defaults={"path": ""})

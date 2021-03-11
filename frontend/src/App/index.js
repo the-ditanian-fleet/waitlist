@@ -7,6 +7,7 @@ import { Xup } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
 import { Search } from "../Pages/Search";
 import { Bans } from "../Pages/Bans";
+import { Fittings } from "../Pages/Fittings";
 import { Guide, GuideIndex } from "../Pages/Guide";
 import { Authenticate, AuthContext } from "../Auth";
 import { ToastContext, ToastDisplay } from "../Toast";
@@ -148,6 +149,9 @@ export default class App extends React.Component {
                       </Route>
                       <Route exact path="/bans">
                         <Bans />
+                      </Route>
+                      <Route exact path="/fittings">
+                        <Fittings />
                       </Route>
                       <Route exact path="/guide">
                         <GuideIndex />
