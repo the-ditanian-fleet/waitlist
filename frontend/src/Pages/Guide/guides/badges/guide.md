@@ -12,7 +12,7 @@ To attain an implant badge, ask an FC (not the active one) to check your implant
 
 ![](h.png)
 
-### Hybrid Set
+### Hybrid Set (RECOMMENDED)
 
     Slot 1: High-grade Amulet Alpha
     Slot 2: High-grade Amulet Beta

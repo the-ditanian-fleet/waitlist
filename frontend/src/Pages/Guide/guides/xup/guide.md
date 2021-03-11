@@ -10,11 +10,11 @@ Sign in on the waitlist with your eve account, login is done trough CCP, thus we
 
 ![](copytoclipboard.png)
 
-**Fit Approval:** If your fit has an exclamation mark then there might be something wrong. Click on the ship picture To look for any warnings. Sometimes those warnings can be minimal and the FC might ignore it. (like missing a secondary drone) Click on the ship picture to inspect your fit and check what the issue is.
+**Fit Approval:** If your fit has an exclamation mark then there might be something wrong. Click on the ship picture To look for any warnings. Sometimes those warnings can be minimal and the FC might ignore it. (like missing a secondary drone) Click on the ship picture to inspect your fit and check what the issue is. A red warning will be given under your x-up box if you are required to fix something.
 
 ![](pendingapproval.png)
 
-**Skills:** TDF will give out badges based on your progress. **Minimum skills** are the skills required to get out of the starter squad which is limited to 4 - 5 people in fleet. See the **Badges** section to know more about this page.
+**Skills:** TDF will give out badges based on your progress. The **Basic skills** are the skills required to get out of the starter squad which is limited to 4 - 5 people in fleet. See the **Badges** section to know more about TDF's badges and progress system.
 
 ## Entering Grid
 

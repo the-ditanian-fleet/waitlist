@@ -14,12 +14,13 @@ Bastion is for experienced incursion runners only. This means to use it you MUST
 
 ## General rules if you want SRP
 
-1.  Auto repeat is off at all times.
-2.  You do not Bastion until aggro is established on one target at the start of a wave/site.
-3.  If someone dies on-grid you are to turn Bastion off for the rest of the site.
-4.  Full Hybrid or Amulet pod is required for SRP.
-5.  No abyssal plates on Bastion ships.
-6.  Be aware when using the micro jump drive of your direction, and of bumps. If you jump poorly and die due to being out of logi range, this is pilot error and WILL NOT be covered under SRP. (Being bumped by another fleet member is also not covered under SRP). If you're not confident, DO NOT USE IT.
+1.  **Auto repeat is off at all times.**
+2.  **Bastion in lowest module row, NO SHORTCUT!**
+3.  You do not Bastion until aggro is established on one target at the start of a wave/site.
+4.  If someone dies on-grid you are to turn Bastion off for the rest of the site.
+5.  Full Hybrid or Amulet pod is required for SRP.
+6.  No abyssal plates on Bastion ships.
+7.  Be aware when using the micro jump drive of your direction, and of bumps. If you jump poorly and die due to being out of logi range, this is pilot error and WILL NOT be covered under SRP. (Being bumped by another fleet member is also not covered under SRP). If you're not confident, DO NOT USE IT.
 
 ## TPPH
 
@@ -43,3 +44,7 @@ TCRCs are special as we know you’re mostly likely to grab aggro because of you
 2.  During the one cycle kill tagged Deltoles/Outunis. After the cycle is done jump to the left of the tower.
 3.  WAIT for the aggro swap from the meat shield to whoever but wait for full switch!!! Once this happens you should have enough time for 1 cycle of bastion. If you are quick you CAN get 2 cycles but please get used to 1 cycle before trying 2.
 4.  After each FULL switch you can Bastion 1 cycle. DO NOT Bastion when the tower is in hull.
+
+Be very mindfull of your fellow bastion pilots when jumping from the beacon, be aligned correctly right between the tower and the Sansha Starbase Shield Transfer Array (balls) the or there will be bumps !
+
+![](bumpwarning.png)
