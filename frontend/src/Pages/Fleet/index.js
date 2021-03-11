@@ -165,7 +165,7 @@ function detectSquads({ matches, categories, wings }) {
               squad.name.toLowerCase().includes(catName.toLowerCase()) ||
               squad.name.toLowerCase().includes(catID.toLowerCase())
             ) {
-              newMatches[catID] = `${wing.id},${squad.id}`;
+              newMatches[catID] = [wing.id, squad.id];
               hadChanges = true;
             }
           }
