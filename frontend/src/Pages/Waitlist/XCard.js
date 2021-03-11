@@ -355,7 +355,10 @@ export function XCard({ entry, fit, onAction }) {
             >
               <FontAwesomeIcon icon={faExternalLinkAlt} />
             </a>
-            <NavLink title="Show skills" to={"/skills?character_id=" + fit.character.id}>
+            <NavLink
+              title="Show skills"
+              to={`/skills?character_id=${fit.character.id}&ship=${fit.hull.name}`}
+            >
               <FontAwesomeIcon icon={faStream} />
             </NavLink>
             <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
