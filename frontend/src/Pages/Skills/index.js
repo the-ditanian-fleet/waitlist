@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthContext } from "../../Auth";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { Badge } from "../../Components/Badge";
 import { PageTitle } from "../../Components/Page";
 import { InputGroup, Button, Buttons } from "../../Components/Form";
@@ -131,6 +131,10 @@ function SkillTable({ title, current, requirements, ids, category }) {
 export function SkillList({ mySkills, shipName }) {
   const ids = _.invert(mySkills.ids);
 
+  if (!(shipName in mySkills.requirements)) {
+    return <em>No skill information found</em>;
+  }
+
   const categories = [...categoryOrder];
   _.forEach(_.keys(mySkills.categories), (categoryName) => {
     if (!knownCategories.has(categoryName)) {
@@ -158,10 +162,19 @@ export function SkillList({ mySkills, shipName }) {
 
 export function Skills() {
   const [skills, setSkills] = React.useState({});
-  const [ship, setShip] = React.useState("Vindicator");
   const authContext = React.useContext(AuthContext);
   const queryParams = new URLSearchParams(useLocation().search);
+  const history = useHistory();
+
   var characterId = queryParams.get("character_id") || authContext.current.id;
+  var ship = queryParams.get("ship") || "Vindicator";
+
+  const setShip = (newShip) => {
+    queryParams.set("ship", newShip);
+    history.push({
+      search: queryParams.toString(),
+    });
+  };
 
   React.useEffect(() => {
     var loadId = characterId; // Shadow
