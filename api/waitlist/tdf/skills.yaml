@@ -368,6 +368,18 @@ Paladin:
 Kronos:
   <<: *generic
   <<: *gunnery
+  EM Armor Compensation:
+    min: 5
+  Explosive Armor Compensation:
+    min: 5
+  Thermal Armor Compensation:
+    min: 5
+  Kinetic Armor Compensation:
+    min: 5
+  Hull Upgrades:
+    min: 5
+  Mechanics:
+    min: 5
   Large Hybrid Turret:
     min: 4
     elite: 5
