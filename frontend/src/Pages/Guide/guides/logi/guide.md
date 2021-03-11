@@ -61,7 +61,7 @@ As a logi you should always try to follow lasers to see who is currently taking 
 
 ## FC?! WHAT DO?!?
 
-Upon entering a site cruiser logi should immediately burn forward,then establish an orbit of 7500km on your nestor of choice.You can do this by holding W and clicking on a nestor in your watchlist. Orbit with prop mod on always.
+Upon entering a site cruiser logi should immediately burn forward,then establish an orbit of 7500m on your nestor of choice.You can do this by holding W and clicking on a nestor in your watchlist. Orbit with prop mod on always.
 
 Nestors should burn directly to their anchors by using the Q command in space.
 
