@@ -290,7 +290,9 @@ export function XCard({ entry, fit, onAction }) {
   var tagImages = [];
   _.forEach(fit.tags || [], (tag) => {
     if (tag in tagBadges) {
-      tagImages.push(<img key={tag} src={tagBadges[tag][0]} alt={tagBadges[tag][1]} />);
+      tagImages.push(
+        <img key={tag} src={tagBadges[tag][0]} alt={tagBadges[tag][1]} title={tagBadges[tag][1]} />
+      );
     } else {
       tagText.push(tag);
     }
