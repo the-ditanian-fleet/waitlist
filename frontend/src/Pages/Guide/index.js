@@ -58,7 +58,9 @@ export function Guide() {
 
   return (
     <GuideContent style={{ maxWidth: "800px" }}>
-      <ReactMarkdown transformImageUri={resolveImage}>{loadedData}</ReactMarkdown>
+      <ReactMarkdown transformImageUri={resolveImage} transformLinkUri={null}>
+        {loadedData}
+      </ReactMarkdown>
     </GuideContent>
   );
 }
@@ -100,6 +102,11 @@ export function GuideIndex() {
       <p>
         <NavLink exact to="/guide/tips">
           General tips
+        </NavLink>
+      </p>
+      <p>
+        <NavLink exact to="/guide/scouting">
+          Scouting guide
         </NavLink>
       </p>
     </Content>
