@@ -466,6 +466,8 @@ Leshak:
     gold: 5
   Astronautics Rigging:
     gold: 5
+  Trajectory Analysis:
+    min: 1
 
 Vindicator:
   <<: *generic
