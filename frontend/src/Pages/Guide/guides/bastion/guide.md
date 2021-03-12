@@ -38,7 +38,7 @@ Kronos: Microwarpdrive to between second and third wave (the furthest small towe
 
 ## TCRC
 
-TCRCs are special as we know you’re mostly likely to grab aggro because of your high dps. If you get aggro while in Bastion speak up quickly, let the FC know you’re in Bastion, and for how long so FC can watch you and can try and save you. If you have no mic you will type in fleet “FC in bastion out in ##”, you should have already broadcasted for armor. 1 second before coming out you will hit spotted enemy so logi can start spamming reps. If you fail to do this, you will not get SRP.
+TCRCs are special as we know and you're mostly likely to grab aggro because of your high dps. If you get aggro while in Bastion do not panic, broadcast for shield so the logis can lock you, and provide a countdown in fleet chat or voice comms. A second before coming out you will re-broadcast for armor, so logi can start spamming reps. If you fail to do this, you will not get SRP.
 
 1.  After aggro is on the meat shield and the meat shield is stable you are able to do one cycle on the beacon. (I’d recommend putting meat shield on your watch list because if you need to battlerep him do it! If he dies and you’re in Bastion you’re most likely next target and we can’t rep you.)
 2.  During the one cycle kill tagged Deltoles/Outunis. After the cycle is done jump to the left of the tower.
