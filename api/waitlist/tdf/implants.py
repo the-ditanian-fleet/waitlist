@@ -50,7 +50,7 @@ def _have_slot10(ship: int, implants: List[int]) -> bool:
             return True
         if id_of("Pashan's Turret Handling Mindlink") in implants:
             return True
-    if ship == id_of("Vindicator") or anything_goes:
+    if ship in [id_of("Vindicator"), id_of("Kronos")] or anything_goes:
         if id_of("% LH-1006", fuzzy=True) in implants:
             return True
     if ship == id_of("Leshak") or anything_goes:
