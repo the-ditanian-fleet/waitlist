@@ -8,7 +8,7 @@ Scouting is a fairly advanced role that requires multiboxing, so don't try this 
 
 ## Finding sites
 
-First and foremost the job of a scout is to find the fleet a free site before the end of the previous site. You can let the FC know which sites are taken through tags, so the FC can choose a next site. The common tag for "this site is taken" is **X**, though experienced scouts will use all of X/**Y**/**Z** to let the FC know which community is in each site. You can tag a site if you are in a fleet _tagging position_, by right-clicking the beacon, and picking the tag in the tag dropdown, but this is faster if you assign a hotkey via the settings menu.
+First and foremost the job of a scout is to find the fleet a free site before the end of the previous site. You can let the FC know which sites are taken through tags, so the FC can choose a next site. The common tag for "this site is taken" is **X**, though experienced scouts will use all of X/**Y**/**Z** to let the FC know which community is in each site. You can tag a site if you are in a fleet _tagging position_, by right-clicking the beacon, and picking the tag in the tag dropdown, but this is faster if you assign a hotkey (via the settings menu, Shortcuts tab, use the search in the top right).
 
 How you find the sites that are taken can depend on the number of fleets that are running:
 
@@ -22,7 +22,7 @@ Sometimes a fleet will bounce, leaving a tagged site without a fleet in it. It i
 
 The **C** tag is sometimes used to indicate a site is clear, but you can also use numeric tags to make it easier to refer to the actual sites without having to broadcast them.
 
-Put an X tag on the Kundalini Manifest, so FCs don't accidentally end the focus.
+Put an X tag on the Kundalini Manifest, so FCs don't accidentally end the focus. The same goes for other anomalies and sites that appear on the overview and aren't related to incursions.
 
 ### Most favorable site
 
@@ -47,6 +47,8 @@ If you do cloak, make sure to either warp off before the _meatshield_ goes in, o
 The FC will appreciate it if you tag the two _Schmaeels_ close to the MTAC factory (or Romi), and the only _Auga_ that spawns. Those two _Schmaeels_ in particular will respawn, so we do not want to shoot them until the site is done.
 
 Preloading a TCRC is somewhat risky and you may lose your ship if you're not paying attention!
+
+![](tcrc-x.png)
 
 ## Finding contests
 
