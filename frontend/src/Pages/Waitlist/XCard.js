@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ToastContext, genericCatch, toastHttp } from "../../Toast";
+import { ToastContext, toastHttp } from "../../Toast";
 import { AuthContext } from "../../Auth";
 import { NavLink } from "react-router-dom";
 import { TimeDisplay } from "./TimeDisplay.js";
@@ -37,30 +37,27 @@ const tagBadges = {
 };
 
 async function approveFit(id) {
-  const result = await fetch("/api/waitlist/approve", {
+  return await fetch("/api/waitlist/approve", {
     method: "POST",
     body: JSON.stringify({ id: id }),
     headers: { "Content-Type": "application/json" },
   });
-  return await result.text();
 }
 
 async function rejectFit(id, reject_reason) {
-  const result = await fetch("/api/waitlist/reject", {
+  return await fetch("/api/waitlist/reject", {
     method: "POST",
     body: JSON.stringify({ id, reject_reason }),
     headers: { "Content-Type": "application/json" },
   });
-  return await result.text();
 }
 
 async function removeFit(id) {
-  const result = await fetch("/api/waitlist/remove_fit", {
+  return await fetch("/api/waitlist/remove_fit", {
     method: "POST",
     body: JSON.stringify({ id: id }),
     headers: { "Content-Type": "application/json" },
   });
-  return await result.text();
 }
 
 async function invite(id, character_id) {
@@ -339,7 +336,7 @@ export function XCard({ entry, fit, onAction }) {
         {entry.can_remove ? (
           <a
             title="Remove x-up"
-            onClick={(evt) => removeFit(fit.id).then(onAction).catch(genericCatch(toastContext))}
+            onClick={(evt) => removeFit(fit.id).then(toastHttp(toastContext, null)).then(onAction)}
           >
             <FontAwesomeIcon icon={faTrashAlt} />
           </a>
@@ -366,6 +363,21 @@ export function XCard({ entry, fit, onAction }) {
             <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
               <FontAwesomeIcon icon={faInfoCircle} />
             </NavLink>
+            <a
+              title="Reject"
+              onClick={(evt) => {
+                var rejectionReason = prompt(
+                  "Why is the fit being rejected? (Will be displayed to pilot)"
+                );
+                if (rejectionReason) {
+                  rejectFit(fit.id, rejectionReason)
+                    .then(toastHttp(toastContext, null))
+                    .then(onAction);
+                }
+              }}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </a>
             {fit.approved ? (
               <a
                 title="Invite"
@@ -378,31 +390,14 @@ export function XCard({ entry, fit, onAction }) {
                 <FontAwesomeIcon icon={faPlus} />
               </a>
             ) : (
-              <>
-                <a
-                  title="Reject"
-                  onClick={(evt) => {
-                    var rejectionReason = prompt(
-                      "Why is the fit being rejected? (Will be displayed to pilot)"
-                    );
-                    if (rejectionReason) {
-                      rejectFit(fit.id, rejectionReason)
-                        .then(onAction)
-                        .catch(genericCatch(toastContext));
-                    }
-                  }}
-                >
-                  <FontAwesomeIcon icon={faTimes} />
-                </a>
-                <a
-                  title="Approve"
-                  onClick={(evt) =>
-                    approveFit(fit.id).then(onAction).catch(genericCatch(toastContext))
-                  }
-                >
-                  <FontAwesomeIcon icon={faCheck} />
-                </a>
-              </>
+              <a
+                title="Approve"
+                onClick={(evt) =>
+                  approveFit(fit.id).then(toastHttp(toastContext, null)).then(onAction)
+                }
+              >
+                <FontAwesomeIcon icon={faCheck} />
+              </a>
             )}
           </>
         ) : null}
