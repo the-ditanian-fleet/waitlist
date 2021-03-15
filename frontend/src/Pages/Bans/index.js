@@ -1,14 +1,16 @@
 import React from "react";
 import { Table, Row, Cell, TableHead, TableBody, CellHead } from "../../Components/Table";
 
+import { ToastContext } from "../../contexts";
+import { errorToaster, apiCall } from "../../api";
+
 export function Bans() {
   const [bans, setBans] = React.useState(null);
+  const toastContext = React.useContext(ToastContext);
 
   React.useEffect(() => {
-    fetch("/api/bans/list")
-      .then((response) => response.json())
-      .then(setBans);
-  }, []);
+    errorToaster(toastContext, apiCall("/api/bans/list", {}).then(setBans));
+  }, [toastContext]);
 
   if (!bans) {
     return <em>Loading bans...</em>;

@@ -1,22 +1,25 @@
 import React from "react";
-import { AuthContext } from "../../contexts";
+import { AuthContext, ToastContext } from "../../contexts";
 import { useLocation } from "react-router-dom";
 import { PageTitle, Title } from "../../Components/Page";
 import { SkillHistory } from "./SkillHistory";
 import { FitHistory } from "./FitHistory";
+import { apiCall, errorToaster } from "../../api";
 
 export function Pilot() {
   const authContext = React.useContext(AuthContext);
+  const toastContext = React.useContext(ToastContext);
   const queryParams = new URLSearchParams(useLocation().search);
   var characterId = queryParams.get("character_id") || authContext.current.id;
 
   const [basicInfo, setBasicInfo] = React.useState(null);
 
   React.useEffect(() => {
-    fetch("/api/pilot/info?character_id=" + characterId)
-      .then((response) => response.json())
-      .then(setBasicInfo);
-  }, [characterId]);
+    errorToaster(
+      toastContext,
+      apiCall("/api/pilot/info?character_id=" + characterId, {}).then(setBasicInfo)
+    );
+  }, [toastContext, characterId]);
 
   if (!basicInfo) {
     return <em>Loading pilot information...</em>;

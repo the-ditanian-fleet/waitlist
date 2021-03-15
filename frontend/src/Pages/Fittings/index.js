@@ -1,15 +1,16 @@
 import React from "react";
 import { Table, Row, Cell, TableBody } from "../../Components/Table";
 import { Content } from "../../Components/Page";
+import { ToastContext } from "../../contexts";
+import { apiCall, errorToaster } from "../../api";
 
 export function Fittings() {
   const [fittings, setFittings] = React.useState(null);
+  const toastContext = React.useContext(ToastContext);
 
   React.useEffect(() => {
-    fetch("/api/fittings")
-      .then((response) => response.json())
-      .then(setFittings);
-  }, []);
+    errorToaster(toastContext, apiCall("/api/fittings", {}).then(setFittings));
+  }, [toastContext]);
 
   if (!fittings) {
     return <em>Loading fittings...</em>;

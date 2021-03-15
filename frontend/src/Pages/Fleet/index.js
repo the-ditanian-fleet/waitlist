@@ -173,7 +173,7 @@ export function FleetRegister() {
       apiCall("/api/fleet/info?character_id=" + characterId, {}).then(setFleetInfo)
     );
 
-    errorToaster(toastContext, fetch("/api/categories").then(setCategories));
+    errorToaster(toastContext, apiCall("/api/categories", {}).then(setCategories));
   }, [characterId, toastContext]);
 
   React.useEffect(() => {

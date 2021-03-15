@@ -3,6 +3,8 @@ import ReactMarkdown from "react-markdown";
 import { useParams, NavLink } from "react-router-dom";
 import { Content } from "../../Components/Page";
 import styled from "styled-components";
+import { ToastContext } from "../../contexts";
+import { errorToaster } from "../../api";
 
 const guideData = {};
 function importAll(r) {
@@ -19,6 +21,7 @@ const GuideContent = styled(Content)`
 `;
 
 export function Guide() {
+  const toastContext = React.useContext(ToastContext);
   const { guideName } = useParams();
   const [loadedData, setLoadedData] = React.useState(null);
   const guidePath = `./${guideName}`;
@@ -27,10 +30,13 @@ export function Guide() {
   React.useEffect(() => {
     if (!(filename in guideData)) return;
 
-    fetch(guideData[filename].default)
-      .then((response) => response.text())
-      .then(setLoadedData);
-  }, [filename]);
+    errorToaster(
+      toastContext,
+      fetch(guideData[filename].default)
+        .then((response) => response.text())
+        .then(setLoadedData)
+    );
+  }, [toastContext, filename]);
 
   const resolveImage = (name) => {
     const originalName = `${guidePath}/${name}`;

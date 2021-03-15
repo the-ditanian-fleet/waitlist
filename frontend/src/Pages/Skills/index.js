@@ -1,5 +1,6 @@
 import React from "react";
-import { AuthContext } from "../../contexts";
+import { AuthContext, ToastContext } from "../../contexts";
+import { apiCall, errorToaster } from "../../api";
 import { useLocation, useHistory } from "react-router-dom";
 import { Badge } from "../../Components/Badge";
 import { PageTitle } from "../../Components/Page";
@@ -162,6 +163,7 @@ export function SkillList({ mySkills, shipName }) {
 
 export function Skills() {
   const [skills, setSkills] = React.useState({});
+  const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
   const queryParams = new URLSearchParams(useLocation().search);
   const history = useHistory();
@@ -178,10 +180,13 @@ export function Skills() {
 
   React.useEffect(() => {
     var loadId = characterId; // Shadow
-    fetch("/api/skills?character_id=" + loadId)
-      .then((response) => response.json())
-      .then((charSkills) => setSkills({ [loadId]: charSkills }));
-  }, [characterId]);
+    errorToaster(
+      toastContext,
+      apiCall("/api/skills?character_id=" + loadId, {}).then((charSkills) =>
+        setSkills({ [loadId]: charSkills })
+      )
+    );
+  }, [toastContext, characterId]);
 
   if (!(characterId in skills)) {
     return <p>Loading skill information</p>;

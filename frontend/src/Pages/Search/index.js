@@ -1,8 +1,11 @@
 import React from "react";
 import { Input, NavButton } from "../../Components/Form";
 import { Cell, Table, Row, TableHead, TableBody, CellHead } from "../../Components/Table";
+import { apiCall, errorToaster } from "../../api";
+import { ToastContext } from "../../contexts";
 
 export function Search() {
+  const toastContext = React.useContext(ToastContext);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [results, setResults] = React.useState(null);
 
@@ -11,15 +14,17 @@ export function Search() {
     if (searchTerm.length < 3) {
       return;
     }
-    fetch(
-      "/api/search?" +
-        new URLSearchParams({
-          query: searchTerm,
-        })
-    )
-      .then((response) => response.json())
-      .then(setResults); // XXX error
-  }, [searchTerm, setResults]);
+    errorToaster(
+      toastContext,
+      apiCall(
+        "/api/search?" +
+          new URLSearchParams({
+            query: searchTerm,
+          }),
+        {}
+      ).then(setResults)
+    );
+  }, [toastContext, searchTerm, setResults]);
 
   return (
     <>
