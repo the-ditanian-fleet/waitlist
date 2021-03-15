@@ -1,18 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Skills } from "../Pages/Skills";
-import { Waitlist } from "../Pages/Waitlist";
-import { Fleet, FleetRegister } from "../Pages/Fleet";
-import { Xup } from "../Pages/Xup";
-import { Pilot } from "../Pages/Pilot";
-import { Search } from "../Pages/Search";
-import { Bans } from "../Pages/Bans";
-import { Fittings } from "../Pages/Fittings";
-import { Guide, GuideIndex } from "../Pages/Guide";
 import { Authenticate, AuthContext } from "../Auth";
 import { ToastContext, ToastDisplay } from "../Toast";
 import { EventContext } from "../Event";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import { Routes } from "./routes";
 
 import { Menu } from "./Menu";
 import "./reset.css";
@@ -129,39 +121,7 @@ export default class App extends React.Component {
                           onAuth={(auth) => this.setState({ auth })}
                         />
                       </Route>
-                      <Route exact path="/skills">
-                        <Skills />
-                      </Route>
-                      <Route exact path="/fleet">
-                        <Fleet />
-                      </Route>
-                      <Route exact path="/fleet/register">
-                        <FleetRegister />
-                      </Route>
-                      <Route exact path="/xup">
-                        <Xup />
-                      </Route>
-                      <Route exact path="/pilot">
-                        <Pilot />
-                      </Route>
-                      <Route exact path="/search">
-                        <Search />
-                      </Route>
-                      <Route exact path="/bans">
-                        <Bans />
-                      </Route>
-                      <Route exact path="/fittings">
-                        <Fittings />
-                      </Route>
-                      <Route exact path="/guide">
-                        <GuideIndex />
-                      </Route>
-                      <Route exact path="/guide/:guideName">
-                        <Guide />
-                      </Route>
-                      <Route exact path="/">
-                        <Waitlist />
-                      </Route>
+                      <Routes />
                     </Switch>
                   </Container>
                 </Router>
