@@ -26,7 +26,7 @@ export function Fittings() {
         </em>
       </p>
       {fittings.fittings.map((ship) => (
-        <>
+        <React.Fragment key={ship.hull.id}>
           <h2>{ship.hull.name}</h2>
           <Table fullWidth>
             <TableBody>
@@ -39,7 +39,7 @@ export function Fittings() {
               ))}
             </TableBody>
           </Table>
-        </>
+        </React.Fragment>
       ))}
     </Content>
   );
