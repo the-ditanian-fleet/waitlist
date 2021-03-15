@@ -1,17 +1,39 @@
-from typing import List, Dict, Set, Optional, Any
+from typing import List, Dict, Set, Optional, Any, Tuple
 import yaml
 from ..eft2dna import split_dna
-from ..data.evedb import id_of, name_of
+from ..data.evedb import id_of, name_of, type_variations
 from . import skills, fits, modules, implants
 
 BANNED_MODULES = modules.load_banned()
 
+
+def _build_category_rules(raw: List[Dict[str, str]]) -> List[Tuple[int, str]]:
+    result = []
+    for entry in raw:
+        item_id = id_of(entry["item"])
+        if not "meta" in entry:
+            result.append((item_id, entry["category"]))
+            continue
+
+        variations = type_variations(item_id)
+        for variation_id, level in variations.items():
+            if entry["meta"] == "le" and not level <= variations[item_id]:
+                continue
+            if entry["meta"] == "lt" and not level < variations[item_id]:
+                continue
+            if entry["meta"] == "ge" and not level >= variations[item_id]:
+                continue
+            if entry["meta"] == "gt" and not level > variations[item_id]:
+                continue
+            result.append((variation_id, entry["category"]))
+
+    return result
+
+
 with open("./waitlist/tdf/categories.yaml", "r") as fileh:
     _yamldata = yaml.safe_load(fileh)
     CATEGORIES: Dict[str, str] = _yamldata["categories"]
-    CATEGORY_RULES = [
-        (id_of(rule["item"]), rule["category"]) for rule in _yamldata["rules"]
-    ]
+    CATEGORY_RULES = _build_category_rules(_yamldata["rules"])
 
 
 class FitCheckResult:  # pylint: disable=too-few-public-methods
