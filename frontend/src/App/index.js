@@ -83,14 +83,6 @@ export default class App extends React.Component {
   };
 
   render() {
-    if (!this.state.auth) {
-      return (
-        <Router>
-          <Authenticate value={this.state.auth} onAuth={(auth) => this.setState({ auth })} />
-        </Router>
-      );
-    }
-
     return (
       <React.StrictMode>
         <ThemeProvider theme={theme[this.state.theme]}>
@@ -100,29 +92,38 @@ export default class App extends React.Component {
               <AuthContext.Provider value={this.state.auth}>
                 <Router>
                   <Container>
-                    <Menu
-                      onChangeCharacter={(char) => this.changeCharacter(char)}
-                      theme={this.state.theme}
-                      setTheme={(newTheme) => {
-                        this.setState({ theme: newTheme });
-                        if (window.localStorage) {
-                          window.localStorage.setItem("theme", newTheme);
-                        }
-                      }}
-                    />
+                    {this.state.auth ? (
+                      <>
+                        <Menu
+                          onChangeCharacter={(char) => this.changeCharacter(char)}
+                          theme={this.state.theme}
+                          setTheme={(newTheme) => {
+                            this.setState({ theme: newTheme });
+                            if (window.localStorage) {
+                              window.localStorage.setItem("theme", newTheme);
+                            }
+                          }}
+                        />
+                        <Switch>
+                          <Route path="/auth">
+                            <Authenticate
+                              value={this.state.auth}
+                              onAuth={(auth) => this.setState({ auth })}
+                            />
+                          </Route>
+                          <Routes />
+                        </Switch>
+                      </>
+                    ) : (
+                      <Authenticate
+                        value={this.state.auth}
+                        onAuth={(auth) => this.setState({ auth })}
+                      />
+                    )}
                     <ToastDisplay
                       toasts={this.state.toasts}
                       setToasts={(toasts) => this.setState({ toasts })}
                     />
-                    <Switch>
-                      <Route path="/auth">
-                        <Authenticate
-                          value={this.state.auth}
-                          onAuth={(auth) => this.setState({ auth })}
-                        />
-                      </Route>
-                      <Routes />
-                    </Switch>
                   </Container>
                 </Router>
               </AuthContext.Provider>
