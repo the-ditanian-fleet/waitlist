@@ -1,27 +1,19 @@
 import React from "react";
 import { AuthContext, ToastContext } from "../../contexts";
-import { genericCatch, toastHttp } from "../../Components/Toast";
 import { Confirm } from "../../Components/Modal";
 import { Button, Buttons, NavButton, Select } from "../../Components/Form";
 import { Content } from "../../Components/Page";
+import { apiCall, errorToaster, toaster } from "../../api";
 
 async function setWaitlistOpen(waitlistId, isOpen) {
-  return await fetch("/api/waitlist/set_open", {
-    method: "POST",
-    body: JSON.stringify({ waitlist_id: waitlistId, open: isOpen }),
-    headers: {
-      "Content-Type": "application/json",
-    },
+  return await apiCall("/api/waitlist/set_open", {
+    json: { waitlist_id: waitlistId, open: isOpen },
   });
 }
 
 async function closeFleet(characterId) {
-  return await fetch("/api/fleet/close", {
-    method: "POST",
-    body: JSON.stringify({ character_id: characterId }),
-    headers: {
-      "Content-Type": "application/json",
-    },
+  return await apiCall("/api/fleet/close", {
+    json: { character_id: characterId },
   });
 }
 
@@ -32,10 +24,7 @@ export function Fleet() {
   const toastContext = React.useContext(ToastContext);
 
   React.useEffect(() => {
-    fetch("/api/fleet/status")
-      .then((response) => response.json())
-      .then(setFleets)
-      .catch(genericCatch(toastContext));
+    errorToaster(toastContext, apiCall("/api/fleet/status", {}).then(setFleets));
   }, [toastContext]);
 
   React.useEffect(() => {
@@ -50,13 +39,10 @@ export function Fleet() {
       <Buttons>
         <NavButton to="/fleet/register">Configure fleet</NavButton>
         <NavButton to="/auth/start/fc">ESI re-auth as FC</NavButton>
-        <Button
-          variant="success"
-          onClick={() => setWaitlistOpen(1, true).then(toastHttp(toastContext))}
-        >
+        <Button variant="success" onClick={() => toaster(toastContext, setWaitlistOpen(1, true))}>
           Open waitlist
         </Button>
-        <Button onClick={() => setWaitlistOpen(1, false).then(toastHttp(toastContext))}>
+        <Button onClick={() => toaster(toastContext, setWaitlistOpen(1, false))}>
           Close waitlist
         </Button>
         <Button variant="danger" onClick={(evt) => setFleetCloseModalOpen(true)}>
@@ -89,9 +75,9 @@ export function Fleet() {
         setOpen={setFleetCloseModalOpen}
         title="Kick everyone from fleet"
         onConfirm={(evt) =>
-          closeFleet(authContext.current.id)
-            .then(toastHttp(toastContext), genericCatch(toastContext))
-            .finally(() => setFleetCloseModalOpen(false))
+          toaster(toastContext, closeFleet(authContext.current.id)).finally(() =>
+            setFleetCloseModalOpen(false)
+          )
         }
       >
         Are you sure?
@@ -101,31 +87,25 @@ export function Fleet() {
 }
 
 async function registerFleet({ fleetInfo, categoryMatches, authContext }) {
-  return await fetch("/api/fleet/register", {
-    method: "POST",
-    body: JSON.stringify({
+  return await apiCall("/api/fleet/register", {
+    json: {
       character_id: authContext.current.id,
       assignments: categoryMatches,
       fleet_id: fleetInfo.fleet_id,
-    }),
-    headers: {
-      "Content-Type": "application/json",
     },
   });
 }
 
 function FleetMembers() {
   const authContext = React.useContext(AuthContext);
-  const toastContext = React.useContext(ToastContext);
   const [fleetMembers, setFleetMembers] = React.useState(null);
   const characterId = authContext.current.id;
 
   React.useEffect(() => {
-    fetch("/api/fleet/members?character_id=" + characterId)
-      .then((response) => response.json())
+    apiCall("/api/fleet/members?character_id=" + characterId, {})
       .then(setFleetMembers)
       .catch((err) => setFleetMembers(null)); // What's error handling?
-  }, [toastContext, characterId]);
+  }, [characterId]);
 
   if (!fleetMembers) {
     return null;
@@ -188,15 +168,12 @@ export function FleetRegister() {
 
   const characterId = authContext.current.id;
   React.useEffect(() => {
-    fetch("/api/fleet/info?character_id=" + characterId)
-      .then((response) => response.json())
-      .then(setFleetInfo)
-      .catch(genericCatch(toastContext));
+    errorToaster(
+      toastContext,
+      apiCall("/api/fleet/info?character_id=" + characterId, {}).then(setFleetInfo)
+    );
 
-    fetch("/api/categories")
-      .then((response) => response.json())
-      .then(setCategories)
-      .catch(genericCatch(toastContext));
+    errorToaster(toastContext, fetch("/api/categories").then(setCategories));
   }, [characterId, toastContext]);
 
   React.useEffect(() => {
@@ -227,10 +204,7 @@ export function FleetRegister() {
       <Button
         variant="primary"
         onClick={(evt) =>
-          registerFleet({ authContext, fleetInfo, categoryMatches }).then(
-            toastHttp(toastContext),
-            genericCatch(toastContext)
-          )
+          toaster(toastContext, registerFleet({ authContext, fleetInfo, categoryMatches }))
         }
       >
         Continue
