@@ -200,14 +200,14 @@ export function Skills() {
           <Button active={ship === "Vindicator"} onClick={(evt) => setShip("Vindicator")}>
             Vindicator
           </Button>
+          <Button active={ship === "Kronos"} onClick={(evt) => setShip("Kronos")}>
+            Kronos
+          </Button>
           <Button active={ship === "Nightmare"} onClick={(evt) => setShip("Nightmare")}>
             Nightmare
           </Button>
           <Button active={ship === "Paladin"} onClick={(evt) => setShip("Paladin")}>
             Paladin
-          </Button>
-          <Button active={ship === "Kronos"} onClick={(evt) => setShip("Kronos")}>
-            Kronos
           </Button>
           <Button active={ship === "Leshak"} onClick={(evt) => setShip("Leshak")}>
             Leshak
