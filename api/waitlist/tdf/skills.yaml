@@ -65,6 +65,7 @@ categories:
     - Capacitor Emission Systems
     - Remote Armor Repair Systems
     - Remote Hull Repair Systems
+    - Shield Emission Systems
   Targeting:
     - Target Management
     - Advanced Target Management
@@ -532,6 +533,9 @@ Guardian:
     gold: 5
   Amarr Cruiser:
     min: 5
+  Repair Drone Operation:
+    min: 3
+    elite: 5
 
 Oneiros:
   <<: *generic
@@ -558,6 +562,9 @@ Oneiros:
     gold: 5
   Gallente Cruiser:
     min: 5
+  Repair Drone Operation:
+    min: 3
+    elite: 5
 
 Nestor:
   <<: *generic
@@ -588,3 +595,12 @@ Nestor:
     gold: 5
   Magnetometric Sensor Compensation:
     gold: 5
+  Repair Drone Operation:
+    min: 3
+    elite: 5
+  Shield Emission Systems:
+    min: 3
+    elite: 4
+  Remote Hull Repair Systems:
+    min: 3
+    elite: 4
