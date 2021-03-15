@@ -162,7 +162,7 @@ export function SkillList({ mySkills, shipName }) {
 }
 
 export function Skills() {
-  const [skills, setSkills] = React.useState({});
+  const [skills, setSkills] = React.useState(null);
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
   const queryParams = new URLSearchParams(useLocation().search);
@@ -179,23 +179,22 @@ export function Skills() {
   };
 
   React.useEffect(() => {
-    var loadId = characterId; // Shadow
+    setSkills(null);
     errorToaster(
       toastContext,
-      apiCall("/api/skills?character_id=" + loadId, {}).then((charSkills) =>
-        setSkills({ [loadId]: charSkills })
+      apiCall("/api/skills?character_id=" + characterId, {}).then((charSkills) =>
+        setSkills(charSkills)
       )
     );
   }, [toastContext, characterId]);
 
-  if (!(characterId in skills)) {
+  if (!skills) {
     return <p>Loading skill information</p>;
   }
 
-  var mySkills = skills[characterId];
   return (
     <>
-      <PageTitle>Skills for {mySkills.character_name}</PageTitle>
+      <PageTitle>Skills for {skills.character_name}</PageTitle>
       <Buttons style={{ marginBottom: "1em" }}>
         <InputGroup>
           <Button active={ship === "Vindicator"} onClick={(evt) => setShip("Vindicator")}>
@@ -230,7 +229,7 @@ export function Skills() {
         Legend: <Badge variant="danger">Starter</Badge> <Badge variant="warning">Basic</Badge>{" "}
         <Badge variant="secondary">Elite</Badge> <Badge variant="success">Elite GOLD</Badge>
       </div>
-      <SkillList mySkills={mySkills} shipName={ship} />
+      <SkillList mySkills={skills} shipName={ship} />
     </>
   );
 }

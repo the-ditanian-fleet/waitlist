@@ -24,6 +24,7 @@ export function Fleet() {
   const toastContext = React.useContext(ToastContext);
 
   React.useEffect(() => {
+    setFleets(null);
     errorToaster(toastContext, apiCall("/api/fleet/status", {}).then(setFleets));
   }, [toastContext]);
 
@@ -102,6 +103,7 @@ function FleetMembers() {
   const characterId = authContext.current.id;
 
   React.useEffect(() => {
+    setFleetMembers(null);
     apiCall("/api/fleet/members?character_id=" + characterId, {})
       .then(setFleetMembers)
       .catch((err) => setFleetMembers(null)); // What's error handling?
@@ -168,11 +170,13 @@ export function FleetRegister() {
 
   const characterId = authContext.current.id;
   React.useEffect(() => {
+    setFleetInfo(null);
     errorToaster(
       toastContext,
       apiCall("/api/fleet/info?character_id=" + characterId, {}).then(setFleetInfo)
     );
 
+    setCategories(null);
     errorToaster(toastContext, apiCall("/api/categories", {}).then(setCategories));
   }, [characterId, toastContext]);
 

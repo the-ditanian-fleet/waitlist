@@ -8,6 +8,7 @@ export function SkillHistory({ characterId }) {
   const toastContext = React.useContext(ToastContext);
   const [history, setHistory] = React.useState(null);
   React.useEffect(() => {
+    setHistory(null);
     errorToaster(
       toastContext,
       apiCall("/api/history/skills?character_id=" + characterId, {}).then(setHistory)

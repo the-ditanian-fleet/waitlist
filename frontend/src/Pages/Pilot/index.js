@@ -15,6 +15,7 @@ export function Pilot() {
   const [basicInfo, setBasicInfo] = React.useState(null);
 
   React.useEffect(() => {
+    setBasicInfo(null);
     errorToaster(
       toastContext,
       apiCall("/api/pilot/info?character_id=" + characterId, {}).then(setBasicInfo)
