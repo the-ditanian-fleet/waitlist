@@ -3,11 +3,25 @@ import { Input, NavButton } from "../../Components/Form";
 import { Cell, Table, Row, TableHead, TableBody, CellHead } from "../../Components/Table";
 import { apiCall, errorToaster } from "../../api";
 import { ToastContext } from "../../contexts";
+import { useLocation, useHistory } from "react-router-dom";
 
 export function Search() {
   const toastContext = React.useContext(ToastContext);
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const history = useHistory();
+  const queryParams = new URLSearchParams(useLocation().search);
   const [results, setResults] = React.useState(null);
+
+  const searchTerm = queryParams.get("query") || "";
+  const setSearchTerm = (newTerm) => {
+    if (newTerm) {
+      queryParams.set("query", newTerm);
+    } else {
+      queryParams.delete("query");
+    }
+    history.replace({
+      search: queryParams.toString(),
+    });
+  };
 
   React.useEffect(() => {
     setResults(null);
