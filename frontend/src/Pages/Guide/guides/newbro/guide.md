@@ -24,7 +24,7 @@ In order to continue flying our current doctrine please join our fitting mailing
 
 ![](mailinglisthq.png)
 
-The mailing lists have a selection of fits which allow for any budget or skill level and they are all covered by the TDF Ship Replacement Program (SRP). All fittings have their minimum skill requirements in the mailing list.Basic and above require level 4, with a ship specific exception for the Paladin which requires 5.
+The mailing lists have a selection of fits which allow for any budget or skill level and they are all covered by the TDF Ship Replacement Program (SRP). All fittings have their minimum skill requirements in the mailing list. Basic and above require level 4, with a ship specific exception for the Paladin which requires 5.
 
 Pick a fit you would like to fly. If you need help just ask in the TDF-Official channel or in Discord for any advice getting set up.
 
