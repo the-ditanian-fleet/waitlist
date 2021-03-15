@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthContext, ToastContext, EventContext } from "../../contexts";
-import _ from "lodash";
 import { apiCall, errorToaster } from "../../api";
+import { useLocation, useHistory } from "react-router-dom";
 import { InputGroup, Button, Buttons, NavButton } from "../../Components/Form";
 import {
   ColumnWaitlist,
@@ -11,6 +11,7 @@ import {
   RowWaitlist,
   NotepadWaitlist,
 } from "./displaymodes";
+import _ from "lodash";
 
 function coalesceCalls(func, wait) {
   var timer = null;
@@ -49,9 +50,10 @@ export function Waitlist() {
   const eventContext = React.useContext(EventContext);
   const [waitlistId, _setWaitlistId] = React.useState(1); //eslint-disable-line
   const [waitlistData, setWaitlistData] = React.useState(null);
-  const [displayMode, writeDisplayMode] = React.useState(
-    (window.localStorage && window.localStorage.getItem("waitlistMode")) || "columns"
-  );
+  const queryParams = new URLSearchParams(useLocation().search);
+  const displayMode = queryParams.get("mode") || "columns";
+  const history = useHistory();
+
   const updateAndSet = React.useCallback(() => {
     errorToaster(
       toastContext,
@@ -60,10 +62,10 @@ export function Waitlist() {
   }, [waitlistId, setWaitlistData, toastContext]);
 
   const setDisplayMode = (newMode) => {
-    if (window.localStorage) {
-      window.localStorage.setItem("waitlistMode", newMode);
-    }
-    writeDisplayMode(newMode);
+    queryParams.set("mode", newMode);
+    history.replace({
+      search: queryParams.toString(),
+    });
   };
 
   React.useEffect(() => {
