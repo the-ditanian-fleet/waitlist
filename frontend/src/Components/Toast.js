@@ -2,8 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
-export const ToastContext = React.createContext(() => {});
-
 const ToastDOM = styled.div`
   position: fixed;
   background-color: ${(props) => props.theme.colors[props.variant].color};

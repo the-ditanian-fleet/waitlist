@@ -1,6 +1,6 @@
 import React from "react";
 
-import { EventContext } from "../../Event";
+import { EventContext } from "../../contexts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faBellSlash } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "../Modal";

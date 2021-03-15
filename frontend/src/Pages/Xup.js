@@ -1,6 +1,6 @@
 import React from "react";
-import { ToastContext, addToast, genericCatch } from "../Toast";
-import { AuthContext } from "../Auth";
+import { ToastContext, AuthContext } from "../contexts";
+import { addToast, genericCatch } from "../Components/Toast";
 import { Button, InputGroup, Textarea } from "../Components/Form";
 import { useHistory } from "react-router-dom";
 

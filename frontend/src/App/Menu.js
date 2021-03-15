@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../Auth";
+import { AuthContext } from "../contexts";
 import logoImage from "./logo.png";
 import styled from "styled-components";
 import { InputGroup, Button, Select, NavButton } from "../Components/Form";

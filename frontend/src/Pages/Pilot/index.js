@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthContext } from "../../Auth";
+import { AuthContext } from "../../contexts";
 import { useLocation } from "react-router-dom";
 import { PageTitle, Title } from "../../Components/Page";
 import { SkillHistory } from "./SkillHistory";

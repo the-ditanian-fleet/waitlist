@@ -1,9 +1,8 @@
 import React from "react";
-import { ToastContext, genericCatch } from "../../Toast";
-import { EventContext } from "../../Event";
+import { AuthContext, ToastContext, EventContext } from "../../contexts";
 import _ from "lodash";
+import { genericCatch } from "../../Components/Toast";
 import { InputGroup, Button, Buttons, NavButton } from "../../Components/Form";
-import { AuthContext } from "../../Auth";
 import {
   ColumnWaitlist,
   CompactWaitlist,

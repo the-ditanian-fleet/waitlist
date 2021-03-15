@@ -1,8 +1,6 @@
 import React from "react";
 import { useLocation, Switch, Route } from "react-router-dom";
 
-export const AuthContext = React.createContext(null);
-
 function AuthStart({ fc = false, alt = false }) {
   const [message, setMessage] = React.useState("Redirecting to EVE login");
 

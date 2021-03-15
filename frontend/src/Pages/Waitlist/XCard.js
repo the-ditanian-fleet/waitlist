@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { ToastContext, toastHttp } from "../../Toast";
-import { AuthContext } from "../../Auth";
+import { toastHttp } from "../../Components/Toast";
+import { ToastContext, AuthContext } from "../../contexts";
 import { NavLink } from "react-router-dom";
 import { TimeDisplay } from "./TimeDisplay.js";
 import { Badge } from "../../Components/Badge";

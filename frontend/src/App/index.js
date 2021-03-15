@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Authenticate, AuthContext } from "../Auth";
-import { ToastContext, ToastDisplay } from "../Toast";
-import { EventContext } from "../Event";
+import { Authenticate } from "../Pages/Auth";
+import { ToastDisplay } from "../Components/Toast";
+import { AuthContext, ToastContext, EventContext } from "../contexts";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import { Routes } from "./routes";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthContext } from "../../Auth";
+import { AuthContext } from "../../contexts";
 import { useLocation, useHistory } from "react-router-dom";
 import { Badge } from "../../Components/Badge";
 import { PageTitle } from "../../Components/Page";

@@ -1,6 +1,6 @@
 import React from "react";
-import { AuthContext } from "../../Auth";
-import { genericCatch, ToastContext, toastHttp } from "../../Toast";
+import { AuthContext, ToastContext } from "../../contexts";
+import { genericCatch, toastHttp } from "../../Components/Toast";
 import { Confirm } from "../../Components/Modal";
 import { Button, Buttons, NavButton, Select } from "../../Components/Form";
 import { Content } from "../../Components/Page";
