@@ -170,6 +170,14 @@ const FitAnalysisDOM = styled.div`
 `;
 
 function FitAnalysis({ source }) {
+  if (!source) {
+    return (
+      <FitAnalysisDOM>
+        <h2>UNKNOWN_FIT</h2>
+      </FitAnalysisDOM>
+    );
+  }
+
   const idLookup = source._ids || {};
   const analysis = [];
   _.forEach(source.missing || {}, (count, itemId) => {
@@ -196,12 +204,9 @@ function FitAnalysis({ source }) {
       );
     });
   });
-  if (!source.name && !analysis) {
-    return null;
-  }
   return (
     <FitAnalysisDOM>
-      {source.name ? <h2>{source.name}</h2> : null}
+      {source.name ? <h2>{source.name}</h2> : <h2>UNKNOWN_FIT</h2>}
       {analysis}
     </FitAnalysisDOM>
   );
@@ -217,7 +222,7 @@ function ShipDisplay({ fit }) {
         {modalOpen ? (
           <Modal open={true} setOpen={setModalOpen}>
             <Box>
-              {fit.fit_analysis ? <FitAnalysis source={fit.fit_analysis} /> : null}
+              <FitAnalysis source={fit.fit_analysis} />
               <div style={{ display: "flex" }}>
                 <FitDisplay name={`${namePrefix} ${fit.hull.name}`} dna={fit.dna} />
                 {fit.implants ? <ImplantDisplay implants={fit.implants} /> : null}
