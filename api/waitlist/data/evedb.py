@@ -10,7 +10,7 @@ NAME_CACHE: Dict[int, str] = {}
 def type_names(ids: List[int]) -> Dict[int, str]:
     result = {}
     query = (
-        "SELECT typeID, typeName FROM invTypes WHERE typeID IN (%s) and published=1"
+        "SELECT typeID, typeName FROM invTypes WHERE typeID IN (%s) order by published asc"
         % (",".join("?" for n in ids))
     )
     qresult = DATABASE.cursor().execute(query, list(ids))
@@ -22,7 +22,7 @@ def type_names(ids: List[int]) -> Dict[int, str]:
 def type_ids(names: List[str]) -> Dict[str, int]:
     result = {}
     query = (
-        "SELECT typeID, typeName FROM invTypes WHERE typeName IN (%s) and published=1"
+        "SELECT typeID, typeName FROM invTypes WHERE typeName IN (%s) order by published asc"
         % (",".join("?" for n in names))
     )
     qresult = DATABASE.cursor().execute(query, list(names))
@@ -33,7 +33,7 @@ def type_ids(names: List[str]) -> Dict[str, int]:
 
 def type_categories(ids: List[int]) -> Dict[int, int]:
     query = (
-        "SELECT typeID, groupID FROM invTypes WHERE typeID IN (%s) and published=1"
+        "SELECT typeID, groupID FROM invTypes WHERE typeID IN (%s) order by published asc"
         % (",".join("?" for n in ids))
     )
     type_groups = list(DATABASE.cursor().execute(query, list(ids)))
@@ -81,7 +81,10 @@ def id_of(name: str, fuzzy: bool = False) -> int:
             ids = type_ids([name])
             ID_CACHE[name] = ids[name]
         else:
-            query = "SELECT typeID FROM invTypes WHERE typeName LIKE ? and published=1"
+            query = (
+                "SELECT typeID FROM invTypes WHERE typeName LIKE ? "
+                + "order by published desc limit 1"
+            )
             (type_id,) = DATABASE.cursor().execute(query, (name,)).fetchone()
             ID_CACHE[name] = type_id
     return ID_CACHE[name]
