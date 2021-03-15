@@ -1,6 +1,7 @@
 import React from "react";
 import { ToastContext, AuthContext } from "../contexts";
-import { addToast, genericCatch } from "../Components/Toast";
+import { addToast } from "../Components/Toast";
+import { apiCall, errorToaster } from "../api";
 import { Button, InputGroup, Textarea } from "../Components/Form";
 import { useHistory } from "react-router-dom";
 
@@ -34,29 +35,19 @@ Large Hybrid Burst Aerator II
 `.trim();
 
 async function xUp({ character, eft, toastContext, history }) {
-  const result = await fetch("/api/waitlist/xup", {
-    method: "POST",
-    body: JSON.stringify({ eft: eft, character_id: character, waitlist_id: 1 }),
-    headers: { "Content-Type": "application/json" },
+  await apiCall("/api/waitlist/xup", {
+    json: { eft: eft, character_id: character, waitlist_id: 1 },
   });
 
-  if (result.status === 200) {
-    addToast(toastContext, {
-      title: "Added to waitlist.",
-      message: "Your X has been added to the waitlist!",
-      variant: "success",
-    });
-    history.push("/");
+  addToast(toastContext, {
+    title: "Added to waitlist.",
+    message: "Your X has been added to the waitlist!",
+    variant: "success",
+  });
+  history.push("/");
 
-    if (window.Notification) {
-      Notification.requestPermission();
-    }
-  } else {
-    addToast(toastContext, {
-      title: "X-up failed!",
-      message: "Server returned " + result.status + ": " + (await result.text()),
-      variant: "danger",
-    });
+  if (window.Notification) {
+    Notification.requestPermission();
   }
 }
 
@@ -85,9 +76,10 @@ export function Xup() {
             variant="success"
             onClick={(evt) => {
               setIsSubmitting(true);
-              xUp({ character: authContext.current.id, eft, toastContext, history })
-                .catch(genericCatch)
-                .finally((evt) => setIsSubmitting(false));
+              errorToaster(
+                toastContext,
+                xUp({ character: authContext.current.id, eft, toastContext, history })
+              ).finally((evt) => setIsSubmitting(false));
             }}
             disabled={eft.trim().length < 50 || !eft.startsWith("[") || isSubmitting}
           >

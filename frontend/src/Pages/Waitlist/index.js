@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthContext, ToastContext, EventContext } from "../../contexts";
 import _ from "lodash";
-import { genericCatch } from "../../Components/Toast";
+import { apiCall, errorToaster } from "../../api";
 import { InputGroup, Button, Buttons, NavButton } from "../../Components/Form";
 import {
   ColumnWaitlist,
@@ -38,12 +38,9 @@ function coalesceCalls(func, wait) {
 }
 
 async function removeEntry(id) {
-  const result = await fetch("/api/waitlist/remove_x", {
-    method: "POST",
-    body: JSON.stringify({ id: id }),
-    headers: { "Content-Type": "application/json" },
+  return await apiCall("/api/waitlist/remove_x", {
+    json: { id },
   });
-  return await result.text();
 }
 
 export function Waitlist() {
@@ -56,9 +53,10 @@ export function Waitlist() {
     (window.localStorage && window.localStorage.getItem("waitlistMode")) || "columns"
   );
   const updateAndSet = React.useCallback(() => {
-    fetch("/api/waitlist?waitlist_id=" + waitlistId)
-      .then((response) => response.json())
-      .then(setWaitlistData, genericCatch(toastContext));
+    errorToaster(
+      toastContext,
+      apiCall("/api/waitlist?waitlist_id=" + waitlistId, {}).then(setWaitlistData)
+    );
   }, [waitlistId, setWaitlistData, toastContext]);
 
   const setDisplayMode = (newMode) => {
@@ -111,7 +109,7 @@ export function Waitlist() {
           </NavButton>
           <Button
             variant={myEntry ? "danger" : null}
-            onClick={(evt) => removeEntry(myEntry.id)}
+            onClick={(evt) => errorToaster(toastContext, removeEntry(myEntry.id))}
             disabled={myEntry ? false : true}
           >
             Leave waitlist

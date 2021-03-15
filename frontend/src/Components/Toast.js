@@ -84,33 +84,3 @@ export function addToast(context, { title = "", message, variant, time = 10000 }
   var expire = new Date(new Date().getTime() + time);
   context({ id, title, message, variant, expire });
 }
-
-export function genericCatch(context) {
-  return function (err) {
-    console.error(err);
-    addToast(context, {
-      title: "JS error.",
-      message: "An error occurred. It has been logged to the console.",
-      variant: "danger",
-    });
-  };
-}
-
-export function toastHttp(context, success = "Success") {
-  return async function (response) {
-    if (response.status === 200) {
-      if (success) {
-        addToast(context, {
-          message: success,
-          variant: "success",
-        });
-      }
-    } else {
-      addToast(context, {
-        title: "Error!",
-        message: await response.text(),
-        variant: "danger",
-      });
-    }
-  };
-}

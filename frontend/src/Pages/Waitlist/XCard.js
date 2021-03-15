@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { toastHttp } from "../../Components/Toast";
 import { ToastContext, AuthContext } from "../../contexts";
+import { apiCall, errorToaster } from "../../api";
 import { NavLink } from "react-router-dom";
 import { TimeDisplay } from "./TimeDisplay.js";
 import { Badge } from "../../Components/Badge";
@@ -37,42 +37,32 @@ const tagBadges = {
 };
 
 async function approveFit(id) {
-  return await fetch("/api/waitlist/approve", {
-    method: "POST",
-    body: JSON.stringify({ id: id }),
-    headers: { "Content-Type": "application/json" },
+  return await apiCall("/api/waitlist/approve", {
+    json: { id: id },
   });
 }
 
 async function rejectFit(id, reject_reason) {
-  return await fetch("/api/waitlist/reject", {
-    method: "POST",
-    body: JSON.stringify({ id, reject_reason }),
-    headers: { "Content-Type": "application/json" },
+  return await apiCall("/api/waitlist/reject", {
+    json: { id, reject_reason },
   });
 }
 
 async function removeFit(id) {
-  return await fetch("/api/waitlist/remove_fit", {
-    method: "POST",
-    body: JSON.stringify({ id: id }),
-    headers: { "Content-Type": "application/json" },
+  return await apiCall("/api/waitlist/remove_fit", {
+    json: { id: id },
   });
 }
 
 async function invite(id, character_id) {
-  return await fetch("/api/waitlist/invite", {
-    method: "POST",
-    body: JSON.stringify({ id, character_id }),
-    headers: { "Content-Type": "application/json" },
+  return await apiCall("/api/waitlist/invite", {
+    json: { id, character_id },
   });
 }
 
 async function openWindow(target_id, character_id) {
-  return await fetch(`/api/open_window`, {
-    method: "POST",
-    body: JSON.stringify({ target_id, character_id }),
-    headers: { "Content-Type": "application/json" },
+  return await apiCall(`/api/open_window`, {
+    json: { target_id, character_id },
   });
 }
 
@@ -336,7 +326,7 @@ export function XCard({ entry, fit, onAction }) {
         {entry.can_remove ? (
           <a
             title="Remove x-up"
-            onClick={(evt) => removeFit(fit.id).then(toastHttp(toastContext, null)).then(onAction)}
+            onClick={(evt) => errorToaster(toastContext, removeFit(fit.id)).then(onAction)}
           >
             <FontAwesomeIcon icon={faTrashAlt} />
           </a>
@@ -347,9 +337,7 @@ export function XCard({ entry, fit, onAction }) {
             <a
               title="Open in-game profile"
               onClick={(evt) =>
-                openWindow(entry.character.id, authContext.current.id).then(
-                  toastHttp(toastContext, null)
-                )
+                errorToaster(toastContext, openWindow(entry.character.id, authContext.current.id))
               }
             >
               <FontAwesomeIcon icon={faExternalLinkAlt} />
@@ -370,9 +358,7 @@ export function XCard({ entry, fit, onAction }) {
                   "Why is the fit being rejected? (Will be displayed to pilot)"
                 );
                 if (rejectionReason) {
-                  rejectFit(fit.id, rejectionReason)
-                    .then(toastHttp(toastContext, null))
-                    .then(onAction);
+                  errorToaster(toastContext, rejectFit(fit.id, rejectionReason)).then(onAction);
                 }
               }}
             >
@@ -382,9 +368,7 @@ export function XCard({ entry, fit, onAction }) {
               <a
                 title="Invite"
                 onClick={(evt) =>
-                  invite(fit.id, authContext.current.id)
-                    .then(toastHttp(toastContext, null))
-                    .then(onAction)
+                  errorToaster(toastContext, invite(fit.id, authContext.current.id)).then(onAction)
                 }
               >
                 <FontAwesomeIcon icon={faPlus} />
@@ -392,9 +376,7 @@ export function XCard({ entry, fit, onAction }) {
             ) : (
               <a
                 title="Approve"
-                onClick={(evt) =>
-                  approveFit(fit.id).then(toastHttp(toastContext, null)).then(onAction)
-                }
+                onClick={(evt) => errorToaster(toastContext, approveFit(fit.id)).then(onAction)}
               >
                 <FontAwesomeIcon icon={faCheck} />
               </a>
