@@ -139,17 +139,17 @@ export function Waitlist() {
         </InputGroup>
       </Buttons>
       {displayMode === "columns" ? (
-        <ColumnWaitlist waitlist={waitlistData} />
+        <ColumnWaitlist waitlist={waitlistData} onAction={updateAndSet} />
       ) : displayMode === "compact" ? (
-        <CompactWaitlist waitlist={waitlistData} />
+        <CompactWaitlist waitlist={waitlistData} onAction={updateAndSet} />
       ) : displayMode === "linear" ? (
-        <LinearWaitlist waitlist={waitlistData} />
+        <LinearWaitlist waitlist={waitlistData} onAction={updateAndSet} />
       ) : displayMode === "matrix" ? (
-        <MatrixWaitlist waitlist={waitlistData} />
+        <MatrixWaitlist waitlist={waitlistData} onAction={updateAndSet} />
       ) : displayMode === "rows" ? (
-        <RowWaitlist waitlist={waitlistData} />
+        <RowWaitlist waitlist={waitlistData} onAction={updateAndSet} />
       ) : displayMode === "notepad" ? (
-        <NotepadWaitlist waitlist={waitlistData} />
+        <NotepadWaitlist waitlist={waitlistData} onAction={updateAndSet} />
       ) : null}
     </>
   );

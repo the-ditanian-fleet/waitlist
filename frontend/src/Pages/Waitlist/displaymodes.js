@@ -24,7 +24,7 @@ ColumnWaitlistDOM.Category = styled.div`
   }
 `;
 
-function ColumnWaitlist({ waitlist }) {
+function ColumnWaitlist({ waitlist, onAction }) {
   var categories = [];
   var categoryIndex = {};
   _.forEach(waitlist.categories, (category, i) => {
@@ -36,7 +36,7 @@ function ColumnWaitlist({ waitlist }) {
       const categoryI = categoryIndex[fit.category];
       categories[categoryI][1].push(
         <div key={fit.id}>
-          <XCard entry={entry} fit={fit} />
+          <XCard entry={entry} fit={fit} onAction={onAction} />
         </div>
       );
     });
@@ -64,13 +64,13 @@ const CompactWaitlistDOM = styled.div`
   }
 `;
 
-function CompactWaitlist({ waitlist }) {
+function CompactWaitlist({ waitlist, onAction }) {
   var allCards = [];
   _.forEach(waitlist.waitlist, (entry) => {
     _.forEach(entry.fits, (fit) => {
       allCards.push(
         <div key={fit.id}>
-          <XCard entry={entry} fit={fit} />
+          <XCard entry={entry} fit={fit} onAction={onAction} />
         </div>
       );
     });
@@ -89,14 +89,14 @@ LinearWaitlistDOM.Entry = styled.div`
   }
 `;
 
-function LinearWaitlist({ waitlist }) {
+function LinearWaitlist({ waitlist, onAction }) {
   return (
     <LinearWaitlistDOM>
       {waitlist.waitlist.map((entry) => (
         <LinearWaitlistDOM.Entry key={entry.id}>
           {entry.fits.map((fit) => (
             <div key={fit.id}>
-              <XCard fit={fit} entry={entry} />
+              <XCard fit={fit} entry={entry} onAction={onAction} />
             </div>
           ))}
         </LinearWaitlistDOM.Entry>
@@ -122,7 +122,7 @@ const MatrixWaitlistDOM = styled.table`
   }
 `;
 
-function MatrixWaitlist({ waitlist }) {
+function MatrixWaitlist({ waitlist, onAction }) {
   var categories = [];
   var categoryIndex = {};
   _.forEach(waitlist.categories, (category, i) => {
@@ -145,7 +145,7 @@ function MatrixWaitlist({ waitlist }) {
           _.forEach(entry.fits, (fit) => {
             byCategory[categoryIndex[fit.category]].push(
               <div key={fit.id}>
-                <XCard fit={fit} entry={entry} />
+                <XCard fit={fit} entry={entry} onAction={onAction} />
               </div>
             );
           });
@@ -182,7 +182,7 @@ RowWaitlistDOM.Category = styled.div`
   }
 `;
 
-function RowWaitlist({ waitlist }) {
+function RowWaitlist({ waitlist, onAction }) {
   var categories = [];
   var categoryIndex = {};
   _.forEach(waitlist.categories, (category, i) => {
@@ -194,7 +194,7 @@ function RowWaitlist({ waitlist }) {
       const categoryI = categoryIndex[fit.category];
       categories[categoryI][1].push(
         <div key={fit.id}>
-          <XCard key={fit.id} entry={entry} fit={fit} />
+          <XCard key={fit.id} entry={entry} fit={fit} onAction={onAction} />
         </div>
       );
     });
