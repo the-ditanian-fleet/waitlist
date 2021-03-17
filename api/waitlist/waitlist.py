@@ -89,6 +89,7 @@ def get_waitlist() -> ViewReturn:
 
                 fit["character"] = {"name": character.name, "id": character.id}
                 fit["tags"] = tags
+                fit["hours_in_fleet"] = round(fitentry.cached_time_in_fleet / 3600)
                 if fitentry.fit_analysis:
                     fit["fit_analysis"] = _add_ids(json.loads(fitentry.fit_analysis))
                 if fitentry.reject_reason:

@@ -356,6 +356,9 @@ export function XCard({ entry, fit, onAction }) {
             <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
               <FontAwesomeIcon icon={faInfoCircle} />
             </NavLink>
+            {_.isFinite(fit.hours_in_fleet) ? (
+              <span title="Hours in fleet">{fit.hours_in_fleet}h</span>
+            ) : null}
             <a
               title="Reject"
               onClick={(evt) => {
