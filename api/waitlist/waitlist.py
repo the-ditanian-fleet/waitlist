@@ -3,6 +3,7 @@ import json
 import datetime
 from flask import Blueprint, request, g
 from sqlalchemy import or_, and_
+from sqlalchemy.sql import func
 
 from . import auth, eft2dna, tdf
 from .data import messager, skills, esi, evedb, implants
@@ -17,6 +18,7 @@ from .data.database import (
     FitHistory,
     ImplantSet,
     Ban,
+    FleetActivity,
 )
 from .webutil import ViewReturn
 
@@ -136,6 +138,23 @@ def _am_i_banned() -> bool:
     return False
 
 
+def _get_time_in_fleet(character_id: int) -> int:
+    # Lazy SQL: sum(end-start) is equal to sum(end)-sum(start)
+    total_start, total_end = (
+        g.db.query(
+            func.sum(FleetActivity.first_seen), func.sum(FleetActivity.last_seen)
+        )
+        .filter(FleetActivity.character_id == character_id)
+        .one()
+    )
+
+    if total_end is None:
+        # Some databases can return NULL when summing no rows
+        return 0
+
+    return total_end - total_start  # type: ignore
+
+
 @bp.route("/api/waitlist/xup", methods=["POST"])
 @auth.login_required
 @auth.select_character()
@@ -190,6 +209,8 @@ def xup() -> ViewReturn:
         implant_set = ImplantSet(implants=":".join(map(str, sorted(implantdata))))
         g.db.add(implant_set)
 
+    time_in_fleet = _get_time_in_fleet(g.character_id)
+
     for dna in dnas:
         # Store the fit DNA if it's not already stored
         fitting = g.db.query(Fitting).filter(Fitting.dna == dna).one_or_none()
@@ -226,6 +247,7 @@ def xup() -> ViewReturn:
                 tags=",".join(sorted(list(fit_check.tags))),
                 implant_set=implant_set,
                 fit_analysis=json.dumps(fit_check.fit_check),
+                cached_time_in_fleet=time_in_fleet,
             )
         )
 

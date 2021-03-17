@@ -143,6 +143,7 @@ class WaitlistEntryFit(Base):
     tags = Column(String(255), nullable=False)
     category = Column(String(10), nullable=False)
     fit_analysis = Column(Text, nullable=True)
+    cached_time_in_fleet = Column(Integer, nullable=False)
 
     character = relationship("Character")
     entry = relationship("WaitlistEntry")
