@@ -65,7 +65,7 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
             self.result.errors.append("Missing minimum Armor Compensation skills")
         elif not skills.skillcheck(self.ship, self.skills, "min"):
             self.disable_approval = True
-            self._add_tag("NO-MINSKILLS")
+            self._add_tag("STARTER-SKILLS")
         elif skills.skillcheck(self.ship, self.skills, "gold"):
             self._add_tag("GOLD-SKILLS")
         elif skills.skillcheck(self.ship, self.skills, "elite"):
@@ -113,7 +113,7 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
                 self.result.category = then_category
                 break
 
-        if "NO-MINSKILLS" in self.result.tags:
+        if "STARTER-SKILLS" in self.result.tags:
             if self.result.category != "logi":
                 self.result.category = "starter"
 

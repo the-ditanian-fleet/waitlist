@@ -33,7 +33,7 @@ const tagBadges = {
   "AMULET1-10": [aBadge, "Amulet Implants"],
   ELITE: [eBadge, "Elite"],
   "ELITE-GOLD": [egoldBadge, "Elite GOLD"],
-  "NO-MINSKILLS": [alphaBadge, "Below minimum skills"],
+  "STARTER-SKILLS": [alphaBadge, "Starter skills"],
 };
 
 async function approveFit(id) {
