@@ -554,9 +554,10 @@ Oneiros:
     gold: 5
   Sensor Linking:
     min: 3
+    elite: 4
     gold: 5
   Remote Armor Repair Systems:
-    min: 4
+    min: 5
     gold: 5
   Magnetometric Sensor Compensation:
     gold: 5
