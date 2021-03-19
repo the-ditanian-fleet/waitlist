@@ -605,3 +605,6 @@ Nestor:
   Remote Hull Repair Systems:
     min: 3
     elite: 4
+  Heavy Drone Operation:
+    min: 3
+    elite: 5
