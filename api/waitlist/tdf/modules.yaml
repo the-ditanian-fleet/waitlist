@@ -86,6 +86,10 @@ no_downgrade:
   - - Centum A-Type Multispectrum Energized Membrane
     - Corpum A-Type Multispectrum Energized Membrane
 
+- - - Centum A-Type Medium Remote Armor Repairer
+  - - Large Remote Armor Repairer II
+  - - "'Peace' Large Remote Armor Repairer"
+
 from_meta: # Automagically determine alternatives. List the absolute minimum module only.
 - Sensor Booster II
 - Tracking Computer II
@@ -93,7 +97,6 @@ from_meta: # Automagically determine alternatives. List the absolute minimum mod
 - Ogre II
 - Hammerhead II
 - Hobgoblin II
-- Large Remote Armor Repairer II
 - Large Inductive Compact Remote Capacitor Transmitter
 - Supratidal Entropic Disintegrator II
 - Imperial Navy Drone Damage Amplifier
