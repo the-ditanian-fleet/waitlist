@@ -66,7 +66,7 @@ def get_waitlist() -> ViewReturn:
         .join(WaitlistEntry.account)
         .order_by(WaitlistEntry.id.asc())
     ):
-        can_see_full = g.is_admin or account.id == g.account_id
+        x_is_ours = account.id == g.account_id
 
         fits_raw = wl_by_entry.get(entry.id, [])
         fits = []
@@ -79,14 +79,10 @@ def get_waitlist() -> ViewReturn:
 
             tags = list(filter(lambda tag: len(tag) > 0, fitentry.tags.split(",")))
 
-            if can_see_full or fitentry.approved:
+            if x_is_ours or auth.has_access("waitlist-view") or fitentry.approved:
                 fit["hull"] = {"id": fitting.hull, "name": evedb.name_of(fitting.hull)}
-            if can_see_full:
-                fit["dna"] = fitting.dna
-                fit["implants"] = list(
-                    map(int, filter(lambda x: x, implant_set.implants.split(":")))
-                )
 
+            if x_is_ours or auth.has_access("waitlist-view"):
                 fit["character"] = {"name": character.name, "id": character.id}
                 fit["tags"] = tags
                 fit["hours_in_fleet"] = round(fitentry.cached_time_in_fleet / 3600)
@@ -96,18 +92,28 @@ def get_waitlist() -> ViewReturn:
                     fit["reject_reason"] = fitentry.reject_reason
             else:
                 fit["tags"] = list(filter(lambda tag: tag in tdf.PUBLIC_TAGS, tags))
+
+            if x_is_ours or (
+                auth.has_access("waitlist-view") and auth.has_access("fit-view")
+            ):
+                fit["dna"] = fitting.dna
+                fit["implants"] = list(
+                    map(int, filter(lambda x: x, implant_set.implants.split(":")))
+                )
+
             fits.append(fit)
 
         waitlist_entries.append(
             dict(
                 id=entry.id,
                 fits=fits,
-                character={"name": account.name, "id": account.id}
-                if can_see_full
-                else None,
+                character=(
+                    {"name": account.name, "id": account.id}
+                    if (x_is_ours or auth.has_access("waitlist-view"))
+                    else None
+                ),
                 joined_at=entry.joined_at,
-                can_manage=g.is_admin,
-                can_remove=g.is_admin or g.account_id == account.id,
+                can_remove=auth.has_access("waitlist-manage") or x_is_ours,
             )
         )
 
@@ -271,7 +277,7 @@ def xup() -> ViewReturn:
 
 @bp.route("/api/waitlist/approve", methods=["POST"])
 @auth.login_required
-@auth.admin_only
+@auth.require_permission("waitlist-manage")
 def approve() -> ViewReturn:
     fit_entry_id = request.json["id"]
 
@@ -289,7 +295,7 @@ def approve() -> ViewReturn:
 
 @bp.route("/api/waitlist/reject", methods=["POST"])
 @auth.login_required
-@auth.admin_only
+@auth.require_permission("waitlist-manage")
 def reject() -> ViewReturn:
     fit_entry_id = request.json["id"]
 
@@ -307,7 +313,7 @@ def reject() -> ViewReturn:
 
 @bp.route("/api/waitlist/set_open", methods=["POST"])
 @auth.login_required
-@auth.admin_only
+@auth.require_permission("waitlist-edit")
 def set_open() -> ViewReturn:
     waitlist = (
         g.db.query(Waitlist).filter(Waitlist.id == request.json["waitlist_id"]).one()
@@ -326,7 +332,9 @@ def remove_fit() -> ViewReturn:
     fit_entry = (
         g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == fit_entry_id).one()
     )
-    if not fit_entry.entry.account_id == g.account_id and not g.is_admin:
+    if not fit_entry.entry.account_id == g.account_id and not auth.has_access(
+        "waitlist-manage"
+    ):
         return "Unauthorized", 401
 
     other_entries_count = (
@@ -354,7 +362,7 @@ def remove_x() -> ViewReturn:
     entry_id = request.json["id"]
 
     entry = g.db.query(WaitlistEntry).filter(WaitlistEntry.id == entry_id).one()
-    if entry.account_id != g.account_id and not g.is_admin:
+    if entry.account_id != g.account_id and not auth.has_access("waitlist-manage"):
         return "Unauthorized", 401
 
     g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.entry_id == entry.id).delete()
@@ -369,7 +377,7 @@ def remove_x() -> ViewReturn:
 @bp.route("/api/waitlist/invite", methods=["POST"])
 @auth.login_required
 @auth.select_character()
-@auth.admin_only
+@auth.require_permission("fleet-invite")
 def invite() -> ViewReturn:
     fit_entry_id = request.json["id"]
 

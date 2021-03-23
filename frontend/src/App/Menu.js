@@ -63,16 +63,16 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
             <NavBar.Link exact to="/guide">
               Guides
             </NavBar.Link>
-            {whoami.is_admin ? (
-              <>
-                <NavBar.Link exact to="/fleet">
-                  Fleet
-                </NavBar.Link>
-                <NavBar.Link exact to="/search">
-                  Search
-                </NavBar.Link>
-              </>
-            ) : null}
+            {whoami.access["fleet-view"] && (
+              <NavBar.Link exact to="/fleet">
+                Fleet
+              </NavBar.Link>
+            )}
+            {whoami.access["search"] && (
+              <NavBar.Link exact to="/search">
+                Search
+              </NavBar.Link>
+            )}
             <NavBar.End>
               <InputGroup style={{ marginRight: "2em" }}>
                 <Select

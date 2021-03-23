@@ -64,6 +64,7 @@ class Administrator(Base):
     character_id = Column(
         BigInteger, ForeignKey("character.id"), nullable=False, primary_key=True
     )
+    level = Column(String(64), nullable=False)
 
     character = relationship("Character")
 

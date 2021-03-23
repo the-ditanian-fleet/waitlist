@@ -77,9 +77,14 @@ function AuthPage({ value, onAuth }) {
     fetch("/api/auth/whoami").then((response) => {
       if (response.status === 200) {
         return response.json().then((response) => {
+          var access = {};
+          response.access.forEach((level) => {
+            access[level] = true;
+          });
           onAuth({
             ...response,
             current: response.characters[0],
+            access: access,
           });
         });
       } else if (response.status === 401) {

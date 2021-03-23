@@ -9,7 +9,7 @@ bp = Blueprint("skills", __name__)
 
 @bp.route("/api/skills")
 @auth.login_required
-@auth.select_character(admin_ok=True)
+@auth.select_character(override_permission="skill-view")
 def get_skills() -> ViewReturn:
     overview = {}
 
@@ -30,7 +30,7 @@ def get_skills() -> ViewReturn:
 
 @bp.route("/api/history/skills")
 @auth.login_required
-@auth.select_character(admin_ok=True)
+@auth.select_character(override_permission="skill-history-view")
 def get_skills_history() -> ViewReturn:
     relevant = set(skills.RELEVANT_SKILLS)
 

@@ -133,11 +133,11 @@ export function Waitlist() {
           <Button active={displayMode === "rows"} onClick={(evt) => setDisplayMode("rows")}>
             Rows
           </Button>
-          {authContext.is_admin ? (
+          {authContext.access["waitlist-view"] && (
             <Button active={displayMode === "notepad"} onClick={(evt) => setDisplayMode("notepad")}>
               Notepad
             </Button>
-          ) : null}
+          )}
         </InputGroup>
       </Buttons>
       {displayMode === "columns" ? (

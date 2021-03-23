@@ -8,7 +8,7 @@ bp = Blueprint("pilot", __name__)
 
 @bp.route("/api/pilot/info")
 @auth.login_required
-@auth.select_character(admin_ok=True)
+@auth.select_character(override_permission="pilot-view")
 def pilot_info() -> ViewReturn:
     char = g.db.query(Character).filter(Character.id == g.character_id).one()
 

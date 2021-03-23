@@ -1,5 +1,5 @@
 from functools import wraps
-from typing import Callable, TypeVar, Any, Tuple, cast
+from typing import Callable, TypeVar, Any, Tuple, cast, Optional, Dict, Set
 from flask import Blueprint, request, session, g
 import requests
 from .data import esi, database, config
@@ -24,7 +24,41 @@ LOGIN_URL_FMT = (
     + "&redirect_uri={redir_uri}&client_id={client_id}&scope={scopes}&state={state}"
 )
 
+ACCESS_LEVELS: Dict[str, Set[str]] = {}
+ACCESS_LEVELS["user"] = set()
+ACCESS_LEVELS["trainee"] = ACCESS_LEVELS["user"] | set(
+    [
+        "fleet-configure",
+        "fleet-invite",
+        "fleet-view",
+        "pilot-view",
+        "waitlist-view",
+    ]
+)
+ACCESS_LEVELS["fc"] = ACCESS_LEVELS["trainee"] | set(
+    [
+        "bans-view",
+        "fit-history-view",
+        "fit-view",
+        "search",
+        "skill-history-view",
+        "skill-view",
+        "waitlist-edit",
+        "waitlist-manage",
+    ]
+)
+ACCESS_LEVELS["council"] = ACCESS_LEVELS["fc"] | set(
+    [
+        "bans-manage",
+    ]
+)
+ACCESS_LEVELS["admin"] = ACCESS_LEVELS["council"] | set([])
+
 DecoratorType = TypeVar("DecoratorType", bound=Callable[..., Any])
+
+
+def has_access(permission: str) -> bool:
+    return permission in ACCESS_LEVELS[g.access_level]
 
 
 def login_required(func: DecoratorType) -> DecoratorType:
@@ -36,32 +70,36 @@ def login_required(func: DecoratorType) -> DecoratorType:
 
         g.account_id = session["account_id"]
 
-        if (
+        admin_record = (
             g.db.query(database.Administrator)
             .filter(database.Administrator.character_id == g.account_id)
             .one_or_none()
-        ):
-            g.is_admin = True
+        )
+        if admin_record:
+            g.access_level = admin_record.level
         else:
-            g.is_admin = False
+            g.access_level = "user"
 
         return func(*args, **kwargs)
 
     return cast(DecoratorType, decorated)
 
 
-def admin_only(func: DecoratorType) -> DecoratorType:
-    @wraps(func)
-    def decorated(*args: Any, **kwargs: Any) -> Any:
-        if not g.is_admin:
-            return "Unauthorized", 401
-        return func(*args, **kwargs)
+def require_permission(permission: str) -> Callable[[DecoratorType], DecoratorType]:
+    def decorator(func: DecoratorType) -> DecoratorType:
+        @wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            if not has_access(permission):
+                return "Unauthorized", 401
+            return func(*args, **kwargs)
 
-    return cast(DecoratorType, decorated)
+        return cast(DecoratorType, decorated)
+
+    return decorator
 
 
 def select_character(
-    admin_ok: bool = False,
+    override_permission: Optional[str] = None,
 ) -> Callable[[DecoratorType], DecoratorType]:
     def decorator(func: DecoratorType) -> DecoratorType:
         @wraps(func)
@@ -75,7 +113,9 @@ def select_character(
                     return "Missing character_id in request", 400
                 character_id = int(request.args["character_id"])
 
-            if character_id != g.account_id and not (admin_ok and g.is_admin):
+            if character_id != g.account_id and not (
+                override_permission and has_access(override_permission)
+            ):
                 if (
                     not g.db.query(database.AltCharacter)
                     .filter(
@@ -160,7 +200,7 @@ def whoami() -> Tuple[Any, int]:
 
     return {
         "account_id": g.account_id,
-        "is_admin": g.is_admin,
+        "access": sorted(ACCESS_LEVELS[g.access_level]),
         "characters": characters,
     }, 200
 

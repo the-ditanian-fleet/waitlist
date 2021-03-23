@@ -28,7 +28,7 @@ def sse() -> ViewReturn:
     buckets = []
     buckets.append("waitlist")
     buckets.append("account;%d" % g.account_id)
-    if g.is_admin:
+    if auth.has_access("waitlist-manage"):
         buckets.append("xup")
 
     # Remove database connections

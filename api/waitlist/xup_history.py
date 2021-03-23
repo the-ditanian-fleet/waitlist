@@ -9,7 +9,7 @@ bp = Blueprint("xup_history", __name__)
 
 @bp.route("/api/history/xup")
 @auth.login_required
-@auth.select_character(admin_ok=True)
+@auth.select_character(override_permission="fit-history-view")
 def get_xup_history() -> ViewReturn:
     xups = []
     for history_line, fitting, implant_set in (

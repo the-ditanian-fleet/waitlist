@@ -277,7 +277,7 @@ export function XCard({ entry, fit, onAction }) {
 
   const accountName = entry.character ? entry.character.name : "Name hidden";
   var isSelf = entry.character && entry.character.id === authContext.account_id;
-  var needsApproval = entry.can_manage && !fit.approved;
+  var needsApproval = authContext.access["waitlist-view"] && !fit.approved;
   var tagText = [];
   var tagImages = [];
   _.forEach(fit.tags || [], (tag) => {
@@ -336,61 +336,65 @@ export function XCard({ entry, fit, onAction }) {
             <FontAwesomeIcon icon={faTrashAlt} />
           </a>
         ) : null}
-
-        {entry.can_manage ? (
-          <>
-            <a
-              title="Open in-game profile"
-              onClick={(evt) =>
-                errorToaster(toastContext, openWindow(entry.character.id, authContext.current.id))
-              }
-            >
-              <FontAwesomeIcon icon={faExternalLinkAlt} />
-            </a>
-            <NavLink
-              title="Show skills"
-              to={`/skills?character_id=${fit.character.id}&ship=${fit.hull.name}`}
-            >
-              <FontAwesomeIcon icon={faStream} />
-            </NavLink>
-            <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
-              <FontAwesomeIcon icon={faInfoCircle} />
-            </NavLink>
-            {_.isFinite(fit.hours_in_fleet) ? (
-              <span title="Hours in fleet">{fit.hours_in_fleet}h</span>
-            ) : null}
-            <a
-              title="Reject"
-              onClick={(evt) => {
-                var rejectionReason = prompt(
-                  "Why is the fit being rejected? (Will be displayed to pilot)"
-                );
-                if (rejectionReason) {
-                  errorToaster(toastContext, rejectFit(fit.id, rejectionReason)).then(onAction);
-                }
-              }}
-            >
-              <FontAwesomeIcon icon={faTimes} />
-            </a>
-            {fit.approved ? (
-              <a
-                title="Invite"
-                onClick={(evt) =>
-                  errorToaster(toastContext, invite(fit.id, authContext.current.id)).then(onAction)
-                }
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </a>
-            ) : (
-              <a
-                title="Approve"
-                onClick={(evt) => errorToaster(toastContext, approveFit(fit.id)).then(onAction)}
-              >
-                <FontAwesomeIcon icon={faCheck} />
-              </a>
-            )}
-          </>
+        {authContext.access["waitlist-view"] && (
+          <a
+            title="Open in-game profile"
+            onClick={(evt) =>
+              errorToaster(toastContext, openWindow(entry.character.id, authContext.current.id))
+            }
+          >
+            <FontAwesomeIcon icon={faExternalLinkAlt} />
+          </a>
+        )}
+        {authContext.access["skill-view"] && (
+          <NavLink
+            title="Show skills"
+            to={`/skills?character_id=${fit.character.id}&ship=${fit.hull.name}`}
+          >
+            <FontAwesomeIcon icon={faStream} />
+          </NavLink>
+        )}
+        {authContext.access["pilot-view"] && (
+          <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
+            <FontAwesomeIcon icon={faInfoCircle} />
+          </NavLink>
+        )}
+        {_.isFinite(fit.hours_in_fleet) ? (
+          <span title="Hours in fleet">{fit.hours_in_fleet}h</span>
         ) : null}
+        {authContext.access["waitlist-manage"] && (
+          <a
+            title="Reject"
+            onClick={(evt) => {
+              var rejectionReason = prompt(
+                "Why is the fit being rejected? (Will be displayed to pilot)"
+              );
+              if (rejectionReason) {
+                errorToaster(toastContext, rejectFit(fit.id, rejectionReason)).then(onAction);
+              }
+            }}
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </a>
+        )}
+        {authContext.access["fleet-invite"] && fit.approved && (
+          <a
+            title="Invite"
+            onClick={(evt) =>
+              errorToaster(toastContext, invite(fit.id, authContext.current.id)).then(onAction)
+            }
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </a>
+        )}
+        {authContext.access["waitlist-manage"] && !fit.approved && (
+          <a
+            title="Approve"
+            onClick={(evt) => errorToaster(toastContext, approveFit(fit.id)).then(onAction)}
+          >
+            <FontAwesomeIcon icon={faCheck} />
+          </a>
+        )}
       </XCardDOM.Footer>
     </XCardDOM>
   );

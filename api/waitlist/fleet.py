@@ -11,7 +11,7 @@ bp = Blueprint("fleet", __name__)
 
 @bp.route("/api/fleet/status")
 @auth.login_required
-@auth.admin_only
+@auth.require_permission("fleet-view")
 def fleet_status() -> ViewReturn:
     squads_by_fleet: Dict[int, List[FleetSquad]] = {}
     for squad in g.db.query(FleetSquad).all():
@@ -31,7 +31,7 @@ def fleet_status() -> ViewReturn:
 @bp.route("/api/fleet/info")
 @auth.login_required
 @auth.select_character()
-@auth.admin_only
+@auth.require_permission("fleet-view")
 def fleet_info() -> ViewReturn:
     try:
         basic_info = esi.get(
@@ -58,7 +58,7 @@ def fleet_info() -> ViewReturn:
 @bp.route("/api/fleet/members")
 @auth.login_required
 @auth.select_character()
-@auth.admin_only
+@auth.require_permission("fleet-view")
 def fleet_members() -> ViewReturn:
     try:
         basic_info = esi.get(
@@ -105,7 +105,7 @@ def fleet_members() -> ViewReturn:
 @bp.route("/api/fleet/register", methods=["POST"])
 @auth.login_required
 @auth.select_character()
-@auth.admin_only
+@auth.require_permission("fleet-configure")
 def register_fleet() -> ViewReturn:
     fleet_id = request.json["fleet_id"]
     assignments = request.json["assignments"]
@@ -137,7 +137,7 @@ def register_fleet() -> ViewReturn:
 @bp.route("/api/fleet/close", methods=["POST"])
 @auth.login_required
 @auth.select_character()
-@auth.admin_only
+@auth.require_permission("fleet-configure")
 def close_fleet() -> ViewReturn:
     try:
         fleet = esi.get(

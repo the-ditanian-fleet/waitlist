@@ -9,7 +9,7 @@ bp = Blueprint("bans", __name__)
 
 @bp.route("/api/bans/add", methods=["POST"])
 @auth.login_required
-@auth.admin_only
+@auth.require_permission("bans-manage")
 def add_ban() -> ViewReturn:
     kind = request.args["kind"]
     if kind not in ["character", "corporation", "alliance"]:
@@ -26,7 +26,7 @@ def add_ban() -> ViewReturn:
 
 @bp.route("/api/bans/remove", methods=["POST"])
 @auth.login_required
-@auth.admin_only
+@auth.require_permission("bans-manage")
 def remove_ban() -> ViewReturn:
     kind = request.args["kind"]
     if kind not in ["character", "corporation", "alliance"]:
@@ -42,9 +42,8 @@ def remove_ban() -> ViewReturn:
 
 @bp.route("/api/bans/list")
 @auth.login_required
-@auth.admin_only
+@auth.require_permission("bans-view")
 def list_bans() -> ViewReturn:
-
     ban_list = g.db.query(Ban).all()
     character_ids = [ban.id for ban in ban_list if ban.kind == "character"]
     characters = {

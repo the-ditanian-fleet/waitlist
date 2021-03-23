@@ -8,7 +8,7 @@ bp = Blueprint("search", __name__)
 
 @bp.route("/api/search")
 @auth.login_required
-@auth.admin_only
+@auth.require_permission("search")
 def search() -> ViewReturn:
     search_like = "%{}%".format(request.args["query"])
 
