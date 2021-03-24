@@ -135,8 +135,12 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
     def set_approval(self) -> None:
         if self.disable_approval:
             return
-        if self.fitcheck and self.fitcheck.is_ok:
-            self.result.approved = True
+        if not "ELITE-FIT" in self.result.tags:
+            return
+        if not self.fitcheck or not self.fitcheck.is_ok:
+            return
+
+        self.result.approved = True
 
     def merge_tags(self) -> None:
         tags = self.result.tags  # Alias, not a copy
