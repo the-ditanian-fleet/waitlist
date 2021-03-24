@@ -1,55 +1,6 @@
-from typing import Dict, Tuple, List, Any, Set
-import yaml
+from typing import Dict
 from .database import SkillCurrent, SkillHistory, Session
-from . import esi, evedb
-
-
-def load_skill_info() -> Tuple[
-    Dict[str, Dict[int, Dict[str, int]]],
-    List[int],
-    Dict[str, int],
-    Dict[str, List[int]],
-]:
-    with open("./waitlist/tdf/skills.yaml", "r") as fileh:
-        yaml_raw: Dict[str, Any] = yaml.safe_load(fileh)
-    categories_raw: Dict[str, List[str]] = yaml_raw["categories"]
-    del yaml_raw["categories"]
-
-    lookup: Dict[str, int] = {}
-    categories: Dict[str, List[int]] = {}
-    not_seen: Set[str] = set()
-    for categoryname, skillnames in categories_raw.items():
-        categories[categoryname] = []
-        for skill_name in skillnames:
-            skill_id = evedb.id_of(skill_name)
-            categories[categoryname].append(skill_id)
-            lookup[skill_name] = skill_id
-            not_seen.add(skill_name)
-
-    skills_raw: Dict[str, Dict[str, Dict[str, int]]] = yaml_raw
-    skills: Dict[str, Dict[int, Dict[str, int]]] = {}
-    for section, skillreq in skills_raw.items():
-        if section.startswith("_"):
-            # Definitions, ignore
-            continue
-
-        skills[section] = {}
-        for skill_name, tiers in skillreq.items():
-            skill_id = lookup[skill_name]
-            skills[section][skill_id] = tiers
-            if "min" in tiers and not "elite" in tiers:
-                tiers["elite"] = tiers["min"]
-            if "elite" in tiers and not "gold" in tiers:
-                tiers["gold"] = tiers["elite"]
-            if skill_name in not_seen:
-                not_seen.remove(skill_name)
-
-    if not_seen:
-        raise Exception(
-            "Skill in category but not required: %s" % ",".join(list(not_seen))
-        )
-
-    return skills, list(sorted(lookup.values())), lookup, categories
+from . import esi
 
 
 def load_character_skills(character_id: int) -> Dict[int, int]:
@@ -117,6 +68,3 @@ def load_character_skills(character_id: int) -> Dict[int, int]:
 
     finally:
         session.close()
-
-
-REQUIREMENTS, RELEVANT_SKILLS, SKILL_IDS, CATEGORIES = load_skill_info()

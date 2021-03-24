@@ -3,6 +3,7 @@ from . import auth
 from .data import skills
 from .data.database import Character, SkillHistory
 from .webutil import ViewReturn
+from .tdf import skills as tdf_skills
 
 bp = Blueprint("skills", __name__)
 
@@ -16,14 +17,14 @@ def get_skills() -> ViewReturn:
     character = g.db.query(Character).filter(Character.id == g.character_id).one()
     skill_lookup = skills.load_character_skills(g.character_id)
 
-    for skill_id in skills.RELEVANT_SKILLS:
+    for skill_id in tdf_skills.RELEVANT_SKILLS:
         overview[skill_id] = skill_lookup[skill_id] if skill_id in skill_lookup else 0
 
     return {
         "current": overview,
-        "categories": skills.CATEGORIES,
-        "requirements": skills.REQUIREMENTS,
-        "ids": skills.SKILL_IDS,
+        "categories": tdf_skills.CATEGORIES,
+        "requirements": tdf_skills.REQUIREMENTS,
+        "ids": tdf_skills.SKILL_IDS,
         "character_name": character.name,
     }
 
@@ -32,7 +33,7 @@ def get_skills() -> ViewReturn:
 @auth.login_required
 @auth.select_character(override_permission="skill-history-view")
 def get_skills_history() -> ViewReturn:
-    relevant = set(skills.RELEVANT_SKILLS)
+    relevant = set(tdf_skills.RELEVANT_SKILLS)
 
     history = []
 
@@ -55,5 +56,5 @@ def get_skills_history() -> ViewReturn:
 
     return {
         "history": history,
-        "ids": skills.SKILL_IDS,
+        "ids": tdf_skills.SKILL_IDS,
     }
