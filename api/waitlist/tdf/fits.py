@@ -6,32 +6,56 @@ from . import modules
 RE_FIT = re.compile(r'<a href="fitting:([0-9:;_]+)">([^<]+)</a>')
 
 ALTERNATIVES = modules.load_alternatives()
-IDENTIFICATION = modules.load_identification()
+IDENTIFICATION = modules.load_identification(ALTERNATIVES)
 BANNED = modules.load_banned()
 
 
-def _alts(module_id: int) -> List[Tuple[int, bool]]:
+def _alts(module_id: int) -> List[Tuple[int, int]]:
     if module_id in ALTERNATIVES:
         return ALTERNATIVES[module_id]
-    return [(module_id, False)]
+    return [(module_id, 0)]
 
 
-class CheckResult:  # pylint: disable=too-few-public-methods
+def _module_score(module_id: int) -> int:
+    if module_id in IDENTIFICATION:
+        return 100
+    return 1
+
+
+class CheckResult:  # pylint: disable=too-few-public-methods,too-many-arguments
     def __init__(
         self,
         spec: "FitSpec",
         missing: Dict[int, int],
         extra: Dict[int, int],
         downgraded: Dict[int, Dict[int, int]],
+        upgraded: Dict[int, Dict[int, int]],
     ):
         self.spec = spec
         self.missing = missing
         self.extra = extra
         self.downgraded = downgraded
+        self.upgraded = upgraded
         self.is_ok = not missing and not extra
+        self.score = 0
+
+        # Missing modules: it is definitely not there
+        for module_id, count in missing.items():
+            self.score -= _module_score(module_id) * count * 12
+        # Extra: does this belong here?
+        for module_id, count in extra.items():
+            self.score -= _module_score(module_id) * count * 8
+        # Downgraded. Didn't have money?
+        for module_id, changes in downgraded.items():
+            for _new_module_id, count in changes.items():
+                self.score -= _module_score(module_id) * count * 5
+        # Upgraded? Either rich, or not actually part of our fit
+        for module_id, changes in upgraded.items():
+            for _new_module_id, count in changes.items():
+                self.score -= _module_score(module_id) * count * 1
 
 
-class FitSpec:  # pylint: disable=too-many-instance-attributes
+class FitSpec:  # pylint: disable=too-few-public-methods,too-many-instance-attributes
     def __init__(self, fitname: str, dna: str):
         self.fitname = fitname
         self.dna = dna
@@ -39,68 +63,35 @@ class FitSpec:  # pylint: disable=too-many-instance-attributes
         self.is_elite = "elite" in fitname.lower()
         self.is_hybrid = "hybrid" in fitname.lower()
         self.is_amulet = "amulet" in fitname.lower()
-        self.identification = self.build_identification()
-        self.score = self.build_score()
-
-    def build_identification(self) -> Dict[int, int]:
-        id_hash: Dict[int, int] = {}
-        for module_id in IDENTIFICATION:
-            for alternative, _is_downgrade in _alts(module_id):
-                count = self.modules.get(alternative, 0)
-                if count:
-                    id_hash.setdefault(alternative, 0)
-                    id_hash[alternative] += count
-
-        return id_hash
-
-    def build_score(self) -> int:
-        score = 0
-        if "elite" in self.fitname.lower():
-            score += 500
-        if "advanced" in self.fitname.lower():
-            score += 400
-        if "basic" in self.fitname.lower():
-            score += 300
-        if "starter" in self.fitname.lower():
-            score += 200
-        if "amulet" in self.fitname.lower():
-            score += 20
-        if "hybrid" in self.fitname.lower():
-            score += 10
-        return score
-
-    def match(self, mods: Dict[int, int], _cargo: Dict[int, int]) -> bool:
-        remaining_modules = {**mods}
-        for module_id, count in self.identification.items():
-            for alternative, _is_downgrade in _alts(module_id):
-                if alternative in remaining_modules:
-                    sub = min(remaining_modules[alternative], count)
-                    count -= sub
-                    remaining_modules[alternative] -= count
-            if count > 0:
-                return False
-        return True
 
     def check(self, mods: Dict[int, int], _cargo: Dict[int, int]) -> CheckResult:
         remaining_modules = {**mods}
         lacking_modules = {}
         downgraded: Dict[int, Dict[int, int]] = {}
+        upgraded: Dict[int, Dict[int, int]] = {}
         for module_id_on_fit, count in self.modules.items():
-            for module_id, is_downgrade in _alts(module_id_on_fit):
+            for module_id, meta_diff in _alts(module_id_on_fit):
                 if module_id in remaining_modules:
                     sub = min(remaining_modules[module_id], count)
                     count -= sub
                     remaining_modules[module_id] -= sub
-                    if is_downgrade:
+                    if meta_diff < 0:
                         downgraded.setdefault(module_id_on_fit, {}).setdefault(
                             module_id, 0
                         )
                         downgraded[module_id_on_fit][module_id] += sub
+                    elif meta_diff > 0:
+                        upgraded.setdefault(module_id_on_fit, {}).setdefault(
+                            module_id, 0
+                        )
+                        upgraded[module_id_on_fit][module_id] += sub
                     if not remaining_modules[module_id]:
                         del remaining_modules[module_id]
             if count > 0:
                 lacking_modules[module_id_on_fit] = count
-        return CheckResult(self, lacking_modules, remaining_modules, downgraded)
+        return CheckResult(
+            self, lacking_modules, remaining_modules, downgraded, upgraded
+        )
 
 
 def load_fitspecs() -> Dict[int, List[FitSpec]]:
@@ -123,25 +114,14 @@ def best_match(
     can_amulet: bool,
     can_hybrid: bool,
 ) -> Optional[FitSpec]:
-    possible_fits = FITS.get(ship)
-    if not possible_fits:
-        return None
-
-    matches = []
-    for maybe_this_one in possible_fits:
-        if maybe_this_one.match(mods, cargo):
-            matches.append(maybe_this_one)
+    matches = FITS.get(ship, [])
 
     if not can_amulet:
         matches = list(filter(lambda match: not match.is_amulet, matches))
     if not can_hybrid:
         matches = list(filter(lambda match: not match.is_hybrid, matches))
 
-    checks_out = list(filter(lambda match: match.check(mods, cargo).is_ok, matches))
-    if checks_out:
-        matches = checks_out
-
-    matches = list(sorted(matches, key=lambda match: match.score))
+    matches = list(sorted(matches, key=lambda match: match.check(mods, cargo).score))
 
     if matches:
         return matches[-1]
