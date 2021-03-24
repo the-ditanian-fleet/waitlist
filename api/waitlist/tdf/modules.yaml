@@ -51,8 +51,6 @@ alternatives:
     - Thukker Large Cap Battery
   - - Large Abyssal Cap Battery
 
-# Same as above, but these are never allowed to be downgraded
-no_downgrade:
 - - - 1600mm Steel Plates II
   - - Imperial Navy 1600mm Steel Plates
     - Syndicate 1600mm Steel Plates
@@ -90,7 +88,7 @@ no_downgrade:
   - - Large Remote Armor Repairer II
   - - "'Peace' Large Remote Armor Repairer"
 
-from_meta: # Automagically determine alternatives. List the absolute minimum module only.
+from_meta: # Automagically determine alternatives
 - Sensor Booster II
 - Tracking Computer II
 - Magnetic Field Stabilizer II
@@ -105,8 +103,6 @@ from_meta: # Automagically determine alternatives. List the absolute minimum mod
 - Dark Blood Capacitor Power Relay
 - Imperial Navy Cap Recharger
 - True Sansha Power Diagnostic System
-
-from_meta_no_downgrade: # Same as above, but never allow downgrading.
 - Damage Control II
 - Centum C-Type Explosive Energized Membrane
 - Centum C-Type Thermal Energized Membrane
