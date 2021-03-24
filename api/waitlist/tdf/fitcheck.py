@@ -64,12 +64,14 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
         if not skills.has_minimum_comps(self.skills):
             self.result.errors.append("Missing minimum Armor Compensation skills")
         elif not skills.skillcheck(self.ship, self.skills, "min"):
-            self.disable_approval = True
             self._add_tag("STARTER-SKILLS")
         elif skills.skillcheck(self.ship, self.skills, "gold"):
             self._add_tag("GOLD-SKILLS")
         elif skills.skillcheck(self.ship, self.skills, "elite"):
             self._add_tag("ELITE-SKILLS")
+
+        if not skills.skillcheck(self.ship, self.skills, "elite"):
+            self.disable_approval = True
 
     def check_implants(self) -> None:
         self.base_implants, is_full = implants.detect_implants(self.ship, self.implants)
