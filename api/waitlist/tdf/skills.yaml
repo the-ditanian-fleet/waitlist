@@ -82,6 +82,7 @@ categories:
     - Amarr Battleship
     - Gallente Battleship
     - Minmatar Battleship
+    - Caldari Battleship
     - Precursor Battleship
     - Amarr Cruiser
     - Gallente Cruiser
@@ -284,6 +285,8 @@ Nightmare:
   Amarr Battleship:
     min: 3
     elite: 4
+  Caldari Battleship:
+    min: 1
   Capacitor Emission Systems:
     min: 3
     elite: 4
@@ -587,6 +590,10 @@ Nestor:
     gold: 5
   Amarr Battleship:
     min: 5
+    gold: 5
+  Gallente Battleship:
+    min: 3
+    elite: 4
     gold: 5
   Remote Armor Repair Systems:
     min: 5
