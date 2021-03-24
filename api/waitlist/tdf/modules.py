@@ -55,13 +55,16 @@ def load_alternatives() -> Dict[int, List[Tuple[int, int]]]:
 
     _add_t1(alternatives, modules_raw["accept_t1"])
 
-    # Sort all lists by distance from the base module
-    for (
-        module_id
-    ) in alternatives.keys():  # pylint: disable=consider-iterating-dictionary
-        alternatives[module_id] = sorted(
-            alternatives[module_id], key=lambda alt: abs(alt[1])
-        )
+    # Sort upgrades before downgrades
+    def _sortfn(item: Tuple[int, int]) -> int:
+        if item[1] < 0:
+            return 1000000 - item[1]
+        return item[1]
+
+    alternatives = {
+        module_id: sorted(alternative_modules, key=_sortfn)
+        for module_id, alternative_modules in alternatives.items()
+    }
 
     return alternatives
 

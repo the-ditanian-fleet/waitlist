@@ -87,6 +87,8 @@ class FitSpec:  # pylint: disable=too-few-public-methods,too-many-instance-attri
                         upgraded[module_id_on_fit][module_id] += sub
                     if not remaining_modules[module_id]:
                         del remaining_modules[module_id]
+                    if count == 0:
+                        break
             if count > 0:
                 lacking_modules[module_id_on_fit] = count
         return CheckResult(
