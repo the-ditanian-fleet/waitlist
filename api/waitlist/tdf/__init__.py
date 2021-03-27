@@ -3,4 +3,4 @@ from .tags import PUBLIC_TAGS
 from .fits import FITS
 from . import skills
 
-__all__ = ["CATEGORIES", "check_fit", "PUBLIC_TAGS", "FITS", "skills"]
+__all__ = ["CATEGORIES", "check_fit", "PUBLIC_TAGS", "skills"]

@@ -7,7 +7,6 @@ import { Xup } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
 import { Search } from "../Pages/Search";
 import { BanRoutes } from "../Pages/Bans";
-import { Fittings } from "../Pages/Fittings";
 import { Guide, GuideIndex } from "../Pages/Guide";
 
 export function Routes() {
@@ -32,9 +31,6 @@ export function Routes() {
         <Search />
       </Route>
       <BanRoutes />
-      <Route exact path="/fittings">
-        <Fittings />
-      </Route>
       <Route exact path="/guide">
         <GuideIndex />
       </Route>
