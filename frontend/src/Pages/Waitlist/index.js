@@ -48,13 +48,14 @@ export function Waitlist() {
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
   const eventContext = React.useContext(EventContext);
-  const [waitlistId, _setWaitlistId] = React.useState(1); //eslint-disable-line
   const [waitlistData, setWaitlistData] = React.useState(null);
   const queryParams = new URLSearchParams(useLocation().search);
+  const waitlistId = queryParams.get("wl");
   const displayMode = queryParams.get("mode") || "columns";
   const history = useHistory();
 
   const updateAndSet = React.useCallback(() => {
+    if (!waitlistId) return;
     errorToaster(
       toastContext,
       apiCall("/api/waitlist?waitlist_id=" + waitlistId, {}).then(setWaitlistData)
@@ -90,6 +91,19 @@ export function Waitlist() {
     };
   }, [updateAndSet, eventContext, waitlistId]);
 
+  React.useEffect(() => {
+    // Redirect to wl=1 if we don't have one
+    if (!waitlistId) {
+      history.replace({
+        search: `?wl=1`,
+      });
+      return null;
+    }
+  }, [waitlistId, history]);
+
+  if (!waitlistId) {
+    return null; // Should be redirecting
+  }
   if (waitlistData === null) {
     return <em>Loading waitlist information.</em>;
   }
