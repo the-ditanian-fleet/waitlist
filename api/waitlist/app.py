@@ -25,7 +25,7 @@ logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
 app.config["SECRET_KEY"] = config.CONFIG["app"]["secret"]
 app.config["SESSION_COOKIE_SECURE"] = config.CONFIG["esi"]["url"].startswith("https")
-app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SAMESITE"] = "Strict"
 
 app.register_blueprint(auth.bp)
 app.register_blueprint(skills.bp)
