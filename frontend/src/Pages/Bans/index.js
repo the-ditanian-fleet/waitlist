@@ -72,10 +72,19 @@ function BanEntry({ kind, id, name, expires_at, onAction }) {
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
 
+  var link;
+  if (kind === "character") {
+    link = `char:${id}`;
+  } else if (kind === "corporation" || kind === "alliance") {
+    link = `https://evewho.com/${kind}/${id}`;
+  }
+
   return (
     <Row>
       <Cell>{kind}</Cell>
-      <Cell>{id}</Cell>
+      <Cell>
+        <a href={link}>{id}</a>
+      </Cell>
       <Cell>{name}</Cell>
       <Cell>{expires_at}</Cell>
       {authContext.access["bans-manage"] && (
