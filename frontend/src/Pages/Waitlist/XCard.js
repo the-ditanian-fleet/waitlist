@@ -277,7 +277,6 @@ export function XCard({ entry, fit, onAction }) {
 
   const accountName = entry.character ? entry.character.name : "Name hidden";
   var isSelf = entry.character && entry.character.id === authContext.account_id;
-  var needsApproval = authContext.access["waitlist-view"] && !fit.approved;
   var tagText = [];
   var tagImages = [];
   _.forEach(fit.tags || [], (tag) => {
@@ -299,7 +298,7 @@ export function XCard({ entry, fit, onAction }) {
   return (
     <XCardDOM
       variant={
-        fit.reject_reason ? "danger" : isSelf ? "success" : needsApproval ? "warning" : "secondary"
+        fit.reject_reason ? "danger" : !fit.approved ? "warning" : isSelf ? "success" : "secondary"
       }
     >
       <XCardDOM.Head>
