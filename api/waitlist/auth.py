@@ -37,7 +37,6 @@ ACCESS_LEVELS["trainee"] = ACCESS_LEVELS["user"] | set(
 )
 ACCESS_LEVELS["fc"] = ACCESS_LEVELS["trainee"] | set(
     [
-        "bans-view",
         "fit-history-view",
         "fit-view",
         "search",
@@ -49,6 +48,7 @@ ACCESS_LEVELS["fc"] = ACCESS_LEVELS["trainee"] | set(
 )
 ACCESS_LEVELS["council"] = ACCESS_LEVELS["fc"] | set(
     [
+        "bans-view",
         "bans-manage",
         "access-manage",
     ]
