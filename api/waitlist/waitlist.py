@@ -326,6 +326,32 @@ def set_open() -> ViewReturn:
     return "OK"
 
 
+@bp.route("/api/waitlist/empty", methods=["POST"])
+@auth.login_required
+@auth.require_permission("waitlist-edit")
+def empty_waitlist() -> ViewReturn:
+    waitlist = (
+        g.db.query(Waitlist).filter(Waitlist.id == request.json["waitlist_id"]).one()
+    )
+    if waitlist.is_open:
+        return "Waitlist must be closed in order to empty it", 400
+
+    entries = (
+        g.db.query(WaitlistEntry).filter(WaitlistEntry.waitlist_id == waitlist.id).all()
+    )
+    entry_ids = [entry.id for entry in entries]
+
+    g.db.query(WaitlistEntryFit).filter(
+        WaitlistEntryFit.entry_id.in_(entry_ids)
+    ).delete(synchronize_session=False)
+    g.db.query(WaitlistEntry).filter(WaitlistEntry.id.in_(entry_ids)).delete(
+        synchronize_session=False
+    )
+
+    g.db.commit()
+    return "OK"
+
+
 @bp.route("/api/waitlist/remove_fit", methods=["POST"])
 @auth.login_required
 def remove_fit() -> ViewReturn:

@@ -1,13 +1,19 @@
 import React from "react";
 import { AuthContext, ToastContext } from "../../contexts";
 import { Confirm } from "../../Components/Modal";
-import { Button, Buttons, NavButton, Select } from "../../Components/Form";
+import { Button, Buttons, InputGroup, NavButton, Select } from "../../Components/Form";
 import { Content } from "../../Components/Page";
 import { apiCall, errorToaster, toaster } from "../../api";
 
 async function setWaitlistOpen(waitlistId, isOpen) {
   return await apiCall("/api/waitlist/set_open", {
     json: { waitlist_id: waitlistId, open: isOpen },
+  });
+}
+
+async function emptyWaitlist(waitlistId) {
+  return await apiCall("/api/waitlist/empty", {
+    json: { waitlist_id: waitlistId },
   });
 }
 
@@ -20,6 +26,7 @@ async function closeFleet(characterId) {
 export function Fleet() {
   const [fleets, setFleets] = React.useState(null);
   const [fleetCloseModalOpen, setFleetCloseModalOpen] = React.useState(false);
+  const [emptyWaitlistModalOpen, setEmptyWaitlistModalOpen] = React.useState(false);
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
 
@@ -40,13 +47,16 @@ export function Fleet() {
       <Buttons>
         <NavButton to="/fleet/register">Configure fleet</NavButton>
         <NavButton to="/auth/start/fc">ESI re-auth as FC</NavButton>
-        <Button variant="success" onClick={() => toaster(toastContext, setWaitlistOpen(1, true))}>
-          Open waitlist
-        </Button>
-        <Button onClick={() => toaster(toastContext, setWaitlistOpen(1, false))}>
-          Close waitlist
-        </Button>
-        <Button variant="danger" onClick={(evt) => setFleetCloseModalOpen(true)}>
+        <InputGroup>
+          <Button variant="success" onClick={() => toaster(toastContext, setWaitlistOpen(1, true))}>
+            Open waitlist
+          </Button>
+          <Button onClick={() => toaster(toastContext, setWaitlistOpen(1, false))}>
+            Close waitlist
+          </Button>
+          <Button onClick={() => setEmptyWaitlistModalOpen(true)}>Empty waitlist</Button>
+        </InputGroup>
+        <Button variant="danger" onClick={() => setFleetCloseModalOpen(true)}>
           Kick everyone from fleet
         </Button>
       </Buttons>
@@ -79,6 +89,16 @@ export function Fleet() {
           toaster(toastContext, closeFleet(authContext.current.id)).finally(() =>
             setFleetCloseModalOpen(false)
           )
+        }
+      >
+        Are you sure?
+      </Confirm>
+      <Confirm
+        open={emptyWaitlistModalOpen}
+        setOpen={setEmptyWaitlistModalOpen}
+        title="Empty waitlist"
+        onConfirm={(evt) =>
+          toaster(toastContext, emptyWaitlist(1)).finally(() => setEmptyWaitlistModalOpen(false))
         }
       >
         Are you sure?
