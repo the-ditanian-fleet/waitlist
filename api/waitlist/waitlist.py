@@ -175,11 +175,13 @@ def xup() -> ViewReturn:
     implantdata = implants.load_character_implants(g.character_id)
 
     waitlist = (
-        g.db.query(Waitlist).filter(Waitlist.id == request.json["waitlist_id"]).one()
+        g.db.query(Waitlist)
+        .filter(Waitlist.id == request.json["waitlist_id"])
+        .one_or_none()
     )
 
-    if not waitlist.is_open:
-        return "Waitlist is closed", 400
+    if not (waitlist and waitlist.is_open):
+        return "Waitlist not found", 404
 
     if _am_i_banned():
         return "Action not permitted (banned)", 400
