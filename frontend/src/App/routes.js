@@ -6,7 +6,7 @@ import { Fleet, FleetRegister } from "../Pages/Fleet";
 import { Xup } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
 import { Search } from "../Pages/Search";
-import { Bans } from "../Pages/Bans";
+import { BanRoutes } from "../Pages/Bans";
 import { Fittings } from "../Pages/Fittings";
 import { Guide, GuideIndex } from "../Pages/Guide";
 
@@ -31,9 +31,7 @@ export function Routes() {
       <Route exact path="/search">
         <Search />
       </Route>
-      <Route exact path="/bans">
-        <Bans />
-      </Route>
+      <BanRoutes />
       <Route exact path="/fittings">
         <Fittings />
       </Route>

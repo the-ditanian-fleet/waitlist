@@ -73,6 +73,11 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
                 Search
               </NavBar.Link>
             )}
+            {whoami.access["bans-view"] && (
+              <NavBar.Link exact to="/bans">
+                Bans
+              </NavBar.Link>
+            )}
             <NavBar.End>
               <InputGroup style={{ marginRight: "2em" }}>
                 <Select
