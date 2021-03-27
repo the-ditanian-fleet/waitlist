@@ -50,7 +50,7 @@ export function Waitlist() {
   const eventContext = React.useContext(EventContext);
   const [waitlistData, setWaitlistData] = React.useState(null);
   const queryParams = new URLSearchParams(useLocation().search);
-  const waitlistId = queryParams.get("wl");
+  const waitlistId = parseInt(queryParams.get("wl"));
   const displayMode = queryParams.get("mode") || "columns";
   const history = useHistory();
 
