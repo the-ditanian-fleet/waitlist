@@ -3,7 +3,7 @@ import { ToastContext, AuthContext } from "../contexts";
 import { addToast } from "../Components/Toast";
 import { apiCall, errorToaster } from "../api";
 import { Button, InputGroup, Textarea } from "../Components/Form";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const exampleFit = String.raw`
 [Vindicator, Vindicator]
@@ -34,9 +34,9 @@ Large Explosive Armor Reinforcer I
 Large Hybrid Burst Aerator II
 `.trim();
 
-async function xUp({ character, eft, toastContext, history }) {
+async function xUp({ character, eft, toastContext, history, waitlist_id }) {
   await apiCall("/api/waitlist/xup", {
-    json: { eft: eft, character_id: character, waitlist_id: 1 },
+    json: { eft: eft, character_id: character, waitlist_id },
   });
 
   addToast(toastContext, {
@@ -55,9 +55,14 @@ export function Xup() {
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
   const history = useHistory();
-
+  const queryParams = new URLSearchParams(useLocation().search);
   const [eft, setEft] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  const waitlist_id = queryParams.get("wl");
+  if (!waitlist_id) {
+    return <em>Missing waitlist information</em>;
+  }
 
   return (
     <div style={{ display: "flex" }}>
@@ -78,7 +83,7 @@ export function Xup() {
               setIsSubmitting(true);
               errorToaster(
                 toastContext,
-                xUp({ character: authContext.current.id, eft, toastContext, history })
+                xUp({ character: authContext.current.id, eft, toastContext, history, waitlist_id })
               ).finally((evt) => setIsSubmitting(false));
             }}
             disabled={eft.trim().length < 50 || !eft.startsWith("[") || isSubmitting}
