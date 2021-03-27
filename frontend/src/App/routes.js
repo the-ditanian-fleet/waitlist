@@ -6,8 +6,10 @@ import { Fleet, FleetRegister } from "../Pages/Fleet";
 import { Xup } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
 import { Search } from "../Pages/Search";
-import { BanRoutes } from "../Pages/Bans";
 import { Guide, GuideIndex } from "../Pages/Guide";
+
+import { BanRoutes } from "../Pages/Bans";
+import { ACLRoutes } from "../Pages/ACL";
 
 export function Routes() {
   return (
@@ -30,7 +32,6 @@ export function Routes() {
       <Route exact path="/search">
         <Search />
       </Route>
-      <BanRoutes />
       <Route exact path="/guide">
         <GuideIndex />
       </Route>
@@ -40,6 +41,9 @@ export function Routes() {
       <Route exact path="/">
         <Waitlist />
       </Route>
+
+      <BanRoutes />
+      <ACLRoutes />
     </>
   );
 }

@@ -78,6 +78,11 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
                 Bans
               </NavBar.Link>
             )}
+            {whoami.access["access-manage"] && (
+              <NavBar.Link exact to="/acl">
+                ACL
+              </NavBar.Link>
+            )}
             <NavBar.End>
               <InputGroup style={{ marginRight: "2em" }}>
                 <Select

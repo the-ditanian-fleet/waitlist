@@ -50,6 +50,7 @@ ACCESS_LEVELS["fc"] = ACCESS_LEVELS["trainee"] | set(
 ACCESS_LEVELS["council"] = ACCESS_LEVELS["fc"] | set(
     [
         "bans-manage",
+        "access-manage",
     ]
 )
 ACCESS_LEVELS["admin"] = ACCESS_LEVELS["council"] | set([])
