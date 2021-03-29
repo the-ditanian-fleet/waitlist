@@ -55,6 +55,7 @@ export function Search() {
           <TableHead>
             <Row>
               <CellHead>Name</CellHead>
+              <CellHead>Character ID</CellHead>
               <CellHead></CellHead>
             </Row>
           </TableHead>
@@ -62,6 +63,7 @@ export function Search() {
             {results.results.map((character) => (
               <Row key={character.id}>
                 <Cell>{character.name}</Cell>
+                <Cell>{character.id}</Cell>
                 <Cell>
                   <NavButton to={"/skills?character_id=" + character.id}>Skills</NavButton>
                   <NavButton to={"/pilot?character_id=" + character.id}>Information</NavButton>
