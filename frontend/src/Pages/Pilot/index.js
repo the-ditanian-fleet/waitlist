@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { PageTitle, Title } from "../../Components/Page";
 import { SkillHistory } from "./SkillHistory";
 import { FitHistory } from "./FitHistory";
+import { FleetActivity } from "./FleetActivity";
 import { apiCall, errorToaster } from "../../api";
 
 export function Pilot() {
@@ -42,6 +43,10 @@ export function Pilot() {
         <div style={{ flexBasis: "250px", flexGrow: 1, padding: "1em" }}>
           <Title>Fit history</Title>
           <FitHistory characterId={basicInfo.id} />
+        </div>
+        <div style={{ flexBasis: "250px", flexGrow: 1, padding: "1em" }}>
+          <Title>Activity</Title>
+          <FleetActivity characterId={basicInfo.id} />
         </div>
         <div style={{ flexBasis: "250px", flexGrow: 1, padding: "1em" }}>
           <Title>Skill log</Title>
