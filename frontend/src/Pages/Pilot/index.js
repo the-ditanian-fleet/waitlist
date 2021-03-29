@@ -28,7 +28,16 @@ export function Pilot() {
 
   return (
     <>
-      <PageTitle>{basicInfo.name}</PageTitle>
+      <div style={{ display: "flex", alignItems: "flex-end" }}>
+        <PageTitle>{basicInfo.name}</PageTitle>
+        <div style={{ marginLeft: "auto" }}>
+          <img
+            src={`https://imageserver.eveonline.com/Character/${characterId}_128.jpg`}
+            style={{ borderRadius: "5px" }}
+            alt=""
+          />
+        </div>
+      </div>
       <div style={{ display: "flex" }}>
         <div style={{ flexBasis: "250px", flexGrow: 1, padding: "1em" }}>
           <Title>Fit history</Title>
