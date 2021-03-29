@@ -298,7 +298,13 @@ export function XCard({ entry, fit, onAction }) {
   return (
     <XCardDOM
       variant={
-        fit.reject_reason ? "danger" : !fit.approved ? "warning" : isSelf ? "success" : "secondary"
+        fit.reject_reason
+          ? "danger"
+          : !fit.approved && (isSelf || authContext.access["waitlist-view"])
+          ? "warning"
+          : isSelf
+          ? "success"
+          : "secondary"
       }
     >
       <XCardDOM.Head>
