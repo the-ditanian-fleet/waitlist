@@ -21,6 +21,7 @@ def process_auth(auth_type: str, auth_token: str) -> Tuple[str, str, int]:
         "https://login.eveonline.com/oauth/token",
         data=body,
         auth=(AUTH_ID, AUTH_SECRET),
+        timeout=2,
     )
     result.raise_for_status()
     result_json = result.json()
@@ -28,6 +29,7 @@ def process_auth(auth_type: str, auth_token: str) -> Tuple[str, str, int]:
     verify = session.get(
         "https://login.eveonline.com/oauth/verify",
         headers={"Authorization": "Bearer %s" % result_json["access_token"]},
+        timeout=1,
     )
     verify.raise_for_status()
     verify_json = verify.json()
@@ -140,7 +142,7 @@ def get(
     headers["User-Agent"] = "waitlist, by Xifon Naari"
 
     kwargs["headers"] = headers
-    result = session.get(url, **kwargs)
+    result = session.get(url, timeout=1, **kwargs)
     _raise_for_status(result)
     return result
 
@@ -160,7 +162,7 @@ def post(
     headers["User-Agent"] = "waitlist, by Xifon Naari"
 
     kwargs["headers"] = headers
-    result = session.post(url, **kwargs)
+    result = session.post(url, timeout=1, **kwargs)
     _raise_for_status(result)
     return result
 
@@ -180,6 +182,6 @@ def delete(
     headers["User-Agent"] = "waitlist, by Xifon Naari"
 
     kwargs["headers"] = headers
-    result = session.delete(url, **kwargs)
+    result = session.delete(url, timeout=1, **kwargs)
     _raise_for_status(result)
     return result
