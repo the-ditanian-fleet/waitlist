@@ -22,9 +22,12 @@ from .config import CONFIG
 def make_engine(cfg: Dict[str, str]) -> sqlalchemy.engine.Engine:
     kwargs: Dict[str, Any] = {}
 
-    for arg_name in ["pool_size"]:  # Ints
+    for arg_name in ["pool_size", "max_overflow"]:  # Ints
         if arg_name in cfg:
             kwargs[arg_name] = int(cfg[arg_name])
+    for arg_name in ["pool_timeout"]:  # Floats
+        if arg_name in cfg:
+            kwargs[arg_name] = float(cfg[arg_name])
     for arg_name in ["isolation_level"]:  # Strs
         if arg_name in cfg:
             kwargs[arg_name] = str(cfg[arg_name])
