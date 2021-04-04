@@ -8,7 +8,7 @@
 
 ## TDF hierarchy
 
-1. Council (limited to 5)
+1. Council
 2. FC Trainer / HQ / AS / VG / Probationary FCs
 3. Trainee
 
