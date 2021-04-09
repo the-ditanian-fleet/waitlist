@@ -6,62 +6,9 @@ Badges are a tool mostly for FCs to quickly see what the fleet composition looks
 
 And some people like them.
 
-To attain an implant badge, ask an FC (not the active one) to check your implants. For others, ask an FC and they will start the process of you getting it.
-
-## Implants
-
-![](h.png)
-
-### Hybrid Set (RECOMMENDED)
-
-    Slot 1: High-grade Amulet Alpha
-    Slot 2: High-grade Amulet Beta
-    Slot 3: High-grade Amulet Gamma
-    Slot 4: High-grade Amulet Delta
-    Slot 5: High-grade Amulet Epsilon
-    Slot 6: WS-618
-    Slot 7: Ogdin's Eye Coordination Enhancer or better
-    Slot 8: EM-806 or MR-807
-    Slot 9: RF-906 or better
-    Slot 10: LH-1006 or LE-1006 or better
-
-![](a.png)
-
-### Amulet Set
-
-    Slot 1: High-grade Amulet Alpha
-    Slot 2: High-grade Amulet Beta
-    Slot 3: High-grade Amulet Gamma
-    Slot 4: High-grade Amulet Delta
-    Slot 5: High-grade Amulet Epsilon
-    Slot 6: High-grade Amulet Omega
-    Slot 7: Ogdin's Eye Coordination Enhancer or better
-    Slot 8: EM-806 or MR-807
-    Slot 9: RF-906 or better
-    Slot 10: LH-1006 or LE-1006 or better
-
-![](w.png)
-
-### Ascendency Set
-
-    Slot 1: High-grade Ascendency Alpha
-    Slot 2: High-grade Ascendency Beta
-    Slot 3: High-grade Ascendency Gamma
-    Slot 4: High-grade Ascendency Delta
-    Slot 5: High-grade Ascendency Epsilon
-    Slot 6: High-grade Ascendency Omega or WS-618
-    Slot 7: Ogdin's Eye Coordination Enhancer or better
-    Slot 8: EM-806 or MR-807
-    Slot 9: RF-906 or better
-    Slot 10: LH-1006 or LE-1006 or better
+To attain a badge, ask an FC and they will start the process of you getting it.
 
 ## Utility
-
-![](b.png)
-
-### Back-Channel
-
-Pilot has access to the back comms channel on TeamSpeak.
 
 ![](e.png)
 
@@ -85,7 +32,21 @@ The council have decided to have you hung by your entrails and your corpse parad
 
 Elite Badge  
 AND  
-Skills listed in the Eite Gold tab of the Skills page
+Skills listed in the Elite Gold tab of the Skills page
+
+![](bastion.png)
+
+### Bastion
+
+Elite Badge for a Bastion-capable ship
+AND
+Abyssal damage modules
+
+![](b.png)
+
+### Back-Channel
+
+Pilot has access to the back comms channel on TeamSpeak.
 
 ## Roles
 
@@ -97,7 +58,7 @@ Permitted to fly Nestor Logistics.
 
 ![](alpha.png)
 
-### Missing minimum skills
+### Missing basic skills
 
 The player is missing some important skills.
 
