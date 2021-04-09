@@ -2,7 +2,7 @@ categories:
   logi: Logistics
   cqc: CQC
   sniper: Sniper
-  leshak: Leshak
+  bastion: Bastion
   starter: Starter
 
 rules:
@@ -45,6 +45,9 @@ rules:
     category: starter
   - item: Mega Modulated Pulse Energy Beam I
     category: starter
+  # Bastion
+  - item: Bastion Module I
+    category: bastion
   # Ships
   - item: Megathron
     category: starter
@@ -55,6 +58,6 @@ rules:
   - item: Nightmare
     category: sniper
   - item: Leshak
-    category: leshak
+    category: cqc
   - item: Kronos
     category: cqc
