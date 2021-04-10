@@ -327,7 +327,7 @@ Paladin:
     gold: 5
   Marauders:
     min: 3
-    elite: 5
+    elite: 4
     gold: 5
   Capacitor Emission Systems:
     min: 3
