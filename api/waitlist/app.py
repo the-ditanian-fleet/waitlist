@@ -44,6 +44,11 @@ app.register_blueprint(acl.bp)
 app.register_blueprint(fleet_history.bp)
 
 
+@app.route("/favicon.ico")
+def favicon() -> ViewReturn:
+    return send_from_directory("static", "favicon.ico")
+
+
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path: str) -> ViewReturn:  # pylint: disable=unused-argument

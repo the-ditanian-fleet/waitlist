@@ -18,7 +18,7 @@ WORKDIR /app/api
 RUN pip install -r requirements.txt
 COPY --from=1 /data/sqlite-shrunk.sqlite /app/api/sqlite-shrunk.sqlite
 COPY --from=0 /app/frontend/build/static /app/api/waitlist/static/
-COPY --from=0 /app/frontend/build/index.html /app/api/waitlist/static/
+COPY --from=0 /app/frontend/build/index.html /app/frontend/build/favicon.ico /app/api/waitlist/static/
 ADD archive-api.tar /app
 
 EXPOSE 5000
