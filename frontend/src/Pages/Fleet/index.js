@@ -2,8 +2,9 @@ import React from "react";
 import { AuthContext, ToastContext } from "../../contexts";
 import { Confirm } from "../../Components/Modal";
 import { Button, Buttons, InputGroup, NavButton, Select } from "../../Components/Form";
-import { Content } from "../../Components/Page";
+import { Content, Title } from "../../Components/Page";
 import { apiCall, errorToaster, toaster } from "../../api";
+import { Cell, Row, Table, TableBody } from "../../Components/Table";
 
 async function setWaitlistOpen(waitlistId, isOpen) {
   return await apiCall("/api/waitlist/set_open", {
@@ -135,22 +136,22 @@ function FleetMembers() {
 
   return (
     <>
-      <h3 className="title">Current fleet</h3>
-      <table style={{ width: "100%" }}>
-        <tbody>
+      <Title>Current fleet</Title>
+      <Table fullWidth>
+        <TableBody>
           {fleetMembers &&
             fleetMembers.members.map((member) => (
-              <tr key={member.id}>
-                <td>{member.name}</td>
-                <td>{member.ship.name}</td>
-                <td>
+              <Row key={member.id}>
+                <Cell>{member.name}</Cell>
+                <Cell>{member.ship.name}</Cell>
+                <Cell>
                   <NavButton to={"/skills?character_id=" + member.id}>Skills</NavButton>
                   <NavButton to={"/pilot?character_id=" + member.id}>Information</NavButton>
-                </td>
-              </tr>
+                </Cell>
+              </Row>
             ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </>
   );
 }
