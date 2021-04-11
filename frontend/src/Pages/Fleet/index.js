@@ -4,7 +4,8 @@ import { Confirm } from "../../Components/Modal";
 import { Button, Buttons, InputGroup, NavButton, Select } from "../../Components/Form";
 import { Content, Title } from "../../Components/Page";
 import { apiCall, errorToaster, toaster } from "../../api";
-import { Cell, Row, Table, TableBody } from "../../Components/Table";
+import { Cell, CellHead, Row, Table, TableBody, TableHead } from "../../Components/Table";
+import _ from "lodash";
 
 async function setWaitlistOpen(waitlistId, isOpen) {
   return await apiCall("/api/waitlist/set_open", {
@@ -134,9 +135,34 @@ function FleetMembers() {
     return null;
   }
 
+  var summary = {};
+  if (fleetMembers) {
+    fleetMembers.members.forEach((member) => {
+      if (!summary[member.ship.name]) summary[member.ship.name] = 0;
+      summary[member.ship.name]++;
+    });
+  }
+
   return (
     <>
-      <Title>Current fleet</Title>
+      <Title>Fleet composition</Title>
+      <Table>
+        <TableHead>
+          <Row>
+            <CellHead>Ship</CellHead>
+            <CellHead>#</CellHead>
+          </Row>
+        </TableHead>
+        <TableBody>
+          {_.sortBy(_.entries(summary), [1]).map(([shipName, count]) => (
+            <Row key={shipName}>
+              <Cell>{shipName}</Cell>
+              <Cell>{count}</Cell>
+            </Row>
+          ))}
+        </TableBody>
+      </Table>
+      <Title>Members</Title>
       <Table fullWidth>
         <TableBody>
           {fleetMembers &&
