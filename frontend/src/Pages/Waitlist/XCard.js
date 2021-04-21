@@ -345,7 +345,7 @@ export function XCard({ entry, fit, onAction }) {
           <a
             title="Open in-game profile"
             onClick={(evt) =>
-              errorToaster(toastContext, openWindow(entry.character.id, authContext.current.id))
+              errorToaster(toastContext, openWindow(fit.character.id, authContext.current.id))
             }
           >
             <FontAwesomeIcon icon={faExternalLinkAlt} />
