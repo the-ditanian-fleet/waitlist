@@ -368,6 +368,11 @@ Paladin:
     min: 5
   Astronautics Rigging:
     gold: 5
+  Weapon Upgrades:
+    min: 4
+    elite: 5
+  Advanced Weapon Upgrades:
+    min: 5
 
 Kronos:
   <<: *generic
@@ -424,6 +429,11 @@ Kronos:
     elite: 4
     gold: 5
   Gallente Battleship:
+    min: 5
+  Weapon Upgrades:
+    min: 4
+    elite: 5
+  Advanced Weapon Upgrades:
     min: 5
 
 Leshak:
