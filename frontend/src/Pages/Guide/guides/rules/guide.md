@@ -79,6 +79,9 @@ Always send complaints to the council linked in the ingame channel **TDF-Officia
    - Elite Gold
      1. Has Elite Gold skills we require on top of regular Elite requirements, for at least one DPS battleship
      1. Replaces Elite
+   - Bastion
+     1. Pilot has Elite badge
+     1. Pilot verified to have Abyssal damage modules
    - Shame
      1. Pilots who have flown with incorrect fits, need to be ship scanned before getting into fleet.
 

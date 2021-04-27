@@ -8,7 +8,7 @@ Bastion is for experienced incursion runners only. This means to use it you MUST
 
 1.  Know how aggro works in incursions.
 2.  Know all the incursion sites
-3.  Know how logistics work (espcially armor reps).
+3.  Know how logistics work (especially armor reps).
 4.  Know the different Sansha rats.
 5.  Be able to communicate with the FC.
 
