@@ -204,6 +204,13 @@ function FitAnalysis({ source }) {
       );
     });
   });
+  _.forEach(source.cargo_missing || {}, (count, itemId) => {
+    analysis.push(
+      <p key={itemId}>
+        Missing in cargo <strong>{idLookup[itemId]}</strong>: {count}
+      </p>
+    );
+  });
   return (
     <FitAnalysisDOM>
       {source.name ? <h2>{source.name}</h2> : <h2>UNKNOWN_FIT</h2>}

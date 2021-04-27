@@ -90,7 +90,7 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
             return
 
         self.fitcheck = self.fit.check(self.modules, self.cargo)
-        if self.fitcheck.is_ok and self.fit.is_elite and not self.fitcheck.downgraded:
+        if self.fitcheck.fit_ok and self.fit.is_elite and not self.fitcheck.downgraded:
             self._add_tag("ELITE-FIT")
 
         # Export the results of the fit check
@@ -106,6 +106,9 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
             fit_check_ids.update(self.fitcheck.downgraded.keys())
             for downgrade in self.fitcheck.downgraded.values():
                 fit_check_ids.update(downgrade.keys())
+        if self.fitcheck.cargo_missing:
+            self.result.fit_check["cargo_missing"] = self.fitcheck.cargo_missing
+            fit_check_ids.update(self.fitcheck.cargo_missing.keys())
         self.result.fit_check["_ids"] = sorted(list(fit_check_ids))
 
     def check_category(self) -> None:
@@ -137,7 +140,7 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
             return
         if not "ELITE-FIT" in self.result.tags:
             return
-        if not self.fitcheck or not self.fitcheck.is_ok:
+        if not self.fitcheck or not self.fitcheck.fit_ok or not self.fitcheck.cargo_ok:
             return
 
         self.result.approved = True

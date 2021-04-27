@@ -22,7 +22,7 @@ def _module_score(module_id: int) -> int:
     return 1
 
 
-class CheckResult:  # pylint: disable=too-few-public-methods,too-many-arguments
+class CheckResult:  # pylint: disable=too-few-public-methods,too-many-arguments,too-many-instance-attributes
     def __init__(
         self,
         spec: "FitSpec",
@@ -30,13 +30,16 @@ class CheckResult:  # pylint: disable=too-few-public-methods,too-many-arguments
         extra: Dict[int, int],
         downgraded: Dict[int, Dict[int, int]],
         upgraded: Dict[int, Dict[int, int]],
+        cargo_missing: Dict[int, int],
     ):
         self.spec = spec
         self.missing = missing
         self.extra = extra
         self.downgraded = downgraded
         self.upgraded = upgraded
-        self.is_ok = not missing and not extra
+        self.cargo_missing = cargo_missing
+        self.fit_ok = not missing and not extra and not downgraded
+        self.cargo_ok = not cargo_missing
         self.score = 0
 
         # Missing modules: it is definitely not there
@@ -55,6 +58,37 @@ class CheckResult:  # pylint: disable=too-few-public-methods,too-many-arguments
                 self.score -= _module_score(module_id) * count * 1
 
 
+def _diff(
+    expect: Dict[int, int], have: Dict[int, int]
+) -> Tuple[
+    Dict[int, int], Dict[int, int], Dict[int, Dict[int, int]], Dict[int, Dict[int, int]]
+]:
+    remaining = {**have}
+    missing = {}
+    downgraded: Dict[int, Dict[int, int]] = {}
+    upgraded: Dict[int, Dict[int, int]] = {}
+    for module_id_on_fit, count in expect.items():
+        for module_id, meta_diff in _alts(module_id_on_fit):
+            if module_id in remaining:
+                sub = min(remaining[module_id], count)
+                count -= sub
+                remaining[module_id] -= sub
+                if meta_diff < 0:
+                    downgraded.setdefault(module_id_on_fit, {}).setdefault(module_id, 0)
+                    downgraded[module_id_on_fit][module_id] += sub
+                elif meta_diff > 0:
+                    upgraded.setdefault(module_id_on_fit, {}).setdefault(module_id, 0)
+                    upgraded[module_id_on_fit][module_id] += sub
+                if not remaining[module_id]:
+                    del remaining[module_id]
+                if count == 0:
+                    break
+        if count > 0:
+            missing[module_id_on_fit] = count
+
+    return missing, remaining, downgraded, upgraded
+
+
 class FitSpec:  # pylint: disable=too-few-public-methods,too-many-instance-attributes
     def __init__(self, fitname: str, dna: str):
         self.fitname = fitname
@@ -64,35 +98,42 @@ class FitSpec:  # pylint: disable=too-few-public-methods,too-many-instance-attri
         self.is_hybrid = "hybrid" in fitname.lower()
         self.is_amulet = "amulet" in fitname.lower()
 
-    def check(self, mods: Dict[int, int], _cargo: Dict[int, int]) -> CheckResult:
-        remaining_modules = {**mods}
-        lacking_modules = {}
-        downgraded: Dict[int, Dict[int, int]] = {}
-        upgraded: Dict[int, Dict[int, int]] = {}
-        for module_id_on_fit, count in self.modules.items():
-            for module_id, meta_diff in _alts(module_id_on_fit):
-                if module_id in remaining_modules:
-                    sub = min(remaining_modules[module_id], count)
-                    count -= sub
-                    remaining_modules[module_id] -= sub
-                    if meta_diff < 0:
-                        downgraded.setdefault(module_id_on_fit, {}).setdefault(
-                            module_id, 0
-                        )
-                        downgraded[module_id_on_fit][module_id] += sub
-                    elif meta_diff > 0:
-                        upgraded.setdefault(module_id_on_fit, {}).setdefault(
-                            module_id, 0
-                        )
-                        upgraded[module_id_on_fit][module_id] += sub
-                    if not remaining_modules[module_id]:
-                        del remaining_modules[module_id]
-                    if count == 0:
-                        break
-            if count > 0:
-                lacking_modules[module_id_on_fit] = count
+    def check(self, mods: Dict[int, int], cargo: Dict[int, int]) -> CheckResult:
+        (
+            missing_modules,
+            remaining_modules,
+            downgraded_modules,
+            upgraded_modules,
+        ) = _diff(self.modules, mods)
+
+        (
+            missing_cargo,
+            _remaining_cargo,
+            downgraded_cargo,
+            _upgraded_cargo,
+        ) = _diff(self.cargo, cargo)
+
+        cargo_missing_total: Dict[int, int] = {**missing_cargo}
+        for module_id, downgrade_summary in downgraded_cargo.items():
+            # Downgrading cargo isn't a thing - just class it as missing if we do go into this path
+            cargo_missing_total.setdefault(module_id, 0)
+            cargo_missing_total[module_id] += sum(downgrade_summary.values())
+
+        # For anything that we require a large quantity of, allow 50% leeway
+        for module_id, missing_count in cargo_missing_total.copy().items():
+            if (
+                self.cargo[module_id] > 100
+                and missing_count < self.cargo[module_id] / 2
+            ):
+                del cargo_missing_total[module_id]
+
         return CheckResult(
-            self, lacking_modules, remaining_modules, downgraded, upgraded
+            self,
+            missing_modules,
+            remaining_modules,
+            downgraded_modules,
+            upgraded_modules,
+            cargo_missing_total,
         )
 
 
@@ -149,10 +190,15 @@ def _main() -> None:
                     % (fit.fitname, the_match.fitname)
                 )
             result = the_match.check(fit.modules, fit.cargo)
-            if not result or not result.is_ok:
+            if not result or not result.fit_ok or not result.cargo_ok:
                 raise Exception(
-                    "We rejected our own fit: %s %s %s"
-                    % (result.missing, result.extra, result.downgraded)
+                    "We rejected our own fit: %s %s %s %s"
+                    % (
+                        result.missing,
+                        result.extra,
+                        result.downgraded,
+                        result.cargo_missing,
+                    )
                 )
             if the_match.fitname != fit.fitname:
                 raise Exception(
