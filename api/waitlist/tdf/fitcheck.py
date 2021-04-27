@@ -90,7 +90,7 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
             return
 
         self.fitcheck = self.fit.check(self.modules, self.cargo)
-        if self.fitcheck.fit_ok and self.fit.is_elite and not self.fitcheck.downgraded:
+        if self.fitcheck.fit_ok and self.fit.is_elite:
             self._add_tag("ELITE-FIT")
 
         # Export the results of the fit check
