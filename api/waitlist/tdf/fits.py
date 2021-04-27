@@ -122,7 +122,7 @@ class FitSpec:  # pylint: disable=too-few-public-methods,too-many-instance-attri
         # For anything that we require a large quantity of, allow 50% leeway
         for module_id, missing_count in cargo_missing_total.copy().items():
             if (
-                self.cargo[module_id] > 100
+                self.cargo[module_id] >= 10
                 and missing_count < self.cargo[module_id] / 2
             ):
                 del cargo_missing_total[module_id]
