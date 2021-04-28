@@ -119,11 +119,11 @@ class FitSpec:  # pylint: disable=too-few-public-methods,too-many-instance-attri
             cargo_missing_total.setdefault(module_id, 0)
             cargo_missing_total[module_id] += sum(downgrade_summary.values())
 
-        # For anything that we require a large quantity of, allow 50% leeway
+        # For anything that we require a large quantity of, allow 70% leeway
         for module_id, missing_count in cargo_missing_total.copy().items():
             if (
                 self.cargo[module_id] >= 10
-                and missing_count < self.cargo[module_id] / 2
+                and missing_count <= 0.7 * self.cargo[module_id]
             ):
                 del cargo_missing_total[module_id]
 
