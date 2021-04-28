@@ -11,6 +11,21 @@ alternatives:
   - - Agency 'Pyrolancea' DB7 Dose III
   - - Agency 'Pyrolancea' DB9 Dose IV
 
+- - - Agency 'Overclocker' SB3 Dose I
+  - - Agency 'Overclocker' SB5 Dose II
+  - - Agency 'Overclocker' SB7 Dose III
+  - - Agency 'Overclocker' SB9 Dose IV
+
+- - - Synth Drop Booster
+  - - Standard Drop Booster
+  - - Improved Drop Booster
+  - - Strong Drop Booster
+
+- - - Synth Mindflood Booster
+  - - Standard Mindflood Booster
+  - - Improved Mindflood Booster
+  - - Strong Mindflood Booster
+
 - - - Stasis Webifier II
   - - True Sansha Stasis Webifier
     - Caldari Navy Stasis Webifier
