@@ -2,8 +2,11 @@ import React from "react";
 import { ToastContext, AuthContext } from "../contexts";
 import { addToast } from "../Components/Toast";
 import { apiCall, errorToaster } from "../api";
-import { Button, InputGroup, Textarea } from "../Components/Form";
+import { Button, Buttons, InputGroup, NavButton, Textarea } from "../Components/Form";
 import { useHistory, useLocation } from "react-router-dom";
+import { PageTitle } from "../Components/Page";
+import { FitDisplay } from "../Components/FitDisplay";
+import _ from "lodash";
 
 const exampleFit = String.raw`
 [Vindicator, Vindicator]
@@ -44,7 +47,7 @@ async function xUp({ character, eft, toastContext, history, waitlist_id }) {
     message: "Your X has been added to the waitlist!",
     variant: "success",
   });
-  history.push("/");
+  history.push("/xup/check?wl=" + waitlist_id);
 
   if (window.Notification) {
     Notification.requestPermission();
@@ -101,5 +104,55 @@ export function Xup() {
         />
       </div>
     </div>
+  );
+}
+
+export function XupCheck() {
+  const authContext = React.useContext(AuthContext);
+  const toastContext = React.useContext(ToastContext);
+  const [xupData, setXupData] = React.useState(null);
+
+  const queryParams = new URLSearchParams(useLocation().search);
+  const waitlist_id = queryParams.get("wl");
+
+  React.useEffect(() => {
+    if (!waitlist_id) return;
+    errorToaster(
+      toastContext,
+      apiCall("/api/waitlist?waitlist_id=" + waitlist_id, {}).then(setXupData)
+    );
+  }, [waitlist_id, toastContext]);
+
+  if (!waitlist_id) {
+    return <em>Missing waitlist information</em>;
+  }
+  if (!xupData) {
+    return <em>Loading</em>;
+  }
+
+  const myEntry = _.find(
+    xupData.waitlist,
+    (entry) => entry.character && entry.character.id === authContext.account_id
+  );
+
+  return (
+    <>
+      <PageTitle>Fit review</PageTitle>
+      <em>
+        You are now on the waitlist! These are the fits you x-ed up with, please check to make sure
+        you have everything and adjust your fit if needed.
+      </em>
+      {myEntry.fits.map((fit) => (
+        <FitDisplay key={fit.id} fit={fit} />
+      ))}
+      <Buttons>
+        <NavButton variant="primary" to={`/?wl=${waitlist_id}`}>
+          Yes, looks good
+        </NavButton>
+        <NavButton variant="secondary" to={`/xup?wl=${waitlist_id}`}>
+          No, go back to update my fit
+        </NavButton>
+      </Buttons>
+    </>
   );
 }

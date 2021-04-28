@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import { Skills } from "../Pages/Skills";
 import { Waitlist } from "../Pages/Waitlist";
 import { Fleet, FleetRegister } from "../Pages/Fleet";
-import { Xup } from "../Pages/Xup";
+import { Xup, XupCheck } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
 import { Search } from "../Pages/Search";
 import { Guide, GuideIndex } from "../Pages/Guide";
@@ -25,6 +25,9 @@ export function Routes() {
       </Route>
       <Route exact path="/xup">
         <Xup />
+      </Route>
+      <Route exact path="/xup/check">
+        <XupCheck />
       </Route>
       <Route exact path="/pilot">
         <Pilot />
