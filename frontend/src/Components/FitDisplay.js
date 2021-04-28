@@ -37,8 +37,16 @@ const FitAnalysisDOM = styled.div`
   h2 {
     font-size: 1.5em;
   }
+  h3 {
+    font-size: 1.2em;
+    margin-top: 0.5em;
+  }
   strong {
     font-weight: bold;
+  }
+  p img {
+    height: 1em;
+    vertical-align: middle;
   }
 `;
 
@@ -53,9 +61,16 @@ function FitAnalysis({ source }) {
 
   const idLookup = source._ids || {};
   const analysis = [];
+  if (source.missing || source.extra || source.downgraded) {
+    analysis.push(<h3 key="head-fit">Fit</h3>);
+  }
   _.forEach(source.missing || {}, (count, itemId) => {
     analysis.push(
       <p key={itemId}>
+        <img
+          src={`https://imageserver.eveonline.com/Type/${itemId}_32.png`}
+          alt={idLookup[itemId]}
+        />{" "}
         Missing <strong>{idLookup[itemId]}</strong>: {count}
       </p>
     );
@@ -63,6 +78,10 @@ function FitAnalysis({ source }) {
   _.forEach(source.extra, (count, itemId) => {
     analysis.push(
       <p key={itemId}>
+        <img
+          src={`https://imageserver.eveonline.com/Type/${itemId}_32.png`}
+          alt={idLookup[itemId]}
+        />{" "}
         Extra <strong>{idLookup[itemId]}</strong>: {count}
       </p>
     );
@@ -71,16 +90,27 @@ function FitAnalysis({ source }) {
     _.forEach(downgrades, (count, newItem) => {
       analysis.push(
         <p key={`${originalItem} ${newItem}`}>
+          <img
+            src={`https://imageserver.eveonline.com/Type/${originalItem}_32.png`}
+            alt={idLookup[originalItem]}
+          />{" "}
           Downgraded <strong>{idLookup[originalItem]}</strong> to{" "}
           <strong>{idLookup[newItem]}</strong>: {count}
         </p>
       );
     });
   });
+  if (source.cargo_missing) {
+    analysis.push(<h3 key="head-cargo">Cargo</h3>);
+  }
   _.forEach(source.cargo_missing || {}, (count, itemId) => {
     analysis.push(
       <p key={itemId}>
-        Missing in cargo <strong>{idLookup[itemId]}</strong>: {count}
+        <img
+          src={`https://imageserver.eveonline.com/Type/${itemId}_32.png`}
+          alt={idLookup[itemId]}
+        />{" "}
+        Missing <strong>{idLookup[itemId]}</strong>: {count}
       </p>
     );
   });
