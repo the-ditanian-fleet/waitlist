@@ -121,7 +121,8 @@ Always send complaints to the council linked in the ingame channel **TDF-Officia
 7. Logi Cruisers
    - 5.5k+ raw armor hp before boosts
    - cap stable with all mid slots and remote reps active
-   - 600m/s+ before boosts 10. Must use SB3 Booster or better on cooldown
+   - 600m/s+ before boosts
+   - Must use SB3 Booster or better on cooldown
 8. During Influence all dps ships must have a 1600mm plate fitted
 
 ## Waitlist
