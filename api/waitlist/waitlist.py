@@ -86,8 +86,8 @@ def get_waitlist() -> ViewReturn:
                 fit["character"] = {"name": character.name, "id": character.id}
                 fit["tags"] = tags
                 fit["hours_in_fleet"] = round(fitentry.cached_time_in_fleet / 3600)
-                if fitentry.reject_reason:
-                    fit["reject_reason"] = fitentry.reject_reason
+                if fitentry.review_comment:
+                    fit["review_comment"] = fitentry.review_comment
             else:
                 fit["tags"] = list(filter(lambda tag: tag in tdf.PUBLIC_TAGS, tags))
 
@@ -287,7 +287,6 @@ def approve() -> ViewReturn:
         g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == fit_entry_id).one()
     )
     fit_entry.approved = True
-    fit_entry.reject_reason = None
     g.db.commit()
 
     notify_waitlist_update(fit_entry.entry.waitlist_id)
@@ -305,7 +304,7 @@ def reject() -> ViewReturn:
         g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == fit_entry_id).one()
     )
     fit_entry.approved = False
-    fit_entry.reject_reason = str(request.json["reject_reason"])
+    fit_entry.review_comment = str(request.json["review_comment"])
     g.db.commit()
 
     notify_waitlist_update(fit_entry.entry.waitlist_id)

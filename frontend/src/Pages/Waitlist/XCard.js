@@ -42,9 +42,9 @@ async function approveFit(id) {
   });
 }
 
-async function rejectFit(id, reject_reason) {
+async function rejectFit(id, review_comment) {
   return await apiCall("/api/waitlist/reject", {
-    json: { id, reject_reason },
+    json: { id, review_comment },
   });
 }
 
@@ -127,14 +127,14 @@ XCardDOM.Footer = styled.div`
     flex-basis: 0;
   }
 `;
-XCardDOM.Rejection = styled.div`
+XCardDOM.ReviewComment = styled.div`
   padding: 0.5em;
   margin: 0.5em;
   width: 100%;
   text-align: center;
-  background-color: ${(props) => props.theme.colors.danger.color};
+  background-color: ${(props) => props.theme.colors.secondary.color};
   border-radius: 5px;
-  color: ${(props) => props.theme.colors.danger.text};
+  color: ${(props) => props.theme.colors.secondary.text};
 `;
 
 function ShipDisplay({ fit }) {
@@ -217,12 +217,16 @@ export function XCard({ entry, fit, onAction }) {
   return (
     <XCardDOM
       variant={
-        fit.reject_reason
+        fit.approved
+          ? isSelf
+            ? "success"
+            : "secondary"
+          : fit.approved
+          ? "secondary"
+          : fit.review_comment
           ? "danger"
-          : !fit.approved && (isSelf || authContext.access["waitlist-view"])
+          : isSelf || authContext.access["waitlist-view"]
           ? "warning"
-          : isSelf
-          ? "success"
           : "secondary"
       }
     >
@@ -246,9 +250,9 @@ export function XCard({ entry, fit, onAction }) {
           <Badge key={tag}>{tag}</Badge>
         ))}
       </XCardDOM.Content>
-      {fit.reject_reason ? (
+      {fit.review_comment ? (
         <XCardDOM.Content>
-          <XCardDOM.Rejection>{fit.reject_reason}</XCardDOM.Rejection>
+          <XCardDOM.ReviewComment>{fit.review_comment}</XCardDOM.ReviewComment>
         </XCardDOM.Content>
       ) : null}
       <XCardDOM.Footer>
