@@ -96,6 +96,43 @@ New players are obviously going to make mistakes. TDF won't crucify you for it. 
 
 **Being in the wrong place.** Your ship is probably pretty, but turn on tactical overlay and zoom out. If your ship is all alone, it's in the wrong place. It's also in the wrong place if there are lots of red dots and no purple ones. If that's the case, warp out, or you're going to die.
 
+## Upgrading after your first fleet
+
+Upgrading can be done efficiently, so you can get the most of your hard earned IDK. Here are some DPS upgrading tips:
+
+### Getting out of starter
+
+1. Get Armor Compensation skills to level 4
+1. Start upgrading to a basic fit. Do the tank and rig change first! On the Vindicator you can fit a Burst Aerator rig if you add a faction damage control and a second A-Type Coating. You can only change the rigs together with changing the low slot tank. The Nightmare can be upgraded similarly.
+1. Get full basic fit.
+1. Finish training/injecting the basic skills, including T2 guns. Train gunnery skills first.
+1. Pat yourself on the back! You are no longer starter.
+
+### The next step...
+
+1. Upgrade your ship to the advanced/elite fit.
+1. Get a full implant set, Hybrid being recommended.
+1. Upgrade to the advanced/elite implant fit.
+1. Train gun specialisation, Rapid Firing, and Surgical Strike to at least level 4. Then train the remainder of the gunnery skills to elite level.
+
+Snipers:
+
+1. Train Armor Compensations to 5.
+1. Train the skills for Paladin.
+1. Train Mechanics and Hull Upgrades to 5.
+1. Fly bastion!
+1. Train full elite skills, focus on Marauders and the gunnery skills to 5 first.
+1. Get your awesome Elite TeamSpeak badge, congratulations!
+
+CQC:
+
+1. Make sure you fly the elite fit.
+1. Decide to go for Kronos and double your dps or to stay in a Vindicator. If you go for Kronos you will need Armor Compensations, Mechanics and Hull Upgrades to 5.
+1. Train full elite skills.
+1. Get your awesome Elite TeamSpeak badge, congratulations!
+
+After training Elite skills please train your gun specialisation and Marauders to 5. These still make a big difference on your DPS output, especially on a Paladin.
+
 ## Still not sure?
 
 Just ask in fleet chat or over Teamspeak.
