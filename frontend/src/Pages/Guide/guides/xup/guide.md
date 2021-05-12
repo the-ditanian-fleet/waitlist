@@ -98,7 +98,7 @@ New players are obviously going to make mistakes. TDF won't crucify you for it. 
 
 ## Upgrading after your first fleet
 
-Upgrading can be done efficiently, so you can get the most of your hard earned IDK. Here are some DPS upgrading tips:
+Upgrading can be done efficiently, so you can get the most of your hard earned ISK. Here are some DPS upgrading tips:
 
 ### Getting out of starter
 
