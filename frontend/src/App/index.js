@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Authenticate } from "../Pages/Auth";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { processAuth } from "../Pages/Auth";
 import { ToastDisplay } from "../Components/Toast";
 import { AuthContext, ToastContext, EventContext } from "../contexts";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
@@ -71,6 +71,10 @@ export default class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    processAuth((whoami) => this.setState({ auth: whoami }));
+  }
+
   addToast = (toast) => {
     this.setState({ toasts: [...this.state.toasts, toast] });
   };
@@ -92,34 +96,19 @@ export default class App extends React.Component {
               <AuthContext.Provider value={this.state.auth}>
                 <Router>
                   <Container>
-                    {this.state.auth ? (
-                      <>
-                        <Menu
-                          onChangeCharacter={(char) => this.changeCharacter(char)}
-                          theme={this.state.theme}
-                          setTheme={(newTheme) => {
-                            this.setState({ theme: newTheme });
-                            if (window.localStorage) {
-                              window.localStorage.setItem("theme", newTheme);
-                            }
-                          }}
-                        />
-                        <Switch>
-                          <Route path="/auth">
-                            <Authenticate
-                              value={this.state.auth}
-                              onAuth={(auth) => this.setState({ auth })}
-                            />
-                          </Route>
-                          <Routes />
-                        </Switch>
-                      </>
-                    ) : (
-                      <Authenticate
-                        value={this.state.auth}
-                        onAuth={(auth) => this.setState({ auth })}
-                      />
-                    )}
+                    <Menu
+                      onChangeCharacter={(char) => this.changeCharacter(char)}
+                      theme={this.state.theme}
+                      setTheme={(newTheme) => {
+                        this.setState({ theme: newTheme });
+                        if (window.localStorage) {
+                          window.localStorage.setItem("theme", newTheme);
+                        }
+                      }}
+                    />
+                    <Switch>
+                      <Routes />
+                    </Switch>
                     <ToastDisplay
                       toasts={this.state.toasts}
                       setToasts={(toasts) => this.setState({ toasts })}

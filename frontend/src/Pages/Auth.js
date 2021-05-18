@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, Switch, Route } from "react-router-dom";
+import { useLocation, Route } from "react-router-dom";
 
 function AuthStart({ fc = false, alt = false }) {
   const [message, setMessage] = React.useState("Redirecting to EVE login");
@@ -70,39 +70,26 @@ export function AuthLogout() {
   return <p>Logging out...</p>;
 }
 
-function AuthPage({ value, onAuth }) {
-  const [needsLogin, setNeedsLogin] = React.useState(false);
-
-  React.useEffect(() => {
-    fetch("/api/auth/whoami").then((response) => {
-      if (response.status === 200) {
-        return response.json().then((response) => {
-          var access = {};
-          response.access.forEach((level) => {
-            access[level] = true;
-          });
-          onAuth({
-            ...response,
-            current: response.characters[0],
-            access: access,
-          });
-        });
-      } else if (response.status === 401) {
-        setNeedsLogin(true);
-      }
-    });
-  }, [value, onAuth]);
-
-  if (needsLogin) {
-    return <AuthStart />;
+export async function processAuth(callback) {
+  const whoamiRaw = await fetch("/api/auth/whoami");
+  if (whoamiRaw.status !== 200) {
+    callback(null);
   }
-
-  return <em>Checking authentication...</em>;
+  const whoami = await whoamiRaw.json();
+  var access = {};
+  whoami.access.forEach((level) => {
+    access[level] = true;
+  });
+  callback({
+    ...whoami,
+    current: whoami.characters[0],
+    access: access,
+  });
 }
 
-export function Authenticate({ value, onAuth }) {
+export function AuthRoutes({ value }) {
   return (
-    <Switch>
+    <>
       <Route exact path="/auth/start">
         <AuthStart />
       </Route>
@@ -118,9 +105,6 @@ export function Authenticate({ value, onAuth }) {
       <Route exact path="/auth/logout">
         <AuthLogout />
       </Route>
-      <Route path="/">
-        <AuthPage value={value} onAuth={onAuth} />
-      </Route>
-    </Switch>
+    </>
   );
 }

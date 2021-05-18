@@ -54,64 +54,76 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
         <NavBar>
           <NavBar.Logo src={logoImage} alt="The Ditanian Fleet" />
           <NavBar.Menu>
-            <NavBar.Link exact to="/">
-              Waitlist
-            </NavBar.Link>
-            <NavBar.Link exact to="/skills">
-              Skills
-            </NavBar.Link>
-            <NavBar.Link exact to="/pilot">
-              Pilot
-            </NavBar.Link>
+            {whoami && (
+              <>
+                <NavBar.Link exact to="/">
+                  Waitlist
+                </NavBar.Link>
+                <NavBar.Link exact to="/skills">
+                  Skills
+                </NavBar.Link>
+                <NavBar.Link exact to="/pilot">
+                  Pilot
+                </NavBar.Link>
+              </>
+            )}
             <NavBar.Link exact to="/guide">
               Guides
             </NavBar.Link>
-            {whoami.access["fleet-view"] && (
+            {whoami && whoami.access["fleet-view"] && (
               <NavBar.Link exact to="/fleet">
                 Fleet
               </NavBar.Link>
             )}
-            {whoami.access["search"] && (
+            {whoami && whoami.access["search"] && (
               <NavBar.Link exact to="/search">
                 Search
               </NavBar.Link>
             )}
-            {whoami.access["bans-view"] && (
+            {whoami && whoami.access["bans-view"] && (
               <NavBar.Link exact to="/bans">
                 Bans
               </NavBar.Link>
             )}
-            {whoami.access["access-manage"] && (
+            {whoami && whoami.access["access-manage"] && (
               <NavBar.Link exact to="/acl">
                 ACL
               </NavBar.Link>
             )}
             <NavBar.End>
-              <InputGroup style={{ marginRight: "2em" }}>
-                <Select
-                  value={whoami.current.id}
-                  onChange={(evt) =>
-                    onChangeCharacter && onChangeCharacter(parseInt(evt.target.value))
-                  }
-                >
-                  {whoami.characters.map((character) => (
-                    <option key={character.id} value={character.id}>
-                      {character.name}
-                    </option>
-                  ))}
-                </Select>
-                <NavButton exact to="/auth/start/alt">
-                  +
-                </NavButton>
-              </InputGroup>
+              {whoami && (
+                <InputGroup style={{ marginRight: "2em" }}>
+                  <Select
+                    value={whoami.current.id}
+                    onChange={(evt) =>
+                      onChangeCharacter && onChangeCharacter(parseInt(evt.target.value))
+                    }
+                  >
+                    {whoami.characters.map((character) => (
+                      <option key={character.id} value={character.id}>
+                        {character.name}
+                      </option>
+                    ))}
+                  </Select>
+                  <NavButton exact to="/auth/start/alt">
+                    +
+                  </NavButton>
+                </InputGroup>
+              )}
               <InputGroup>
                 <EventNotifier />
                 <Button onClick={(evt) => setTheme(theme === "dark" ? "light" : "dark")}>
                   <FontAwesomeIcon fixedWidth icon={theme === "dark" ? faMoon : faSun} />
                 </Button>
-                <NavButton exact to="/auth/logout" variant="secondary">
-                  Log out
-                </NavButton>
+                {whoami ? (
+                  <NavButton exact to="/auth/logout" variant="secondary">
+                    Log out
+                  </NavButton>
+                ) : (
+                  <NavButton exact to="/auth/start" variant="primary">
+                    Log in
+                  </NavButton>
+                )}
               </InputGroup>
             </NavBar.End>
           </NavBar.Menu>
