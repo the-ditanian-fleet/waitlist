@@ -15,7 +15,7 @@ def add_acl() -> ViewReturn:
     leveldata = auth.ACCESS_LEVELS.get(level, None)
     if not leveldata:
         return "Invalid level", 400
-    if "access-manage" in leveldata:
+    if "access-manage" in leveldata and not auth.has_access("access-manage-all"):
         return "Cannot grant %s" % level, 400
 
     char = (
@@ -39,7 +39,7 @@ def remove_acl() -> ViewReturn:
 
     acl = g.db.query(Administrator).filter(Administrator.character_id == char_id).one()
     leveldata = auth.ACCESS_LEVELS[acl.level]
-    if "access-manage" in leveldata:
+    if "access-manage" in leveldata and not auth.has_access("access-manage-all"):
         return "Cannot revoke %s" % acl.level, 400
 
     g.db.delete(acl)

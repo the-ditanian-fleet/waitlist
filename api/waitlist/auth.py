@@ -54,7 +54,11 @@ ACCESS_LEVELS["council"] = ACCESS_LEVELS["fc"] | set(
         "access-manage",
     ]
 )
-ACCESS_LEVELS["admin"] = ACCESS_LEVELS["council"] | set([])
+ACCESS_LEVELS["admin"] = ACCESS_LEVELS["council"] | set(
+    [
+        "access-manage-all",
+    ]
+)
 
 DecoratorType = TypeVar("DecoratorType", bound=Callable[..., Any])
 
