@@ -549,6 +549,8 @@ Guardian:
   Repair Drone Operation:
     min: 3
     elite: 5
+  Cybernetics:
+    min: 5
 
 Oneiros:
   <<: *generic
@@ -625,3 +627,5 @@ Nestor:
   Heavy Drone Operation:
     min: 3
     elite: 5
+  Cybernetics:
+    min: 5
