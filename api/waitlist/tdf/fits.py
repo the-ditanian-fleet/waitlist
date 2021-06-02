@@ -106,6 +106,9 @@ class FitSpec:  # pylint: disable=too-few-public-methods,too-many-instance-attri
         self.dna = dna
         self.ship, self.modules, self.cargo = split_dna(dna)
         self.is_elite = "elite" in fitname.lower()
+        self.is_advanced = "advanced" in fitname.lower()
+        self.is_basic = "basic" in fitname.lower()
+        self.is_starter = "starter" in fitname.lower()
         self.is_hybrid = "hybrid" in fitname.lower()
         self.is_amulet = "amulet" in fitname.lower()
 

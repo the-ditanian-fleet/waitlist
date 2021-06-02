@@ -148,6 +148,8 @@ def _am_i_banned() -> bool:
 
 def _get_time_in_fleet(character_id: int) -> int:
     # Lazy SQL: sum(end-start) is equal to sum(end)-sum(start)
+    total_start: int
+    total_end: int
     total_start, total_end = (
         g.db.query(
             func.sum(FleetActivity.first_seen), func.sum(FleetActivity.last_seen)
@@ -160,7 +162,7 @@ def _get_time_in_fleet(character_id: int) -> int:
         # Some databases can return NULL when summing no rows
         return 0
 
-    return total_end - total_start  # type: ignore
+    return total_end - total_start
 
 
 class XupRequest(pydantic.BaseModel):
@@ -232,7 +234,7 @@ def xup() -> ViewReturn:
             g.db.add(fitting)
 
         # Check fit to tag/approve/categorize/etc
-        fit_check = tdf.check_fit(dna, skilldata, implantdata)
+        fit_check = tdf.check_fit(dna, skilldata, implantdata, time_in_fleet)
         if fit_check.errors:
             return fit_check.errors[0], 400
 

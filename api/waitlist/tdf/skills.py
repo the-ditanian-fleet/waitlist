@@ -56,16 +56,15 @@ def load_skill_info() -> Tuple[
 REQUIREMENTS, RELEVANT_SKILLS, SKILL_IDS, CATEGORIES = load_skill_info()
 
 
-def has_minimum_comps(skilldata: Dict[int, int]) -> bool:
-    if skilldata.get(id_of("EM Armor Compensation"), 0) < 2:
-        return False
-    if skilldata.get(id_of("Explosive Armor Compensation"), 0) < 2:
-        return False
-    if skilldata.get(id_of("Thermal Armor Compensation"), 0) < 2:
-        return False
-    if skilldata.get(id_of("Kinetic Armor Compensation"), 0) < 2:
-        return False
-    return True
+def get_armor_comps_level(skilldata: Dict[int, int]) -> int:
+    return min(
+        [
+            skilldata.get(id_of("EM Armor Compensation"), 0),
+            skilldata.get(id_of("Explosive Armor Compensation"), 0),
+            skilldata.get(id_of("Thermal Armor Compensation"), 0),
+            skilldata.get(id_of("Kinetic Armor Compensation"), 0),
+        ]
+    )
 
 
 def skillcheck(ship: int, skilldata: Dict[int, int], group: str) -> bool:

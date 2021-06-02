@@ -46,10 +46,17 @@ class FitCheckResult:  # pylint: disable=too-few-public-methods
 
 
 class FitChecker:  # pylint: disable=too-many-instance-attributes
-    def __init__(self, dna: str, skilldata: Dict[int, int], implantdata: List[int]):
+    def __init__(
+        self,
+        dna: str,
+        skilldata: Dict[int, int],
+        implantdata: List[int],
+        time_in_fleet: int,
+    ):
         self.ship, self.modules, self.cargo = split_dna(dna)
         self.skills = skilldata
         self.implants = implantdata
+        self.time_in_fleet = time_in_fleet
 
         self.result = FitCheckResult()
         self.base_implants: Optional[str] = None
@@ -61,16 +68,45 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
         self.result.tags.add(tag)
 
     def check_skills(self) -> None:
-        if not skills.has_minimum_comps(self.skills):
-            self.result.errors.append("Missing minimum Armor Compensation skills")
-        elif not skills.skillcheck(self.ship, self.skills, "min"):
+        if not skills.skillcheck(self.ship, self.skills, "min"):
             self._add_tag("STARTER-SKILLS")
+            self.disable_approval = True
         elif skills.skillcheck(self.ship, self.skills, "gold"):
             self._add_tag("GOLD-SKILLS")
         elif skills.skillcheck(self.ship, self.skills, "elite"):
             self._add_tag("ELITE-SKILLS")
 
-        if not skills.skillcheck(self.ship, self.skills, "elite"):
+    def check_tank_skills(self) -> None:
+        comps = skills.get_armor_comps_level(self.skills)
+
+        # Fatal: anything less than 2
+        if comps < 2:
+            self.result.errors.append("Missing minimum Armor Compensation skills")
+            return
+
+        if not self.fit:  # Unrecognized fit? Require 5
+            min_comps = 5
+            min_mechanics = 5
+        elif id_of("Bastion Module I") in self.modules:  # Bastion -> comps 5
+            min_comps = 5
+            min_mechanics = 5
+        elif self.fit.is_starter:
+            min_comps = 2
+            min_mechanics = 4
+        elif (
+            self.ship in [id_of("Paladin"), id_of("Kronos")] and self.fit.is_elite
+        ):  # Elite Pally -> comps 5
+            min_comps = 5
+            min_mechanics = 5
+        else:
+            min_comps = 4
+            min_mechanics = 4
+
+        if (
+            comps < min_comps
+            or self.skills.get(id_of("Hull Upgrades"), 0) < 5
+            or self.skills.get(id_of("Mechanics"), 0) < min_mechanics
+        ):
             self.disable_approval = True
 
     def check_implants(self) -> None:
@@ -136,11 +172,35 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
                 self._add_tag("NO-EM-806")
 
     def set_approval(self) -> None:
+        # We previously decided to reject the approval
         if self.disable_approval:
             return
-        if not "ELITE-FIT" in self.result.tags:
+
+        # The fit/cargo is wrong or we don't recognize it
+        if (
+            not self.fit
+            or not self.fitcheck
+            or not self.fitcheck.fit_ok
+            or not self.fitcheck.cargo_ok
+        ):
             return
-        if not self.fitcheck or not self.fitcheck.fit_ok or not self.fitcheck.cargo_ok:
+
+        # If the fit isn't elite, do a time-based check
+        if not (
+            (
+                (
+                    "ELITE-SKILLS" in self.result.tags
+                    or "GOLD-SKILLS" in self.result.tags
+                )
+                and self.fit.is_elite
+            )
+            or (
+                (self.fit.is_elite or self.fit.is_advanced)
+                and self.time_in_fleet < 150 * 3600
+            )
+            or (self.fit.is_basic and self.time_in_fleet < 120 * 3600)
+            or (self.fit.is_starter and self.time_in_fleet < 75 * 3600)
+        ):
             return
 
         self.result.approved = True
@@ -164,12 +224,13 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
         self.check_category()
         self.check_banned_modules()
         self.check_logi_implants()
+        self.check_tank_skills()
         self.set_approval()
         self.merge_tags()
         return self.result
 
 
 def check_fit(
-    dna: str, skilldata: Dict[int, int], implantdata: List[int]
+    dna: str, skilldata: Dict[int, int], implantdata: List[int], time_in_fleet: int
 ) -> FitCheckResult:
-    return FitChecker(dna, skilldata, implantdata).run()
+    return FitChecker(dna, skilldata, implantdata, time_in_fleet).run()
