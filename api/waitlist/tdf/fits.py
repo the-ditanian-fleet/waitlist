@@ -64,27 +64,38 @@ def _diff(
     Dict[int, int], Dict[int, int], Dict[int, Dict[int, int]], Dict[int, Dict[int, int]]
 ]:
     remaining = {**have}
-    missing = {}
+    missing = {**expect}
     downgraded: Dict[int, Dict[int, int]] = {}
     upgraded: Dict[int, Dict[int, int]] = {}
-    for module_id_on_fit, count in expect.items():
+
+    # First pass: only look at meta_diff==0
+    for module_id_on_fit in missing.keys():
         for module_id, meta_diff in _alts(module_id_on_fit):
-            if module_id in remaining:
-                sub = min(remaining[module_id], count)
-                count -= sub
-                remaining[module_id] -= sub
-                if meta_diff < 0:
-                    downgraded.setdefault(module_id_on_fit, {}).setdefault(module_id, 0)
-                    downgraded[module_id_on_fit][module_id] += sub
-                elif meta_diff > 0:
-                    upgraded.setdefault(module_id_on_fit, {}).setdefault(module_id, 0)
-                    upgraded[module_id_on_fit][module_id] += sub
-                if not remaining[module_id]:
-                    del remaining[module_id]
-                if count == 0:
-                    break
-        if count > 0:
-            missing[module_id_on_fit] = count
+            if meta_diff:
+                continue
+            sub = min(remaining.get(module_id, 0), missing[module_id_on_fit])
+            if not sub:
+                continue
+            remaining[module_id] -= sub
+            missing[module_id_on_fit] -= sub
+
+    # Second pass: take any meta level
+    for module_id_on_fit in missing.keys():
+        for module_id, meta_diff in _alts(module_id_on_fit):
+            sub = min(remaining.get(module_id, 0), missing[module_id_on_fit])
+            if not sub:
+                continue
+            remaining[module_id] -= sub
+            missing[module_id_on_fit] -= sub
+            if meta_diff < 0:
+                downgraded.setdefault(module_id_on_fit, {}).setdefault(module_id, 0)
+                downgraded[module_id_on_fit][module_id] += sub
+            elif meta_diff > 0:
+                upgraded.setdefault(module_id_on_fit, {}).setdefault(module_id, 0)
+                upgraded[module_id_on_fit][module_id] += sub
+
+    missing = {module_id: count for module_id, count in missing.items() if count}
+    remaining = {module_id: count for module_id, count in remaining.items() if count}
 
     return missing, remaining, downgraded, upgraded
 
