@@ -1,6 +1,6 @@
 from typing import Optional
 import logging
-from flask import Flask, send_from_directory, g
+from flask import Flask, Response, send_from_directory, g
 from . import (
     auth,
     skills,
@@ -57,14 +57,14 @@ def catch_all(path: str) -> ViewReturn:  # pylint: disable=unused-argument
 
 @app.before_request
 def setup_db() -> None:
-    g.db = database.Session()
+    g.db = database.Session()  # false positive pylint: disable=assigning-non-slot
 
 
 @app.teardown_request
-def finish_db(_exception: Optional[Exception]) -> None:
+def finish_db(_exception: Optional[BaseException]) -> Response:
     if g.db:
         g.db.close()
-        g.db = None
+        g.db = None  # false positive pylint: disable=assigning-non-slot
 
 
 fleet_updater.create_fleet_updater().start()

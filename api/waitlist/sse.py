@@ -34,7 +34,7 @@ def sse() -> ViewReturn:
     # Remove database connections
     if g.db:
         g.db.close()
-        g.db = None
+        g.db = None  # false positive pylint: disable=assigning-non-slot
 
     return Response(
         stream(buckets),

@@ -1,9 +1,11 @@
+[MASTER]
+extension-pkg-whitelist=pydantic
+
 [MESSAGES CONTROL]
 disable=
     missing-function-docstring,
     missing-module-docstring,
-    missing-class-docstring,
-    unsubscriptable-object
+    missing-class-docstring
 
 [TYPECHECK]
 ignored-modules=sqlalchemy.orm.session

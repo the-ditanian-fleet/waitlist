@@ -1,5 +1,6 @@
 from typing import Dict, List, Any
 from flask import Blueprint, request, g
+import pydantic
 from . import auth
 from .webutil import ViewReturn
 from .data.database import Administrator, Character
@@ -7,37 +8,44 @@ from .data.database import Administrator, Character
 bp = Blueprint("acl", __name__)
 
 
+class AddAclRequest(pydantic.BaseModel):
+    level: str
+    id: int
+
+
 @bp.route("/api/acl/add", methods=["POST"])
 @auth.login_required
 @auth.require_permission("access-manage")
 def add_acl() -> ViewReturn:
-    level = request.json["level"]
-    leveldata = auth.ACCESS_LEVELS.get(level, None)
+    req = AddAclRequest.parse_obj(request.json)
+    leveldata = auth.ACCESS_LEVELS.get(req.level, None)
     if not leveldata:
         return "Invalid level", 400
     if "access-manage" in leveldata and not auth.has_access("access-manage-all"):
-        return "Cannot grant %s" % level, 400
+        return "Cannot grant %s" % req.level, 400
 
-    char = (
-        g.db.query(Character).filter(Character.id == request.json["id"]).one_or_none()
-    )
+    char = g.db.query(Character).filter(Character.id == req.id).one_or_none()
     if not char:
         return "Character not found", 404
 
-    admin = Administrator(character_id=char.id, level=level)
+    admin = Administrator(character_id=char.id, level=req.level)
     g.db.add(admin)
     g.db.commit()
 
     return "OK"
 
 
+class RemoveAclRequest(pydantic.BaseModel):
+    id: int
+
+
 @bp.route("/api/acl/remove", methods=["POST"])
 @auth.login_required
 @auth.require_permission("access-manage")
 def remove_acl() -> ViewReturn:
-    char_id = int(request.json["id"])
+    req = RemoveAclRequest.parse_obj(request.json)
 
-    acl = g.db.query(Administrator).filter(Administrator.character_id == char_id).one()
+    acl = g.db.query(Administrator).filter(Administrator.character_id == req.id).one()
     leveldata = auth.ACCESS_LEVELS[acl.level]
     if "access-manage" in leveldata and not auth.has_access("access-manage-all"):
         return "Cannot revoke %s" % acl.level, 400

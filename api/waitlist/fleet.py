@@ -1,6 +1,6 @@
-from typing import Dict, List
+from typing import Dict, List, Tuple
 from flask import Blueprint, g, request
-
+import pydantic
 from . import auth, tdf
 from .webutil import ViewReturn
 from .data import esi, evedb
@@ -102,13 +102,19 @@ def fleet_members() -> ViewReturn:
     }
 
 
+class RegisterRequest(pydantic.BaseModel):
+    fleet_id: int
+    assignments: Dict[str, Tuple[int, int]]
+
+
 @bp.route("/api/fleet/register", methods=["POST"])
 @auth.login_required
 @auth.select_character()
 @auth.require_permission("fleet-configure")
 def register_fleet() -> ViewReturn:
-    fleet_id = request.json["fleet_id"]
-    assignments = request.json["assignments"]
+    req = RegisterRequest.parse_obj(request.json)
+    fleet_id = req.fleet_id
+    assignments = req.assignments
 
     fleet = g.db.query(Fleet).filter(Fleet.id == fleet_id).one_or_none()
     if not fleet:

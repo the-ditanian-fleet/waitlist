@@ -2,6 +2,7 @@ from functools import wraps
 from typing import Callable, TypeVar, Any, Tuple, cast, Optional, Dict, Set
 from flask import Blueprint, request, session, g
 import requests
+import pydantic
 from .data import esi, database, config
 
 bp = Blueprint("auth", __name__)
@@ -74,7 +75,9 @@ def login_required(func: DecoratorType) -> DecoratorType:
         if "account_id" not in session:
             return "Not logged in", 401
 
-        g.account_id = session["account_id"]
+        g.account_id = session[  # false positive pylint: disable=assigning-non-slot
+            "account_id"
+        ]
 
         admin_record = (
             g.db.query(database.Administrator)
@@ -82,9 +85,11 @@ def login_required(func: DecoratorType) -> DecoratorType:
             .one_or_none()
         )
         if admin_record:
-            g.access_level = admin_record.level
+            g.access_level = (  # false positive pylint: disable=assigning-non-slot
+                admin_record.level
+            )
         else:
-            g.access_level = "user"
+            g.access_level = "user"  # false positive pylint: disable=assigning-non-slot
 
         return func(*args, **kwargs)
 
@@ -104,6 +109,10 @@ def require_permission(permission: str) -> Callable[[DecoratorType], DecoratorTy
     return decorator
 
 
+class CharacterIdRequest(pydantic.BaseModel):
+    character_id: Optional[int]
+
+
 def select_character(
     override_permission: Optional[str] = None,
 ) -> Callable[[DecoratorType], DecoratorType]:
@@ -111,9 +120,10 @@ def select_character(
         @wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             if request.json:
-                if not "character_id" in request.json:
+                req = CharacterIdRequest.parse_obj(request.json)
+                if not req.character_id:
                     return "Missing character_id in request", 400
-                character_id = int(request.json["character_id"])
+                character_id = req.character_id
             else:
                 if not "character_id" in request.args:
                     return "Missing character_id in request", 400
@@ -132,7 +142,9 @@ def select_character(
                 ):
                     return "Not allowed to query this character_id", 401
 
-            g.character_id = character_id
+            g.character_id = (  # false positive pylint: disable=assigning-non-slot
+                character_id
+            )
             return func(*args, **kwargs)
 
         return cast(DecoratorType, decorated)
@@ -156,13 +168,19 @@ def login_url() -> str:
     )
 
 
+class AuthCallbackRequest(pydantic.BaseModel):
+    state: Optional[str]
+    code: str
+
+
 @bp.route("/api/auth/cb", methods=["POST"])
 def callback() -> Tuple[str, int]:
+    req = AuthCallbackRequest.parse_obj(request.json)
     _access_token, _refresh_token, character_id = esi.process_auth(
-        "authorization_code", request.json["code"]
+        "authorization_code", req.code
     )
 
-    if "state" in request.json and request.json["state"] == "alt":
+    if req.state == "alt":
         if "account_id" not in session:
             session["account_id"] = character_id
 
@@ -175,7 +193,7 @@ def callback() -> Tuple[str, int]:
 
     else:
         session["account_id"] = character_id
-        session.permanent = True
+        session.permanent = True  # false positive pylint: disable=assigning-non-slot
 
     return "OK", 200
 

@@ -1,6 +1,7 @@
 import datetime
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 from flask import Blueprint, request, g
+import pydantic
 from . import auth
 from .webutil import ViewReturn
 from .data.database import Ban, Character
@@ -8,20 +9,26 @@ from .data.database import Ban, Character
 bp = Blueprint("bans", __name__)
 
 
+class AddBanRequest(pydantic.BaseModel):
+    kind: str
+    id: int
+    duration: Optional[int]
+
+
 @bp.route("/api/bans/add", methods=["POST"])
 @auth.login_required
 @auth.require_permission("bans-manage")
 def add_ban() -> ViewReturn:
-    kind = request.json["kind"]
-    if kind not in ["character", "corporation", "alliance"]:
+    req = AddBanRequest.parse_obj(request.json)
+    if req.kind not in ["character", "corporation", "alliance"]:
         return "Invalid 'kind'", 400
 
-    target = int(request.json["id"])
+    target = req.id
 
-    ban = Ban(kind=kind, id=target)
-    if request.json["duration"]:
+    ban = Ban(kind=req.kind, id=target)
+    if req.duration:
         ban.expires_at = datetime.datetime.utcnow() + datetime.timedelta(
-            minutes=request.json["duration"]
+            minutes=req.duration
         )
 
     g.db.merge(ban)
@@ -30,14 +37,18 @@ def add_ban() -> ViewReturn:
     return "OK"
 
 
+class RemoveBanRequest(pydantic.BaseModel):
+    kind: str
+    id: int
+
+
 @bp.route("/api/bans/remove", methods=["POST"])
 @auth.login_required
 @auth.require_permission("bans-manage")
 def remove_ban() -> ViewReturn:
-    kind = request.json["kind"]
-    target = int(request.json["id"])
+    req = RemoveBanRequest.parse_obj(request.json)
 
-    ban = g.db.query(Ban).filter(Ban.kind == kind, Ban.id == target).one()
+    ban = g.db.query(Ban).filter(Ban.kind == req.kind, Ban.id == req.id).one()
     g.db.delete(ban)
     g.db.commit()
 

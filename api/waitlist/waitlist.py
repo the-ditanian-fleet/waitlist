@@ -4,6 +4,7 @@ import datetime
 from flask import Blueprint, request, g
 from sqlalchemy import or_, and_
 from sqlalchemy.sql import func
+import pydantic
 
 from . import auth, eft2dna, tdf
 from .data import messager, skills, esi, evedb, implants
@@ -162,11 +163,17 @@ def _get_time_in_fleet(character_id: int) -> int:
     return total_end - total_start  # type: ignore
 
 
+class XupRequest(pydantic.BaseModel):
+    eft: str
+    waitlist_id: int
+
+
 @bp.route("/api/waitlist/xup", methods=["POST"])
 @auth.login_required
 @auth.select_character()
 def xup() -> ViewReturn:
-    dnas = list(map(eft2dna.eft2dna, eft2dna.split_eft(request.json["eft"])))
+    req = XupRequest.parse_obj(request.json)
+    dnas = list(map(eft2dna.eft2dna, eft2dna.split_eft(req.eft)))
     if len(dnas) > 10:
         return "Too many fits", 400
 
@@ -174,11 +181,7 @@ def xup() -> ViewReturn:
     skilldata = skills.load_character_skills(g.character_id)
     implantdata = implants.load_character_implants(g.character_id)
 
-    waitlist = (
-        g.db.query(Waitlist)
-        .filter(Waitlist.id == request.json["waitlist_id"])
-        .one_or_none()
-    )
+    waitlist = g.db.query(Waitlist).filter(Waitlist.id == req.waitlist_id).one_or_none()
 
     if not (waitlist and waitlist.is_open):
         return "Waitlist not found", 404
@@ -277,11 +280,16 @@ def xup() -> ViewReturn:
     return "OK"
 
 
+class ApproveRequest(pydantic.BaseModel):
+    id: int
+
+
 @bp.route("/api/waitlist/approve", methods=["POST"])
 @auth.login_required
 @auth.require_permission("waitlist-manage")
 def approve() -> ViewReturn:
-    fit_entry_id = request.json["id"]
+    req = ApproveRequest.parse_obj(request.json)
+    fit_entry_id = req.id
 
     fit_entry = (
         g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == fit_entry_id).one()
@@ -294,17 +302,20 @@ def approve() -> ViewReturn:
     return "OK"
 
 
+class RejectRequest(pydantic.BaseModel):
+    id: int
+    review_comment: str
+
+
 @bp.route("/api/waitlist/reject", methods=["POST"])
 @auth.login_required
 @auth.require_permission("waitlist-manage")
 def reject() -> ViewReturn:
-    fit_entry_id = request.json["id"]
+    req = RejectRequest.parse_obj(request.json)
 
-    fit_entry = (
-        g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == fit_entry_id).one()
-    )
+    fit_entry = g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == req.id).one()
     fit_entry.approved = False
-    fit_entry.review_comment = str(request.json["review_comment"])
+    fit_entry.review_comment = req.review_comment
     g.db.commit()
 
     notify_waitlist_update(fit_entry.entry.waitlist_id)
@@ -312,26 +323,33 @@ def reject() -> ViewReturn:
     return "OK"
 
 
+class SetOpenRequest(pydantic.BaseModel):
+    open: bool
+    waitlist_id: int
+
+
 @bp.route("/api/waitlist/set_open", methods=["POST"])
 @auth.login_required
 @auth.require_permission("waitlist-edit")
 def set_open() -> ViewReturn:
-    waitlist = (
-        g.db.query(Waitlist).filter(Waitlist.id == request.json["waitlist_id"]).one()
-    )
-    waitlist.is_open = bool(request.json["open"])
+    req = SetOpenRequest.parse_obj(request.json)
+    waitlist = g.db.query(Waitlist).filter(Waitlist.id == req.waitlist_id).one()
+    waitlist.is_open = req.open
     g.db.commit()
     notify_waitlist_update(waitlist.id)
     return "OK"
+
+
+class EmptyWaitlistRequest(pydantic.BaseModel):
+    waitlist_id: int
 
 
 @bp.route("/api/waitlist/empty", methods=["POST"])
 @auth.login_required
 @auth.require_permission("waitlist-edit")
 def empty_waitlist() -> ViewReturn:
-    waitlist = (
-        g.db.query(Waitlist).filter(Waitlist.id == request.json["waitlist_id"]).one()
-    )
+    req = EmptyWaitlistRequest.parse_obj(request.json)
+    waitlist = g.db.query(Waitlist).filter(Waitlist.id == req.waitlist_id).one()
     if waitlist.is_open:
         return "Waitlist must be closed in order to empty it", 400
 
@@ -351,14 +369,16 @@ def empty_waitlist() -> ViewReturn:
     return "OK"
 
 
+class RemoveFitRequest(pydantic.BaseModel):
+    id: int
+
+
 @bp.route("/api/waitlist/remove_fit", methods=["POST"])
 @auth.login_required
 def remove_fit() -> ViewReturn:
-    fit_entry_id = request.json["id"]
+    req = RemoveFitRequest.parse_obj(request.json)
 
-    fit_entry = (
-        g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == fit_entry_id).one()
-    )
+    fit_entry = g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == req.id).one()
     if not fit_entry.entry.account_id == g.account_id and not auth.has_access(
         "waitlist-manage"
     ):
@@ -383,12 +403,16 @@ def remove_fit() -> ViewReturn:
     return "OK"
 
 
+class RemoveXRequest(pydantic.BaseModel):
+    id: int
+
+
 @bp.route("/api/waitlist/remove_x", methods=["POST"])
 @auth.login_required
 def remove_x() -> ViewReturn:
-    entry_id = request.json["id"]
+    req = RemoveXRequest.parse_obj(request.json)
 
-    entry = g.db.query(WaitlistEntry).filter(WaitlistEntry.id == entry_id).one()
+    entry = g.db.query(WaitlistEntry).filter(WaitlistEntry.id == req.id).one()
     if entry.account_id != g.account_id and not auth.has_access("waitlist-manage"):
         return "Unauthorized", 401
 
@@ -401,12 +425,17 @@ def remove_x() -> ViewReturn:
     return "OK"
 
 
+class InviteRequest(pydantic.BaseModel):
+    id: int
+
+
 @bp.route("/api/waitlist/invite", methods=["POST"])
 @auth.login_required
 @auth.select_character()
 @auth.require_permission("fleet-invite")
 def invite() -> ViewReturn:
-    fit_entry_id = request.json["id"]
+    req = InviteRequest.parse_obj(request.json)
+    fit_entry_id = req.id
 
     fleet = g.db.query(Fleet).filter(Fleet.boss_id == g.character_id).one_or_none()
     if not fleet:
