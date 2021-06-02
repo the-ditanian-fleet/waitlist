@@ -67,8 +67,7 @@ export function Fleet() {
           <em>Xifon needs more time to build this page.</em> Anyway, it works. Make sure you re-auth
           via ESI, then create an in-game fleet with your comp. Click the &quot;Configure
           fleet&quot; button, and select the five squads that the tool will invite people into. Then
-          open the waitlist, allowing people to X up. Whenever you&apos;re done with fleet, remove
-          all entries manually (sorry!) and close the waitlist.
+          open the waitlist, allowing people to X up.
         </p>
         <p>
           To hand over the fleet, transfer the star (Boss role). Then the new FC should go via
