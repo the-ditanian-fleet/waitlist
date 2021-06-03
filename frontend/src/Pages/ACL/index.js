@@ -96,7 +96,9 @@ function AddACL() {
           <Select value={level} onChange={(evt) => setLevel(evt.target.value)}>
             <option></option>
             <option value="trainee">trainee</option>
+            <option value="trainee-advanced">trainee-advanced</option>
             <option value="fc">fc</option>
+            <option value="council">council</option>
           </Select>
         </p>
         <Button onClick={(evt) => toaster(toastContext, addAcl(id, level))}>Confirm</Button>

@@ -36,16 +36,20 @@ ACCESS_LEVELS["trainee"] = ACCESS_LEVELS["user"] | set(
         "waitlist-view",
     ]
 )
-ACCESS_LEVELS["fc"] = ACCESS_LEVELS["trainee"] | set(
+ACCESS_LEVELS["trainee-advanced"] = ACCESS_LEVELS["trainee"] | set(
+    [
+        "fit-view",
+        "skill-view",
+        "waitlist-manage",
+    ]
+)
+ACCESS_LEVELS["fc"] = ACCESS_LEVELS["trainee-advanced"] | set(
     [
         "fleet-activity-view",
         "fit-history-view",
-        "fit-view",
         "search",
         "skill-history-view",
-        "skill-view",
         "waitlist-edit",
-        "waitlist-manage",
     ]
 )
 ACCESS_LEVELS["council"] = ACCESS_LEVELS["fc"] | set(
