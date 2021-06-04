@@ -224,6 +224,14 @@ export function Skills() {
             Nestor
           </Button>
         </InputGroup>
+        <InputGroup>
+          <Button active={ship === "Eos"} onClick={(evt) => setShip("Eos")}>
+            Eos
+          </Button>
+          <Button active={ship === "Damnation"} onClick={(evt) => setShip("Damnation")}>
+            Damnation
+          </Button>
+        </InputGroup>
       </Buttons>
       <div style={{ marginBottom: "1em" }}>
         Legend: <Badge variant="danger">Starter</Badge> <Badge variant="warning">Basic</Badge>{" "}

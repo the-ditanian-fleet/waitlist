@@ -84,10 +84,24 @@ categories:
     - Minmatar Battleship
     - Caldari Battleship
     - Precursor Battleship
+    - Amarr Battlecruiser
+    - Gallente Battlecruiser
     - Amarr Cruiser
     - Gallente Cruiser
     - Logistics Cruisers
     - Marauders
+    - Command Ships
+  Fleet Support:
+    - Leadership
+    - Wing Command
+    - Fleet Command
+    - Command Burst Specialist
+    - Armored Command
+    - Armored Command Specialist
+    - Skirmish Command
+    - Skirmish Command Specialist
+    - Information Command
+    - Information Command Specialist
 
 _generic: &generic
   # Generic skills: everyone needs these
@@ -627,5 +641,75 @@ Nestor:
   Heavy Drone Operation:
     min: 3
     elite: 5
+  Cybernetics:
+    min: 5
+
+Eos:
+  <<: *generic
+  Leadership:
+    min: 5
+  Wing Command:
+    min: 5
+  Fleet Command:
+    min: 4
+    gold: 5
+  Command Burst Specialist:
+    min: 4
+    gold: 5
+  Armored Command:
+    min: 5
+  Armored Command Specialist:
+    min: 5
+  Skirmish Command:
+    min: 5
+  Skirmish Command Specialist:
+    min: 5
+  EM Armor Compensation:
+    min: 5
+  Explosive Armor Compensation:
+    min: 5
+  Thermal Armor Compensation:
+    min: 5
+  Kinetic Armor Compensation:
+    min: 5
+  Command Ships:
+    min: 5
+  Gallente Battlecruiser:
+    min: 5
+  Cybernetics:
+    min: 5
+
+Damnation:
+  <<: *generic
+  Leadership:
+    min: 5
+  Wing Command:
+    min: 5
+  Fleet Command:
+    min: 4
+    gold: 5
+  Command Burst Specialist:
+    min: 4
+    gold: 5
+  Information Command:
+    min: 5
+  Information Command Specialist:
+    min: 5
+  Skirmish Command:
+    min: 5
+  Skirmish Command Specialist:
+    min: 5
+  EM Armor Compensation:
+    min: 5
+  Explosive Armor Compensation:
+    min: 5
+  Thermal Armor Compensation:
+    min: 5
+  Kinetic Armor Compensation:
+    min: 5
+  Command Ships:
+    min: 5
+  Amarr Battlecruiser:
+    min: 5
   Cybernetics:
     min: 5
