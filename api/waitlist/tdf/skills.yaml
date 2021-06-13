@@ -526,6 +526,10 @@ Vindicator:
   Magnetometric Sensor Compensation:
     elite: 4
     gold: 5
+  Micro Jump Drive Operation:
+    min: 3
+    elite: 4
+    gold: 5
 
 Megathron:
   <<: *generic
