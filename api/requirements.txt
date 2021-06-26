@@ -5,3 +5,5 @@ SQLAlchemy==1.4.15
 gevent==21.1.2
 mysqlclient==2.0.3
 pydantic==1.8.2
+pybranca==0.4.0
+msgpack==0.6.2

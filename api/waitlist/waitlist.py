@@ -7,7 +7,7 @@ from sqlalchemy.sql import func
 import pydantic
 
 from . import auth, eft2dna, tdf
-from .data import messager, skills, esi, evedb, implants
+from .data import sse, skills, esi, evedb, implants
 from .data.database import (
     Waitlist,
     WaitlistEntry,
@@ -27,8 +27,12 @@ bp = Blueprint("waitlist", __name__)
 
 
 def notify_waitlist_update(waitlist_id: int) -> None:
-    messager.MESSAGER.send_json(
-        ["waitlist"], "waitlist_update", {"waitlist_id": waitlist_id}
+    sse.submit(
+        [
+            sse.message_json(
+                "waitlist", "waitlist_update", {"waitlist_id": waitlist_id}
+            ),
+        ]
     )
 
 
@@ -276,8 +280,14 @@ def xup() -> ViewReturn:
 
     g.db.commit()
 
-    notify_waitlist_update(waitlist.id)
-    messager.MESSAGER.send_json(["xup"], "message", {"message": "New x-up in waitlist"})
+    sse.submit(
+        [
+            sse.message_json(
+                "waitlist", "waitlist_update", {"waitlist_id": waitlist.id}
+            ),
+            sse.message_json("xup", "message", {"message": "New x-up in waitlist"}),
+        ]
+    )
 
     return "OK"
 
@@ -473,10 +483,14 @@ def invite() -> ViewReturn:
     except esi.HTTP520 as exc:
         return exc.text, exc.code
 
-    messager.MESSAGER.send(
-        ["account;%d" % entry.account_id],
-        "wakeup",
-        "You have been invited to fleet with %s" % evedb.name_of(fitting.hull),
+    sse.submit(
+        [
+            sse.message(
+                "account;%d" % entry.account_id,
+                "wakeup",
+                "You have been invited to fleet with %s" % evedb.name_of(fitting.hull),
+            ),
+        ]
     )
 
     return "OK"

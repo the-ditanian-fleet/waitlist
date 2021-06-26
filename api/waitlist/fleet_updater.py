@@ -3,7 +3,7 @@ import time
 import logging
 from typing import Any, Dict, Set
 import sqlalchemy
-from .data import messager, esi
+from .data import sse, esi
 from .data.database import (
     Character,
     Session,
@@ -19,8 +19,12 @@ LOG = logging.getLogger(__name__)
 
 
 def notify_waitlist_update(waitlist_id: int) -> None:
-    messager.MESSAGER.send_json(
-        ["waitlist"], "waitlist_update", {"waitlist_id": waitlist_id}
+    sse.submit(
+        [
+            sse.message_json(
+                "waitlist", "waitlist_update", {"waitlist_id": waitlist_id}
+            ),
+        ]
     )
 
 
