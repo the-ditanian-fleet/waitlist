@@ -15,6 +15,8 @@ This server deals with API requests, which is basically everything that requires
 
 ## Dev environment
 
-The gevent-based webserver from `main.py` should be used for production workloads, but the Flask development server should still work. Make sure to run it in threaded mode, or the SSE connection will block the webserver from serving requests.
+Flask is nice.
 
     env FLASK_APP=waitlist.app flask run --reload --with-threads
+
+You'll need a running [sse-server](https://github.com/TvdW/sse-server) instance to route events to the webbrowser.
