@@ -4,7 +4,7 @@ import themes from "../App/theme";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "../Components/Form";
+import { Button, Radio } from "../Components/Form";
 import { Modal } from "../Components/Modal";
 import { Box } from "../Components/Box";
 import { Title } from "./Page";
@@ -22,8 +22,7 @@ export function ThemeSelect({ theme, setTheme }) {
           {themeNames.map((themeName) => (
             <div key={themeName}>
               <label>
-                <input
-                  type="radio"
+                <Radio
                   value={themeName}
                   checked={theme === themeName}
                   onChange={(evt) => setTheme(evt.target.value)}

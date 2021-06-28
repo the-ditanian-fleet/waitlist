@@ -72,6 +72,10 @@ export const Input = styled.input`
   height: 2.5em;
 `;
 
+export const Radio = styled.input.attrs({ type: "radio" })`
+  ${inputStyle}
+`;
+
 export const Select = styled.select`
   ${inputStyle}
   height: 2.5em;
