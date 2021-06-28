@@ -2,10 +2,9 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts";
 import logoImage from "./logo.png";
 import styled from "styled-components";
-import { InputGroup, Button, Select, NavButton } from "../Components/Form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { InputGroup, Select, NavButton } from "../Components/Form";
 import { EventNotifier } from "../Components/Event";
+import { ThemeSelect } from "../Components/ThemeSelect";
 
 const NavBar = styled.div`
   display: flex;
@@ -112,9 +111,7 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
               )}
               <InputGroup>
                 <EventNotifier />
-                <Button onClick={(evt) => setTheme(theme === "dark" ? "light" : "dark")}>
-                  <FontAwesomeIcon fixedWidth icon={theme === "dark" ? faMoon : faSun} />
-                </Button>
+                <ThemeSelect theme={theme} setTheme={setTheme} />
                 {whoami ? (
                   <NavButton exact to="/auth/logout" variant="secondary">
                     Log out
