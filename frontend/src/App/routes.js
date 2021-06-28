@@ -9,6 +9,7 @@ import { Fleet, FleetRegister } from "../Pages/Fleet";
 import { Xup, XupCheck } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
 import { Search } from "../Pages/Search";
+import { Home } from "../Pages/Home";
 import { Guide, GuideIndex } from "../Pages/Guide";
 
 import { BanRoutes } from "../Pages/Bans";
@@ -19,6 +20,9 @@ export function Routes() {
   const authContext = React.useContext(AuthContext);
   return (
     <>
+      <Route exact path="/">
+        <Home />
+      </Route>
       <Route exact path="/guide">
         <GuideIndex />
       </Route>
@@ -48,7 +52,7 @@ export function Routes() {
           <Route exact path="/search">
             <Search />
           </Route>
-          <Route exact path="/">
+          <Route exact path="/waitlist">
             <Waitlist />
           </Route>
 

@@ -13,11 +13,17 @@ const NavBar = styled.div`
   padding: 1em;
   margin-bottom: 1em;
 `;
+
+NavBar.LogoLink = styled(NavLink).attrs((props) => ({
+  activeClassName: "active",
+}))`
+  margin-right: 2em;
+  flex-grow: 0;
+  line-height: 0;
+`;
 NavBar.Logo = styled.img`
   width: 150px;
   filter: ${(props) => props.theme.logo.filter};
-  margin-right: 2em;
-  flex-grow: 0;
 `;
 NavBar.Menu = styled.div`
   display: flex;
@@ -51,11 +57,13 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
     <AuthContext.Consumer>
       {(whoami) => (
         <NavBar>
-          <NavBar.Logo src={logoImage} alt="The Ditanian Fleet" />
+          <NavBar.LogoLink to="/">
+            <NavBar.Logo src={logoImage} alt="The Ditanian Fleet" />
+          </NavBar.LogoLink>
           <NavBar.Menu>
             {whoami && (
               <>
-                <NavBar.Link exact to="/">
+                <NavBar.Link exact to="/waitlist">
                   Waitlist
                 </NavBar.Link>
                 <NavBar.Link exact to="/skills">

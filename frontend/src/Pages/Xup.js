@@ -146,7 +146,7 @@ export function XupCheck() {
         <FitDisplay key={fit.id} fit={fit} />
       ))}
       <Buttons>
-        <NavButton variant="primary" to={`/?wl=${waitlist_id}`}>
+        <NavButton variant="primary" to={`/waitlist?wl=${waitlist_id}`}>
           Yes, looks good
         </NavButton>
         <NavButton variant="secondary" to={`/xup?wl=${waitlist_id}`}>
