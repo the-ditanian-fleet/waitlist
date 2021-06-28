@@ -72,7 +72,7 @@ const XCardDOM = styled.div`
   color: ${(props) => props.theme.colors[props.variant].text};
   border-radius: 5px;
   font-size: 0.9em;
-  box-shadow: 0px 3px 10px 5px ${(props) => props.theme.colors.shadow};
+  filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
   min-width: 245px;
 
   a {
