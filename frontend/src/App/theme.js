@@ -144,4 +144,11 @@ theme["Midnight Blue"] = _.merge({}, theme.dark, {
   },
 });
 
+theme["Elite GOLD"] = _.merge({}, theme.light, {
+  logo: {
+    filter:
+      "invert(1) sepia(1) saturate(10000%) hue-rotate(-15deg) drop-shadow(1px 1px 0.5px #a67c00) contrast(90%)",
+  },
+});
+
 export default theme;
