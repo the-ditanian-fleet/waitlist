@@ -57,7 +57,5 @@ rules:
     category: sniper
   - item: Nightmare
     category: sniper
-  - item: Leshak
-    category: cqc
   - item: Kronos
     category: cqc

@@ -72,7 +72,7 @@ It's much easier to keep track of your drone bunny by adding them to your watchl
 
 ## Tags
 
-At minimum your overview should have an extra column displaying tags so the fleet can focus fire, or to indicate if a target is don't shoot. CQC use numbers, snipers use letters, Leshaks use Z and **if a target is tagged X you must not shoot it.** Some roles shoot targets in a different order, but normally shoot the targets in the order given by the tags.
+At minimum your overview should have an extra column displaying tags so the fleet can focus fire, or to indicate if a target is don't shoot. CQC use numbers, snipers use letters, and **if a target is tagged X you must not shoot it.** Some roles shoot targets in a different order, but normally shoot the targets in the order given by the tags.
 
 ![](tagcolumn.png)
 

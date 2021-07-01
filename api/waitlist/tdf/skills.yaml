@@ -21,8 +21,6 @@ categories:
     - Large Pulse Laser Specialization
     - Large Hybrid Turret
     - Large Blaster Specialization
-    - Large Precursor Weapon
-    - Large Disintegrator Specialization
   Navigation:
     - Navigation
     - Spaceship Command
@@ -83,7 +81,6 @@ categories:
     - Gallente Battleship
     - Minmatar Battleship
     - Caldari Battleship
-    - Precursor Battleship
     - Amarr Battlecruiser
     - Gallente Battlecruiser
     - Amarr Cruiser
@@ -449,53 +446,6 @@ Kronos:
     elite: 5
   Advanced Weapon Upgrades:
     min: 5
-
-Leshak:
-  <<: *generic
-  <<: *gunnery
-  Remote Armor Repair Systems:
-    min: 3
-    elite: 4
-    gold: 5
-  Capacitor Emission Systems:
-    min: 3
-    elite: 4
-    gold: 5
-  Precursor Battleship:
-    min: 5
-    elite: 5
-    gold: 5
-  Large Precursor Weapon:
-    min: 5
-    elite: 5
-    gold: 5
-  Large Disintegrator Specialization:
-    min: 4
-    elite: 5
-    gold: 5
-  Heavy Drone Operation:
-    min: 3
-    elite: 5
-    gold: 5
-  Radar Sensor Compensation:
-    elite: 4
-    gold: 5
-  Rapid Firing:
-    min: 5
-  Weapon Upgrades:
-    min: 5
-  Advanced Weapon Upgrades:
-    min: 1
-  Remote Hull Repair Systems:
-    elite: 4
-    gold: 4
-  Repair Drone Operation:
-    elite: 5
-    gold: 5
-  Astronautics Rigging:
-    gold: 5
-  Trajectory Analysis:
-    min: 1
 
 Vindicator:
   <<: *generic

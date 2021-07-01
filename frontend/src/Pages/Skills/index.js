@@ -209,9 +209,6 @@ export function Skills() {
           <Button active={ship === "Paladin"} onClick={(evt) => setShip("Paladin")}>
             Paladin
           </Button>
-          <Button active={ship === "Leshak"} onClick={(evt) => setShip("Leshak")}>
-            Leshak
-          </Button>
         </InputGroup>
         <InputGroup>
           <Button active={ship === "Oneiros"} onClick={(evt) => setShip("Oneiros")}>
