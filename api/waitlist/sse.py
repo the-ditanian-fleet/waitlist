@@ -12,7 +12,7 @@ def sse_stream() -> ViewReturn:
     buckets = []
     buckets.append("waitlist")
     buckets.append("account;%d" % g.account_id)
-    if auth.has_access("waitlist-manage"):
+    if auth.has_access("waitlist-view"):
         buckets.append("xup")
 
     return redirect(sse.get_events_url(buckets))
