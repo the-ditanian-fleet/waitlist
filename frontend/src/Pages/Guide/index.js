@@ -1,5 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import { useParams, NavLink } from "react-router-dom";
 import { Content } from "../../Components/Page";
 import styled from "styled-components";
@@ -64,7 +65,11 @@ export function Guide() {
 
   return (
     <GuideContent style={{ maxWidth: "800px" }}>
-      <ReactMarkdown transformImageUri={resolveImage} transformLinkUri={null}>
+      <ReactMarkdown
+        rehypePlugins={[rehypeRaw]}
+        transformImageUri={resolveImage}
+        transformLinkUri={null}
+      >
         {loadedData}
       </ReactMarkdown>
     </GuideContent>
