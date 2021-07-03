@@ -16,6 +16,8 @@ def detect_implants(
     for implant in ["Ogdin's Eye %", "% MR-706"]:
         if id_of(implant, fuzzy=True) in implants:
             have_slots[7] = True
+    if id_of("% RA-706", fuzzy=True) in implants and ship == id_of("Nestor"):
+        have_slots[7] = True
 
     # Slot 8
     if id_of("% EM-806", fuzzy=True) in implants:
@@ -53,6 +55,11 @@ def _have_slot10(ship: int, implants: List[int]) -> bool:
     if ship in [id_of("Vindicator"), id_of("Kronos")] or anything_goes:
         if id_of("% LH-1006", fuzzy=True) in implants:
             return True
+    if anything_goes:
+        if id_of("% HG-1006", fuzzy=True) in implants:
+            return True
+        if id_of("% HG-1008", fuzzy=True) in implants:
+            return True
 
     return False
 
@@ -82,5 +89,15 @@ def _detect_base(implants: List[int]) -> Optional[str]:
             return "WARPSPEED"
         if id_of("High-grade Ascendancy Omega") in implants:
             return "WARPSPEED"
+
+    if (  # pylint: disable=too-many-boolean-expressions
+        id_of("High-grade Savior Alpha") in implants
+        and id_of("High-grade Savior Beta") in implants
+        and id_of("High-grade Savior Gamma") in implants
+        and id_of("High-grade Savior Delta") in implants
+        and id_of("High-grade Savior Epsilon") in implants
+        and id_of("High-grade Savior Omega") in implants
+    ):
+        return "SAVIOR"
 
     return None
