@@ -66,7 +66,6 @@ Always send complaints to the council linked in the ingame channel **TDF-Officia
      1. Flown at least 3 training fleets and be signed off at least 3 FCs
      1. Minimum 10 hours of logi cruiser
      1. Required to have mic and be able to talk (not just yes/no soundboard)
-     1. Minimum speed of 4.42AU/s
    - Amulet (waitlist only)
      1. Full slots 1-10 as per the implant mailing list.
    - Warp (waitlist only)
@@ -125,6 +124,14 @@ Always send complaints to the council linked in the ingame channel **TDF-Officia
    - 5 rep stable with active sebo and prop mod off
    - 26.8k+ raw armor hp before boosts
    - 799m/s+ speed before boosts
+   - 4.42AU/s warp speed
+1. Savior Nestor
+   - Requires slot 1-5 Savior implants
+   - 3 rep stable with active sebo and prop mod off
+   - 22.0k+ raw armor hp before boosts
+   - 799m/s+ speed before boosts
+   - 4.42AU/s warp speed
+   - Needs special sign-off beyond regular logi badge
 1. Logi Cruisers
    - 5.5k+ raw armor hp before boosts
    - cap stable with all mid slots and remote reps active
