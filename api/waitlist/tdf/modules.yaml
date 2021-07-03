@@ -114,6 +114,19 @@ alternatives:
   - - Large Remote Armor Repairer II
   - - "'Peace' Large Remote Armor Repairer"
 
+- - - Blood Xray L
+    - Sanshas Xray L
+  - - Imperial Navy Xray L
+  - - True Sanshas Xray L
+    - Dark Blood Xray L
+
+- - - Guristas Antimatter Charge L
+    - Shadow Antimatter Charge L
+  - - Caldari Navy Antimatter Charge L
+    - Federation Navy Antimatter Charge L
+  - - Guardian Antimatter Charge L
+    - Dread Guristas Antimatter Charge L
+
 from_meta: # Automagically determine alternatives
 - Sensor Booster II
 - Tracking Computer II
