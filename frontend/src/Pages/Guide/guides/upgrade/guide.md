@@ -8,7 +8,9 @@ If you're low on ISK, you can start by getting the **Megathron**. If you do, it'
 
 ## Basic
 
-**Upgrade to basic** as soon as you can. This will involve training your _armor compensation_ skills, together with the other skills marked as starter-level on the skill check page. Prioritize training these skills before training the additional skills needed to fly the basic fit, then upgrade the modules. Remember that when you change tank modules or rigs you need to change them all at the same time, or you risk creating holes in your armor resistances. You can leave upgrading the drones for later.
+**Upgrade to basic** as soon as you can. This will involve training your _armor compensation_ skills and other tank skills, after which you should start replacing modules and rigs. Remember that when you change tank modules or rigs you need to change them all at the same time, or you risk creating holes in your armor resistances. You can leave upgrading the drones for later.
+
+Once you have the basic fit ready to go, continue **training and injecting basic skills** which will help your capacitor stability and the ability to keep up with the fleet.
 
 ## Advanced
 
