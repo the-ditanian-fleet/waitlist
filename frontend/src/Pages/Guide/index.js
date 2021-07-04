@@ -96,6 +96,11 @@ export function GuideIndex() {
         </NavLink>
       </p>
       <p>
+        <NavLink exact to="/guide/upgrade">
+          Upgrading
+        </NavLink>
+      </p>
+      <p>
         <NavLink exact to="/guide/logi">
           Logistics guide
         </NavLink>
