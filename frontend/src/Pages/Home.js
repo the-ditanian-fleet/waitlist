@@ -26,24 +26,26 @@ export function Home() {
         information in the MOTD (message of the day), we look forward to flying with you!
       </p>
       <h3>Why Fly TDF?</h3>
-      <li>
-        Armor fleets are far safer, as your tank is passive and thus not cap dependent. If you get
-        neuted your tank will not turn off, this gives you that extra bit of room for error should
-        you need it.
-      </li>
-      <li>
-        With our low slots being used for tanking, the mid slots on our ships are free for damage
-        application mods such as webifiers and tracking computers, giving us great damage
-        application.
-      </li>
-      <li>
-        Our upgrade policy ensures that everyone in the fleet is constantly improving and
-        contributing to that ever-important factor, your ISK per hour.
-      </li>
-      <li>
-        We provide peace of mind with our SRP (ship replacement program), so should you lose your
-        ship due to logi or FC error, you will be reimbursed.
-      </li>
+      <ul>
+        <li>
+          Armor fleets are far safer, as your tank is passive and thus not cap dependent. If you get
+          neuted your tank will not turn off, this gives you that extra bit of room for error should
+          you need it.
+        </li>
+        <li>
+          With our low slots being used for tanking, the mid slots on our ships are free for damage
+          application mods such as webifiers and tracking computers, giving us great damage
+          application.
+        </li>
+        <li>
+          Our upgrade policy ensures that everyone in the fleet is constantly improving and
+          contributing to that ever-important factor, your ISK per hour.
+        </li>
+        <li>
+          We provide peace of mind with our SRP (ship replacement program), so should you lose your
+          ship due to logi or FC error, you will be reimbursed.
+        </li>
+      </ul>
       <h3>What are Incursions?</h3>
       <p>
         Incursions are automated events introduced with the Incursion expansion in which the NPC
