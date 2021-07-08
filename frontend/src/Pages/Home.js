@@ -6,10 +6,10 @@ export function Home() {
     <Content>
       <h2>Welcome to The Ditanian Fleet</h2>
       <p>
-        Hello capsuleers, we would like to introduce you to the incursion community called The
-        Ditanian Fleet (TDF). We are a new-bro friendly group where all are welcome. We have
-        affordable starter fits, and we can help make you space rich, all we ask in return is you
-        follow our upgrade policy to help the community excel and follow the rules! We exclude
+        Hello capsuleers, we would like to introduce you to the EVE Online incursion community
+        called The Ditanian Fleet (TDF). We are a new-bro friendly group where all are welcome. We
+        have affordable starter fits, and we can help make you space rich, all we ask in return is
+        you follow our upgrade policy to help the community excel and follow the rules! We exclude
         pilots that have a previous history of ganking, and we have a no tolerance policy for
         racism, sexism or anti-social behaviour.
       </p>
