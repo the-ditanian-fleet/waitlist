@@ -11,6 +11,7 @@ import { Pilot } from "../Pages/Pilot";
 import { Search } from "../Pages/Search";
 import { Home } from "../Pages/Home";
 import { Guide, GuideIndex } from "../Pages/Guide";
+import { Statistics } from "../Pages/Statistics";
 
 import { BanRoutes } from "../Pages/Bans";
 import { ACLRoutes } from "../Pages/ACL";
@@ -54,6 +55,9 @@ export function Routes() {
           </Route>
           <Route exact path="/waitlist">
             <Waitlist />
+          </Route>
+          <Route exact path="/stats">
+            <Statistics />
           </Route>
 
           <BanRoutes />

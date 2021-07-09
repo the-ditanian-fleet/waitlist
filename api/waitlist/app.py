@@ -17,6 +17,7 @@ from . import (
     bans,
     acl,
     fleet_history,
+    statistics,
 )
 from .webutil import ViewReturn
 from .data import database, config
@@ -42,6 +43,7 @@ app.register_blueprint(search.bp)
 app.register_blueprint(bans.bp)
 app.register_blueprint(acl.bp)
 app.register_blueprint(fleet_history.bp)
+app.register_blueprint(statistics.bp)
 
 
 @app.route("/favicon.ico")

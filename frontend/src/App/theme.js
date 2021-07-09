@@ -11,9 +11,10 @@ const globals = {
 const theme = {
   light: _.merge({}, globals, {
     colors: {
-      background: "white",
+      background: "#ffffff",
       text: "#4a4a4a",
-      active: "black",
+      active: "#000000",
+      lumFactor: 1,
 
       outline: "hsla(213, 100%, 40%, 0.2)",
       modal: "hsla(0, 0%, 0%, 0.80)",
@@ -70,6 +71,7 @@ const theme = {
       background: "#1f1f1f",
       text: "#cccccc",
       active: "#eeeeee",
+      lumFactor: 0.6,
 
       outline: "hsla(213, 100%, 40%, 0.2)",
       modal: "hsla(0, 0%, 0%, 0.80)",

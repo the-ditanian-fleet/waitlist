@@ -97,6 +97,11 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
                 ACL
               </NavBar.Link>
             )}
+            {whoami && whoami.access["stats-view"] && (
+              <NavBar.Link exact to="/stats">
+                Statistics
+              </NavBar.Link>
+            )}
             <NavBar.End>
               {whoami && (
                 <InputGroup style={{ marginRight: "2em" }}>

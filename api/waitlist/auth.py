@@ -50,6 +50,7 @@ ACCESS_LEVELS["fc"] = ACCESS_LEVELS["trainee-advanced"] | set(
         "search",
         "skill-history-view",
         "waitlist-edit",
+        "stats-view",
     ]
 )
 ACCESS_LEVELS["council"] = ACCESS_LEVELS["fc"] | set(

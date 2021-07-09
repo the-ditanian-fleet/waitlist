@@ -1,0 +1,251 @@
+import React from "react";
+import _ from "lodash";
+import { ToastContext } from "../../contexts";
+import { apiCall, errorToaster } from "../../api";
+import { Bar, Line } from "react-chartjs-2";
+import styled, { ThemeContext } from "styled-components";
+
+const Graph = styled.div`
+  flex-basis: 50%;
+`;
+Graph.Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+function makeColor(theme, name) {
+  // lol
+  var hash = 1546047137;
+  for (var i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  hash = hash & 0x7fffffff;
+
+  var hue = hash % 360;
+  var sat = ((hash >> 10) % 60) + 30;
+  var lum = Math.round(theme.colors.lumFactor * 50);
+  return `hsla(${hue}, ${sat}%, ${lum}%, 1)`;
+}
+
+function makeOptions(theme, options) {
+  return _.merge(
+    {},
+    {
+      animation: false,
+      color: theme.colors.text,
+      backgroundColor: theme.colors.accent1,
+      borderColor: theme.colors.accent2,
+      plugins: {
+        title: {
+          color: theme.colors.text,
+        },
+      },
+    },
+    options || {}
+  );
+}
+
+function makeData(theme, data) {
+  var newData = _.cloneDeep(data);
+  if (newData.datasets) {
+    for (var dataset of newData.datasets) {
+      if (!dataset.label) continue;
+
+      if (!dataset.backgroundColor) dataset.backgroundColor = makeColor(theme, dataset.label);
+      if (!dataset.borderColor) dataset.borderColor = makeColor(theme, dataset.label);
+    }
+  }
+  return newData;
+}
+
+function ThemedBar({ options, data, ...kwargs }) {
+  const theme = React.useContext(ThemeContext);
+  return <Bar options={makeOptions(theme, options)} data={makeData(theme, data)} {...kwargs} />;
+}
+
+function ThemedLine({ options, data, ...kwargs }) {
+  const theme = React.useContext(ThemeContext);
+  return <Line options={makeOptions(theme, options)} data={makeData(theme, data)} {...kwargs} />;
+}
+
+function separateDataLabels(data) {
+  const labels = Object.keys(data);
+  labels.sort();
+  var series = [];
+  for (const label of labels) {
+    series.push(data[label]);
+  }
+  return {
+    labels,
+    data: series,
+  };
+}
+
+function separateDataLabels2D(data) {
+  const separated = separateDataLabels(data);
+  var series = {};
+  for (var t = 0; t < separated.labels.length; t++) {
+    for (const serieName of Object.keys(separated.data[t])) {
+      if (!series[serieName]) {
+        series[serieName] = new Array(separated.labels.length).fill(null);
+      }
+      series[serieName][t] = separated.data[t][serieName];
+    }
+  }
+  return {
+    labels: separated.labels,
+    series: series,
+  };
+}
+
+function FleetTimeByMonth({ data }) {
+  const series = separateDataLabels(data);
+  return (
+    <ThemedLine
+      data={{
+        labels: series.labels,
+        datasets: [
+          {
+            label: "Hours",
+            data: series.data.map((seconds) => Math.round(seconds / 3600)),
+          },
+        ],
+      }}
+      options={{
+        plugins: {
+          title: {
+            display: true,
+            text: "Time spent in fleet",
+          },
+        },
+      }}
+    />
+  );
+}
+
+function PilotsByMonth({ data }) {
+  const series = separateDataLabels(data);
+  return (
+    <ThemedLine
+      data={{
+        labels: series.labels,
+        datasets: [
+          {
+            label: "Pilots",
+            data: series.data,
+          },
+        ],
+      }}
+      options={{
+        plugins: {
+          title: {
+            display: true,
+            text: "Pilots seen in fleet",
+          },
+        },
+      }}
+    />
+  );
+}
+
+function FleetTimeByHullMonth({ data }) {
+  const series = separateDataLabels2D(data);
+  return (
+    <ThemedBar
+      data={{
+        labels: series.labels,
+        datasets: _.map(series.series, (numbers, label) => ({
+          label: label,
+          data: numbers.map((seconds) => Math.round(seconds / 3600)),
+        })),
+      }}
+      options={{
+        scales: { x: { stacked: true }, y: { stacked: true } },
+        plugins: {
+          title: {
+            display: true,
+            text: "Time in fleet by hull",
+          },
+        },
+      }}
+    />
+  );
+}
+
+function XByHullMonth({ data }) {
+  const series = separateDataLabels2D(data);
+  return (
+    <ThemedLine
+      data={{
+        labels: series.labels,
+        datasets: _.map(series.series, (numbers, label) => ({
+          label: label,
+          data: numbers.map((num) => num || 0),
+        })),
+      }}
+      options={{
+        plugins: {
+          title: {
+            display: true,
+            text: "X'es by hull",
+          },
+        },
+      }}
+    />
+  );
+}
+
+function TimeSpentInFleetByMonth({ data }) {
+  const series = separateDataLabels2D(data);
+  return (
+    <ThemedBar
+      data={{
+        labels: series.labels,
+        datasets: _.map(series.series, (numbers, label) => ({
+          label: label,
+          data: numbers.map((num) => num || 0),
+        })),
+      }}
+      options={{
+        plugins: {
+          title: {
+            display: true,
+            text: "Distribution of time spent by pilots",
+          },
+        },
+      }}
+    />
+  );
+}
+
+export function Statistics() {
+  const toastContext = React.useContext(ToastContext);
+  const [statsData, setStatsData] = React.useState(null);
+  React.useEffect(() => {
+    errorToaster(toastContext, apiCall("/api/stats", {}).then(setStatsData));
+  }, [toastContext]);
+
+  if (!statsData) {
+    return <em>Loading statistics...</em>;
+  }
+
+  return (
+    <Graph.Container>
+      <Graph>
+        <FleetTimeByMonth data={statsData.fleet_seconds_by_month} />
+      </Graph>
+      <Graph>
+        <PilotsByMonth data={statsData.pilots_by_month} />
+      </Graph>
+      <Graph>
+        <FleetTimeByHullMonth data={statsData.fleet_seconds_by_hull_by_month} />
+      </Graph>
+      <Graph>
+        <XByHullMonth data={statsData.xes_by_hull_by_month} />
+      </Graph>
+      <Graph>
+        <TimeSpentInFleetByMonth data={statsData.time_spent_in_fleet_by_month} />
+      </Graph>
+    </Graph.Container>
+  );
+}
