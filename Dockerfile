@@ -12,7 +12,7 @@ WORKDIR /data
 ADD api/shrink-sde.sh /data/
 RUN sh shrink-sde.sh
 
-FROM python:3.6
+FROM python:3.9
 RUN apt update && apt install libsodium23 && apt clean
 ADD api/requirements.txt /app/api/
 WORKDIR /app/api
