@@ -37,7 +37,7 @@ def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
     except (esi.HTTP404, esi.HTTP403):
         # Fleet no longer exists
         session.query(FleetSquad).filter(FleetSquad.fleet_id == fleet.id).delete()
-        session.delete(fleet)  # type: ignore
+        session.delete(fleet)
         session.commit()
         return
 
@@ -98,7 +98,7 @@ def _update_waitlist(
                 .one_or_none()
             )
             if entry:
-                session.delete(entry)  # type: ignore
+                session.delete(entry)
                 waitlist_ids.add(entry.waitlist_id)
 
     return waitlist_ids
