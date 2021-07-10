@@ -47,7 +47,7 @@ export function Fleet() {
   return (
     <>
       <Buttons>
-        <NavButton to="/fleet/register">Configure fleet</NavButton>
+        <NavButton to="/fc/fleet/register">Configure fleet</NavButton>
         <NavButton to="/auth/start/fc">ESI re-auth as FC</NavButton>
         <InputGroup>
           <Button variant="success" onClick={() => toaster(toastContext, setWaitlistOpen(1, true))}>

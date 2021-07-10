@@ -15,10 +15,10 @@ async function removeBan({ kind, id }) {
 export function BanRoutes() {
   return (
     <>
-      <Route exact path="/bans/add">
+      <Route exact path="/fc/bans/add">
         <AddBan />
       </Route>
-      <Route exact path="/bans">
+      <Route exact path="/fc/bans">
         <BanList />
       </Route>
     </>
@@ -44,7 +44,7 @@ function BanList() {
   return (
     <>
       {authContext.access["bans-manage"] && (
-        <NavButton exact to="/bans/add">
+        <NavButton exact to="/fc/bans/add">
           Add ban
         </NavButton>
       )}
@@ -116,7 +116,7 @@ function AddBan() {
           duration: parseFloat(duration),
         },
       }).then((success) => {
-        history.push({ pathname: "/bans" });
+        history.push({ pathname: "/fc/bans" });
         return success;
       })
     );

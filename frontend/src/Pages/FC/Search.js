@@ -68,7 +68,7 @@ export function Search() {
                   <NavButton to={"/skills?character_id=" + character.id}>Skills</NavButton>
                   <NavButton to={"/pilot?character_id=" + character.id}>Information</NavButton>
                   {authContext.access["bans-manage"] && (
-                    <NavButton to={"/bans/add?kind=character&id=" + character.id}>Ban</NavButton>
+                    <NavButton to={"/fc/bans/add?kind=character&id=" + character.id}>Ban</NavButton>
                   )}
                 </Cell>
               </Row>

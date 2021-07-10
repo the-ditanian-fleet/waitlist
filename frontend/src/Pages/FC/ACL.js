@@ -10,7 +10,7 @@ import { ToastContext } from "../../contexts";
 export function ACLRoutes() {
   return (
     <>
-      <Route exact path="/acl">
+      <Route exact path="/fc/acl">
         <ACLOverview />
       </Route>
     </>
