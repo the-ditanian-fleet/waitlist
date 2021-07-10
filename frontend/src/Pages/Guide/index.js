@@ -121,11 +121,6 @@ export function GuideIndex() {
         </NavLink>
       </p>
       <p>
-        <NavLink exact to="/guide/rules">
-          TDF rules
-        </NavLink>
-      </p>
-      <p>
         <NavLink exact to="/guide/scouting">
           Scouting guide
         </NavLink>
