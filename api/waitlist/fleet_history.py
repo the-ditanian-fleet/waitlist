@@ -1,6 +1,6 @@
 import datetime
-from typing import Dict
-from flask import Blueprint, g
+from typing import Dict, List, Any
+from flask import Blueprint, g, request
 from . import auth
 from .webutil import ViewReturn
 from .data.database import FleetActivity
@@ -46,4 +46,39 @@ def get_fleet_history() -> ViewReturn:
     return {
         "activity": activity,
         "summary": summary,
+    }
+
+
+@bp.route("/api/history/fleet-comp")
+@auth.login_required
+@auth.require_permission("fleet-comp-history")
+def get_fleet_comp() -> ViewReturn:
+    lookup_time = int(request.args["time"])
+
+    result: Dict[int, List[Dict[str, Any]]] = {}
+    for log_entry in (
+        g.db.query(FleetActivity)
+        .join(FleetActivity.character)
+        .filter(
+            FleetActivity.first_seen <= lookup_time,
+            FleetActivity.last_seen >= lookup_time,
+        )
+    ):
+        result.setdefault(log_entry.fleet_id, []).append(
+            {
+                "character": {
+                    "id": log_entry.character_id,
+                    "name": log_entry.character.name,
+                },
+                "hull": {
+                    "id": log_entry.hull,
+                    "name": name_of(log_entry.hull),
+                },
+                "logged_at": datetime.datetime.utcfromtimestamp(log_entry.first_seen),
+                "time_in_fleet": log_entry.last_seen - log_entry.first_seen,
+            }
+        )
+
+    return {
+        "fleets": result,
     }

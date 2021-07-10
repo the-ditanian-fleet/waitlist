@@ -81,6 +81,12 @@ export function Fleet() {
               </div>
             ))}
       </Content>
+      {authContext.access["fleet-comp-history"] && (
+        <Buttons>
+          <NavButton to="/fc/fleet-comp-history">Fleet comp history</NavButton>
+        </Buttons>
+      )}
+
       <FleetMembers />
       <Confirm
         open={fleetCloseModalOpen}

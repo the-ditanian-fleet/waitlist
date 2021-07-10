@@ -46,6 +46,7 @@ ACCESS_LEVELS["trainee-advanced"] = ACCESS_LEVELS["trainee"] | set(
 ACCESS_LEVELS["fc"] = ACCESS_LEVELS["trainee-advanced"] | set(
     [
         "fleet-activity-view",
+        "fleet-comp-history",
         "fit-history-view",
         "search",
         "skill-history-view",

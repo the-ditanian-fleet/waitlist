@@ -5,6 +5,7 @@ import { ACLRoutes } from "./ACL";
 import { Fleet, FleetRegister } from "./Fleet";
 import { Search } from "./Search";
 import { Statistics } from "./Statistics";
+import { FleetCompHistory } from "./FleetCompHistory";
 
 export function FCRoutes() {
   return (
@@ -23,6 +24,9 @@ export function FCRoutes() {
       </Route>
       <Route exact path="/fc/search">
         <Search />
+      </Route>
+      <Route exact path="/fc/fleet-comp-history">
+        <FleetCompHistory />
       </Route>
     </>
   );
