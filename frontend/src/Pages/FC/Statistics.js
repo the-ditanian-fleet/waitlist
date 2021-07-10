@@ -2,11 +2,12 @@ import React from "react";
 import _ from "lodash";
 import { ToastContext } from "../../contexts";
 import { apiCall, errorToaster } from "../../api";
-import { Bar, Line } from "react-chartjs-2";
+import { Bar, Line, Doughnut } from "react-chartjs-2";
 import styled, { ThemeContext } from "styled-components";
 
 const Graph = styled.div`
   flex-basis: 50%;
+  height: 350px;
 `;
 Graph.Container = styled.div`
   display: flex;
@@ -31,6 +32,7 @@ function makeOptions(theme, options) {
   return _.merge(
     {},
     {
+      maintainAspectRatio: false,
       animation: false,
       color: theme.colors.text,
       backgroundColor: theme.colors.accent1,
@@ -45,14 +47,19 @@ function makeOptions(theme, options) {
   );
 }
 
-function makeData(theme, data) {
+function makeData(theme, data, colorPerLabel) {
   var newData = _.cloneDeep(data);
   if (newData.datasets) {
     for (var dataset of newData.datasets) {
-      if (!dataset.label) continue;
-
-      if (!dataset.backgroundColor) dataset.backgroundColor = makeColor(theme, dataset.label);
-      if (!dataset.borderColor) dataset.borderColor = makeColor(theme, dataset.label);
+      for (const colorProperty of ["backgroundColor", "borderColor"]) {
+        if (!dataset[colorProperty]) {
+          if (colorPerLabel) {
+            dataset[colorProperty] = newData.labels.map((label) => makeColor(theme, label));
+          } else {
+            dataset[colorProperty] = makeColor(theme, dataset.label || "");
+          }
+        }
+      }
     }
   }
   return newData;
@@ -60,12 +67,27 @@ function makeData(theme, data) {
 
 function ThemedBar({ options, data, ...kwargs }) {
   const theme = React.useContext(ThemeContext);
-  return <Bar options={makeOptions(theme, options)} data={makeData(theme, data)} {...kwargs} />;
+  return (
+    <Bar options={makeOptions(theme, options)} data={makeData(theme, data, false)} {...kwargs} />
+  );
 }
 
 function ThemedLine({ options, data, ...kwargs }) {
   const theme = React.useContext(ThemeContext);
-  return <Line options={makeOptions(theme, options)} data={makeData(theme, data)} {...kwargs} />;
+  return (
+    <Line options={makeOptions(theme, options)} data={makeData(theme, data, false)} {...kwargs} />
+  );
+}
+
+function ThemedDoughnut({ options, data, ...kwargs }) {
+  const theme = React.useContext(ThemeContext);
+  return (
+    <Doughnut
+      options={makeOptions(theme, options)}
+      data={makeData(theme, data, true)}
+      {...kwargs}
+    />
+  );
 }
 
 function separateDataLabels(data) {
@@ -115,7 +137,7 @@ function FleetTimeByMonth({ data }) {
         plugins: {
           title: {
             display: true,
-            text: "Time spent in fleet",
+            text: "Total fleet time",
           },
         },
       }}
@@ -210,7 +232,78 @@ function TimeSpentInFleetByMonth({ data }) {
         plugins: {
           title: {
             display: true,
-            text: "Distribution of time spent by pilots",
+            text: "Distribution of time in fleet",
+          },
+        },
+      }}
+    />
+  );
+}
+
+function XVsTimeByHull28d({ data }) {
+  const series = separateDataLabels2D(data);
+  return (
+    <ThemedBar
+      data={{
+        labels: series.labels,
+        datasets: _.map(series.series, (numbers, label) => ({
+          label: label,
+          data: numbers.map((num) => Math.round((num || 0) * 1000) / 10),
+        })),
+      }}
+      options={{
+        plugins: {
+          title: {
+            display: true,
+            text: "Time vs X'es in percentages (28d)",
+          },
+        },
+      }}
+    />
+  );
+}
+
+function XByHull28d({ data }) {
+  const series = separateDataLabels(data);
+  return (
+    <ThemedDoughnut
+      data={{
+        labels: series.labels,
+        datasets: [
+          {
+            data: series.data,
+          },
+        ],
+      }}
+      options={{
+        plugins: {
+          title: {
+            display: true,
+            text: "X'es by hull (28d)",
+          },
+        },
+      }}
+    />
+  );
+}
+
+function TimeSpentByHull28d({ data }) {
+  const series = separateDataLabels(data);
+  return (
+    <ThemedDoughnut
+      data={{
+        labels: series.labels,
+        datasets: [
+          {
+            data: series.data.map((seconds) => Math.round((seconds || 0) / 3600)),
+          },
+        ],
+      }}
+      options={{
+        plugins: {
+          title: {
+            display: true,
+            text: "Time in fleet by hull (28d)",
           },
         },
       }}
@@ -245,6 +338,15 @@ export function Statistics() {
       </Graph>
       <Graph>
         <TimeSpentInFleetByMonth data={statsData.time_spent_in_fleet_by_month} />
+      </Graph>
+      <Graph>
+        <XVsTimeByHull28d data={statsData.x_vs_time_by_hull_28d} />
+      </Graph>
+      <Graph>
+        <XByHull28d data={statsData.xes_by_hull_28d} />
+      </Graph>
+      <Graph>
+        <TimeSpentByHull28d data={statsData.fleet_seconds_by_hull_28d} />
       </Graph>
     </Graph.Container>
   );
