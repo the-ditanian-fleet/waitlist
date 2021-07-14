@@ -77,37 +77,16 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
             self._add_tag("ELITE-SKILLS")
 
     def check_tank_skills(self) -> None:
-        comps = skills.get_armor_comps_level(self.skills)
-
-        # Fatal: anything less than 2
-        if comps < 2:
-            self.result.errors.append("Missing minimum Armor Compensation skills")
-            return
-
-        if not self.fit:  # Unrecognized fit? Require 5
-            min_comps = 5
-            min_mechanics = 5
-        elif id_of("Bastion Module I") in self.modules:  # Bastion -> comps 5
-            min_comps = 5
-            min_mechanics = 5
-        elif self.fit.is_starter:
+        if self.fit and self.fit.is_starter:
             min_comps = 2
-            min_mechanics = 4
-        elif (
-            self.ship in [id_of("Paladin"), id_of("Kronos")] and self.fit.is_elite
-        ):  # Elite Pally -> comps 5
-            min_comps = 5
-            min_mechanics = 5
         else:
             min_comps = 4
-            min_mechanics = 4
 
-        if (
-            comps < min_comps
-            or self.skills.get(id_of("Hull Upgrades"), 0) < 5
-            or self.skills.get(id_of("Mechanics"), 0) < min_mechanics
-        ):
-            self.disable_approval = True
+        comps = skills.get_armor_comps_level(self.skills)
+        if comps < min_comps:
+            self.result.errors.append(
+                "Missing minimum Armor Compensation skills (level %d)" % min_comps
+            )
 
     def check_implants(self) -> None:
         self.base_implants, is_full = implants.detect_implants(self.ship, self.implants)

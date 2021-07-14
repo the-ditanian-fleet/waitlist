@@ -18,11 +18,11 @@ Once you're out of the starter squad, **upgrade to the advanced fit**. Your skil
 
 Then, **get your Hybrid implants**. The recommended order for these is slot 10 first (6% extra damage), then slot 8 and 9 (another 6% DPS), then slot 7 (better tracking of targets), followed by slots 1-6. Once your set is complete you can upgrade to the `_hybrid` fit, which adds a lot of damage!
 
-If you've been flying a Nightmare, now is a good time to consider getting the **Paladin** instead. Your expensive modules can be transferred, so you only need to train a few skills to fly the ship, and then buy the hull. Once you do get the Paladin, upgrade your armor compensation skills to level 5, which are required for the Elite fit!
+If you've been flying a Nightmare, now is a good time to consider getting the **Paladin** instead. Your expensive modules can be transferred, so you only need to train a few skills to fly the ship, and then buy the hull.
 
 ## Elite
 
-Now it's time to get the **elite fit**. Some of the elite fits require special skills (the Paladin and Kronos require level 5 armor compensation skills) but you do not need to have every skill at elite level to fly the fit! Go buy those upgrades while still training the non-mandatory skills.
+Now it's time to get the **elite fit**. You do not need to have every skill at elite level to fly the fit! Go buy those upgrades while still training the non-mandatory skills.
 
 This is a good time to **get abyssal modules**. [mutaplasmid.space](https://mutaplasmid.space/) is a good website for finding contracts, just make sure you buy the good ones!
 
