@@ -28,6 +28,14 @@ def notify_waitlist_update(waitlist_id: int) -> None:
     )
 
 
+def notify_comp_update(fleet_id: int) -> None:
+    sse.submit(
+        [
+            sse.message_json("fleet_comp", "comp_update", {"fleet_id": fleet_id}),
+        ]
+    )
+
+
 def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
     # Lock the fleet by starting a transaction
     fleet.is_updating = True
@@ -45,7 +53,7 @@ def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
 
     _update_characters(session, fleet, members)
     waitlist_ids = _update_waitlist(session, members)
-    _update_activity(session, fleet, members)
+    comp_changed = _update_activity(session, fleet, members)
 
     # (almost) All done!
     fleet.is_updating = False
@@ -54,6 +62,8 @@ def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
     # Do this after releasing the lock, in case the notifications take a while
     for waitlist_id in waitlist_ids:
         notify_waitlist_update(waitlist_id)
+    if comp_changed:
+        notify_comp_update(fleet.id)
 
 
 def _update_characters(
@@ -108,7 +118,7 @@ def _update_activity(
     session: sqlalchemy.orm.session.Session,
     fleet: Fleet,
     members: Dict[int, Dict[str, Any]],
-) -> None:
+) -> bool:
     stored = {
         activity.character_id: activity
         for activity in session.query(FleetActivity)
@@ -117,6 +127,7 @@ def _update_activity(
     }
 
     current_time = int(time.time())
+    anything_changed = False
 
     if len(members) < 8:
         # Don't track anything if the fleet is very, very small
@@ -141,6 +152,7 @@ def _update_activity(
                 hull=member["ship_type_id"],
             )
             session.add(stored[character_id])
+            anything_changed = True
 
         this_entry = stored[character_id]
         if current_time - this_entry.last_seen > 60:
@@ -150,6 +162,9 @@ def _update_activity(
     for stored_entry in stored.values():
         if stored_entry.character_id not in members:
             stored_entry.has_left = True
+            anything_changed = True
+
+    return anything_changed
 
 
 def fleet_updater() -> None:

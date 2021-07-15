@@ -14,5 +14,7 @@ def sse_stream() -> ViewReturn:
     buckets.append("account;%d" % g.account_id)
     if auth.has_access("waitlist-view"):
         buckets.append("xup")
+    if auth.has_access("fleet-view"):
+        buckets.append("fleet_comp")
 
     return redirect(sse.get_events_url(buckets))
