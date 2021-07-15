@@ -89,12 +89,48 @@ function useWaitlist(waitlistId) {
   return [waitlistData, refreshFn];
 }
 
+function useFleetComposition() {
+  const authContext = React.useContext(AuthContext);
+  const eventContext = React.useContext(EventContext);
+  const [fleetMembers, setFleetMembers] = React.useState(null);
+
+  const refreshFn = React.useCallback(() => {
+    if (!authContext.access["fleet-view"]) {
+      setFleetMembers(null);
+      return;
+    }
+    apiCall(`/api/fleet/members?character_id=${authContext.current.id}`, {}).then(
+      setFleetMembers,
+      () => setFleetMembers(null)
+    );
+  }, [authContext, setFleetMembers]);
+
+  React.useEffect(() => {
+    refreshFn();
+  }, [refreshFn]);
+
+  React.useEffect(() => {
+    if (!eventContext) return;
+
+    const updateFn = coalesceCalls(refreshFn, 1000 + Math.random() * 2000);
+    eventContext.addEventListener("comp_update", updateFn);
+    eventContext.addEventListener("open", updateFn);
+    return function () {
+      eventContext.removeEventListener("comp_update", updateFn);
+      eventContext.removeEventListener("open", updateFn);
+    };
+  }, [refreshFn, eventContext]);
+
+  return fleetMembers;
+}
+
 export function Waitlist() {
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
   const queryParams = new URLSearchParams(useLocation().search);
   const waitlistId = parseInt(queryParams.get("wl"));
   const [waitlistData, refreshWaitlist] = useWaitlist(waitlistId);
+  const fleetComposition = useFleetComposition();
   const displayMode = queryParams.get("mode") || "columns";
   const history = useHistory();
 
@@ -169,15 +205,27 @@ export function Waitlist() {
         </InputGroup>
       </Buttons>
       {displayMode === "columns" ? (
-        <ColumnWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
+        <ColumnWaitlist
+          waitlist={waitlistData}
+          onAction={refreshWaitlist}
+          fleetComposition={fleetComposition}
+        />
       ) : displayMode === "compact" ? (
         <CompactWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
       ) : displayMode === "linear" ? (
         <LinearWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
       ) : displayMode === "matrix" ? (
-        <MatrixWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
+        <MatrixWaitlist
+          waitlist={waitlistData}
+          onAction={refreshWaitlist}
+          fleetComposition={fleetComposition}
+        />
       ) : displayMode === "rows" ? (
-        <RowWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
+        <RowWaitlist
+          waitlist={waitlistData}
+          onAction={refreshWaitlist}
+          fleetComposition={fleetComposition}
+        />
       ) : displayMode === "notepad" ? (
         <NotepadWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
       ) : null}

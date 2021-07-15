@@ -4,27 +4,90 @@ import styled from "styled-components";
 import { XCard } from "./XCard";
 import _ from "lodash";
 
+const CategoryHeadingDOM = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  > h2 {
+    font-size: 1.5em;
+    flex-basis: 50%;
+    flex-grow: 1;
+  }
+  > div {
+    max-width: 50%;
+    flex-shrink: 1;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    opacity: 0.7;
+    > span {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2em;
+      img {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 2px;
+        margin-right: 0.2em;
+      }
+    }
+  }
+`;
+
+function CategoryHeading({ name, fleetComposition }) {
+  if (!(fleetComposition && fleetComposition.members)) {
+    return (
+      <CategoryHeadingDOM>
+        <h2>{name}</h2>
+      </CategoryHeadingDOM>
+    );
+  }
+
+  const categoryMembers = _.filter(
+    fleetComposition.members,
+    (member) => member.wl_category === name
+  );
+  var shipInfo = {};
+  var shipCounts = {};
+  _.forEach(categoryMembers, (member) => {
+    shipInfo[member.ship.id] = member.ship;
+    if (!shipCounts[member.ship.id]) shipCounts[member.ship.id] = 0;
+    shipCounts[member.ship.id]++;
+  });
+  var shipCountsArr = _.map(shipCounts, (count, id) => [count, shipInfo[id]]);
+  shipCountsArr.sort((a, b) => a[0] - b[0]);
+
+  return (
+    <CategoryHeadingDOM>
+      <h2>{name}</h2>
+      <div>
+        {shipCountsArr.map(([count, info]) => (
+          <span key={info.id}>
+            <img src={`https://imageserver.eveonline.com/Type/${info.id}_32.png`} alt={info.name} />
+            {count}
+          </span>
+        ))}
+      </div>
+    </CategoryHeadingDOM>
+  );
+}
+
 const ColumnWaitlistDOM = styled.div`
   display: flex;
-  em {
-    font-style: italic;
-  }
 `;
 ColumnWaitlistDOM.Category = styled.div`
   flex-grow: 1;
   flex-basis: 0;
   padding: 0.5em;
 
-  > h2 {
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
-  }
   > div {
     margin-bottom: 1.5em;
   }
 `;
 
-function ColumnWaitlist({ waitlist, onAction }) {
+function ColumnWaitlist({ waitlist, onAction, fleetComposition }) {
   var categories = [];
   var categoryIndex = {};
   _.forEach(waitlist.categories, (category, i) => {
@@ -46,7 +109,7 @@ function ColumnWaitlist({ waitlist, onAction }) {
       <ColumnWaitlistDOM>
         {categories.map((category) => (
           <ColumnWaitlistDOM.Category key={category[0]}>
-            <h2>{category[0]}</h2>
+            <CategoryHeading name={category[0]} fleetComposition={fleetComposition} />
             {category[1]}
             {category[1].length ? null : <em>Nobody here!</em>}
           </ColumnWaitlistDOM.Category>
@@ -112,9 +175,6 @@ const MatrixWaitlistDOM = styled.table`
 
   > thead > tr > th {
     width: 1%;
-    > h2 {
-      font-size: 1.5em;
-    }
   }
   th,
   td {
@@ -122,7 +182,7 @@ const MatrixWaitlistDOM = styled.table`
   }
 `;
 
-function MatrixWaitlist({ waitlist, onAction }) {
+function MatrixWaitlist({ waitlist, onAction, fleetComposition }) {
   var categories = [];
   var categoryIndex = {};
   _.forEach(waitlist.categories, (category, i) => {
@@ -136,7 +196,7 @@ function MatrixWaitlist({ waitlist, onAction }) {
         <tr>
           {categories.map((category) => (
             <th key={category[0]}>
-              <h2>{category[0]}</h2>
+              <CategoryHeading name={category[0]} fleetComposition={fleetComposition} />
             </th>
           ))}
         </tr>
@@ -164,14 +224,6 @@ function MatrixWaitlist({ waitlist, onAction }) {
 
 const RowWaitlistDOM = styled.div`
   overflow-x: auto;
-
-  em {
-    font-style: italic;
-  }
-  > div > h2 {
-    padding: 0.333em 0 0 0.333em;
-    font-size: 1.5em;
-  }
 `;
 RowWaitlistDOM.Category = styled.div`
   padding: 0.5em 0.5em;
@@ -182,7 +234,7 @@ RowWaitlistDOM.Category = styled.div`
   }
 `;
 
-function RowWaitlist({ waitlist, onAction }) {
+function RowWaitlist({ waitlist, onAction, fleetComposition }) {
   var categories = [];
   var categoryIndex = {};
   _.forEach(waitlist.categories, (category, i) => {
@@ -204,7 +256,7 @@ function RowWaitlist({ waitlist, onAction }) {
       <RowWaitlistDOM>
         {categories.map((category) => (
           <div key={category[0]}>
-            <h2>{category[0]}</h2>
+            <CategoryHeading name={category[0]} fleetComposition={fleetComposition} />
             <RowWaitlistDOM.Category>
               {category[1]}
               {category[1].length ? null : <em>Nobody here!</em>}
