@@ -44,39 +44,34 @@ async function removeEntry(id) {
   });
 }
 
-export function Waitlist() {
-  const authContext = React.useContext(AuthContext);
+function useWaitlist(waitlistId) {
   const toastContext = React.useContext(ToastContext);
   const eventContext = React.useContext(EventContext);
-  const [waitlistData, setWaitlistData] = React.useState(null);
-  const queryParams = new URLSearchParams(useLocation().search);
-  const waitlistId = parseInt(queryParams.get("wl"));
-  const displayMode = queryParams.get("mode") || "columns";
-  const history = useHistory();
 
-  const updateAndSet = React.useCallback(() => {
-    if (!waitlistId) return;
+  const [waitlistData, setWaitlistData] = React.useState(null);
+
+  // Heart of the logic: this function downloads the waitlist and writes into the state
+  const refreshFn = React.useCallback(() => {
+    if (!waitlistId) {
+      setWaitlistData(null);
+      return;
+    }
     errorToaster(
       toastContext,
-      apiCall("/api/waitlist?waitlist_id=" + waitlistId, {}).then(setWaitlistData)
+      apiCall(`/api/waitlist?waitlist_id=${waitlistId}`, {}).then(setWaitlistData)
     );
   }, [waitlistId, setWaitlistData, toastContext]);
 
-  const setDisplayMode = (newMode) => {
-    queryParams.set("mode", newMode);
-    history.replace({
-      search: queryParams.toString(),
-    });
-  };
-
+  // Re-invoke the refresh function if our inputs have changed
   React.useEffect(() => {
-    updateAndSet();
-  }, [updateAndSet]);
+    refreshFn();
+  }, [refreshFn]);
 
+  // Listen for events
   React.useEffect(() => {
     if (!eventContext) return;
 
-    const updateFn = coalesceCalls(updateAndSet, 1000 + Math.random() * 2000);
+    const updateFn = coalesceCalls(refreshFn, 1000 + Math.random() * 2000);
     const handleEvent = function (event) {
       var data = JSON.parse(event.data);
       if (data.waitlist_id === waitlistId) {
@@ -89,7 +84,26 @@ export function Waitlist() {
       eventContext.removeEventListener("waitlist_update", handleEvent);
       eventContext.removeEventListener("open", updateFn);
     };
-  }, [updateAndSet, eventContext, waitlistId]);
+  }, [refreshFn, eventContext, waitlistId]);
+
+  return [waitlistData, refreshFn];
+}
+
+export function Waitlist() {
+  const authContext = React.useContext(AuthContext);
+  const toastContext = React.useContext(ToastContext);
+  const queryParams = new URLSearchParams(useLocation().search);
+  const waitlistId = parseInt(queryParams.get("wl"));
+  const [waitlistData, refreshWaitlist] = useWaitlist(waitlistId);
+  const displayMode = queryParams.get("mode") || "columns";
+  const history = useHistory();
+
+  const setDisplayMode = (newMode) => {
+    queryParams.set("mode", newMode);
+    history.replace({
+      search: queryParams.toString(),
+    });
+  };
 
   React.useEffect(() => {
     // Redirect to wl=1 if we don't have one
@@ -155,17 +169,17 @@ export function Waitlist() {
         </InputGroup>
       </Buttons>
       {displayMode === "columns" ? (
-        <ColumnWaitlist waitlist={waitlistData} onAction={updateAndSet} />
+        <ColumnWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
       ) : displayMode === "compact" ? (
-        <CompactWaitlist waitlist={waitlistData} onAction={updateAndSet} />
+        <CompactWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
       ) : displayMode === "linear" ? (
-        <LinearWaitlist waitlist={waitlistData} onAction={updateAndSet} />
+        <LinearWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
       ) : displayMode === "matrix" ? (
-        <MatrixWaitlist waitlist={waitlistData} onAction={updateAndSet} />
+        <MatrixWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
       ) : displayMode === "rows" ? (
-        <RowWaitlist waitlist={waitlistData} onAction={updateAndSet} />
+        <RowWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
       ) : displayMode === "notepad" ? (
-        <NotepadWaitlist waitlist={waitlistData} onAction={updateAndSet} />
+        <NotepadWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
       ) : null}
     </>
   );
