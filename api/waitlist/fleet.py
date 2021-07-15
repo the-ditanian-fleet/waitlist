@@ -82,10 +82,16 @@ def fleet_members() -> ViewReturn:
         .all()
     }
 
+    squads = {
+        squad.squad_id: squad
+        for squad in g.db.query(FleetSquad).filter(FleetSquad.fleet_id == fleet.id)
+    }
+
     members = []
     for member in members_raw:
         character_id = member["character_id"]
         character = characters[character_id] if character_id in characters else None
+        squad = squads.get(member["squad_id"], None)
         members.append(
             {
                 "id": character_id,
@@ -94,6 +100,7 @@ def fleet_members() -> ViewReturn:
                     "id": member["ship_type_id"],
                     "name": evedb.name_of(member["ship_type_id"]),
                 },
+                "wl_category": tdf.CATEGORIES[squad.category] if squad else None,
             }
         )
 
