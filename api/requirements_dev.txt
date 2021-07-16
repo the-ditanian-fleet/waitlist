@@ -3,3 +3,5 @@ black>=21.6b0
 mypy>=0.910
 pylint>=2.9.3
 msgpack-types>=0.1.0
+types-PyYAML>=5.4.3
+types-requests>=2.25.0

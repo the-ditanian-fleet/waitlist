@@ -131,7 +131,7 @@ def get(
     path: str,
     character_id: int,
     headers: Optional[Dict[str, str]] = None,
-    **kwargs: Dict[str, Any]
+    **kwargs: Any
 ) -> requests.Response:
     url = "https://esi.evetech.net" + path
 
@@ -151,7 +151,7 @@ def post(
     path: str,
     character_id: int,
     headers: Optional[Dict[str, str]] = None,
-    **kwargs: Dict[str, Any]
+    **kwargs: Any
 ) -> requests.Response:
     url = "https://esi.evetech.net" + path
 
@@ -171,7 +171,7 @@ def delete(
     path: str,
     character_id: int,
     headers: Optional[Dict[str, str]] = None,
-    **kwargs: Dict[str, Any]
+    **kwargs: Any
 ) -> requests.Response:
     url = "https://esi.evetech.net" + path
 
