@@ -26,6 +26,7 @@ import aBadge from "../Guide/guides/badges/a.png";
 import eBadge from "../Guide/guides/badges/e.png";
 import egoldBadge from "../Guide/guides/badges/egold.png";
 import alphaBadge from "../Guide/guides/badges/alpha.png";
+import { addToast } from "../../Components/Toast";
 
 const tagBadges = {
   "WARPSPEED1-10": [wBadge, "Warp Speed Implants"],
@@ -137,7 +138,7 @@ XCardDOM.ReviewComment = styled.div`
   color: ${(props) => props.theme.colors.secondary.text};
 `;
 
-function ShipDisplay({ fit }) {
+function ShipDisplay({ fit, onView }) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const namePrefix = fit.character ? `${fit.character.name}'s ` : "";
@@ -156,7 +157,13 @@ function ShipDisplay({ fit }) {
             alt={fit.hull.name}
           />
         </a>
-        <a style={{ flexShrink: 1 }} onClick={(evt) => setModalOpen(true)}>
+        <a
+          style={{ flexShrink: 1 }}
+          onClick={(evt) => {
+            setModalOpen(true);
+            if (onView) onView();
+          }}
+        >
           {namePrefix}
           {fit.hull.name}
         </a>
@@ -193,6 +200,8 @@ function ShipDisplay({ fit }) {
 export function XCard({ entry, fit, onAction }) {
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
+
+  const [hasSeen, setHasSeen] = React.useState(false);
 
   const accountName = entry.character ? entry.character.name : "Name hidden";
   var isSelf = entry.character && entry.character.id === authContext.account_id;
@@ -243,7 +252,7 @@ export function XCard({ entry, fit, onAction }) {
         </XCardDOM.Head.Badges>
       </XCardDOM.Head>
       <XCardDOM.Content>
-        <ShipDisplay fit={fit} />
+        <ShipDisplay fit={fit} onView={(evt) => setHasSeen(true)} />
       </XCardDOM.Content>
       <XCardDOM.Content>
         {tagText.map((tag) => (
@@ -318,7 +327,16 @@ export function XCard({ entry, fit, onAction }) {
         {authContext.access["waitlist-manage"] && !fit.approved && (
           <a
             title="Approve"
-            onClick={(evt) => errorToaster(toastContext, approveFit(fit.id)).then(onAction)}
+            onClick={(evt) => {
+              if (!hasSeen) {
+                addToast(toastContext, {
+                  message: "Fit has not been checked",
+                  variant: "warning",
+                });
+                return;
+              }
+              errorToaster(toastContext, approveFit(fit.id)).then(onAction);
+            }}
           >
             <FontAwesomeIcon icon={faCheck} />
           </a>
