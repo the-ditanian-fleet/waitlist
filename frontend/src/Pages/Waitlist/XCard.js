@@ -27,6 +27,9 @@ import eBadge from "../Guide/guides/badges/e.png";
 import egoldBadge from "../Guide/guides/badges/egold.png";
 import alphaBadge from "../Guide/guides/badges/alpha.png";
 import { addToast } from "../../Components/Toast";
+import { SkillDisplay } from "../../Components/SkillDisplay";
+import { Box } from "../../Components/Box";
+import { Title } from "../../Components/Page";
 
 const tagBadges = {
   "WARPSPEED1-10": [wBadge, "Warp Speed Implants"],
@@ -147,7 +150,15 @@ function ShipDisplay({ fit, onView }) {
       <>
         {modalOpen ? (
           <Modal open={true} setOpen={setModalOpen}>
-            <FitDisplay fit={fit} />
+            <Box>
+              <FitDisplay fit={fit} />
+              <Title>Non-elite skills</Title>
+              <SkillDisplay
+                characterId={fit.character.id}
+                ship={fit.hull.name}
+                filterElite={true}
+              />
+            </Box>
           </Modal>
         ) : null}
         <a onClick={(evt) => setModalOpen(true)}>
@@ -195,6 +206,26 @@ function ShipDisplay({ fit, onView }) {
       </>
     );
   }
+}
+
+function SkillButton({ characterId, ship }) {
+  const [onScreen, setOnScreen] = React.useState(false);
+  const [chosenShip, setChosenShip] = React.useState(ship);
+
+  return (
+    <>
+      <a title="Show skills" onClick={(evt) => setOnScreen(true)}>
+        <FontAwesomeIcon icon={faStream} />
+      </a>
+      {onScreen && (
+        <Modal open={true} setOpen={setOnScreen}>
+          <Box>
+            <SkillDisplay characterId={characterId} ship={chosenShip} setShip={setChosenShip} />
+          </Box>
+        </Modal>
+      )}
+    </>
+  );
 }
 
 export function XCard({ entry, fit, onAction }) {
@@ -284,12 +315,7 @@ export function XCard({ entry, fit, onAction }) {
           </a>
         )}
         {authContext.access["skill-view"] && (
-          <NavLink
-            title="Show skills"
-            to={`/skills?character_id=${fit.character.id}&ship=${fit.hull.name}`}
-          >
-            <FontAwesomeIcon icon={faStream} />
-          </NavLink>
+          <SkillButton characterId={fit.character.id} ship={fit.hull.name} />
         )}
         {authContext.access["pilot-view"] && (
           <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
