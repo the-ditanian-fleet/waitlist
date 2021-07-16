@@ -141,6 +141,7 @@ def _update_activity(
             if stored[character_id].hull != member["ship_type_id"]:
                 stored[character_id].has_left = True
                 stored[character_id].last_seen = current_time
+                session.flush()  # We're about to delete the object, flush first!
                 del stored[character_id]
 
         if not character_id in stored:
