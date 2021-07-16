@@ -85,17 +85,20 @@ def login_required(func: DecoratorType) -> DecoratorType:
             "account_id"
         ]
 
-        admin_record = (
-            g.db.query(database.Administrator)
-            .filter(database.Administrator.character_id == g.account_id)
-            .one_or_none()
-        )
-        if admin_record:
-            g.access_level = (  # false positive pylint: disable=assigning-non-slot
-                admin_record.level
+        with g.db.begin():
+            admin_record = (
+                g.db.query(database.Administrator)
+                .filter(database.Administrator.character_id == g.account_id)
+                .one_or_none()
             )
-        else:
-            g.access_level = "user"  # false positive pylint: disable=assigning-non-slot
+            if admin_record:
+                g.access_level = (  # false positive pylint: disable=assigning-non-slot
+                    admin_record.level
+                )
+            else:
+                g.access_level = (  # false positive pylint: disable=assigning-non-slot
+                    "user"
+                )
 
         return func(*args, **kwargs)
 
@@ -138,15 +141,16 @@ def select_character(
             if character_id != g.account_id and not (
                 override_permission and has_access(override_permission)
             ):
-                if (
-                    not g.db.query(database.AltCharacter)
-                    .filter(
-                        database.AltCharacter.account_id == g.account_id,
-                        database.AltCharacter.alt_id == character_id,
-                    )
-                    .one_or_none()
-                ):
-                    return "Not allowed to query this character_id", 401
+                with g.db.begin():
+                    if (
+                        not g.db.query(database.AltCharacter)
+                        .filter(
+                            database.AltCharacter.account_id == g.account_id,
+                            database.AltCharacter.alt_id == character_id,
+                        )
+                        .one_or_none()
+                    ):
+                        return "Not allowed to query this character_id", 401
 
             g.character_id = (  # false positive pylint: disable=assigning-non-slot
                 character_id
@@ -183,7 +187,7 @@ class AuthCallbackRequest(pydantic.BaseModel):
 def callback() -> Tuple[str, int]:
     req = AuthCallbackRequest.parse_obj(request.json)
     _access_token, _refresh_token, character_id = esi.process_auth(
-        "authorization_code", req.code
+        "authorization_code", req.code, g.db
     )
 
     if req.state == "alt":
@@ -191,11 +195,11 @@ def callback() -> Tuple[str, int]:
             session["account_id"] = character_id
 
         if session["account_id"] != character_id:
-            alt = database.AltCharacter(
-                account_id=session["account_id"], alt_id=character_id
-            )
-            g.db.merge(alt)
-            g.db.commit()
+            with g.db.begin():
+                alt = database.AltCharacter(
+                    account_id=session["account_id"], alt_id=character_id
+                )
+                g.db.merge(alt)
 
     else:
         session["account_id"] = character_id
@@ -239,12 +243,12 @@ def whoami() -> Tuple[Any, int]:
 def logout() -> str:
     if "account_id" in session:
         account_id = session["account_id"]
-        g.db.query(database.AltCharacter).filter(
-            database.AltCharacter.account_id == account_id
-        ).delete()
-        g.db.query(database.AltCharacter).filter(
-            database.AltCharacter.alt_id == account_id
-        ).delete()
-        g.db.commit()
+        with g.db.begin():
+            g.db.query(database.AltCharacter).filter(
+                database.AltCharacter.account_id == account_id
+            ).delete()
+            g.db.query(database.AltCharacter).filter(
+                database.AltCharacter.alt_id == account_id
+            ).delete()
     session.clear()
     return "OK"

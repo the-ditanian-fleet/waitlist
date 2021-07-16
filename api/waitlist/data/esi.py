@@ -1,6 +1,7 @@
 import time
 from typing import Dict, Optional, Any, Tuple, Type
 import requests
+import sqlalchemy
 from .database import Session, RefreshToken, AccessToken, Character
 from .config import CONFIG
 
@@ -10,7 +11,9 @@ AUTH_SECRET = CONFIG["esi"]["client_secret"]
 session = requests.Session()
 
 
-def process_auth(auth_type: str, auth_token: str) -> Tuple[str, str, int]:
+def process_auth(
+    auth_type: str, auth_token: str, dbsession: sqlalchemy.orm.session.Session
+) -> Tuple[str, str, int]:
     body = {"grant_type": auth_type}
     if auth_type == "refresh_token":
         body["refresh_token"] = auth_token
@@ -34,63 +37,52 @@ def process_auth(auth_type: str, auth_token: str) -> Tuple[str, str, int]:
     verify.raise_for_status()
     verify_json = verify.json()
 
-    character = Character(
-        id=verify_json["CharacterID"],
-        name=verify_json["CharacterName"],
-    )
-    refresh_token = RefreshToken(
-        character_id=verify_json["CharacterID"],
-        refresh_token=result_json["refresh_token"],
-    )
-    access_token_obj = AccessToken(
-        character_id=verify_json["CharacterID"],
-        access_token=result_json["access_token"],
-        expires=int(time.time() + (result_json["expires_in"] / 2)),
-    )
+    with dbsession.begin():
+        character = Character(
+            id=verify_json["CharacterID"],
+            name=verify_json["CharacterName"],
+        )
+        refresh_token = RefreshToken(
+            character_id=verify_json["CharacterID"],
+            refresh_token=result_json["refresh_token"],
+        )
+        access_token_obj = AccessToken(
+            character_id=verify_json["CharacterID"],
+            access_token=result_json["access_token"],
+            expires=int(time.time() + (result_json["expires_in"] / 2)),
+        )
 
-    dbsession = Session()
-    try:
         dbsession.merge(character)
         dbsession.merge(refresh_token)
         dbsession.merge(access_token_obj)
-        dbsession.commit()
-    finally:
-        dbsession.close()
 
-    return (access_token_obj.access_token, refresh_token.refresh_token, character.id)
+        return (
+            access_token_obj.access_token,
+            refresh_token.refresh_token,
+            character.id,
+        )
 
 
 def access_token(character_id: int) -> str:
-    dbsession = Session()
-    try:
-        from_db = (
-            dbsession.query(AccessToken)
-            .filter(AccessToken.character_id == character_id)
-            .one_or_none()
-        )
-        if from_db and from_db.expires <= time.time():
-            dbsession.delete(from_db)
-            dbsession.commit()
-            from_db = None
+    with Session() as dbsession:
+        with dbsession.begin():
+            from_db = dbsession.get(AccessToken, character_id)
+            if from_db and from_db.expires <= time.time():
+                dbsession.delete(from_db)
+                from_db = None
 
-        if from_db:
-            return from_db.access_token  # type: ignore
+            if from_db:
+                return from_db.access_token  # type: ignore
 
-        refresh_token = (
-            dbsession.query(RefreshToken)
-            .filter(RefreshToken.character_id == character_id)
-            .one_or_none()
-        )
-        if not refresh_token:
-            raise Exception("No refresh token found for %d" % character_id)
+            refresh_token = dbsession.get(RefreshToken, character_id)
+            if not refresh_token or not refresh_token.refresh_token:
+                raise Exception("No refresh token found for %d" % character_id)
+            refresh_token_s = refresh_token.refresh_token
 
         access_token_s, _refresh_token, _character_id = process_auth(
-            "refresh_token", refresh_token.refresh_token
+            "refresh_token", refresh_token_s, dbsession
         )
         return access_token_s
-
-    finally:
-        dbsession.close()
 
 
 class HTTPError(Exception):

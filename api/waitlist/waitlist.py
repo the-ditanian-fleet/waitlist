@@ -134,18 +134,19 @@ def _am_i_banned() -> bool:
     corporation_id: Optional[int] = esi_info.get("corporation_id", None)
     alliance_id: Optional[int] = esi_info.get("alliance_id", None)
 
-    conditions = [and_(Ban.kind == "character", Ban.id == g.character_id)]
-    if corporation_id:
-        conditions.append(and_(Ban.kind == "corporation", Ban.id == corporation_id))
-    if alliance_id:
-        conditions.append(and_(Ban.kind == "alliance", Ban.id == alliance_id))
+    with g.db.begin():
+        conditions = [and_(Ban.kind == "character", Ban.id == g.character_id)]
+        if corporation_id:
+            conditions.append(and_(Ban.kind == "corporation", Ban.id == corporation_id))
+        if alliance_id:
+            conditions.append(and_(Ban.kind == "alliance", Ban.id == alliance_id))
 
-    for ban_record in g.db.query(Ban).filter(or_(*conditions)):
-        if (
-            not ban_record.expires_at
-            or ban_record.expires_at > datetime.datetime.utcnow()
-        ):
-            return True
+        for ban_record in g.db.query(Ban).filter(or_(*conditions)):
+            if (
+                not ban_record.expires_at
+                or ban_record.expires_at > datetime.datetime.utcnow()
+            ):
+                return True
 
     return False
 
@@ -184,101 +185,103 @@ def xup() -> ViewReturn:
         return "Too many fits", 400
 
     # Load external resources before doing database writes
-    skilldata = skills.load_character_skills(g.character_id)
     implantdata = implants.load_character_implants(g.character_id)
-
-    waitlist = g.db.query(Waitlist).filter(Waitlist.id == req.waitlist_id).one_or_none()
-
-    if not (waitlist and waitlist.is_open):
-        return "Waitlist not found", 404
-
     if _am_i_banned():
         return "Action not permitted (banned)", 400
 
-    waitlist_entry = (
-        g.db.query(WaitlistEntry)
-        .filter(
-            WaitlistEntry.account_id == g.account_id,
-            WaitlistEntry.waitlist_id == waitlist.id,
-        )
-        .one_or_none()
-    )
+    # Update skills - this may do many writes in its own transaction
+    skilldata = skills.load_character_skills(g.character_id, g.db)
 
-    if waitlist_entry:
-        # Existing x: check we don't have a bazillion fits already
-        if (
-            g.db.query(WaitlistEntryFit)
-            .filter(WaitlistEntryFit.entry_id == waitlist_entry.id)
-            .count()
-            > 10
-        ):
-            return "Too many fits", 400
+    with g.db.begin():
+        waitlist = g.db.get(Waitlist, req.waitlist_id)
+        if not (waitlist and waitlist.is_open):
+            return "Waitlist not found", 404
 
-    else:
-        waitlist_entry = WaitlistEntry(waitlist_id=waitlist.id, account_id=g.account_id)
-        g.db.add(waitlist_entry)
-
-    implant_set = (
-        g.db.query(ImplantSet)
-        .filter(ImplantSet.implants == ":".join(map(str, sorted(implantdata))))
-        .one_or_none()
-    )
-    if not implant_set:
-        implant_set = ImplantSet(implants=":".join(map(str, sorted(implantdata))))
-        g.db.add(implant_set)
-
-    time_in_fleet = _get_time_in_fleet(g.character_id)
-
-    for dna in dnas:
-        # Store the fit DNA if it's not already stored
-        fitting = g.db.query(Fitting).filter(Fitting.dna == dna).one_or_none()
-        if not fitting:
-            hull = int(dna.split(":")[0])
-            fitting = Fitting(dna=dna, hull=hull)
-            g.db.add(fitting)
-
-        # Check fit to tag/approve/categorize/etc
-        fit_check = tdf.check_fit(dna, skilldata, implantdata, time_in_fleet)
-        if fit_check.errors:
-            return fit_check.errors[0], 400
-
-        # Replace the previous x'up if we see the same hull twice
-        existing_x_for_hull = (
-            g.db.query(WaitlistEntryFit, Fitting)
-            .join(WaitlistEntryFit.fit)
+        waitlist_entry = (
+            g.db.query(WaitlistEntry)
             .filter(
-                WaitlistEntryFit.entry == waitlist_entry, Fitting.hull == fitting.hull
+                WaitlistEntry.account_id == g.account_id,
+                WaitlistEntry.waitlist_id == waitlist.id,
             )
             .one_or_none()
         )
-        if existing_x_for_hull:
-            g.db.delete(existing_x_for_hull[0])
 
-        # X!
-        g.db.add(
-            WaitlistEntryFit(
-                character_id=g.character_id,
-                entry=waitlist_entry,
-                fit=fitting,
-                category=fit_check.category,
-                approved=fit_check.approved,
-                tags=",".join(sorted(list(fit_check.tags))),
-                implant_set=implant_set,
-                fit_analysis=json.dumps(fit_check.fit_check),
-                cached_time_in_fleet=time_in_fleet,
+        if waitlist_entry:
+            # Existing x: check we don't have a bazillion fits already
+            if (
+                g.db.query(WaitlistEntryFit)
+                .filter(WaitlistEntryFit.entry_id == waitlist_entry.id)
+                .count()
+                > 10
+            ):
+                return "Too many fits", 400
+
+        else:
+            waitlist_entry = WaitlistEntry(
+                waitlist_id=waitlist.id, account_id=g.account_id
             )
-        )
+            g.db.add(waitlist_entry)
 
-        # Log the fit in history
-        g.db.add(
-            FitHistory(
-                character_id=g.character_id,
-                fit=fitting,
-                implant_set=implant_set,
+        implant_set = (
+            g.db.query(ImplantSet)
+            .filter(ImplantSet.implants == ":".join(map(str, sorted(implantdata))))
+            .one_or_none()
+        )
+        if not implant_set:
+            implant_set = ImplantSet(implants=":".join(map(str, sorted(implantdata))))
+            g.db.add(implant_set)
+
+        time_in_fleet = _get_time_in_fleet(g.character_id)
+
+        for dna in dnas:
+            # Store the fit DNA if it's not already stored
+            fitting = g.db.query(Fitting).filter(Fitting.dna == dna).one_or_none()
+            if not fitting:
+                hull = int(dna.split(":")[0])
+                fitting = Fitting(dna=dna, hull=hull)
+                g.db.add(fitting)
+
+            # Check fit to tag/approve/categorize/etc
+            fit_check = tdf.check_fit(dna, skilldata, implantdata, time_in_fleet)
+            if fit_check.errors:
+                return fit_check.errors[0], 400
+
+            # Replace the previous x'up if we see the same hull twice
+            existing_x_for_hull = (
+                g.db.query(WaitlistEntryFit, Fitting)
+                .join(WaitlistEntryFit.fit)
+                .filter(
+                    WaitlistEntryFit.entry == waitlist_entry,
+                    Fitting.hull == fitting.hull,
+                )
+                .one_or_none()
             )
-        )
+            if existing_x_for_hull:
+                g.db.delete(existing_x_for_hull[0])
 
-    g.db.commit()
+            # X!
+            g.db.add(
+                WaitlistEntryFit(
+                    character_id=g.character_id,
+                    entry=waitlist_entry,
+                    fit=fitting,
+                    category=fit_check.category,
+                    approved=fit_check.approved,
+                    tags=",".join(sorted(list(fit_check.tags))),
+                    implant_set=implant_set,
+                    fit_analysis=json.dumps(fit_check.fit_check),
+                    cached_time_in_fleet=time_in_fleet,
+                )
+            )
+
+            # Log the fit in history
+            g.db.add(
+                FitHistory(
+                    character_id=g.character_id,
+                    fit=fitting,
+                    implant_set=implant_set,
+                )
+            )
 
     sse.submit(
         [
@@ -301,13 +304,12 @@ class ApproveRequest(pydantic.BaseModel):
 @auth.require_permission("waitlist-manage")
 def approve() -> ViewReturn:
     req = ApproveRequest.parse_obj(request.json)
-    fit_entry_id = req.id
 
-    fit_entry = (
-        g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == fit_entry_id).one()
-    )
-    fit_entry.approved = True
-    g.db.commit()
+    with g.db.begin():
+        fit_entry = (
+            g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == req.id).one()
+        )
+        fit_entry.approved = True
 
     notify_waitlist_update(fit_entry.entry.waitlist_id)
 
@@ -325,10 +327,12 @@ class RejectRequest(pydantic.BaseModel):
 def reject() -> ViewReturn:
     req = RejectRequest.parse_obj(request.json)
 
-    fit_entry = g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == req.id).one()
-    fit_entry.approved = False
-    fit_entry.review_comment = req.review_comment
-    g.db.commit()
+    with g.db.begin():
+        fit_entry = (
+            g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == req.id).one()
+        )
+        fit_entry.approved = False
+        fit_entry.review_comment = req.review_comment
 
     notify_waitlist_update(fit_entry.entry.waitlist_id)
 
@@ -345,9 +349,9 @@ class SetOpenRequest(pydantic.BaseModel):
 @auth.require_permission("waitlist-edit")
 def set_open() -> ViewReturn:
     req = SetOpenRequest.parse_obj(request.json)
-    waitlist = g.db.query(Waitlist).filter(Waitlist.id == req.waitlist_id).one()
-    waitlist.is_open = req.open
-    g.db.commit()
+    with g.db.begin():
+        waitlist = g.db.query(Waitlist).filter(Waitlist.id == req.waitlist_id).one()
+        waitlist.is_open = req.open
     notify_waitlist_update(waitlist.id)
     return "OK"
 
@@ -361,23 +365,26 @@ class EmptyWaitlistRequest(pydantic.BaseModel):
 @auth.require_permission("waitlist-edit")
 def empty_waitlist() -> ViewReturn:
     req = EmptyWaitlistRequest.parse_obj(request.json)
-    waitlist = g.db.query(Waitlist).filter(Waitlist.id == req.waitlist_id).one()
-    if waitlist.is_open:
-        return "Waitlist must be closed in order to empty it", 400
 
-    entries = (
-        g.db.query(WaitlistEntry).filter(WaitlistEntry.waitlist_id == waitlist.id).all()
-    )
-    entry_ids = [entry.id for entry in entries]
+    with g.db.begin():
+        waitlist = g.db.query(Waitlist).filter(Waitlist.id == req.waitlist_id).one()
+        if waitlist.is_open:
+            return "Waitlist must be closed in order to empty it", 400
 
-    g.db.query(WaitlistEntryFit).filter(
-        WaitlistEntryFit.entry_id.in_(entry_ids)
-    ).delete(synchronize_session=False)
-    g.db.query(WaitlistEntry).filter(WaitlistEntry.id.in_(entry_ids)).delete(
-        synchronize_session=False
-    )
+        entries = (
+            g.db.query(WaitlistEntry)
+            .filter(WaitlistEntry.waitlist_id == waitlist.id)
+            .all()
+        )
+        entry_ids = [entry.id for entry in entries]
 
-    g.db.commit()
+        g.db.query(WaitlistEntryFit).filter(
+            WaitlistEntryFit.entry_id.in_(entry_ids)
+        ).delete(synchronize_session=False)
+        g.db.query(WaitlistEntry).filter(WaitlistEntry.id.in_(entry_ids)).delete(
+            synchronize_session=False
+        )
+
     return "OK"
 
 
@@ -390,25 +397,27 @@ class RemoveFitRequest(pydantic.BaseModel):
 def remove_fit() -> ViewReturn:
     req = RemoveFitRequest.parse_obj(request.json)
 
-    fit_entry = g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == req.id).one()
-    if not fit_entry.entry.account_id == g.account_id and not auth.has_access(
-        "waitlist-manage"
-    ):
-        return "Unauthorized", 401
-
-    other_entries_count = (
-        g.db.query(WaitlistEntryFit)
-        .filter(
-            WaitlistEntryFit.entry_id == fit_entry.entry_id,
-            WaitlistEntryFit.id != fit_entry.id,
+    with g.db.begin():
+        fit_entry = (
+            g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.id == req.id).one()
         )
-        .count()
-    )
+        if not fit_entry.entry.account_id == g.account_id and not auth.has_access(
+            "waitlist-manage"
+        ):
+            return "Unauthorized", 401
 
-    g.db.delete(fit_entry)
-    if not other_entries_count:
-        g.db.delete(fit_entry.entry)
-    g.db.commit()
+        other_entries_count = (
+            g.db.query(WaitlistEntryFit)
+            .filter(
+                WaitlistEntryFit.entry_id == fit_entry.entry_id,
+                WaitlistEntryFit.id != fit_entry.id,
+            )
+            .count()
+        )
+
+        g.db.delete(fit_entry)
+        if not other_entries_count:
+            g.db.delete(fit_entry.entry)
 
     notify_waitlist_update(fit_entry.entry.waitlist_id)
 
@@ -424,13 +433,15 @@ class RemoveXRequest(pydantic.BaseModel):
 def remove_x() -> ViewReturn:
     req = RemoveXRequest.parse_obj(request.json)
 
-    entry = g.db.query(WaitlistEntry).filter(WaitlistEntry.id == req.id).one()
-    if entry.account_id != g.account_id and not auth.has_access("waitlist-manage"):
-        return "Unauthorized", 401
+    with g.db.begin():
+        entry = g.db.query(WaitlistEntry).filter(WaitlistEntry.id == req.id).one()
+        if entry.account_id != g.account_id and not auth.has_access("waitlist-manage"):
+            return "Unauthorized", 401
 
-    g.db.query(WaitlistEntryFit).filter(WaitlistEntryFit.entry_id == entry.id).delete()
-    g.db.delete(entry)
-    g.db.commit()
+        g.db.query(WaitlistEntryFit).filter(
+            WaitlistEntryFit.entry_id == entry.id
+        ).delete()
+        g.db.delete(entry)
 
     notify_waitlist_update(entry.waitlist_id)
 

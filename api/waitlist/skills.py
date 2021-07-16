@@ -14,8 +14,8 @@ bp = Blueprint("skills", __name__)
 def get_skills() -> ViewReturn:
     overview = {}
 
+    skill_lookup = skills.load_character_skills(g.character_id, g.db)
     character = g.db.query(Character).filter(Character.id == g.character_id).one()
-    skill_lookup = skills.load_character_skills(g.character_id)
 
     for skill_id in tdf_skills.RELEVANT_SKILLS:
         overview[skill_id] = skill_lookup[skill_id] if skill_id in skill_lookup else 0

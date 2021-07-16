@@ -37,27 +37,29 @@ def notify_comp_update(fleet_id: int) -> None:
 
 
 def update_fleet(session: sqlalchemy.orm.session.Session, fleet: Fleet) -> None:
-    # Lock the fleet by starting a transaction
-    fleet.is_updating = True
+    with session.begin():
+        # Lock the fleet by starting a transaction
+        fleet.is_updating = True
+        session.flush()
 
-    try:
-        members_raw = esi.get("/v1/fleets/%d/members" % fleet.id, fleet.boss_id).json()
-    except (esi.HTTP404, esi.HTTP403):
-        # Fleet no longer exists
-        session.query(FleetSquad).filter(FleetSquad.fleet_id == fleet.id).delete()
-        session.delete(fleet)
-        session.commit()
-        return
+        try:
+            members_raw = esi.get(
+                "/v1/fleets/%d/members" % fleet.id, fleet.boss_id
+            ).json()
+        except (esi.HTTP404, esi.HTTP403):
+            # Fleet no longer exists
+            session.query(FleetSquad).filter(FleetSquad.fleet_id == fleet.id).delete()
+            session.delete(fleet)
+            return
 
-    members = {member["character_id"]: member for member in members_raw}
+        members = {member["character_id"]: member for member in members_raw}
 
-    _update_characters(session, fleet, members)
-    waitlist_ids = _update_waitlist(session, members)
-    comp_changed = _update_activity(session, fleet, members)
+        _update_characters(session, fleet, members)
+        waitlist_ids = _update_waitlist(session, members)
+        comp_changed = _update_activity(session, fleet, members)
 
-    # (almost) All done!
-    fleet.is_updating = False
-    session.commit()
+        # (almost) All done!
+        fleet.is_updating = False
 
     # Do this after releasing the lock, in case the notifications take a while
     for waitlist_id in waitlist_ids:
@@ -173,7 +175,9 @@ def fleet_updater() -> None:
         session = Session()
         sleep_time = 6  # ESI docs say fleets are cached for "up to 5 seconds"
         try:
-            for fleet in session.query(Fleet).all():
+            with session.begin():
+                fleets = session.query(Fleet).all()
+            for fleet in fleets:
                 update_fleet(session, fleet)
         except Exception:  # pylint: disable=broad-except
             session.rollback()

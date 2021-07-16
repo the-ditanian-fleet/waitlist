@@ -120,30 +120,28 @@ class RegisterRequest(pydantic.BaseModel):
 @auth.require_permission("fleet-configure")
 def register_fleet() -> ViewReturn:
     req = RegisterRequest.parse_obj(request.json)
-    fleet_id = req.fleet_id
-    assignments = req.assignments
 
-    fleet = g.db.query(Fleet).filter(Fleet.id == fleet_id).one_or_none()
-    if not fleet:
-        fleet = Fleet(id=fleet_id)
-        g.db.add(fleet)
-    fleet.boss_id = g.character_id
+    with g.db.begin():
+        fleet = g.db.query(Fleet).filter(Fleet.id == req.fleet_id).one_or_none()
+        if not fleet:
+            fleet = Fleet(id=req.fleet_id)
+            g.db.add(fleet)
+        fleet.boss_id = g.character_id
 
-    g.db.query(FleetSquad).filter(FleetSquad.fleet_id == fleet_id).delete()
-    for category_id, _category_name in tdf.CATEGORIES.items():
-        if category_id not in assignments:
-            raise Exception("Missing category assignment for %s" % category_id)
+        g.db.query(FleetSquad).filter(FleetSquad.fleet_id == req.fleet_id).delete()
+        for category_id, _category_name in tdf.CATEGORIES.items():
+            if category_id not in req.assignments:
+                raise Exception("Missing category assignment for %s" % category_id)
 
-        g.db.add(
-            FleetSquad(
-                fleet=fleet,
-                category=category_id,
-                wing_id=assignments[category_id][0],
-                squad_id=assignments[category_id][1],
+            g.db.add(
+                FleetSquad(
+                    fleet=fleet,
+                    category=category_id,
+                    wing_id=req.assignments[category_id][0],
+                    squad_id=req.assignments[category_id][1],
+                )
             )
-        )
 
-    g.db.commit()
     return "OK"
 
 

@@ -23,16 +23,14 @@ def add_ban() -> ViewReturn:
     if req.kind not in ["character", "corporation", "alliance"]:
         return "Invalid 'kind'", 400
 
-    target = req.id
+    with g.db.begin():
+        ban = Ban(kind=req.kind, id=req.id)
+        if req.duration:
+            ban.expires_at = datetime.datetime.utcnow() + datetime.timedelta(
+                minutes=req.duration
+            )
 
-    ban = Ban(kind=req.kind, id=target)
-    if req.duration:
-        ban.expires_at = datetime.datetime.utcnow() + datetime.timedelta(
-            minutes=req.duration
-        )
-
-    g.db.merge(ban)
-    g.db.commit()
+        g.db.merge(ban)
 
     return "OK"
 
@@ -48,9 +46,9 @@ class RemoveBanRequest(pydantic.BaseModel):
 def remove_ban() -> ViewReturn:
     req = RemoveBanRequest.parse_obj(request.json)
 
-    ban = g.db.query(Ban).filter(Ban.kind == req.kind, Ban.id == req.id).one()
-    g.db.delete(ban)
-    g.db.commit()
+    with g.db.begin():
+        ban = g.db.query(Ban).filter(Ban.kind == req.kind, Ban.id == req.id).one()
+        g.db.delete(ban)
 
     return "OK"
 
@@ -60,8 +58,8 @@ def remove_ban() -> ViewReturn:
 @auth.require_permission("bans-view")
 def list_bans() -> ViewReturn:
     # Prune before we show anything
-    g.db.query(Ban).filter(Ban.expires_at < datetime.datetime.utcnow()).delete()
-    g.db.commit()
+    with g.db.begin():
+        g.db.query(Ban).filter(Ban.expires_at < datetime.datetime.utcnow()).delete()
 
     ban_list = g.db.query(Ban).all()
     character_ids = [ban.id for ban in ban_list if ban.kind == "character"]

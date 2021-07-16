@@ -32,11 +32,11 @@ def make_engine(cfg: Dict[str, str]) -> sqlalchemy.engine.Engine:
         if arg_name in cfg:
             kwargs[arg_name] = str(cfg[arg_name])
 
-    return create_engine(cfg["connect"], **kwargs)  # type: ignore
+    return create_engine(cfg["connect"], future=True, **kwargs)  # type: ignore
 
 
 engine = make_engine(dict(CONFIG["database"]))
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine, future=True)
 
 Base = declarative_base()
 

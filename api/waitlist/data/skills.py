@@ -1,15 +1,17 @@
 from typing import Dict
-from .database import SkillCurrent, SkillHistory, Session
+import sqlalchemy
+from .database import SkillCurrent, SkillHistory
 from . import esi
 
 
-def load_character_skills(character_id: int) -> Dict[int, int]:
+def load_character_skills(
+    character_id: int, session: sqlalchemy.orm.session.Session
+) -> Dict[int, int]:
     skills_raw = esi.get(
         "/v4/characters/%d/skills/" % character_id, character_id
     ).json()
 
-    session = Session()
-    try:
+    with session.begin():
         stored_skills = {}
         for skill in (
             session.query(SkillCurrent)
@@ -62,9 +64,5 @@ def load_character_skills(character_id: int) -> Dict[int, int]:
             session.add_all(skills_add)
         if history_add:
             session.add_all(history_add)
-        session.commit()
 
         return levels
-
-    finally:
-        session.close()

@@ -24,13 +24,13 @@ def add_acl() -> ViewReturn:
     if "access-manage" in leveldata and not auth.has_access("access-manage-all"):
         return "Cannot grant %s" % req.level, 400
 
-    char = g.db.query(Character).filter(Character.id == req.id).one_or_none()
-    if not char:
-        return "Character not found", 404
+    with g.db.begin():
+        char = g.db.query(Character).filter(Character.id == req.id).one_or_none()
+        if not char:
+            return "Character not found", 404
 
-    admin = Administrator(character_id=char.id, level=req.level)
-    g.db.add(admin)
-    g.db.commit()
+        admin = Administrator(character_id=char.id, level=req.level)
+        g.db.add(admin)
 
     return "OK"
 
@@ -45,13 +45,15 @@ class RemoveAclRequest(pydantic.BaseModel):
 def remove_acl() -> ViewReturn:
     req = RemoveAclRequest.parse_obj(request.json)
 
-    acl = g.db.query(Administrator).filter(Administrator.character_id == req.id).one()
-    leveldata = auth.ACCESS_LEVELS[acl.level]
-    if "access-manage" in leveldata and not auth.has_access("access-manage-all"):
-        return "Cannot revoke %s" % acl.level, 400
+    with g.db.begin():
+        acl = (
+            g.db.query(Administrator).filter(Administrator.character_id == req.id).one()
+        )
+        leveldata = auth.ACCESS_LEVELS[acl.level]
+        if "access-manage" in leveldata and not auth.has_access("access-manage-all"):
+            return "Cannot revoke %s" % acl.level, 400
 
-    g.db.delete(acl)
-    g.db.commit()
+        g.db.delete(acl)
 
     return "OK"
 
