@@ -1,9 +1,9 @@
 Flask==2.0.1
 PyYAML==5.4.1
-requests==2.25.1
-SQLAlchemy[mypy]==1.4.20
+requests==2.26.0
+SQLAlchemy[mypy]==1.4.21
 gevent==21.1.2
 mysqlclient==2.0.3
 pydantic==1.8.2
 pybranca==0.4.0
-msgpack==0.6.2
+msgpack==1.0.2

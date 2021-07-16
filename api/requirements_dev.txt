@@ -1,5 +1,5 @@
 -r requirements.txt
-black>=21.5b1
-mypy>=0.812
-pylint>=2.8.2
+black>=21.6b0
+mypy>=0.910
+pylint>=2.9.3
 msgpack-types>=0.1.0
