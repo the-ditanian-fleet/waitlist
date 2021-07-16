@@ -1,3 +1,4 @@
+import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { Box } from "./Box";
@@ -34,6 +35,17 @@ ModalDom.Content = styled.div`
 `;
 
 export function Modal({ children, open = false, setOpen }) {
+  React.useEffect(() => {
+    const handler = (evt) => {
+      if (evt.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [setOpen]);
+
   return ReactDOM.createPortal(
     <ModalDom open={open}>
       <ModalDom.Background onClick={(evt) => setOpen(false)}></ModalDom.Background>
