@@ -29,6 +29,7 @@ export function Guide() {
   const filename = `${guidePath}/guide.md`;
 
   React.useEffect(() => {
+    setLoadedData(null);
     if (!(filename in guideData)) return;
 
     errorToaster(

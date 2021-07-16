@@ -1,19 +1,9 @@
-import React from "react";
 import { Table, Row, Cell, TableBody, TableHead, CellHead } from "../../Components/Table";
-import { apiCall, errorToaster } from "../../api";
-import { ToastContext } from "../../contexts";
+import { useApi } from "../../api";
 import { formatDuration } from "../../Util/time";
 
 export function FleetActivity({ characterId }) {
-  const toastContext = React.useContext(ToastContext);
-  const [history, setHistory] = React.useState(null);
-  React.useEffect(() => {
-    setHistory(null);
-    errorToaster(
-      toastContext,
-      apiCall("/api/history/fleet?character_id=" + characterId, {}).then(setHistory)
-    );
-  }, [toastContext, characterId]);
+  const [history] = useApi(`/api/history/fleet?character_id=${characterId}`);
 
   if (!history) {
     return <em>Loading...</em>;

@@ -1,6 +1,5 @@
 import React from "react";
-import { ToastContext } from "../../contexts";
-import { apiCall, errorToaster } from "../../api";
+import { useApi } from "../../api";
 import { Input, InputGroup } from "../../Components/Form";
 import _ from "lodash";
 import { Content } from "../../Components/Page";
@@ -11,21 +10,10 @@ export function FleetCompHistory() {
   const [date, setDate] = React.useState("");
   const [time, setTime] = React.useState("");
 
-  const toastContext = React.useContext(ToastContext);
-  const [result, setResult] = React.useState(null);
-
   const parsedDate = date && time ? new Date(`${date}T${time}Z`) : null;
   const parsedDateUnix = parsedDate ? parsedDate.getTime() / 1000 : null;
 
-  React.useEffect(() => {
-    setResult(null);
-    if (!parsedDateUnix) return;
-
-    errorToaster(
-      toastContext,
-      apiCall(`/api/history/fleet-comp?time=${parsedDateUnix}`, {}).then(setResult)
-    );
-  }, [parsedDateUnix, toastContext]);
+  const [result] = useApi(parsedDateUnix ? `/api/history/fleet-comp?time=${parsedDateUnix}` : null);
 
   return (
     <Content>

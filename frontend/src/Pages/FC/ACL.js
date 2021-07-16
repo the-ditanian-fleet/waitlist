@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { apiCall, errorToaster, toaster } from "../../api";
+import { apiCall, toaster, useApi } from "../../api";
 import { Box } from "../../Components/Box";
 import { Button, Input, Select } from "../../Components/Form";
 import { PageTitle, Title } from "../../Components/Page";
@@ -26,12 +26,8 @@ async function addAcl(id, level) {
 }
 
 function ACLOverview() {
+  const [acl] = useApi("/api/acl/list");
   const toastContext = React.useContext(ToastContext);
-  const [acl, setAcl] = React.useState(null);
-
-  React.useEffect(() => {
-    errorToaster(toastContext, apiCall("/api/acl/list", {}).then(setAcl));
-  }, [toastContext]);
 
   if (!acl) {
     return <em>Loading</em>;

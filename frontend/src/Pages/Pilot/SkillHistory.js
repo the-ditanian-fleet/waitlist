@@ -1,19 +1,9 @@
-import React from "react";
 import _ from "lodash";
 import { Cell, CellHead, Row, Table, TableBody, TableHead } from "../../Components/Table";
-import { ToastContext } from "../../contexts";
-import { apiCall, errorToaster } from "../../api";
+import { useApi } from "../../api";
 
 export function SkillHistory({ characterId }) {
-  const toastContext = React.useContext(ToastContext);
-  const [history, setHistory] = React.useState(null);
-  React.useEffect(() => {
-    setHistory(null);
-    errorToaster(
-      toastContext,
-      apiCall("/api/history/skills?character_id=" + characterId, {}).then(setHistory)
-    );
-  }, [toastContext, characterId]);
+  const [history] = useApi(`/api/history/skills?character_id=${characterId}`);
 
   if (!history) {
     return <em>Loading skill history...</em>;

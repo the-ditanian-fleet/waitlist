@@ -1,7 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { ToastContext } from "../../contexts";
-import { apiCall, errorToaster } from "../../api";
+import { useApi } from "../../api";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import styled, { ThemeContext } from "styled-components";
 
@@ -312,11 +311,7 @@ function TimeSpentByHull28d({ data }) {
 }
 
 export function Statistics() {
-  const toastContext = React.useContext(ToastContext);
-  const [statsData, setStatsData] = React.useState(null);
-  React.useEffect(() => {
-    errorToaster(toastContext, apiCall("/api/stats", {}).then(setStatsData));
-  }, [toastContext]);
+  const [statsData] = useApi("/api/stats");
 
   if (!statsData) {
     return <em>Loading statistics...</em>;

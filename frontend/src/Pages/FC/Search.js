@@ -1,16 +1,14 @@
 import React from "react";
 import { Input, NavButton } from "../../Components/Form";
 import { Cell, Table, Row, TableHead, TableBody, CellHead } from "../../Components/Table";
-import { apiCall, errorToaster } from "../../api";
-import { AuthContext, ToastContext } from "../../contexts";
+import { useApi } from "../../api";
+import { AuthContext } from "../../contexts";
 import { useLocation, useHistory } from "react-router-dom";
 
 export function Search() {
-  const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
   const history = useHistory();
   const queryParams = new URLSearchParams(useLocation().search);
-  const [results, setResults] = React.useState(null);
 
   const searchTerm = queryParams.get("query") || "";
   const setSearchTerm = (newTerm) => {
@@ -24,22 +22,9 @@ export function Search() {
     });
   };
 
-  React.useEffect(() => {
-    setResults(null);
-    if (searchTerm.length < 3) {
-      return;
-    }
-    errorToaster(
-      toastContext,
-      apiCall(
-        "/api/search?" +
-          new URLSearchParams({
-            query: searchTerm,
-          }),
-        {}
-      ).then(setResults)
-    );
-  }, [toastContext, searchTerm, setResults]);
+  const [results] = useApi(
+    searchTerm.length >= 3 ? "/api/search?" + new URLSearchParams({ query: searchTerm }) : null
+  );
 
   return (
     <>

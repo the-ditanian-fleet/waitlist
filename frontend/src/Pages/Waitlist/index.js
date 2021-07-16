@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthContext, ToastContext, EventContext } from "../../contexts";
-import { apiCall, errorToaster } from "../../api";
+import { apiCall, errorToaster, useApi } from "../../api";
 import { useLocation, useHistory } from "react-router-dom";
 import { InputGroup, Button, Buttons, NavButton } from "../../Components/Form";
 import {
@@ -45,27 +45,11 @@ async function removeEntry(id) {
 }
 
 function useWaitlist(waitlistId) {
-  const toastContext = React.useContext(ToastContext);
   const eventContext = React.useContext(EventContext);
 
-  const [waitlistData, setWaitlistData] = React.useState(null);
-
-  // Heart of the logic: this function downloads the waitlist and writes into the state
-  const refreshFn = React.useCallback(() => {
-    if (!waitlistId) {
-      setWaitlistData(null);
-      return;
-    }
-    errorToaster(
-      toastContext,
-      apiCall(`/api/waitlist?waitlist_id=${waitlistId}`, {}).then(setWaitlistData)
-    );
-  }, [waitlistId, setWaitlistData, toastContext]);
-
-  // Re-invoke the refresh function if our inputs have changed
-  React.useEffect(() => {
-    refreshFn();
-  }, [refreshFn]);
+  const [waitlistData, refreshFn] = useApi(
+    waitlistId ? `/api/waitlist?waitlist_id=${waitlistId}` : null
+  );
 
   // Listen for events
   React.useEffect(() => {

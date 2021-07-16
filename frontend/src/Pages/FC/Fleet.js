@@ -3,7 +3,7 @@ import { AuthContext, ToastContext } from "../../contexts";
 import { Confirm } from "../../Components/Modal";
 import { Button, Buttons, InputGroup, NavButton, Select } from "../../Components/Form";
 import { Content, Title } from "../../Components/Page";
-import { apiCall, errorToaster, toaster } from "../../api";
+import { apiCall, errorToaster, toaster, useApi } from "../../api";
 import { Cell, CellHead, Row, Table, TableBody, TableHead } from "../../Components/Table";
 import _ from "lodash";
 
@@ -26,16 +26,11 @@ async function closeFleet(characterId) {
 }
 
 export function Fleet() {
-  const [fleets, setFleets] = React.useState(null);
   const [fleetCloseModalOpen, setFleetCloseModalOpen] = React.useState(false);
   const [emptyWaitlistModalOpen, setEmptyWaitlistModalOpen] = React.useState(false);
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
-
-  React.useEffect(() => {
-    setFleets(null);
-    errorToaster(toastContext, apiCall("/api/fleet/status", {}).then(setFleets));
-  }, [toastContext]);
+  const [fleets] = useApi("/api/fleet/status");
 
   React.useEffect(() => {
     // FCs will need this, request it now

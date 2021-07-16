@@ -1,22 +1,12 @@
-import React from "react";
 import { Table, Row, Cell, TableBody, TableHead, CellHead } from "../../Components/Table";
-import { apiCall, errorToaster } from "../../api";
-import { ToastContext } from "../../contexts";
+import { useApi } from "../../api";
 
 function implantsToFit(implants) {
   return "670:" + implants.map((implant) => `${implant};1`).join(":") + "::";
 }
 
 export function FitHistory({ characterId }) {
-  const toastContext = React.useContext(ToastContext);
-  const [history, setHistory] = React.useState(null);
-  React.useEffect(() => {
-    setHistory(null);
-    errorToaster(
-      toastContext,
-      apiCall("/api/history/xup?character_id=" + characterId, {}).then(setHistory)
-    );
-  }, [toastContext, characterId]);
+  const [history] = useApi(`/api/history/xup?character_id=${characterId}`);
 
   if (!history) {
     return <em>Loading history...</em>;

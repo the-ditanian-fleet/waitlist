@@ -1,6 +1,6 @@
 import React from "react";
-import { AuthContext, ToastContext } from "../../contexts";
-import { apiCall, errorToaster } from "../../api";
+import { AuthContext } from "../../contexts";
+import { useApi } from "../../api";
 import { useLocation, useHistory } from "react-router-dom";
 import { Badge } from "../../Components/Badge";
 import { PageTitle } from "../../Components/Page";
@@ -162,8 +162,6 @@ export function SkillList({ mySkills, shipName }) {
 }
 
 export function Skills() {
-  const [skills, setSkills] = React.useState(null);
-  const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
   const queryParams = new URLSearchParams(useLocation().search);
   const history = useHistory();
@@ -171,22 +169,14 @@ export function Skills() {
   var characterId = queryParams.get("character_id") || authContext.current.id;
   var ship = queryParams.get("ship") || "Vindicator";
 
+  const [skills] = useApi(`/api/skills?character_id=${characterId}`);
+
   const setShip = (newShip) => {
     queryParams.set("ship", newShip);
     history.push({
       search: queryParams.toString(),
     });
   };
-
-  React.useEffect(() => {
-    setSkills(null);
-    errorToaster(
-      toastContext,
-      apiCall("/api/skills?character_id=" + characterId, {}).then((charSkills) =>
-        setSkills(charSkills)
-      )
-    );
-  }, [toastContext, characterId]);
 
   if (!skills) {
     return <p>Loading skill information</p>;

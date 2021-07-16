@@ -1,4 +1,6 @@
+import React from "react";
 import { addToast } from "./Components/Toast";
+import { ToastContext } from "./contexts";
 
 export async function apiCall(path, { json, ...options }) {
   var requestOptions = {
@@ -59,4 +61,28 @@ export async function errorToaster(toastContext, promise) {
       variant: "danger",
     });
   }
+}
+
+export function useApi(path) {
+  const toastContext = React.useContext(ToastContext);
+  const [data, setData] = React.useState(null);
+
+  const refreshFunction = React.useCallback(() => {
+    if (!path) return;
+
+    errorToaster(
+      toastContext,
+      apiCall(path, {}).then(setData, (err) => {
+        setData(null);
+        throw err;
+      })
+    );
+  }, [toastContext, path]);
+
+  React.useEffect(() => {
+    setData(null);
+    refreshFunction();
+  }, [refreshFunction]);
+
+  return [data, refreshFunction];
 }

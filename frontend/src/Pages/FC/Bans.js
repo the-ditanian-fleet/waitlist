@@ -4,7 +4,7 @@ import { Table, Row, Cell, TableHead, TableBody, CellHead } from "../../Componen
 import { Button, Input, NavButton, Select } from "../../Components/Form";
 
 import { AuthContext, ToastContext } from "../../contexts";
-import { errorToaster, toaster, apiCall } from "../../api";
+import { useApi, toaster, apiCall } from "../../api";
 
 async function removeBan({ kind, id }) {
   return apiCall("/api/bans/remove", {
@@ -26,16 +26,8 @@ export function BanRoutes() {
 }
 
 function BanList() {
-  const [bans, setBans] = React.useState(null);
-  const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
-
-  const refreshBans = React.useCallback(() => {
-    errorToaster(toastContext, apiCall("/api/bans/list", {}).then(setBans));
-  }, [toastContext]);
-  React.useEffect(() => {
-    refreshBans();
-  }, [refreshBans]);
+  const [bans, refreshBans] = useApi("/api/bans/list");
 
   if (!bans) {
     return <em>Loading bans...</em>;
