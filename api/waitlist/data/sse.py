@@ -6,6 +6,8 @@ import requests
 
 from .config import CONFIG
 
+session = requests.Session()
+
 
 def sse_sign(data: Dict[str, Any]) -> str:
     packed = msgpack.packb(data)
@@ -13,7 +15,7 @@ def sse_sign(data: Dict[str, Any]) -> str:
 
 
 def submit(messages: List[Dict[str, str]]) -> None:
-    requests.post(
+    session.post(
         "%s/submit" % CONFIG["sse"]["url"],
         data=sse_sign(
             {
