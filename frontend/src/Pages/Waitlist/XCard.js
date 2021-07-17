@@ -161,7 +161,12 @@ function ShipDisplay({ fit, onView }) {
             </Box>
           </Modal>
         ) : null}
-        <a onClick={(evt) => setModalOpen(true)}>
+        <a
+          onClick={(evt) => {
+            setModalOpen(true);
+            if (onView) onView();
+          }}
+        >
           <img
             style={{ height: "40px" }}
             src={"https://imageserver.eveonline.com/Type/" + fit.hull.id + "_64.png"}
