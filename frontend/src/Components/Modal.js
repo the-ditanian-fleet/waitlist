@@ -31,6 +31,7 @@ ModalDom.Content = styled.div`
   > ${Box} {
     min-width: 300px;
     min-height: 200px;
+    max-width: 1300px;
   }
 `;
 

@@ -98,16 +98,16 @@ const LevelIndicator = ({ current, skill }) => {
   return null;
 };
 
-function SkillTable({ title, current, requirements, ids, category, filterElite }) {
+function SkillTable({ title, current, requirements, ids, category, filterMin }) {
   var entries = [];
   category.forEach((skillId) => {
     if (!(skillId in requirements)) {
       return;
     }
     const skill = requirements[skillId];
-    if (filterElite) {
-      if (!skill.elite) return;
-      if (skill.elite <= current[skillId]) {
+    if (filterMin) {
+      if (!skill.min) return;
+      if (skill.min <= current[skillId]) {
         return;
       }
     }
@@ -131,7 +131,7 @@ function SkillTable({ title, current, requirements, ids, category, filterElite }
   );
 }
 
-export function SkillList({ mySkills, shipName, filterElite }) {
+export function SkillList({ mySkills, shipName, filterMin }) {
   const ids = _.invert(mySkills.ids);
 
   if (!(shipName in mySkills.requirements)) {
@@ -156,7 +156,7 @@ export function SkillList({ mySkills, shipName, filterElite }) {
             requirements={mySkills.requirements[shipName]}
             category={mySkills.categories[category]}
             ids={ids}
-            filterElite={filterElite}
+            filterMin={filterMin}
           />
         ))}
       </SkillDom.Category>
@@ -164,7 +164,7 @@ export function SkillList({ mySkills, shipName, filterElite }) {
   );
 }
 
-export function SkillDisplay({ characterId, ship, setShip = null, filterElite = false }) {
+export function SkillDisplay({ characterId, ship, setShip = null, filterMin = false }) {
   const [skills] = useApi(`/api/skills?character_id=${characterId}`);
 
   return (
@@ -211,7 +211,7 @@ export function SkillDisplay({ characterId, ship, setShip = null, filterElite = 
         <Badge variant="secondary">Elite</Badge> <Badge variant="success">Elite GOLD</Badge>
       </div>
       {skills ? (
-        <SkillList mySkills={skills} shipName={ship} filterElite={filterElite} />
+        <SkillList mySkills={skills} shipName={ship} filterMin={filterMin} />
       ) : (
         <p>Loading skill information</p>
       )}
