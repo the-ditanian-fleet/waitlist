@@ -152,8 +152,16 @@ function ShipDisplay({ fit, onView }) {
           <Modal open={true} setOpen={setModalOpen}>
             <Box>
               <FitDisplay fit={fit} />
-              <Title>Missing skills</Title>
-              <SkillDisplay characterId={fit.character.id} ship={fit.hull.name} filterMin={true} />
+              {fit.tags.includes("STARTER-SKILLS") ? (
+                <>
+                  <Title>Starter skills</Title>
+                  <SkillDisplay
+                    characterId={fit.character.id}
+                    ship={fit.hull.name}
+                    filterMin={true}
+                  />
+                </>
+              ) : null}
             </Box>
           </Modal>
         ) : null}
