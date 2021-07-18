@@ -8,18 +8,16 @@ const CategoryHeadingDOM = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 2px ${(props) => props.theme.colors.accent2};
 
   > h2 {
-    font-size: 1.5em;
-    flex-basis: 50%;
-    flex-grow: 1;
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 0.2em;
   }
   > div {
-    max-width: 50%;
-    flex-shrink: 1;
     display: flex;
-    flex-wrap: wrap;
-    margin-left: auto;
     opacity: 0.7;
     > span {
       flex: 1;
