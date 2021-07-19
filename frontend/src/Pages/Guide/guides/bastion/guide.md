@@ -44,14 +44,15 @@ TCRCs are special, and you are mostly likely to grab aggro due to your high dps.
 2. During the one cycle kill tagged Deltoles/Outunis in order. After the cycle is done jump to the left of the tower.
 3. Keep shooting but wait for the aggro swap from the meat shield to whomever, WAIT for the full switch!!! Once this happens you should have enough time for 1 cycle of bastion. If you are quick, you CAN get 2 cycles but please get used to 1 cycle before trying 2.
 4. After each FULL switch you can Bastion 1 cycle. DO NOT Bastion when the tower is in hull unless otherwise instructed by FC.
+
 Be very mindful of your fellow bastion pilots when jumping from the beacon, be aligned correctly right between the tower and the Sansha Starbase Shield Transfer Array (balls) or there will be bumps! Patience is key and if waiting a moment longer prevents a bump then do so.
 
 ![](bumpwarning.png)
 
 ## Additional tips
 
-* **Late Entry**. If you enter a TCRC late and the aggro switches to you on the beacon you must check to see if your logi are in rep range, if they are not because they already burned to the tower, or they are quickly approaching it then you must jump immediately and make them aware of the situation.
-* **Split Aggro Entrance**. If on a normal TCRC entrance you accidentally get aggro instead of the meat shield make sure to check if you have enough capacitor to jump, and if not ask for battle cap. If you have the Outuni aggro you should have already broadcasted for capacitor. Nestors will be burning towards the tower the moment they enter site so do not get left behind.
-* **MJD Cancel**. If you MJD and get bumped you can cycle your bastion module on to prevent the jump from happening, but be aware this will leave you in your current spot and in bastion, so stop shooting and do not pull aggro, you will have the full MJD cooldown timer and your bastion cycle time, our recomendation at this point is to burn with microwarpdrive as normal to anchor once your bastion cycle ends.
-* **MWD Trick**. You can give yourself an accelerated warp out using your MWD when nearing the end of bastion cycles, once your bastion cycle is at 10 seconds or less cycle your MWD once (make sure to red cycle it!), when your bastion cycle ends initiate warp to next destination and when your MWD cycle ends you will in effect insta warp out.
-* **Stuck Bastion**. If your Bastion module gets stuck on, a workaround that has worked (but not in all cases) has been to move the module to a different row on your module interface.
+- **Late Entry**. If you enter a TCRC late and the aggro switches to you on the beacon you must check to see if your logi are in rep range, if they are not because they already burned to the tower, or they are quickly approaching it then you must jump immediately and make them aware of the situation.
+- **Split Aggro Entrance**. If on a normal TCRC entrance you accidentally get aggro instead of the meat shield make sure to check if you have enough capacitor to jump, and if not ask for battle cap. If you have the Outuni aggro you should have already broadcasted for capacitor. Nestors will be burning towards the tower the moment they enter site so do not get left behind.
+- **MJD Cancel**. If you MJD and get bumped you can cycle your bastion module on to prevent the jump from happening, but be aware this will leave you in your current spot and in bastion, so stop shooting and do not pull aggro, you will have the full MJD cooldown timer and your bastion cycle time, our recomendation at this point is to burn with microwarpdrive as normal to anchor once your bastion cycle ends.
+- **MWD Trick**. You can give yourself an accelerated warp out using your MWD when nearing the end of bastion cycles, once your bastion cycle is at 10 seconds or less cycle your MWD once (make sure to red cycle it!), when your bastion cycle ends initiate warp to next destination and when your MWD cycle ends you will in effect insta warp out.
+- **Stuck Bastion**. If your Bastion module gets stuck on, a workaround that has worked (but not in all cases) has been to move the module to a different row on your module interface.
