@@ -13,6 +13,7 @@ const ToastDOM = styled.div`
   transition-timing-function: ease-in-out;
   transition-duration: 0.3s;
   box-sizing: content-box;
+  z-index: 100;
 `;
 ToastDOM.Container = styled.div`
   > ${ToastDOM} {

@@ -1,10 +1,66 @@
 from typing import List, Dict
+from enum import Enum
 import sqlite3
 
 DATABASE = sqlite3.connect("sqlite-shrunk.sqlite", check_same_thread=False)
 
 ID_CACHE: Dict[str, int] = {}
 NAME_CACHE: Dict[int, str] = {}
+
+
+class Attribute(Enum):
+    META_LEVEL = 633
+
+
+class Effect(Enum):
+    LOW_POWER = 11
+    HIGH_POWER = 12
+    MED_POWER = 13
+    RIG_SLOT = 2663
+
+
+class Category(Enum):
+    SHIP = 6
+    MODULE = 7
+    CHARGE = 8
+    DRONE = 18
+    IMPLANT = 20
+    OTHER = 99999
+
+
+KNOWN_ATTRIBUTES = {attr.value for attr in Attribute}
+KNOWN_EFFECTS = {effect.value for effect in Effect}
+KNOWN_CATEGORIES = {category.value for category in Category}
+
+
+def type_attributes(ids: List[int]) -> Dict[int, Dict[Attribute, float]]:
+    query = (
+        "select typeID, attributeID, coalesce(valueInt,valueFloat) "
+        + "from dgmTypeAttributes where typeID IN (%s)" % (",".join("?" for n in ids))
+    )
+    qresult = DATABASE.cursor().execute(query, ids)
+
+    result: Dict[int, Dict[Attribute, float]] = {}
+    for type_id, attribute_id, value in qresult:
+        if attribute_id not in KNOWN_ATTRIBUTES:
+            continue
+        result.setdefault(int(type_id), {})[Attribute(attribute_id)] = float(value)
+    return result
+
+
+def type_effects(ids: List[int]) -> Dict[int, Dict[Effect, bool]]:
+    query = (
+        "select typeID, effectID, isDefault "
+        + "from dgmTypeEffects where typeID IN (%s)" % (",".join("?" for n in ids))
+    )
+    qresult = DATABASE.cursor().execute(query, ids)
+
+    result: Dict[int, Dict[Effect, bool]] = {}
+    for type_id, effect_id, value in qresult:
+        if effect_id not in KNOWN_EFFECTS:
+            continue
+        result.setdefault(int(type_id), {})[Effect(effect_id)] = bool(value)
+    return result
 
 
 def type_names(ids: List[int]) -> Dict[int, str]:
@@ -31,7 +87,7 @@ def type_ids(names: List[str]) -> Dict[str, int]:
     return result
 
 
-def type_categories(ids: List[int]) -> Dict[int, int]:
+def type_categories(ids: List[int]) -> Dict[int, Category]:
     query = (
         "SELECT typeID, groupID FROM invTypes WHERE typeID IN (%s) order by published asc"
         % (",".join("?" for n in ids))
@@ -42,7 +98,12 @@ def type_categories(ids: List[int]) -> Dict[int, int]:
     query = "SELECT groupID, categoryID FROM invGroups WHERE groupID IN (%s)" % (
         ",".join("?" for n in group_ids)
     )
-    group_categories = dict(DATABASE.cursor().execute(query, list(group_ids)))
+    group_categories = {
+        groupID: (
+            Category(categoryID) if categoryID in KNOWN_CATEGORIES else Category.OTHER
+        )
+        for groupID, categoryID in DATABASE.cursor().execute(query, list(group_ids))
+    }
 
     result = {}
     for type_id, group_id in type_groups:

@@ -2,7 +2,10 @@ import re
 from typing import Dict, List, Tuple
 from .data import evedb
 
-NOT_MODULE_CATEGORIES = [8, 20]
+NOT_MODULE_CATEGORIES = [
+    evedb.Category.CHARGE,
+    evedb.Category.IMPLANT,
+]
 
 
 def split_eft(eft_input: str) -> List[str]:
@@ -57,7 +60,11 @@ def eft2dna(eft_input: str) -> str:  # pylint: disable=too-many-locals
         for itemname, count, stacked in sections[section_i]:
             counts.setdefault(itemname, 0)
             counts[itemname] += count
-            if stacked and section_i >= 4 and categories[ids[itemname]] != 18:
+            if (
+                stacked
+                and section_i >= 4
+                and categories[ids[itemname]] != evedb.Category.DRONE
+            ):
                 inactive = True
 
         for itemname in sorted(counts.keys()):

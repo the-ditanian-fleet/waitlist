@@ -21,4 +21,7 @@ create index invMetaTypes_parentTypeID on invMetaTypes (parentTypeID);
 
 create table dgmTypeAttributes as select * from ext.dgmTypeAttributes where attributeID IN (633);
 create index dgmTypeAttributes_typeID on dgmTypeAttributes (typeID);
+
+create table dgmTypeEffects as select * from ext.dgmTypeEffects where effectID IN (11,12,13,2663);
+create index dgmTypeEffects_typeID on dgmTypeEffects (typeID);
 "
