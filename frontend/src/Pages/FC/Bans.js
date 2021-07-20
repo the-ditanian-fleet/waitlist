@@ -64,12 +64,7 @@ function BanEntry({ kind, id, name, expires_at, onAction }) {
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
 
-  var link;
-  if (kind === "character") {
-    link = `char:${id}`;
-  } else if (kind === "corporation" || kind === "alliance") {
-    link = `https://evewho.com/${kind}/${id}`;
-  }
+  var link = `https://evewho.com/${kind}/${id}`;
 
   return (
     <Row>

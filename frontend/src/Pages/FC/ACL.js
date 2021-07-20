@@ -47,9 +47,7 @@ function ACLOverview() {
         <TableBody>
           {acl.acl.map((admin) => (
             <Row key={admin.id}>
-              <Cell>
-                <a href={`char:${admin.id}`}>{admin.name}</a>
-              </Cell>
+              <Cell>{admin.name}</Cell>
               <Cell>{admin.level}</Cell>
               <Cell>
                 <Button

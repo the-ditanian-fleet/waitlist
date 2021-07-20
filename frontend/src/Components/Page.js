@@ -69,6 +69,15 @@ export const Content = styled.div`
     list-style-type: number;
     padding-left: 2em;
   }
+
+  pre {
+    font-family: ${(props) => props.theme.font.monospaceFamily};
+    font-size: 0.8em;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+    background-color: ${(props) => props.theme.colors.accent1};
+  }
 `;
 
 export const PageTitle = styled.h1`

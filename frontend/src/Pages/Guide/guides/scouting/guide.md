@@ -2,7 +2,7 @@
 
 An important fleet role is the _Scout_, which an FC can do themselves or delegate. Your job as a scout is to give the FC awareness of the other fleets in system, and to preload the TCRC sites so we can run them faster.
 
-Scouting is done from a second omega account (alt) in a ship that's optimized for (warp) speed. A good and cheap place to start is the [Atron Scout](fitting:608:19660;1:11370;1:35658;1:5533;3:561;1:6135;1:8537;1:31165;3:6527;1:44268;100:215;1000::) which can be trained in about 15 minutes on a fresh character. A more expensive but even faster option is the [Astero](fitting:33468:2281;1:35658;1:1405;3:11578;1:380;2:31165;3:33983;1::). However, please understand that losing scout ships is common, especially early on. Once you have been scouting for a while you will likely discover your own scout ship preference, which could involve interceptors or even a Pacifier.
+Scouting is done from a second omega account (alt) in a ship that's optimized for (warp) speed. A good and cheap place to start is the Atron Scout at the bottom of this guide which can be trained in about 15 minutes on a fresh character. A more expensive but even faster option is the Astero. However, please understand that losing scout ships is common, especially early on. Once you have been scouting for a while you will likely discover your own scout ship preference, which could involve interceptors or even a Pacifier.
 
 Scouting is a fairly advanced role that requires multiboxing, so don't try this before you have mastered flying your primary ship.
 
@@ -61,3 +61,48 @@ When a site ends, a new one will spawn in roughly 7 minutes and 10 seconds. By s
 ## Thank you
 
 Scouting is a very important fleet role, and you really help the FC a lot by doing it. Site times go down a lot with a good scout. Thank you for being awesome!
+
+## Fits
+
+```
+[Atron, Atron Scout]
+75mm Gatling Rail I
+Small S95a Scoped Remote Shield Booster
+Prototype Cloaking Device I
+Festival Launcher
+
+PL-0 Scoped Cargo Scanner
+Ta3 Compact Ship Scanner
+5MN Quad LiF Restrained Microwarpdrive
+
+Type-D Restrained Inertial Stabilizers
+Type-D Restrained Inertial Stabilizers
+Type-D Restrained Inertial Stabilizers
+
+Small Hyperspatial Velocity Optimizer II
+Small Hyperspatial Velocity Optimizer II
+Small Hyperspatial Velocity Optimizer II
+
+
+Iron Charge S x1000
+Four Freedoms Firework x100
+```
+
+```
+[Astero, Astero]
+Covert Ops Cloaking Device II
+
+Small Shield Extender II
+Small Shield Extender II
+Multispectrum Shield Hardener II
+5MN Quad LiF Restrained Microwarpdrive
+
+Inertial Stabilizers II
+Inertial Stabilizers II
+Inertial Stabilizers II
+Experimental Hyperspatial Accelerator
+
+Small Hyperspatial Velocity Optimizer II
+Small Hyperspatial Velocity Optimizer II
+Small Hyperspatial Velocity Optimizer II
+```

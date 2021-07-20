@@ -266,11 +266,7 @@ export function XCard({ entry, fit, onAction }) {
       }
     >
       <XCardDOM.Head>
-        {entry.character ? (
-          <a href={"char:" + entry.character.id}>{accountName}</a>
-        ) : (
-          <span>{accountName}</span>
-        )}
+        <span>{accountName}</span>
         <XCardDOM.Head.Badges>
           {tagImages}
           {approvalFlag}
