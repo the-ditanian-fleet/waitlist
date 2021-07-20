@@ -1,4 +1,4 @@
-from typing import Dict, List, Tuple, Any, Optional
+from typing import Dict, List, Tuple, Optional
 import json
 import datetime
 from flask import Blueprint, request, g
@@ -34,13 +34,6 @@ def notify_waitlist_update(waitlist_id: int) -> None:
             ),
         ]
     )
-
-
-def _add_ids(fit_analysis: Dict[str, Any]) -> Dict[str, Any]:
-    new_analysis = {**fit_analysis}
-    if "_ids" in fit_analysis:
-        new_analysis["_ids"] = evedb.type_names(fit_analysis["_ids"])
-    return new_analysis
 
 
 @bp.route("/api/waitlist")
@@ -104,7 +97,7 @@ def get_waitlist() -> ViewReturn:
                     map(int, filter(lambda x: x, implant_set.implants.split(":")))
                 )
                 if fitentry.fit_analysis:
-                    fit["fit_analysis"] = _add_ids(json.loads(fitentry.fit_analysis))
+                    fit["fit_analysis"] = json.loads(fitentry.fit_analysis)
 
             fits.append(fit)
 

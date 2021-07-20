@@ -109,22 +109,14 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
             self._add_tag("ELITE-FIT")
 
         # Export the results of the fit check
-        fit_check_ids: Set[int] = set()
         if self.fitcheck.missing:
             self.result.fit_check["missing"] = self.fitcheck.missing
-            fit_check_ids.update(self.fitcheck.missing.keys())
         if self.fitcheck.extra:
             self.result.fit_check["extra"] = self.fitcheck.extra
-            fit_check_ids.update(self.fitcheck.extra.keys())
         if self.fitcheck.downgraded:
             self.result.fit_check["downgraded"] = self.fitcheck.downgraded
-            fit_check_ids.update(self.fitcheck.downgraded.keys())
-            for downgrade in self.fitcheck.downgraded.values():
-                fit_check_ids.update(downgrade.keys())
         if self.fitcheck.cargo_missing:
             self.result.fit_check["cargo_missing"] = self.fitcheck.cargo_missing
-            fit_check_ids.update(self.fitcheck.cargo_missing.keys())
-        self.result.fit_check["_ids"] = sorted(list(fit_check_ids))
 
     def check_category(self) -> None:
         items = {self.ship: 1, **self.modules}
