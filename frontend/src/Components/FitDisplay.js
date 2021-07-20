@@ -9,16 +9,29 @@ import { ToastContext } from "../contexts";
 
 const slotOrder = ["high", "med", "low", "rig", "other", "drone", "cargo"];
 
+var modulePreload = null;
 var moduleCache = {};
 
 async function fetchAndCacheModules(commaSeparatedIds) {
   const modules = commaSeparatedIds.split(",");
+
+  // Start by fetching the preload dataset, which has some common items
+  if (!modulePreload) {
+    modulePreload = apiCall("/api/module/preload", {}).catch((err) => (modulePreload = null));
+  }
+  for (const [module, info] of Object.entries(await modulePreload)) {
+    moduleCache[module] = info;
+  }
+
+  // Figure out what we're missing
   var missing = [];
   for (const module of modules) {
     if (!(module in moduleCache)) {
       missing.push(module);
     }
   }
+
+  // Missing anything? Fetch it by ID
   if (missing && missing.length) {
     const apiResult = await apiCall(
       "/api/module/info?" + missing.map((id) => `id=${id}`).join("&"),
@@ -28,10 +41,13 @@ async function fetchAndCacheModules(commaSeparatedIds) {
       moduleCache[module] = info;
     }
   }
+
+  // Build the result
   var result = {};
   for (const module of modules) {
     result[module] = module in moduleCache ? moduleCache[module] : null;
   }
+
   return result;
 }
 
