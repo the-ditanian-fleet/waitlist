@@ -7,6 +7,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { PageTitle } from "../Components/Page";
 import { FitDisplay } from "../Components/FitDisplay";
 import _ from "lodash";
+import { Box } from "../Components/Box";
 
 const exampleFit = String.raw`
 [Vindicator, Vindicator]
@@ -143,7 +144,9 @@ export function XupCheck() {
         you have everything and adjust your fit if needed.
       </em>
       {myEntry.fits.map((fit) => (
-        <FitDisplay key={fit.id} fit={fit} />
+        <Box key={fit.id}>
+          <FitDisplay fit={fit} />
+        </Box>
       ))}
       <Buttons>
         <NavButton variant="primary" to={`/waitlist?wl=${waitlist_id}`}>

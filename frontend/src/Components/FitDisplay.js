@@ -1,11 +1,11 @@
 import React from "react";
-import { Box } from "./Box";
 import styled from "styled-components";
 import { apiCall, toaster } from "../api";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaste } from "@fortawesome/free-solid-svg-icons";
 import { ToastContext } from "../contexts";
+import { Badge } from "./Badge";
 
 const slotOrder = ["high", "med", "low", "rig", "other", "drone", "cargo"];
 
@@ -84,11 +84,37 @@ DOM.Hull.Copy = styled.div`
   cursor: pointer;
   font-size: 0.8em;
 `;
+DOM.Warning = styled.div`
+  margin: 1em 0;
+`;
 DOM.Slot = styled.div`
   margin-bottom: 0.5em;
 `;
 DOM.Line = styled.div`
   display: flex;
+  ${(props) =>
+    ({
+      have: ``,
+      missing: `
+        background-color: ${props.theme.colors.danger.color};
+        color: ${props.theme.colors.danger.text};
+        text-decoration: line-through;
+      `,
+      extra: `
+        background-color: ${props.theme.colors.success.color};
+        color: ${props.theme.colors.success.text};
+      `,
+      downgraded_orig: `
+        background-color: ${props.theme.colors.warning.color};
+        color: ${props.theme.colors.warning.text};
+        text-decoration: line-through;
+      `,
+      downgraded_new: `
+        background-color: ${props.theme.colors.warning.color};
+        color: ${props.theme.colors.warning.text};
+      `,
+    }[props.group])}
+
   > * {
     margin-right: 0.5em;
   }
@@ -120,28 +146,100 @@ function parseDna(dna) {
   return [hull, idsList, counts];
 }
 
-function filterSlots(counts, moduleInfo) {
+function extractAnalysisIds(analysis) {
+  if (!analysis) return [];
+
+  var ids = new Set();
+  for (const group of ["missing", "extra", "cargo_missing"]) {
+    if (!analysis[group]) continue;
+    Object.keys(analysis[group]).forEach((id) => ids.add(id));
+  }
+  for (const group of ["downgraded", "upgraded"]) {
+    if (!analysis[group]) continue;
+    Object.entries(analysis[group]).forEach(([origModuleId, newItems]) => {
+      ids.add(origModuleId);
+      Object.keys(newItems).forEach((id) => ids.add(id));
+    });
+  }
+
+  return Array.from(ids).sort();
+}
+
+function getSlot(moduleId, moduleInfo) {
+  if (moduleId.endsWith("_")) return "cargo";
+  const thisModule = moduleInfo[parseInt(moduleId)] || {};
+  if (thisModule.slot) return thisModule.slot;
+  return "cargo";
+}
+
+function _addCount(destination, moduleId, count) {
+  const realModuleId = parseInt(moduleId);
+  if (!(realModuleId in destination)) {
+    destination[realModuleId] = count;
+  } else {
+    destination[realModuleId] += count;
+    if (!destination[realModuleId]) {
+      delete destination[realModuleId];
+    }
+  }
+}
+
+function _addCount2(destination, origModuleId, newModuleId, count) {
+  const realOrigModuleId = parseInt(origModuleId);
+  const realNewModuleId = parseInt(newModuleId);
+  if (!(realOrigModuleId in destination)) {
+    destination[realOrigModuleId] = {};
+  }
+  if (!(realNewModuleId in destination[realOrigModuleId])) {
+    destination[realOrigModuleId][realNewModuleId] = 0;
+  }
+  destination[realOrigModuleId][realNewModuleId] += count;
+  if (!destination[realOrigModuleId][realNewModuleId]) {
+    delete destination[realOrigModuleId][realNewModuleId];
+  }
+  if (_.isEmpty(destination[realOrigModuleId])) {
+    delete destination[realOrigModuleId];
+  }
+}
+
+function filterSlots(counts, analysis, moduleInfo) {
   if (!moduleInfo) return null;
+
   var slots = {};
-  slotOrder.forEach((slot) => (slots[slot] = {}));
+  slotOrder.forEach(
+    (slot) => (slots[slot] = { have: {}, match: {}, missing: {}, extra: {}, downgraded: {} })
+  );
   for (const [moduleId, count] of Object.entries(counts)) {
-    const realModuleId = parseInt(moduleId); // Will totally strip off the trailing "_"
-    var slot;
-    const thisModule = moduleInfo[realModuleId] || {};
-    if (moduleId.endsWith("_")) {
-      slot = "cargo";
-    } else if (thisModule.slot) {
-      slot = thisModule.slot;
-    } else {
-      slot = "cargo";
+    const slot = getSlot(moduleId, moduleInfo);
+    _addCount(slots[slot].have, moduleId, count);
+    _addCount(slots[slot].match, moduleId, count);
+  }
+  if (analysis && analysis.cargo_missing) {
+    for (const [moduleId, count] of Object.entries(analysis.cargo_missing)) {
+      _addCount(slots["cargo"].missing, moduleId, count);
     }
-    if (!(slot in slots)) {
-      slot = "cargo";
+  }
+  if (analysis && analysis.missing) {
+    for (const [moduleId, count] of Object.entries(analysis.missing)) {
+      const slot = getSlot(moduleId, moduleInfo);
+      _addCount(slots[slot].missing, moduleId, count);
     }
-    if (!(realModuleId in slots[slot])) {
-      slots[slot][realModuleId] = 0;
+  }
+  if (analysis && analysis.extra) {
+    for (const [moduleId, count] of Object.entries(analysis.extra)) {
+      const slot = getSlot(moduleId, moduleInfo);
+      _addCount(slots[slot].match, moduleId, -count);
+      _addCount(slots[slot].extra, moduleId, count);
     }
-    slots[slot][realModuleId] += count;
+  }
+  if (analysis && analysis.downgraded) {
+    for (const [origModuleId, newItems] of Object.entries(analysis.downgraded)) {
+      const slot = getSlot(origModuleId, moduleInfo);
+      for (const [newModuleId, count] of Object.entries(newItems)) {
+        _addCount(slots[slot].match, newModuleId, -count);
+        _addCount2(slots[slot].downgraded, origModuleId, newModuleId, count);
+      }
+    }
   }
   return slots;
 }
@@ -149,7 +247,7 @@ function filterSlots(counts, moduleInfo) {
 function copyableFit(hull, slots, moduleInfo) {
   var fit = `[${moduleInfo[hull].name}, ${moduleInfo[hull].name}]\n`;
   for (const slot of slotOrder) {
-    for (const [module, count] of Object.entries(slots[slot])) {
+    for (const [module, count] of Object.entries(slots[slot].have)) {
       const moduleName = module in moduleInfo ? moduleInfo[module].name : module;
       if (slot === "cargo" || slot === "drone") {
         fit += `${moduleName} x${count}\n`;
@@ -165,11 +263,62 @@ function copyableFit(hull, slots, moduleInfo) {
   return fit;
 }
 
-export function DNADisplay({ dna }) {
+function DisplaySlot({ isDiff, groups, moduleInfo }) {
+  const showGroups = isDiff ? ["match", "missing", "extra"] : ["have"];
+  return (
+    <DOM.Slot>
+      {showGroups.map((group) =>
+        Object.entries(groups[group]).map(([moduleId, count]) => (
+          <DOM.Line key={moduleId} group={group}>
+            <DOM.Line.Image
+              src={`https://imageserver.eveonline.com/Type/${moduleId}_32.png`}
+              alt={(moduleInfo[moduleId] || {}).name || null}
+            />
+            <DOM.Line.Count>{count}</DOM.Line.Count>
+            <DOM.Line.ModuleName>{(moduleInfo[moduleId] || {}).name || null}</DOM.Line.ModuleName>
+          </DOM.Line>
+        ))
+      )}
+      {isDiff &&
+        Object.entries(groups.downgraded).map(([origModuleId, newItems]) =>
+          Object.entries(newItems).map(([newModuleId, count]) => (
+            <React.Fragment key={`${origModuleId} ${newModuleId}`}>
+              <DOM.Line group="downgraded_orig">
+                <DOM.Line.Image
+                  src={`https://imageserver.eveonline.com/Type/${origModuleId}_32.png`}
+                  alt={(moduleInfo[origModuleId] || {}).name || null}
+                />
+                <DOM.Line.Count>{count}</DOM.Line.Count>
+                <DOM.Line.ModuleName>
+                  {(moduleInfo[origModuleId] || {}).name || null}
+                </DOM.Line.ModuleName>
+              </DOM.Line>
+              <DOM.Line group="downgraded_new">
+                <DOM.Line.Image
+                  src={`https://imageserver.eveonline.com/Type/${newModuleId}_32.png`}
+                  alt={(moduleInfo[newModuleId] || {}).name || null}
+                />
+                <DOM.Line.Count>{count}</DOM.Line.Count>
+                <DOM.Line.ModuleName>
+                  {(moduleInfo[newModuleId] || {}).name || null}
+                </DOM.Line.ModuleName>
+              </DOM.Line>
+            </React.Fragment>
+          ))
+        )}
+    </DOM.Slot>
+  );
+}
+
+export function DNADisplay({ dna, analysis = null }) {
   const toastContext = React.useContext(ToastContext);
   const [hull, ids, counts] = React.useMemo(() => parseDna(dna), [dna]);
-  const moduleInfo = useModuleInfo(ids);
-  const slots = React.useMemo(() => filterSlots(counts, moduleInfo), [counts, moduleInfo]);
+  const allIds = React.useMemo(() => ids.concat(extractAnalysisIds(analysis)), [ids, analysis]);
+  const moduleInfo = useModuleInfo(allIds);
+  const slots = React.useMemo(
+    () => filterSlots(counts, analysis, moduleInfo),
+    [counts, analysis, moduleInfo]
+  );
 
   if (!moduleInfo || !moduleInfo[hull]) {
     return (
@@ -186,7 +335,9 @@ export function DNADisplay({ dna }) {
           src={`https://imageserver.eveonline.com/Type/${hull}_64.png`}
           alt={moduleInfo[hull].name}
         />
-        <DOM.Hull.Name>{moduleInfo[hull].name}</DOM.Hull.Name>
+        <DOM.Hull.Name>
+          {analysis && analysis.name ? analysis.name : moduleInfo[hull].name}
+        </DOM.Hull.Name>
         <DOM.Hull.Copy
           title="Copy to clipboard"
           onClick={(evt) => {
@@ -201,112 +352,15 @@ export function DNADisplay({ dna }) {
           <FontAwesomeIcon fixedWidth icon={faPaste} />
         </DOM.Hull.Copy>
       </DOM.Hull>
-      {Object.entries(slots).map(([slot, modules]) => (
-        <DOM.Slot key={slot}>
-          {Object.entries(modules).map(([moduleId, count]) => (
-            <DOM.Line key={moduleId}>
-              <DOM.Line.Image
-                src={`https://imageserver.eveonline.com/Type/${moduleId}_32.png`}
-                alt={(moduleInfo[moduleId] || {}).name || null}
-              />
-              <DOM.Line.Count>{count}</DOM.Line.Count>
-              <DOM.Line.ModuleName>{(moduleInfo[moduleId] || {}).name || null}</DOM.Line.ModuleName>
-            </DOM.Line>
-          ))}
-        </DOM.Slot>
+      {analysis && !analysis.name ? (
+        <DOM.Warning>
+          <Badge variant="danger">Fit could not be automatically checked!</Badge>
+        </DOM.Warning>
+      ) : null}
+      {Object.entries(slots).map(([slot, groups]) => (
+        <DisplaySlot key={slot} isDiff={analysis != null} groups={groups} moduleInfo={moduleInfo} />
       ))}
     </div>
-  );
-}
-
-const FitAnalysisDOM = styled.div`
-  margin-bottom: 1em;
-
-  h2 {
-    font-size: 1.5em;
-  }
-  h3 {
-    font-size: 1.2em;
-    margin-top: 0.5em;
-  }
-  strong {
-    font-weight: bold;
-  }
-  p img {
-    height: 1em;
-    vertical-align: middle;
-  }
-`;
-
-function FitAnalysis({ source }) {
-  if (!source) {
-    return (
-      <FitAnalysisDOM>
-        <h2>UNKNOWN_FIT</h2>
-      </FitAnalysisDOM>
-    );
-  }
-
-  const idLookup = source._ids || {};
-  const analysis = [];
-  if (source.missing || source.extra || source.downgraded) {
-    analysis.push(<h3 key="head-fit">Fit</h3>);
-  }
-  _.forEach(source.missing || {}, (count, itemId) => {
-    analysis.push(
-      <p key={itemId}>
-        <img
-          src={`https://imageserver.eveonline.com/Type/${itemId}_32.png`}
-          alt={idLookup[itemId]}
-        />{" "}
-        Missing <strong>{idLookup[itemId]}</strong>: {count}
-      </p>
-    );
-  });
-  _.forEach(source.extra, (count, itemId) => {
-    analysis.push(
-      <p key={itemId}>
-        <img
-          src={`https://imageserver.eveonline.com/Type/${itemId}_32.png`}
-          alt={idLookup[itemId]}
-        />{" "}
-        Extra <strong>{idLookup[itemId]}</strong>: {count}
-      </p>
-    );
-  });
-  _.forEach(source.downgraded || {}, (downgrades, originalItem) => {
-    _.forEach(downgrades, (count, newItem) => {
-      analysis.push(
-        <p key={`${originalItem} ${newItem}`}>
-          <img
-            src={`https://imageserver.eveonline.com/Type/${originalItem}_32.png`}
-            alt={idLookup[originalItem]}
-          />{" "}
-          Downgraded <strong>{idLookup[originalItem]}</strong> to{" "}
-          <strong>{idLookup[newItem]}</strong>: {count}
-        </p>
-      );
-    });
-  });
-  if (source.cargo_missing) {
-    analysis.push(<h3 key="head-cargo">Cargo</h3>);
-  }
-  _.forEach(source.cargo_missing || {}, (count, itemId) => {
-    analysis.push(
-      <p key={itemId}>
-        <img
-          src={`https://imageserver.eveonline.com/Type/${itemId}_32.png`}
-          alt={idLookup[itemId]}
-        />{" "}
-        Missing <strong>{idLookup[itemId]}</strong>: {count}
-      </p>
-    );
-  });
-  return (
-    <FitAnalysisDOM>
-      {source.name ? <h2>{source.name}</h2> : <h2>UNKNOWN_FIT</h2>}
-      {analysis}
-    </FitAnalysisDOM>
   );
 }
 
@@ -317,12 +371,15 @@ function ImplantDisplay({ implants }) {
 
 export function FitDisplay({ fit }) {
   return (
-    <Box>
-      <FitAnalysis source={fit.fit_analysis} />
-      <div style={{ display: "flex" }}>
-        <DNADisplay dna={fit.dna} />
-        {fit.implants ? <ImplantDisplay implants={fit.implants} /> : null}
+    <div style={{ display: "flex" }}>
+      <div style={{ margin: "0 0.5em" }}>
+        <DNADisplay dna={fit.dna} analysis={fit.fit_analysis} />
       </div>
-    </Box>
+      {fit.implants ? (
+        <div style={{ margin: "0 0.5em" }}>
+          <ImplantDisplay implants={fit.implants} />
+        </div>
+      ) : null}
+    </div>
   );
 }
