@@ -10,6 +10,8 @@ AUTH_SECRET = CONFIG["esi"]["client_secret"]
 
 session = requests.Session()
 
+TIMEOUT = 1
+
 
 def process_auth(
     auth_type: str, auth_token: str, dbsession: sqlalchemy.orm.session.Session
@@ -24,7 +26,7 @@ def process_auth(
         "https://login.eveonline.com/oauth/token",
         data=body,
         auth=(AUTH_ID, AUTH_SECRET),
-        timeout=2,
+        timeout=TIMEOUT * 2,  # Slow api
     )
     result.raise_for_status()
     result_json = result.json()
@@ -32,7 +34,7 @@ def process_auth(
     verify = session.get(
         "https://login.eveonline.com/oauth/verify",
         headers={"Authorization": "Bearer %s" % result_json["access_token"]},
-        timeout=1,
+        timeout=TIMEOUT,
     )
     verify.raise_for_status()
     verify_json = verify.json()
@@ -134,7 +136,7 @@ def get(
     headers["User-Agent"] = "waitlist, by Xifon Naari"
 
     kwargs["headers"] = headers
-    result = session.get(url, timeout=1, **kwargs)
+    result = session.get(url, timeout=TIMEOUT, **kwargs)
     _raise_for_status(result)
     return result
 
@@ -154,7 +156,7 @@ def post(
     headers["User-Agent"] = "waitlist, by Xifon Naari"
 
     kwargs["headers"] = headers
-    result = session.post(url, timeout=1, **kwargs)
+    result = session.post(url, timeout=TIMEOUT, **kwargs)
     _raise_for_status(result)
     return result
 
@@ -174,6 +176,6 @@ def delete(
     headers["User-Agent"] = "waitlist, by Xifon Naari"
 
     kwargs["headers"] = headers
-    result = session.delete(url, timeout=1, **kwargs)
+    result = session.delete(url, timeout=TIMEOUT, **kwargs)
     _raise_for_status(result)
     return result
