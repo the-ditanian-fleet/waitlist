@@ -38,6 +38,16 @@ def _from_meta(
         _add_tierlist(destination, type_variations(id_of(item)))
 
 
+def _from_abyssal(
+    destination: Dict[int, List[Tuple[int, int]]], items: List[Dict[str, str]]
+) -> None:
+    for item in items:
+        variations = type_variations(id_of(item["base"]))
+        if "abyssal" in item:
+            variations[id_of(item["abyssal"])] = variations[id_of(item["base"])]
+        _add_tierlist(destination, variations)
+
+
 def _add_t1(destination: Dict[int, List[Tuple[int, int]]], t2_items: List[str]) -> None:
     for t2_item in t2_items:
         _add_tierlist(
@@ -58,7 +68,7 @@ def load_alternatives() -> Dict[int, List[Tuple[int, int]]]:
     # Generate all possible valid permutations for the alternatives listed in the data
     _compute_alternatives(alternatives, modules_raw["alternatives"])
     _from_meta(alternatives, modules_raw["from_meta"])
-
+    _from_abyssal(alternatives, modules_raw["abyssals"])
     _add_t1(alternatives, modules_raw["accept_t1"])
 
     # Sort upgrades before downgrades

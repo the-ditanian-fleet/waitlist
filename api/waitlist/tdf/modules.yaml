@@ -1,11 +1,7 @@
 ---
 alternatives:
 # Module alternatives specified as a three-level nested list, of modulegroup, tiers,
-# and then modules in that tier. Should include modules that have abyssals, as the meta database
-# doesn't store that information in a useful way.
-- - - Entropic Radiation Sink II
-  - - Abyssal Entropic Radiation Sink
-
+# and then modules in that tier.
 - - - Agency 'Pyrolancea' DB3 Dose I
   - - Agency 'Pyrolancea' DB5 Dose II
   - - Agency 'Pyrolancea' DB7 Dose III
@@ -25,76 +21,6 @@ alternatives:
   - - Standard Mindflood Booster
   - - Improved Mindflood Booster
   - - Strong Mindflood Booster
-
-- - - Stasis Webifier II
-  - - True Sansha Stasis Webifier
-    - Caldari Navy Stasis Webifier
-    - Dark Blood Stasis Webifier
-    - Domination Stasis Webifier
-    - Dread Guristas Stasis Webifier
-    - Federation Navy Stasis Webifier
-    - Khanid Navy Stasis Webifier
-    - Republic Fleet Stasis Webifier
-    - Shadow Serpentis Stasis Webifier
-  - - Abyssal Stasis Webifier
-
-- - - 500MN Cold-Gas Enduring Microwarpdrive
-    - 500MN Y-T8 Compact Microwarpdrive
-    - 500MN Microwarpdrive I
-  - - 500MN Quad LiF Restrained Microwarpdrive
-    - 500MN Microwarpdrive II
-  - - 500MN Digital Booster Microwarpdrive
-  - - Domination 500MN Microwarpdrive
-    - Federation Navy 500MN Microwarpdrive
-    - Republic Fleet 500MN Microwarpdrive
-    - Shadow Serpentis 500MN Microwarpdrive
-  - - Core C-Type 500MN Microwarpdrive
-    - Gist C-Type 500MN Microwarpdrive
-  - - Core B-Type 500MN Microwarpdrive
-    - Gist B-Type 500MN Microwarpdrive
-  - - Core A-Type 500MN Microwarpdrive
-    - Gist A-Type 500MN Microwarpdrive
-  - - Core X-Type 500MN Microwarpdrive
-    - Gist X-Type 500MN Microwarpdrive
-  - - 500MN Abyssal Microwarpdrive
-
-- - - Magnetic Field Stabilizer II
-  - - Federation Navy Magnetic Field Stabilizer
-    - Shadow Serpentis Magnetic Field Stabilizer
-  - - Abyssal Magnetic Field Stabilizer
-
-- - - Heat Sink II
-  - - Imperial Navy Heat Sink
-    - Ammatar Navy Heat Sink
-    - Dark Blood Heat Sink
-    - True Sansha Heat Sink
-  - - Abyssal Heat Sink
-
-- - - Republic Fleet Large Cap Battery
-    - Domination Large Cap Battery
-    - Thukker Large Cap Battery
-  - - Large Abyssal Cap Battery
-
-- - - 1600mm Steel Plates II
-  - - Imperial Navy 1600mm Steel Plates
-    - Syndicate 1600mm Steel Plates
-    - Federation Navy 1600mm Steel Plates
-  - - Large Abyssal Armor Plates
-
-- - - 800mm Steel Plates II
-  - - Imperial Navy 800mm Steel Plates
-    - Syndicate 800mm Steel Plates
-    - Federation Navy 800mm Steel Plates
-  - - Medium Abyssal Armor Plates
-
-- - - Federation Navy 10MN Afterburner
-  - - Gistum C-Type 10MN Afterburner
-    - Corelum C-Type 10MN Afterburner
-  - - Gistum B-Type 10MN Afterburner
-    - Corelum B-Type 10MN Afterburner
-  - - Gistum A-Type 10MN Afterburner
-    - Corelum A-Type 10MN Afterburner
-  - - 10MN Abyssal Afterburner
 
 - - - Multispectrum Energized Membrane II
   - - Centii B-Type Multispectrum Coating
@@ -146,6 +72,28 @@ from_meta: # Automagically determine alternatives
 - Centum C-Type Thermal Energized Membrane
 - Centum C-Type EM Energized Membrane
 - Centum C-Type Kinetic Energized Membrane
+
+abyssals:
+- base: Core X-Type 500MN Microwarpdrive
+  abyssal: 500MN Abyssal Microwarpdrive
+- base: Gistum A-Type 10MN Afterburner
+  abyssal: 10MN Abyssal Afterburner
+
+- base: Federation Navy Stasis Webifier
+  abyssal: Abyssal Stasis Webifier
+- base: True Sansha Heat Sink
+  abyssal: Abyssal Heat Sink
+- base: Federation Navy Magnetic Field Stabilizer
+  abyssal: Abyssal Magnetic Field Stabilizer
+- base: Entropic Radiation Sink II
+  abyssal: Abyssal Entropic Radiation Sink
+- base: Republic Fleet Large Cap Battery
+  abyssal: Large Abyssal Cap Battery
+
+- base: Imperial Navy 1600mm Steel Plates
+  abyssal: Large Abyssal Armor Plates
+- base: Imperial Navy 800mm Steel Plates
+  abyssal: Medium Abyssal Armor Plates
 
 accept_t1: # Meta information missing, but luckily we can just match it naively
 - Heavy Shield Maintenance Bot II
