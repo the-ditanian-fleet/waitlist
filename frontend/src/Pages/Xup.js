@@ -1,13 +1,14 @@
 import React from "react";
 import { ToastContext, AuthContext } from "../contexts";
 import { addToast } from "../Components/Toast";
-import { apiCall, errorToaster } from "../api";
+import { apiCall, errorToaster, useApi } from "../api";
 import { Button, Buttons, InputGroup, NavButton, Textarea } from "../Components/Form";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { PageTitle } from "../Components/Page";
 import { FitDisplay } from "../Components/FitDisplay";
 import _ from "lodash";
 import { Box } from "../Components/Box";
+import { Modal } from "../Components/Modal";
 
 const exampleFit = String.raw`
 [Vindicator, Vindicator]
@@ -38,7 +39,7 @@ Large Explosive Armor Reinforcer I
 Large Hybrid Burst Aerator II
 `.trim();
 
-async function xUp({ character, eft, toastContext, history, waitlist_id }) {
+async function xUp({ character, eft, toastContext, waitlist_id }) {
   await apiCall("/api/waitlist/xup", {
     json: { eft: eft, character_id: character, waitlist_id },
   });
@@ -48,7 +49,6 @@ async function xUp({ character, eft, toastContext, history, waitlist_id }) {
     message: "Your X has been added to the waitlist!",
     variant: "success",
   });
-  history.push("/xup/check?wl=" + waitlist_id);
 
   if (window.Notification) {
     Notification.requestPermission();
@@ -58,10 +58,10 @@ async function xUp({ character, eft, toastContext, history, waitlist_id }) {
 export function Xup() {
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
-  const history = useHistory();
   const queryParams = new URLSearchParams(useLocation().search);
   const [eft, setEft] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [reviewOpen, setReviewOpen] = React.useState(false);
 
   const waitlist_id = queryParams.get("wl");
   if (!waitlist_id) {
@@ -70,6 +70,13 @@ export function Xup() {
 
   return (
     <div style={{ display: "flex" }}>
+      {reviewOpen && (
+        <Modal open={true} setOpen={(evt) => null}>
+          <Box>
+            <XupCheck waitlistId={waitlist_id} setOpen={setReviewOpen} />
+          </Box>
+        </Modal>
+      )}
       <div style={{ flexGrow: 1, marginRight: "1em" }}>
         <h2 style={{ fontSize: "2em" }}>X-up with fit(s)</h2>
         <Textarea
@@ -87,7 +94,9 @@ export function Xup() {
               setIsSubmitting(true);
               errorToaster(
                 toastContext,
-                xUp({ character: authContext.current.id, eft, toastContext, history, waitlist_id })
+                xUp({ character: authContext.current.id, eft, toastContext, waitlist_id }).then(
+                  (evt) => setReviewOpen(true)
+                )
               ).finally((evt) => setIsSubmitting(false));
             }}
             disabled={eft.trim().length < 50 || !eft.startsWith("[") || isSubmitting}
@@ -108,25 +117,10 @@ export function Xup() {
   );
 }
 
-export function XupCheck() {
+function XupCheck({ waitlistId, setOpen }) {
   const authContext = React.useContext(AuthContext);
-  const toastContext = React.useContext(ToastContext);
-  const [xupData, setXupData] = React.useState(null);
+  const [xupData] = useApi(`/api/waitlist?waitlist_id=${waitlistId}`);
 
-  const queryParams = new URLSearchParams(useLocation().search);
-  const waitlist_id = queryParams.get("wl");
-
-  React.useEffect(() => {
-    if (!waitlist_id) return;
-    errorToaster(
-      toastContext,
-      apiCall("/api/waitlist?waitlist_id=" + waitlist_id, {}).then(setXupData)
-    );
-  }, [waitlist_id, toastContext]);
-
-  if (!waitlist_id) {
-    return <em>Missing waitlist information</em>;
-  }
   if (!xupData) {
     return <em>Loading</em>;
   }
@@ -149,12 +143,12 @@ export function XupCheck() {
         </Box>
       ))}
       <Buttons>
-        <NavButton variant="primary" to={`/waitlist?wl=${waitlist_id}`}>
+        <NavButton variant="primary" to={`/waitlist?wl=${waitlistId}`}>
           Yes, looks good
         </NavButton>
-        <NavButton variant="secondary" to={`/xup?wl=${waitlist_id}`}>
+        <Button variant="secondary" onClick={(evt) => setOpen(false)}>
           No, go back to update my fit
-        </NavButton>
+        </Button>
       </Buttons>
     </>
   );

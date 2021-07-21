@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts";
 
 import { Skills } from "../Pages/Skills";
 import { Waitlist } from "../Pages/Waitlist";
-import { Xup, XupCheck } from "../Pages/Xup";
+import { Xup } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
 import { Home } from "../Pages/Home";
 import { Guide, GuideIndex } from "../Pages/Guide";
@@ -33,9 +33,6 @@ export function Routes() {
           </Route>
           <Route exact path="/xup">
             <Xup />
-          </Route>
-          <Route exact path="/xup/check">
-            <XupCheck />
           </Route>
           <Route exact path="/pilot">
             <Pilot />
