@@ -22,23 +22,6 @@ alternatives:
   - - Improved Mindflood Booster
   - - Strong Mindflood Booster
 
-- - - Multispectrum Energized Membrane II
-  - - Centii B-Type Multispectrum Coating
-    - Coreli B-Type Multispectrum Coating
-    - Corpii B-Type Multispectrum Coating
-  - - Corelum C-Type Multispectrum Energized Membrane
-  - - Centum C-Type Multispectrum Energized Membrane
-    - Corpum C-Type Multispectrum Energized Membrane
-  - - Corelum B-Type Multispectrum Energized Membrane
-  - - Centii A-Type Multispectrum Coating
-    - Coreli A-Type Multispectrum Coating
-    - Corpii A-Type Multispectrum Coating
-  - - Centum B-Type Multispectrum Energized Membrane
-    - Corpum B-Type Multispectrum Energized Membrane
-  - - Corelum A-Type Multispectrum Energized Membrane
-  - - Centum A-Type Multispectrum Energized Membrane
-    - Corpum A-Type Multispectrum Energized Membrane
-
 - - - Centum A-Type Medium Remote Armor Repairer
   - - Large Remote Armor Repairer II
   - - "'Peace' Large Remote Armor Repairer"
@@ -70,10 +53,6 @@ from_meta: # Automagically determine alternatives
 - base: Dark Blood Capacitor Power Relay
 - base: Imperial Navy Cap Recharger
 - base: True Sansha Power Diagnostic System
-- base: Centum C-Type Explosive Energized Membrane
-- base: Centum C-Type Thermal Energized Membrane
-- base: Centum C-Type EM Energized Membrane
-- base: Centum C-Type Kinetic Energized Membrane
 
 - base: Core X-Type 500MN Microwarpdrive
   abyssal: 500MN Abyssal Microwarpdrive
@@ -98,6 +77,32 @@ from_meta: # Automagically determine alternatives
 - base: Damage Control I
   abyssal: Abyssal Damage Control
 
+from_attribute:
+- base:
+  - Multispectrum Coating II
+  - Multispectrum Energized Membrane II
+  attribute: EM_RESIST
+  reverse: true
+- base:
+  - EM Coating II
+  - EM Energized Membrane II
+  attribute: EM_RESIST
+  reverse: true
+- base:
+  - Explosive Coating II
+  - Explosive Energized Membrane II
+  attribute: EXPLOSIVE_RESIST
+  reverse: true
+- base:
+  - Kinetic Coating II
+  - Kinetic Energized Membrane II
+  attribute: KINETIC_RESIST
+  reverse: true
+- base:
+  - Thermal Coating II
+  - Thermal Energized Membrane II
+  attribute: THERMAL_RESIST
+  reverse: true
 
 accept_t1: # Meta information missing, but luckily we can just match it naively
 - Heavy Shield Maintenance Bot II

@@ -1,11 +1,23 @@
 from typing import Tuple, Dict, List, Any, Set
 import yaml
-from ..data.evedb import id_of, type_variations
+from ..data.evedb import Attribute, id_of, name_of, type_variations, type_attributes
+
+
+def _debug_tierlist(tiers: Dict[int, int]) -> None:
+    sorted_tiers = sorted(tiers.items(), key=lambda x: x[1])
+    print("---")
+    print("TIER INFO")
+    print("")
+    for module_id, tier in sorted_tiers:
+        print("    %2d: %s" % (tier, name_of(module_id)))
+    print("---")
 
 
 def _add_tierlist(
     destination: Dict[int, List[Tuple[int, int]]], source: Dict[int, int]
 ) -> None:
+    # _debug_tierlist(source)
+
     for module_i, tier_i in source.items():
         if module_i in destination:
             raise Exception("Duplicate declaration for ID %d" % module_i)
@@ -40,6 +52,37 @@ def _from_meta(
         _add_tierlist(destination, variations)
 
 
+def _from_attribute(
+    destination: Dict[int, List[Tuple[int, int]]], items: List[Dict[str, Any]]
+) -> None:
+    for item in items:
+        base: List[str] = item["base"]
+        attribute = Attribute[item["attribute"]]
+
+        modules: List[int] = []
+        for base_module in base:
+            modules.extend(type_variations(id_of(base_module)).keys())
+
+        attribute_info = type_attributes(modules)
+        modules_with_attr: List[Tuple[int, float]] = []
+        for module in modules:
+            modules_with_attr.append((module, attribute_info[module][attribute]))
+
+        modules_with_attr = list(sorted(modules_with_attr, key=lambda item: item[1]))
+        if item.get("reverse", False):
+            modules_with_attr = list(reversed(modules_with_attr))
+
+        last_attr = None
+        tier_i = 0
+        tiers: Dict[int, int] = {}
+        for module_id, attr_value in modules_with_attr:
+            if attr_value != last_attr:
+                tier_i += 1
+                last_attr = attr_value
+            tiers[module_id] = tier_i
+        _add_tierlist(destination, tiers)
+
+
 def _add_t1(destination: Dict[int, List[Tuple[int, int]]], t2_items: List[str]) -> None:
     for t2_item in t2_items:
         _add_tierlist(
@@ -60,6 +103,7 @@ def load_alternatives() -> Dict[int, List[Tuple[int, int]]]:
     # Generate all possible valid permutations for the alternatives listed in the data
     _compute_alternatives(alternatives, modules_raw["alternatives"])
     _from_meta(alternatives, modules_raw["from_meta"])
+    _from_attribute(alternatives, modules_raw["from_attribute"])
     _add_t1(alternatives, modules_raw["accept_t1"])
 
     # Sort upgrades before downgrades

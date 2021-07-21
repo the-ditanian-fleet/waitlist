@@ -10,6 +10,10 @@ NAME_CACHE: Dict[int, str] = {}
 
 class Attribute(Enum):
     META_LEVEL = 633
+    EM_RESIST = 984
+    EXPLOSIVE_RESIST = 985
+    KINETIC_RESIST = 986
+    THERMAL_RESIST = 987
 
 
 class Effect(Enum):
