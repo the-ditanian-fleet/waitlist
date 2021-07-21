@@ -117,6 +117,9 @@ def type_variations(type_id: int) -> Dict[int, int]:
         "SELECT parentTypeID FROM invMetaTypes WHERE typeID=?", (type_id,)
     ).fetchone()
 
+    if not parent:
+        parent = type_id
+
     metas: Dict[int, int] = {parent: 0}
     for variation, meta, meta_group_id in cursor.execute(
         """select invMetaTypes.typeID, coalesce(valueInt, valueFloat), metaGroupID
@@ -132,6 +135,9 @@ def type_variations(type_id: int) -> Dict[int, int]:
             metas[variation] = 0
         elif meta_group_id == 2:  # T2
             metas[variation] = 5
+
+    if len(metas) <= 1:
+        raise Exception("Variation lookup for %d failed" % type_id)
 
     return metas
 
