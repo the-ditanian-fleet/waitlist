@@ -130,7 +130,6 @@ alternatives:
 from_meta: # Automagically determine alternatives
 - Sensor Booster II
 - Tracking Computer II
-- Magnetic Field Stabilizer II
 - Ogre II
 - Hammerhead II
 - Hobgoblin II

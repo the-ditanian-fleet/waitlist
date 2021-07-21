@@ -3,21 +3,31 @@ import yaml
 from ..data.evedb import id_of, type_variations
 
 
+def _add_tierlist(
+    destination: Dict[int, List[Tuple[int, int]]], source: Dict[int, int]
+) -> None:
+    for module_i, tier_i in source.items():
+        if module_i in destination:
+            raise Exception("Duplicate declaration for ID %d" % module_i)
+        destination.setdefault(module_i, [])
+        for module_j, tier_j in source.items():
+            destination[module_i].append((module_j, tier_j - tier_i))
+
+
 def _compute_alternatives(
     destination: Dict[int, List[Tuple[int, int]]],
     source: List[List[List[str]]],
 ) -> None:
     for group in source:
-        this_group: List[Tuple[int, int]] = []
+        tiers: Dict[int, int] = {}
         tier_i = 0
         for tier in group:
             tier_i += 1
             for module in tier:
-                this_group.append((id_of(module), tier_i))
-        for module_i, tier_i in this_group:
-            destination.setdefault(module_i, [])
-            for module_j, tier_j in this_group:
-                destination[module_i].append((module_j, tier_j - tier_i))
+                if id_of(module) in tiers:
+                    raise Exception("Duplicate declaration for %s" % module)
+                tiers[id_of(module)] = tier_i
+        _add_tierlist(destination, tiers)
 
 
 def _from_meta(
@@ -25,22 +35,18 @@ def _from_meta(
     meta_items: List[str],
 ) -> None:
     for item in meta_items:
-        meta_levels = type_variations(id_of(item))
-        for module_i, meta_i in meta_levels.items():
-            destination.setdefault(module_i, [])
-            for module_j, meta_j in meta_levels.items():
-                destination[module_i].append((module_j, meta_j - meta_i))
+        _add_tierlist(destination, type_variations(id_of(item)))
 
 
 def _add_t1(destination: Dict[int, List[Tuple[int, int]]], t2_items: List[str]) -> None:
     for t2_item in t2_items:
-        if not t2_item.endswith(" II"):
-            raise Exception("%s is not a T2 item" % t2_item)
-        t1_item = t2_item[:-3] + " I"
-        destination.setdefault(id_of(t1_item), []).append((id_of(t2_item), 1))
-        destination.setdefault(id_of(t1_item), []).append((id_of(t1_item), 0))
-        destination.setdefault(id_of(t2_item), []).append((id_of(t1_item), -1))
-        destination.setdefault(id_of(t2_item), []).append((id_of(t2_item), 0))
+        _add_tierlist(
+            destination,
+            {
+                id_of(t2_item[:-1]): 1,
+                id_of(t2_item): 2,
+            },
+        )
 
 
 def load_alternatives() -> Dict[int, List[Tuple[int, int]]]:
