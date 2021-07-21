@@ -7,7 +7,6 @@ RE_FIT = re.compile(r'<a href="fitting:([0-9:;_]+)">([^<]+)</a>')
 
 ALTERNATIVES = modules.load_alternatives()
 IDENTIFICATION = modules.load_identification(ALTERNATIVES)
-BANNED = modules.load_banned()
 
 
 def _alts(module_id: int) -> List[Tuple[int, int]]:

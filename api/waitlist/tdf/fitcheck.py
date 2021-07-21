@@ -1,10 +1,8 @@
 from typing import List, Dict, Set, Optional, Any, Tuple
 import yaml
 from ..eft2dna import split_dna
-from ..data.evedb import id_of, name_of, type_variations
-from . import skills, fits, modules, implants
-
-BANNED_MODULES = modules.load_banned()
+from ..data.evedb import id_of, type_variations
+from . import skills, fits, implants
 
 
 def _build_category_rules(raw: List[Dict[str, str]]) -> List[Tuple[int, str]]:
@@ -129,13 +127,6 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
             if self.result.category != "logi":
                 self.result.category = "starter"
 
-    def check_banned_modules(self) -> None:
-        for module_id in BANNED_MODULES:
-            if self.modules.get(module_id, 0):
-                self.result.errors.append(
-                    "Fit contains banned module: %s" % name_of(module_id)
-                )
-
     def check_logi_implants(self) -> None:
         if self.ship in [id_of("Nestor"), id_of("Guardian")]:
             if not id_of("% EM-806", fuzzy=True) in self.implants:
@@ -193,7 +184,6 @@ class FitChecker:  # pylint: disable=too-many-instance-attributes
         self.check_implants()
         self.check_fit()
         self.check_category()
-        self.check_banned_modules()
         self.check_logi_implants()
         self.check_tank_skills()
         self.set_approval()

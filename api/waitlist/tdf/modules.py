@@ -31,14 +31,6 @@ def _compute_alternatives(
 
 
 def _from_meta(
-    destination: Dict[int, List[Tuple[int, int]]],
-    meta_items: List[str],
-) -> None:
-    for item in meta_items:
-        _add_tierlist(destination, type_variations(id_of(item)))
-
-
-def _from_abyssal(
     destination: Dict[int, List[Tuple[int, int]]], items: List[Dict[str, str]]
 ) -> None:
     for item in items:
@@ -68,7 +60,6 @@ def load_alternatives() -> Dict[int, List[Tuple[int, int]]]:
     # Generate all possible valid permutations for the alternatives listed in the data
     _compute_alternatives(alternatives, modules_raw["alternatives"])
     _from_meta(alternatives, modules_raw["from_meta"])
-    _from_abyssal(alternatives, modules_raw["abyssals"])
     _add_t1(alternatives, modules_raw["accept_t1"])
 
     # Sort upgrades before downgrades
@@ -95,10 +86,3 @@ def load_identification(alternatives: Dict[int, List[Tuple[int, int]]]) -> Set[i
             result.add(alternative)
 
     return result
-
-
-def load_banned() -> List[int]:
-    with open("./waitlist/tdf/modules.yaml", "r") as fileh:
-        modules_raw: Dict[str, Any] = yaml.safe_load(fileh)
-
-    return list(map(id_of, modules_raw["banned"]))
