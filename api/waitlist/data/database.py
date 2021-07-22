@@ -235,6 +235,7 @@ class FleetActivity(Base):
     last_seen: int = Column(Integer, nullable=False)
     hull: int = Column(Integer, nullable=False)
     has_left: bool = Column(Boolean, default=False, nullable=False)
+    is_boss: bool = Column(Boolean, default=False, nullable=False)
 
     character = relationship(Character, uselist=False)
 

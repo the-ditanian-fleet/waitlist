@@ -137,10 +137,14 @@ def _update_activity(
 
     for member in members.values():
         character_id = member["character_id"]
+        is_boss = fleet.boss_id == character_id
 
         # Detect ship changes: archive with has_left=True if it happens
         if character_id in stored:
-            if stored[character_id].hull != member["ship_type_id"]:
+            if (
+                stored[character_id].hull != member["ship_type_id"]
+                or stored[character_id].is_boss != is_boss
+            ):
                 stored[character_id].has_left = True
                 stored[character_id].last_seen = current_time
                 session.flush()  # We're about to delete the object, flush first!
@@ -152,6 +156,7 @@ def _update_activity(
                 fleet_id=fleet.id,
                 first_seen=current_time,
                 last_seen=current_time,
+                is_boss=is_boss,
                 hull=member["ship_type_id"],
             )
             session.add(stored[character_id])
