@@ -1,9 +1,12 @@
 from functools import wraps
 from typing import Callable, TypeVar, Any, Tuple, cast, Optional, Dict, Set
-from flask import Blueprint, request, session, g
+from flask import Blueprint, request, g, make_response
 import requests
 import pydantic
+from branca import Branca
+import msgpack
 from .data import esi, database, config
+from .webutil import ViewReturn
 
 bp = Blueprint("auth", __name__)
 req_session = requests.Session()
@@ -74,16 +77,35 @@ def has_access(permission: str) -> bool:
     return permission in ACCESS_LEVELS[g.access_level]
 
 
+def account_id_from_cookie() -> Optional[int]:
+    # Never logged in
+    if "authToken" not in request.cookies:
+        return None
+
+    auth_token = request.cookies.get("authToken")
+    branca = Branca(bytes.fromhex(config.CONFIG["app"]["token_secret"]))
+    try:
+        decoded_token = branca.decode(auth_token, ttl=31 * 86400)
+    except:  # Nothing useful to catch :-(  pylint: disable=bare-except
+        return None
+
+    decoded = msgpack.unpackb(decoded_token)
+    if decoded["version"] != 1:
+        return None
+    if not decoded["account_id"]:
+        return None
+
+    return int(decoded["account_id"])
+
+
 def login_required(func: DecoratorType) -> DecoratorType:
     @wraps(func)
     def decorated(*args: Any, **kwargs: Any) -> Any:
-        # Never logged in
-        if "account_id" not in session:
+        account_id = account_id_from_cookie()
+        if not account_id:
             return "Not logged in", 401
 
-        g.account_id = session[  # false positive pylint: disable=assigning-non-slot
-            "account_id"
-        ]
+        g.account_id = account_id  # false positive pylint: disable=assigning-non-slot
 
         with g.db.begin():
             admin_record = (
@@ -184,28 +206,47 @@ class AuthCallbackRequest(pydantic.BaseModel):
 
 
 @bp.route("/api/auth/cb", methods=["POST"])
-def callback() -> Tuple[str, int]:
+def callback() -> ViewReturn:
     req = AuthCallbackRequest.parse_obj(request.json)
     _access_token, _refresh_token, character_id = esi.process_auth(
         "authorization_code", req.code, g.db
     )
 
     if req.state == "alt":
-        if "account_id" not in session:
-            session["account_id"] = character_id
+        account_id = account_id_from_cookie()
+        if not account_id:
+            return "Not logged in", 401
 
-        if session["account_id"] != character_id:
+        if account_id != character_id:
             with g.db.begin():
-                alt = database.AltCharacter(
-                    account_id=session["account_id"], alt_id=character_id
-                )
+                alt = database.AltCharacter(account_id=account_id, alt_id=character_id)
                 g.db.merge(alt)
 
     else:
-        session["account_id"] = character_id
-        session.permanent = True  # false positive pylint: disable=assigning-non-slot
+        account_id = character_id
 
-    return "OK", 200
+    resp = make_response()
+
+    branca = Branca(bytes.fromhex(config.CONFIG["app"]["token_secret"]))
+    encoded_token = branca.encode(
+        msgpack.packb(
+            {
+                "version": 1,
+                "account_id": account_id,
+            }
+        )
+    )
+
+    resp.set_cookie(
+        "authToken",
+        encoded_token,
+        max_age=31 * 86400,
+        httponly=True,
+        samesite="Strict",
+        secure=config.CONFIG["esi"]["url"].startswith("https:"),
+    )
+
+    return resp
 
 
 @bp.route("/api/auth/whoami")
@@ -213,7 +254,7 @@ def callback() -> Tuple[str, int]:
 def whoami() -> Tuple[Any, int]:
     char = (
         g.db.query(database.Character)
-        .filter(database.Character.id == session["account_id"])
+        .filter(database.Character.id == g.account_id)
         .one_or_none()
     )
     if not char:
@@ -240,15 +281,17 @@ def whoami() -> Tuple[Any, int]:
 
 
 @bp.route("/api/auth/logout")
-def logout() -> str:
-    if "account_id" in session:
-        account_id = session["account_id"]
-        with g.db.begin():
-            g.db.query(database.AltCharacter).filter(
-                database.AltCharacter.account_id == account_id
-            ).delete()
-            g.db.query(database.AltCharacter).filter(
-                database.AltCharacter.alt_id == account_id
-            ).delete()
-    session.clear()
-    return "OK"
+@login_required
+def logout() -> ViewReturn:
+    resp = make_response()
+    resp.set_cookie("authToken", "", max_age=1, httponly=True, samesite="Strict")
+
+    with g.db.begin():
+        g.db.query(database.AltCharacter).filter(
+            database.AltCharacter.account_id == g.account_id
+        ).delete()
+        g.db.query(database.AltCharacter).filter(
+            database.AltCharacter.alt_id == g.account_id
+        ).delete()
+
+    return resp
