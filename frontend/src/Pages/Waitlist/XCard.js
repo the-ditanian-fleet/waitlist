@@ -25,7 +25,7 @@ import hBadge from "../Guide/guides/badges/h.png";
 import aBadge from "../Guide/guides/badges/a.png";
 import eBadge from "../Guide/guides/badges/e.png";
 import egoldBadge from "../Guide/guides/badges/egold.png";
-import alphaBadge from "../Guide/guides/badges/alpha.png";
+import starterBadge from "../Guide/guides/badges/starter.png";
 import { SkillDisplay } from "../../Components/SkillDisplay";
 import { Box } from "../../Components/Box";
 import { Title } from "../../Components/Page";
@@ -37,7 +37,7 @@ const tagBadges = {
   "AMULET1-10": [aBadge, "Amulet Implants"],
   ELITE: [eBadge, "Elite"],
   "ELITE-GOLD": [egoldBadge, "Elite GOLD"],
-  "STARTER-SKILLS": [alphaBadge, "Starter skills"],
+  "STARTER-SKILLS": [starterBadge, "Starter skills"],
 };
 
 async function approveFit(id) {
