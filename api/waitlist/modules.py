@@ -63,7 +63,7 @@ def _get_preload_ids() -> List[int]:
     for hull_id, fits in FITS.items():
         ids.add(hull_id)
         for fit in fits:
-            for item_id, _count in (fit.cargo | fit.modules).items():
+            for item_id, _count in {**fit.cargo, **fit.modules}.items():
                 ids.add(item_id)
 
     return list(ids)
