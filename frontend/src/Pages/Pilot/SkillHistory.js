@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { Cell, CellHead, Row, Table, TableBody, TableHead } from "../../Components/Table";
 import { useApi } from "../../api";
+import { Badge } from "../../Components/Badge";
 
 export function SkillHistory({ characterId }) {
   const [history] = useApi(`/api/history/skills?character_id=${characterId}`);
@@ -13,12 +14,20 @@ export function SkillHistory({ characterId }) {
 
   var table = [];
   _.forEach(history.history, (historyLine) => {
+    var variant =
+      historyLine.old_level > historyLine.new_level
+        ? "danger"
+        : historyLine.old_level == historyLine.new_level
+        ? ""
+        : "success";
     table.push(
       <Row key={`${historyLine.skill_id} ${historyLine.logged_at}`}>
         <Cell>{new Date(historyLine.logged_at).toLocaleDateString()}</Cell>
         <Cell>{skillNames[historyLine.skill_id]}</Cell>
         <Cell>
-          {historyLine.old_level} -&gt; {historyLine.new_level}
+          <Badge variant={variant}>
+            {historyLine.old_level} → {historyLine.new_level}
+          </Badge>
         </Cell>
       </Row>
     );
