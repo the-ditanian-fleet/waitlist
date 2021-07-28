@@ -21,7 +21,7 @@ from . import (
     modules,
 )
 from .webutil import ViewReturn
-from .data import database, config
+from .data import database
 
 logging.basicConfig(level=logging.INFO)
 

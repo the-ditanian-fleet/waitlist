@@ -17,7 +17,7 @@ export function SkillHistory({ characterId }) {
     var variant =
       historyLine.old_level > historyLine.new_level
         ? "danger"
-        : historyLine.old_level == historyLine.new_level
+        : historyLine.old_level === historyLine.new_level
         ? ""
         : "success";
     table.push(
