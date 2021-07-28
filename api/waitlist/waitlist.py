@@ -110,7 +110,7 @@ def get_waitlist() -> ViewReturn:
                     if (x_is_ours or auth.has_access("waitlist-view"))
                     else None
                 ),
-                joined_at=entry.joined_at,
+                joined_at=entry.joined_at.timestamp(),
                 can_remove=auth.has_access("waitlist-manage") or x_is_ours,
             )
         )

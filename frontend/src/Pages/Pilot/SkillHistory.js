@@ -22,7 +22,7 @@ export function SkillHistory({ characterId }) {
         : "success";
     table.push(
       <Row key={`${historyLine.skill_id} ${historyLine.logged_at}`}>
-        <Cell>{new Date(historyLine.logged_at).toLocaleDateString()}</Cell>
+        <Cell>{new Date(historyLine.logged_at * 1000).toLocaleDateString()}</Cell>
         <Cell>{skillNames[historyLine.skill_id]}</Cell>
         <Cell>
           <Badge variant={variant}>

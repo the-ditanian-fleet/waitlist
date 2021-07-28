@@ -1,4 +1,3 @@
-import datetime
 from typing import Dict, List, Any
 from flask import Blueprint, g, request
 from . import auth
@@ -20,13 +19,12 @@ def get_fleet_history() -> ViewReturn:
         .filter(FleetActivity.character_id == g.character_id)
         .order_by(FleetActivity.first_seen.desc())
     ):
-        logged_at = datetime.datetime.utcfromtimestamp(entry.first_seen)
         time_in_fleet = entry.last_seen - entry.first_seen
         summary_by_hull.setdefault(entry.hull, 0)
         summary_by_hull[entry.hull] += time_in_fleet
         activity.append(
             {
-                "logged_at": logged_at,
+                "logged_at": entry.first_seen,
                 "hull": {"id": entry.hull, "name": name_of(entry.hull)},
                 "time_in_fleet": time_in_fleet,
             }
@@ -74,7 +72,7 @@ def get_fleet_comp() -> ViewReturn:
                     "id": log_entry.hull,
                     "name": name_of(log_entry.hull),
                 },
-                "logged_at": datetime.datetime.utcfromtimestamp(log_entry.first_seen),
+                "logged_at": log_entry.first_seen,
                 "time_in_fleet": log_entry.last_seen - log_entry.first_seen,
             }
         )

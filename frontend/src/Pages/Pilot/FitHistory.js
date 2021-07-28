@@ -29,7 +29,7 @@ function HistoryLine({ xup }) {
           </Box>
         </Modal>
       )}
-      <Cell>{new Date(xup.logged_at).toLocaleString()}</Cell>
+      <Cell>{new Date(xup.logged_at * 1000).toLocaleString()}</Cell>
       <Cell>
         <Link onClick={(evt) => setShowModal(true)}>{xup.hull.name}</Link>
       </Cell>

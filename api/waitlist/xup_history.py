@@ -21,7 +21,7 @@ def get_xup_history() -> ViewReturn:
     ):
         xups.append(
             {
-                "logged_at": history_line.logged_at,
+                "logged_at": history_line.logged_at.timestamp(),
                 "dna": fitting.dna,
                 "implants": list(
                     map(int, filter(lambda x: x, implant_set.implants.split(":")))

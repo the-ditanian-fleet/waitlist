@@ -38,7 +38,7 @@ export function FleetActivity({ characterId }) {
         <TableBody>
           {history.activity.map(({ logged_at, hull, time_in_fleet }, i) => (
             <Row key={i}>
-              <Cell>{new Date(logged_at).toLocaleString()}</Cell>
+              <Cell>{new Date(logged_at * 1000).toLocaleString()}</Cell>
               <Cell>{hull.name}</Cell>
               <Cell>{formatDuration(time_in_fleet)}</Cell>
             </Row>

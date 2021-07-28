@@ -50,7 +50,7 @@ def get_skills_history() -> ViewReturn:
                 "skill_id": history_entry.skill_id,
                 "old_level": history_entry.old_level,
                 "new_level": history_entry.new_level,
-                "logged_at": history_entry.logged_at,
+                "logged_at": history_entry.logged_at.timestamp(),
             }
         )
 

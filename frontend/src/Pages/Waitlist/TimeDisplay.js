@@ -19,7 +19,7 @@ export class TimeDisplay extends React.Component {
 
   render() {
     var time = this.state.time;
-    var joinedAt = new Date(this.props.relativeTo);
+    var joinedAt = new Date(this.props.relativeTo * 1000);
     var timeDiff = Math.round((time - joinedAt) / 1000 / 60);
     return <Badge variant="secondary">{timeDiff} min</Badge>;
   }
