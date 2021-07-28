@@ -14,7 +14,7 @@ def load_skill_info() -> Tuple[
     with open("./waitlist/tdf/skills.yaml", "r") as fileh:
         yaml_raw: Dict[str, Any] = yaml.safe_load(fileh)
     categories_raw: Dict[str, List[str]] = yaml_raw["categories"]
-    del yaml_raw["categories"]
+    requirements_raw: Dict[str, Dict[str, Dict[str, int]]] = yaml_raw["requirements"]
 
     lookup: Dict[str, int] = {}
     categories: Dict[str, List[int]] = {}
@@ -27,9 +27,8 @@ def load_skill_info() -> Tuple[
             lookup[skill_name] = skill_id
             not_seen.add(skill_name)
 
-    skills_raw: Dict[str, Dict[str, Dict[str, int]]] = yaml_raw
     skills: Dict[str, Dict[int, Dict[str, int]]] = {}
-    for section, skillreq in skills_raw.items():
+    for section, skillreq in requirements_raw.items():
         if section.startswith("_"):
             # Definitions, ignore
             continue
