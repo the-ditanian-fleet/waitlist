@@ -73,7 +73,7 @@ def list_bans() -> ViewReturn:
         ban_info = {
             "kind": ban.kind,
             "id": ban.id,
-            "expires_at": ban.expires_at,
+            "expires_at": ban.expires_at.timestamp() if ban.expires_at else None,
         }
         if ban.kind == "character":
             ban_info["name"] = characters.get(ban.id, None)

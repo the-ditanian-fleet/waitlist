@@ -22,7 +22,7 @@ async function removeAcl(id) {
 }
 
 async function addAcl(id, level) {
-  return apiCall("/api/acl/add", { json: { id, level } });
+  return apiCall("/api/acl/add", { json: { id: parseInt(id), level } });
 }
 
 function ACLOverview() {

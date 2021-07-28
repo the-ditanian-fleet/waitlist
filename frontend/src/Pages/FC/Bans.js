@@ -73,7 +73,7 @@ function BanEntry({ kind, id, name, expires_at, onAction }) {
         <a href={link}>{id}</a>
       </Cell>
       <Cell>{name}</Cell>
-      <Cell>{expires_at}</Cell>
+      <Cell>{expires_at ? new Date(expires_at * 1000).toLocaleString() : null}</Cell>
       {authContext.access["bans-manage"] && (
         <Cell>
           <Button onClick={(evt) => toaster(toastContext, removeBan({ kind, id })).then(onAction)}>
@@ -99,7 +99,7 @@ function AddBan() {
       apiCall("/api/bans/add", {
         json: {
           kind,
-          id: banID,
+          id: parseInt(banID),
           duration: parseFloat(duration),
         },
       }).then((success) => {
