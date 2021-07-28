@@ -33,10 +33,7 @@ async function fetchAndCacheModules(commaSeparatedIds) {
 
   // Missing anything? Fetch it by ID
   if (missing && missing.length) {
-    const apiResult = await apiCall(
-      "/api/module/info?" + missing.map((id) => `id=${id}`).join("&"),
-      {}
-    );
+    const apiResult = await apiCall("/api/module/info?ids=" + missing.join(","), {});
     for (const [module, info] of Object.entries(apiResult)) {
       moduleCache[module] = info;
     }

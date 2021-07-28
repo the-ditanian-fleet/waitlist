@@ -46,7 +46,7 @@ def _module_info(type_ids: List[int]) -> ViewReturn:
 @bp.route("/api/module/info")
 @auth.login_required
 def module_info() -> ViewReturn:
-    type_ids = [int(type_id) for type_id in request.args.getlist("id")]
+    type_ids = [int(type_id) for type_id in request.args["ids"].split(",")]
     if len(type_ids) > 200:
         return "Too many IDs", 400
 
