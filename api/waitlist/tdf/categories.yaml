@@ -1,9 +1,14 @@
 categories:
-  logi: Logistics
-  cqc: CQC
-  sniper: Sniper
-  bastion: Bastion
-  starter: Starter
+  - id: logi
+    name: Logistics
+  - id: cqc
+    name: CQC
+  - id: sniper
+    name: Sniper
+  - id: bastion
+    name: Bastion
+  - id: starter
+    name: Starter
 
 rules:
   # Logi

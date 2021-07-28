@@ -118,7 +118,7 @@ def get_waitlist() -> ViewReturn:
     return {
         "waitlist": waitlist_entries,
         "open": True,
-        "categories": list(tdf.CATEGORIES.values()),
+        "categories": [category["name"] for category in tdf.CATEGORIES_SORTED],
     }
 
 

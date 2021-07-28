@@ -30,7 +30,10 @@ def _build_category_rules(raw: List[Dict[str, str]]) -> List[Tuple[int, str]]:
 
 with open("./waitlist/tdf/categories.yaml", "r") as fileh:
     _yamldata = yaml.safe_load(fileh)
-    CATEGORIES: Dict[str, str] = _yamldata["categories"]
+    CATEGORIES: Dict[str, str] = {
+        category["id"]: category["name"] for category in _yamldata["categories"]
+    }
+    CATEGORIES_SORTED: List[Dict[str, str]] = _yamldata["categories"]
     CATEGORY_RULES = _build_category_rules(_yamldata["rules"])
 
 
