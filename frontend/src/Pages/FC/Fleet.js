@@ -293,7 +293,7 @@ function CategoryMatcher({ categories, wings, onChange, value }) {
         </label>
         <Select
           value={value[category.id]}
-          onChange={(evt) => onChange({ ...value, [category.id]: evt.target.value.split(",") })}
+          onChange={(evt) => onChange({ ...value, [category.id]: evt.target.value.split(",").map(i => parseInt(i)) })}
         >
           <option></option>
           {squadSelection}
