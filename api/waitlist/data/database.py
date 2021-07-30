@@ -91,7 +91,7 @@ class AccessToken(Base):
         BigInteger, ForeignKey("character.id"), nullable=False, primary_key=True
     )
     access_token: str = Column(String(255), nullable=False)
-    expires: int = Column(Integer, nullable=False)
+    expires: int = Column(BigInteger, nullable=False)
 
     character = relationship(Character, uselist=False)
 
@@ -104,20 +104,20 @@ class AccessToken(Base):
 
 class Fitting(Base):
     __tablename__ = "fitting"
-    id: int = Column(Integer, nullable=False, primary_key=True)
+    id: int = Column(BigInteger, nullable=False, primary_key=True)
     dna: str = Column(String(1024), nullable=False, unique=True)
     hull: int = Column(Integer, nullable=False)
 
 
 class ImplantSet(Base):
     __tablename__ = "implant_set"
-    id: int = Column(Integer, nullable=False, primary_key=True)
+    id: int = Column(BigInteger, nullable=False, primary_key=True)
     implants: str = Column(String(256), nullable=False, unique=True)
 
 
 class Waitlist(Base):
     __tablename__ = "waitlist"
-    id: int = Column(Integer, primary_key=True)
+    id: int = Column(BigInteger, primary_key=True)
     name: str = Column(String(255), nullable=False)
     is_open: bool = Column(Boolean, nullable=False)
     is_archived: bool = Column(Boolean, nullable=False)
@@ -126,8 +126,8 @@ class Waitlist(Base):
 class WaitlistEntry(Base):
     __tablename__ = "waitlist_entry"
     __table_args__ = (UniqueConstraint("waitlist_id", "account_id"),)
-    id = Column(Integer, primary_key=True)
-    waitlist_id: int = Column(Integer, ForeignKey("waitlist.id"), nullable=False)
+    id = Column(BigInteger, primary_key=True)
+    waitlist_id: int = Column(BigInteger, ForeignKey("waitlist.id"), nullable=False)
     account_id: int = Column(BigInteger, ForeignKey("character.id"), nullable=False)
     joined_at: datetime.datetime = Column(
         DateTime, default=datetime.datetime.utcnow, nullable=False
@@ -139,17 +139,19 @@ class WaitlistEntry(Base):
 
 class WaitlistEntryFit(Base):
     __tablename__ = "waitlist_entry_fit"
-    id = Column(Integer, primary_key=True)
+    id = Column(BigInteger, primary_key=True)
     character_id: int = Column(BigInteger, ForeignKey("character.id"), nullable=False)
-    entry_id: int = Column(Integer, ForeignKey("waitlist_entry.id"), nullable=False)
-    fit_id: int = Column(Integer, ForeignKey("fitting.id"), nullable=False)
-    implant_set_id: int = Column(Integer, ForeignKey("implant_set.id"), nullable=False)
+    entry_id: int = Column(BigInteger, ForeignKey("waitlist_entry.id"), nullable=False)
+    fit_id: int = Column(BigInteger, ForeignKey("fitting.id"), nullable=False)
+    implant_set_id: int = Column(
+        BigInteger, ForeignKey("implant_set.id"), nullable=False
+    )
     approved: bool = Column(Boolean, nullable=False)
     review_comment: Optional[str] = Column(Text, nullable=True)
     tags: str = Column(String(255), nullable=False)
     category: str = Column(String(10), nullable=False)
     fit_analysis: Optional[str] = Column(Text, nullable=True)
-    cached_time_in_fleet: int = Column(Integer, nullable=False)
+    cached_time_in_fleet: int = Column(BigInteger, nullable=False)
 
     character = relationship(Character, uselist=False)
     entry = relationship(WaitlistEntry, uselist=False)
@@ -159,10 +161,12 @@ class WaitlistEntryFit(Base):
 
 class FitHistory(Base):
     __tablename__ = "fit_history"
-    id = Column(Integer, primary_key=True)
+    id = Column(BigInteger, primary_key=True)
     character_id: int = Column(BigInteger, ForeignKey("character.id"), nullable=False)
-    fit_id: int = Column(Integer, ForeignKey("fitting.id"), nullable=False)
-    implant_set_id: int = Column(Integer, ForeignKey("implant_set.id"), nullable=False)
+    fit_id: int = Column(BigInteger, ForeignKey("fitting.id"), nullable=False)
+    implant_set_id: int = Column(
+        BigInteger, ForeignKey("implant_set.id"), nullable=False
+    )
     logged_at: datetime.datetime = Column(
         DateTime, default=datetime.datetime.utcnow, nullable=False
     )
@@ -206,7 +210,7 @@ class SkillCurrent(Base):
 
 class SkillHistory(Base):
     __tablename__ = "skill_history"
-    id = Column(Integer, nullable=False, primary_key=True)
+    id = Column(BigInteger, nullable=False, primary_key=True)
     character_id: int = Column(BigInteger, ForeignKey("character.id"), nullable=False)
     skill_id: int = Column(Integer, nullable=False)
     old_level: int = Column(SmallInteger, nullable=False)
@@ -227,17 +231,14 @@ class Ban(Base):
 
 class FleetActivity(Base):
     __tablename__ = "fleet_activity"
-    id: int = Column(Integer, nullable=False, primary_key=True)
+    id: int = Column(BigInteger, nullable=False, primary_key=True)
     character_id: int = Column(BigInteger, ForeignKey("character.id"), nullable=False)
     fleet_id: int = Column(BigInteger, nullable=False, index=True)
 
-    first_seen: int = Column(Integer, nullable=False)
-    last_seen: int = Column(Integer, nullable=False)
+    first_seen: int = Column(BigInteger, nullable=False)
+    last_seen: int = Column(BigInteger, nullable=False)
     hull: int = Column(Integer, nullable=False)
     has_left: bool = Column(Boolean, default=False, nullable=False)
     is_boss: bool = Column(Boolean, default=False, nullable=False)
 
     character = relationship(Character, uselist=False)
-
-
-Base.metadata.create_all(engine)
