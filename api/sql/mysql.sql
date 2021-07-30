@@ -1,9 +1,25 @@
+-- Permanent data store
+
+CREATE TABLE `character` (
+  `id` bigint NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  FULLTEXT KEY `name` (`name`) WITH PARSER `ngram`
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE `access_token` (
   `character_id` bigint NOT NULL,
   `access_token` varchar(255) NOT NULL,
   `expires` int NOT NULL,
   PRIMARY KEY (`character_id`),
   CONSTRAINT `access_token_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `refresh_token` (
+  `character_id` bigint NOT NULL,
+  `refresh_token` varchar(255) NOT NULL,
+  PRIMARY KEY (`character_id`),
+  CONSTRAINT `refresh_token_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `admins` (
@@ -29,11 +45,19 @@ CREATE TABLE `ban` (
   PRIMARY KEY (`kind`,`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `character` (
-  `id` bigint NOT NULL,
-  `name` varchar(255) NOT NULL,
+CREATE TABLE `fitting` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `dna` varchar(1024) CHARACTER SET ascii NOT NULL,
+  `hull` int NOT NULL,
   PRIMARY KEY (`id`),
-  FULLTEXT KEY `name` (`name`) WITH PARSER `ngram`
+  UNIQUE KEY `dna` (`dna`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `implant_set` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `implants` varchar(255) CHARACTER SET ascii NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `implants` (`implants`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `fit_history` (
@@ -51,24 +75,6 @@ CREATE TABLE `fit_history` (
   CONSTRAINT `fit_history_ibfk_3` FOREIGN KEY (`implant_set_id`) REFERENCES `implant_set` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `fitting` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `dna` varchar(1024) CHARACTER SET ascii NOT NULL,
-  `hull` int NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `dna` (`dna`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `fleet` (
-  `id` bigint NOT NULL,
-  `boss_id` bigint NOT NULL,
-  `is_updating` tinyint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `boss_id` (`boss_id`),
-  CONSTRAINT `fleet_ibfk_1` FOREIGN KEY (`boss_id`) REFERENCES `character` (`id`),
-  CONSTRAINT `fleet_chk_1` CHECK ((`is_updating` in (0,1)))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE `fleet_activity` (
   `id` int NOT NULL AUTO_INCREMENT,
   `character_id` bigint NOT NULL,
@@ -84,29 +90,6 @@ CREATE TABLE `fleet_activity` (
   CONSTRAINT `fleet_activity_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`),
   CONSTRAINT `fleet_activity_chk_1` CHECK ((`has_left` in (0,1))),
   CONSTRAINT `fleet_activity_chk_2` CHECK ((`is_boss` in (0,1)))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `fleet_squad` (
-  `fleet_id` bigint NOT NULL,
-  `category` varchar(10) NOT NULL,
-  `wing_id` bigint NOT NULL,
-  `squad_id` bigint NOT NULL,
-  PRIMARY KEY (`fleet_id`,`category`),
-  CONSTRAINT `fleet_squad_ibfk_1` FOREIGN KEY (`fleet_id`) REFERENCES `fleet` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `implant_set` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `implants` varchar(255) CHARACTER SET ascii NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `implants` (`implants`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `refresh_token` (
-  `character_id` bigint NOT NULL,
-  `refresh_token` varchar(255) NOT NULL,
-  PRIMARY KEY (`character_id`),
-  CONSTRAINT `refresh_token_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `skill_current` (
@@ -127,6 +110,27 @@ CREATE TABLE `skill_history` (
   PRIMARY KEY (`id`),
   KEY `character_id` (`character_id`),
   CONSTRAINT `skill_history_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Temporary things
+
+CREATE TABLE `fleet` (
+  `id` bigint NOT NULL,
+  `boss_id` bigint NOT NULL,
+  `is_updating` tinyint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `boss_id` (`boss_id`),
+  CONSTRAINT `fleet_ibfk_1` FOREIGN KEY (`boss_id`) REFERENCES `character` (`id`),
+  CONSTRAINT `fleet_chk_1` CHECK ((`is_updating` in (0,1)))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `fleet_squad` (
+  `fleet_id` bigint NOT NULL,
+  `category` varchar(10) NOT NULL,
+  `wing_id` bigint NOT NULL,
+  `squad_id` bigint NOT NULL,
+  PRIMARY KEY (`fleet_id`,`category`),
+  CONSTRAINT `fleet_squad_ibfk_1` FOREIGN KEY (`fleet_id`) REFERENCES `fleet` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `waitlist` (
