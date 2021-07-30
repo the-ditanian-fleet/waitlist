@@ -41,7 +41,7 @@ Large Hybrid Burst Aerator II
 
 async function xUp({ character, eft, toastContext, waitlist_id }) {
   await apiCall("/api/waitlist/xup", {
-    json: { eft: eft, character_id: character, waitlist_id },
+    json: { eft: eft, character_id: character, waitlist_id: parseInt(waitlist_id) },
   });
 
   addToast(toastContext, {
