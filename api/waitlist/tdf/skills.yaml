@@ -232,16 +232,18 @@ requirements:
       min: 3
       elite: 5
       gold: 5
-    Neurotoxin Control:
-      elite: 4
-      gold: 5
-    Neurotoxin Recovery:
-      elite: 4
-      gold: 5
     Shield Management:
       elite: 4
       gold: 5
     Shield Operation:
+      elite: 4
+      gold: 5
+
+  _sideeffects: &sideeffects
+    Neurotoxin Control:
+      elite: 4
+      gold: 5
+    Neurotoxin Recovery:
       elite: 4
       gold: 5
 
@@ -292,7 +294,7 @@ requirements:
 
   # Start of per-ship skills
   Nightmare:
-    <<: [ *generic, *gunnery ]
+    <<: [ *generic, *gunnery, *sideeffects ]
     Amarr Battleship:
       min: 3
       elite: 4
@@ -327,7 +329,7 @@ requirements:
       elite: 4
 
   Paladin:
-    <<: [ *generic, *gunnery ]
+    <<: [ *generic, *gunnery, *sideeffects ]
     Large Energy Turret:
       min: 4
       elite: 5
@@ -348,7 +350,7 @@ requirements:
       elite: 4
       gold: 5
     Remote Hull Repair Systems:
-      elite: 4
+      min: 3
       gold: 4
     Micro Jump Drive Operation:
       min: 3
@@ -363,7 +365,7 @@ requirements:
       elite: 5
       gold: 5
     Repair Drone Operation:
-      elite: 5
+      min: 1
       gold: 5
     Science:
       elite: 5
@@ -385,7 +387,7 @@ requirements:
       min: 5
 
   Kronos:
-    <<: [ *generic, *gunnery ]
+    <<: [ *generic, *gunnery, *sideeffects ]
     Large Hybrid Turret:
       min: 4
       elite: 5
@@ -406,7 +408,7 @@ requirements:
       elite: 4
       gold: 5
     Remote Hull Repair Systems:
-      elite: 4
+      min: 3
       gold: 4
     Micro Jump Drive Operation:
       min: 3
@@ -417,7 +419,7 @@ requirements:
       elite: 5
       gold: 5
     Repair Drone Operation:
-      elite: 5
+      min: 2
       gold: 5
     Advanced Target Management:
       elite: 3
@@ -434,7 +436,7 @@ requirements:
       min: 5
 
   Vindicator:
-    <<: [ *generic, *gunnery ]
+    <<: [ *generic, *gunnery, *sideeffects ]
     Large Hybrid Turret:
       min: 4
       elite: 5
@@ -467,7 +469,7 @@ requirements:
       gold: 5
 
   Megathron:
-    <<: [ *generic, *gunnery ]
+    <<: [ *generic, *gunnery, *sideeffects ]
     Gallente Battleship:
       min: 3
     Large Hybrid Turret:
@@ -497,7 +499,7 @@ requirements:
       gold: 5
     Amarr Cruiser:
       min: 5
-    Repair Drone Operation:
+    Medium Drone Operation:
       min: 3
       elite: 5
     Cybernetics:
@@ -528,7 +530,10 @@ requirements:
       gold: 5
     Gallente Cruiser:
       min: 5
-    Repair Drone Operation:
+    Light Drone Operation:
+      min: 3
+      elite: 5
+    Medium Drone Operation:
       min: 3
       elite: 5
 
