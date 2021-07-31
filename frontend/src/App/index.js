@@ -54,6 +54,7 @@ export default class App extends React.Component {
       auth: null,
       toasts: [],
       events: null,
+      eventErrors: 0,
       theme: (window.localStorage && window.localStorage.getItem("theme")) || "light",
     };
   }
@@ -61,11 +62,14 @@ export default class App extends React.Component {
   componentDidUpdate() {
     if (this.state.auth && !this.state.events) {
       var events = new EventSource("/api/sse/stream");
+      events.addEventListener("open", (evt) => {
+        this.setState({ eventErrors: 0 });
+      });
       events.addEventListener("error", (err) => {
         events.close();
         setTimeout(() => {
-          this.setState({ events: null });
-        }, 5000 + Math.random() * 10000);
+          this.setState({ events: null, eventErrors: this.state.eventErrors + 1 });
+        }, this.state.eventErrors * 5000 + Math.random() * 10000);
       });
       this.setState({ events });
     }
