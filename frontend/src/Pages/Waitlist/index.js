@@ -14,28 +14,30 @@ import {
 import _ from "lodash";
 
 function coalesceCalls(func, wait) {
-  var timer = null;
   var nextCall = null;
+  var timer = null;
 
-  return function () {
-    if (timer) {
-      nextCall = [this, arguments];
-      return;
+  const timerFn = function () {
+    timer = setTimeout(timerFn, wait);
+
+    if (nextCall) {
+      const [context, args] = nextCall;
+      nextCall = null;
+      func.apply(context, args);
     }
-
-    timer = setInterval(function () {
-      if (nextCall) {
-        var context = nextCall[0];
-        var args = nextCall[1];
-        nextCall = null;
-        func.apply(context, args);
-      } else {
-        clearInterval(timer);
-        timer = null;
-      }
-    }, wait);
-    func.apply(this, arguments);
   };
+
+  // Splay the initial timer, after that use a constant time interval
+  timer = setTimeout(timerFn, wait * Math.random());
+
+  return [
+    function () {
+      nextCall = [this, arguments];
+    },
+    function () {
+      clearTimeout(timer);
+    },
+  ];
 }
 
 async function removeEntry(id) {
@@ -55,7 +57,7 @@ function useWaitlist(waitlistId) {
   React.useEffect(() => {
     if (!eventContext) return;
 
-    const updateFn = coalesceCalls(refreshFn, 1000 + Math.random() * 2000);
+    const [updateFn, clearUpdateFn] = coalesceCalls(refreshFn, 2000);
     const handleEvent = function (event) {
       var data = JSON.parse(event.data);
       if (data.waitlist_id === waitlistId) {
@@ -65,6 +67,7 @@ function useWaitlist(waitlistId) {
     eventContext.addEventListener("waitlist_update", handleEvent);
     eventContext.addEventListener("open", updateFn);
     return function () {
+      clearUpdateFn();
       eventContext.removeEventListener("waitlist_update", handleEvent);
       eventContext.removeEventListener("open", updateFn);
     };
@@ -96,10 +99,11 @@ function useFleetComposition() {
   React.useEffect(() => {
     if (!eventContext) return;
 
-    const updateFn = coalesceCalls(refreshFn, 1000 + Math.random() * 2000);
+    const [updateFn, clearUpdateFn] = coalesceCalls(refreshFn, 2000);
     eventContext.addEventListener("comp_update", updateFn);
     eventContext.addEventListener("open", updateFn);
     return function () {
+      clearUpdateFn();
       eventContext.removeEventListener("comp_update", updateFn);
       eventContext.removeEventListener("open", updateFn);
     };
