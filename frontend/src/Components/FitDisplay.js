@@ -370,7 +370,7 @@ export function FitDisplay({ fit }) {
   return (
     <div style={{ display: "flex" }}>
       <div style={{ margin: "0 0.5em" }}>
-        <DNADisplay dna={fit.dna} analysis={fit.fit_analysis} />
+        <DNADisplay dna={fit.dna} analysis={fit.fit_analysis || {}} />
       </div>
       {fit.implants ? (
         <div style={{ margin: "0 0.5em" }}>
