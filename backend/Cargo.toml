@@ -1,0 +1,36 @@
+[package]
+name = "tdf_wl"
+version = "0.1.0"
+edition = "2018"
+
+[workspace]
+members = [
+    "eve-data-core",
+    "eve-data-macros",
+]
+
+[dependencies]
+eve_data_macros = { path = "./eve-data-macros" }
+eve_data_core = { path = "./eve-data-core" }
+
+sqlx = { version = "0.5", features = ["runtime-tokio-rustls", "macros", "chrono"] }
+rocket = { version = "0.5.0-rc.1", features = ["json"] }
+lazy_static = "1"
+chrono = "0.4"
+reqwest = { version = "*", default-features = false, features = ["json", "rustls-tls"] }
+tokio = { version = "*", features = ["time"] }
+
+serde = "1"
+serde_json = "*"
+rmp-serde = "0.15"
+yaml-merge-keys = { version = "*", features = ["serde_yaml"] }
+serde_yaml = "*"
+toml = "*"
+branca = "0.10"
+hex = "0.4"
+regex = "*"
+
+[features]
+default = ["sqlite"]
+mysql = ["sqlx/mysql"]
+sqlite = ["sqlx/sqlite"]

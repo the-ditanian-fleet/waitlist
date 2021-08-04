@@ -1,9 +1,0 @@
-Flask==2.0.1
-PyYAML==5.4.1
-requests==2.26.0
-SQLAlchemy[mypy]==1.4.21
-gevent==21.1.2
-PyMySQL==1.0.2
-pydantic==1.8.2
-pybranca==0.4.0
-msgpack==1.0.2

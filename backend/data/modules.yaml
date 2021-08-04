@@ -1,0 +1,134 @@
+---
+alternatives:
+# Module alternatives specified as a three-level nested list, of modulegroup, tiers,
+# and then modules in that tier.
+- - - Agency 'Pyrolancea' DB3 Dose I
+  - - Agency 'Pyrolancea' DB5 Dose II
+  - - Agency 'Pyrolancea' DB7 Dose III
+  - - Agency 'Pyrolancea' DB9 Dose IV
+
+- - - Agency 'Overclocker' SB3 Dose I
+  - - Agency 'Overclocker' SB5 Dose II
+  - - Agency 'Overclocker' SB7 Dose III
+  - - Agency 'Overclocker' SB9 Dose IV
+
+- - - Synth Drop Booster
+  - - Standard Drop Booster
+  - - Improved Drop Booster
+  - - Strong Drop Booster
+
+- - - Synth Mindflood Booster
+  - - Standard Mindflood Booster
+  - - Improved Mindflood Booster
+  - - Strong Mindflood Booster
+
+- - - Centum A-Type Medium Remote Armor Repairer
+  - - Large Remote Armor Repairer II
+  - - "'Peace' Large Remote Armor Repairer"
+
+- - - Blood Xray L
+    - Sanshas Xray L
+  - - Imperial Navy Xray L
+  - - True Sanshas Xray L
+    - Dark Blood Xray L
+
+- - - Guristas Antimatter Charge L
+    - Shadow Antimatter Charge L
+  - - Caldari Navy Antimatter Charge L
+    - Federation Navy Antimatter Charge L
+  - - Guardian Antimatter Charge L
+    - Dread Guristas Antimatter Charge L
+
+from_meta: # Automagically determine alternatives
+- base: Sensor Booster II
+- base: Tracking Computer II
+- base: Ogre II
+- base: Hammerhead II
+- base: Hobgoblin II
+- base: Large Inductive Compact Remote Capacitor Transmitter
+- base: Supratidal Entropic Disintegrator II
+- base: Imperial Navy Drone Damage Amplifier
+- base: Modal Mega Neutron Particle Accelerator I
+- base: Remote Tracking Computer II
+- base: Dark Blood Capacitor Power Relay
+- base: Imperial Navy Cap Recharger
+- base: True Sansha Power Diagnostic System
+
+- base: Core X-Type 500MN Microwarpdrive
+  abyssal: 500MN Abyssal Microwarpdrive
+- base: Gistum A-Type 10MN Afterburner
+  abyssal: 10MN Abyssal Afterburner
+
+- base: Federation Navy Stasis Webifier
+  abyssal: Abyssal Stasis Webifier
+- base: True Sansha Heat Sink
+  abyssal: Abyssal Heat Sink
+- base: Federation Navy Magnetic Field Stabilizer
+  abyssal: Abyssal Magnetic Field Stabilizer
+- base: Entropic Radiation Sink II
+  abyssal: Abyssal Entropic Radiation Sink
+- base: Republic Fleet Large Cap Battery
+  abyssal: Large Abyssal Cap Battery
+
+- base: Imperial Navy 1600mm Steel Plates
+  abyssal: Large Abyssal Armor Plates
+- base: Imperial Navy 800mm Steel Plates
+  abyssal: Medium Abyssal Armor Plates
+- base: Damage Control I
+  abyssal: Abyssal Damage Control
+
+from_attribute:
+- base:
+  - Multispectrum Coating II
+  - Multispectrum Energized Membrane II
+  attribute: 984 # EM
+  reverse: true
+- base:
+  - EM Coating II
+  - EM Energized Membrane II
+  attribute: 984 # EM
+  reverse: true
+- base:
+  - Explosive Coating II
+  - Explosive Energized Membrane II
+  attribute: 985 # Explosive
+  reverse: true
+- base:
+  - Kinetic Coating II
+  - Kinetic Energized Membrane II
+  attribute: 986 # Kinetic
+  reverse: true
+- base:
+  - Thermal Coating II
+  - Thermal Energized Membrane II
+  attribute: 987 # Thermal
+  reverse: true
+
+accept_t1: # Meta information missing, but luckily we can just match it naively
+- Heavy Shield Maintenance Bot II
+- Heavy Armor Maintenance Bot II
+- Heavy Hull Maintenance Bot II
+- Medium Shield Maintenance Bot II
+- Medium Armor Maintenance Bot II
+- Medium Hull Maintenance Bot II
+- Light Shield Maintenance Bot II
+- Light Armor Maintenance Bot II
+- Light Hull Maintenance Bot II
+- Small Tractor Beam II
+
+identification: # Modules/groups we use to look at to figure out what we're flying
+- Damage Control II
+- 1600mm Steel Plates II
+- Multispectrum Energized Membrane II
+- Large Explosive Armor Reinforcer I
+- Large Explosive Armor Reinforcer II
+- Large EM Armor Reinforcer I
+- Large Thermal Armor Reinforcer I
+- Large Kinetic Armor Reinforcer I
+- Large Trimark Armor Pump I
+- Large Trimark Armor Pump II
+- Large Hyperspatial Velocity Optimizer I
+- Large Hyperspatial Velocity Optimizer II
+- Large Remote Repair Augmentor II
+- Medium Remote Repair Augmentor II
+- Medium Capacitor Control Circuit II

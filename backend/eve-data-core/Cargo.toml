@@ -1,0 +1,8 @@
+[package]
+name = "eve_data_core"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+rusqlite = { version = "*", features = ["bundled"] }
+lazy_static = "1"

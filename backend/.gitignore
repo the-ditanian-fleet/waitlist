@@ -1,0 +1,6 @@
+/target
+/waitlist.sqlite*
+/sqlite-*
+/archive-backend.tar
+/config.toml
+/.env

@@ -1,0 +1,22 @@
+[database]
+url = "sqlite:waitlist.sqlite"
+min_connections = 1
+max_connections = 5
+connect_timeout = 2
+idle_timeout = 60
+
+[app]
+token_secret = "0000000000000000000000000000000000000000000000000000000000000000"
+
+[esi]
+client_id = "EVE Client ID"
+client_secret = "EVE Client Secret"
+url = "http://localhost:3000/auth/cb"
+
+[sse]
+url = "http://localhost:8000"
+secret = "0000000000000000000000000000000000000000000000000000000000000000"
+
+[fleet_updater]
+enable = true
+min_in_fleet = 8
