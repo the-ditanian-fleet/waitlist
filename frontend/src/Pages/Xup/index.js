@@ -1,14 +1,16 @@
 import React from "react";
-import { ToastContext, AuthContext } from "../contexts";
-import { addToast } from "../Components/Toast";
-import { apiCall, errorToaster, useApi } from "../api";
-import { Button, Buttons, InputGroup, NavButton, Textarea } from "../Components/Form";
+import { ToastContext, AuthContext } from "../../contexts";
+import { addToast } from "../../Components/Toast";
+import { apiCall, errorToaster, useApi } from "../../api";
+import { Button, Buttons, InputGroup, NavButton, Textarea } from "../../Components/Form";
 import { useLocation } from "react-router-dom";
-import { PageTitle } from "../Components/Page";
-import { FitDisplay } from "../Components/FitDisplay";
+import { PageTitle } from "../../Components/Page";
+import { FitDisplay } from "../../Components/FitDisplay";
 import _ from "lodash";
-import { Box } from "../Components/Box";
-import { Modal } from "../Components/Modal";
+import { Box } from "../../Components/Box";
+import { Modal } from "../../Components/Modal";
+
+import howToX from "./howtox.png";
 
 const exampleFit = String.raw`
 [Vindicator, Vindicator]
@@ -109,7 +111,7 @@ export function Xup() {
         <h2 style={{ textAlign: "right", fontSize: "2em" }}>How to X?</h2>
         <img
           width="300"
-          src="https://i.imgur.com/8Gh05lg.png"
+          src={howToX}
           alt="On the bottom left of the Fitting window you will find a copy button"
         />
       </div>
