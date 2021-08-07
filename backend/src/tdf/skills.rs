@@ -50,7 +50,7 @@ fn build_skill_data() -> Result<SkillData, TypeError> {
             let mut these_tiers = HashMap::new();
             let min_level = tiers.get("min");
             let elite_level = tiers.get("elite").or(min_level);
-            let gold_level = tiers.get("gold").or(elite_level);
+            let gold_level = tiers.get("gold").or(Some(&5));
 
             if let Some(min_level) = min_level {
                 these_tiers.insert("min", *min_level);
