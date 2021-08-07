@@ -412,7 +412,7 @@ requirements:
     Remote Armor Repair Systems:
       min: 5
     Radar Sensor Compensation:
-      gold: 5
+      elite: 4
     Amarr Cruiser:
       min: 5
     Light Drone Operation:
@@ -441,7 +441,7 @@ requirements:
     Remote Armor Repair Systems:
       min: 5
     Magnetometric Sensor Compensation:
-      gold: 5
+      elite: 4
     Gallente Cruiser:
       min: 5
     Medium Drone Operation:
@@ -470,7 +470,7 @@ requirements:
     High Speed Maneuvering:
       min: 4
     Magnetometric Sensor Compensation:
-      gold: 5
+      elite: 4
     Repair Drone Operation:
       min: 3
       elite: 5
