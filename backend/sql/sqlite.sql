@@ -38,7 +38,9 @@ CREATE TABLE `ban` (
   `kind` varchar(11) NOT NULL,
   `id` bigint NOT NULL,
   `expires_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`kind`,`id`)
+  `added_by` bigint DEFAULT NULL,
+  PRIMARY KEY (`kind`,`id`),
+  CONSTRAINT `ban_added_by_fk` FOREIGN KEY (`added_by`) REFERENCES `character` (`id`)
 );
 
 CREATE TABLE `fitting` (

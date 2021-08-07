@@ -1,7 +1,11 @@
+use std::collections::HashSet;
+
 use crate::{
     app::Application,
     core::auth::AuthenticatedAccount,
+    data::character,
     util::madness::{Madness, UserMadness},
+    util::types::Character,
 };
 
 use rocket::serde::json::Json;
@@ -38,10 +42,11 @@ async fn add_ban(
     };
 
     sqlx::query!(
-        "REPLACE INTO ban (kind, id, expires_at) VALUES (?, ?, ?)",
+        "REPLACE INTO ban (kind, id, expires_at, added_by) VALUES (?, ?, ?, ?)",
         input.kind,
         input.id,
-        expiry
+        expiry,
+        account.id
     )
     .execute(app.get_db())
     .await?;
@@ -80,6 +85,7 @@ struct BanListResponseEntry {
     id: i64,
     expires_at: Option<i64>,
     name: Option<String>,
+    added_by: Option<Character>,
 }
 
 #[derive(Debug, Serialize)]
@@ -100,19 +106,41 @@ async fn list_bans(
         .execute(app.get_db())
         .await?;
 
-    let bans = sqlx::query!(
-        "
-            SELECT id, kind, expires_at, (SELECT name FROM `character` WHERE id=ban.id LIMIT 1) `character_name?` FROM ban ORDER BY kind ASC, id ASC
-        ").fetch_all(app.get_db()).await?.into_iter()
-        .map(|row| BanListResponseEntry{
-            expires_at: row.expires_at.map(|t| t.timestamp()),
-            name: if row.kind == "character" {
-                row.character_name
-            } else {
-                None
-            },
-            id: row.id,
-            kind: row.kind,
+    let rows =
+        sqlx::query!("SELECT id, kind, expires_at, added_by FROM ban ORDER BY kind ASC, id ASC")
+            .fetch_all(app.get_db())
+            .await?;
+
+    let mut character_ids = HashSet::new();
+    for row in &rows {
+        if let Some(character) = row.added_by {
+            character_ids.insert(character);
+        }
+        if row.kind == "character" {
+            character_ids.insert(row.id);
+        }
+    }
+    let character_ids = character_ids.into_iter().collect::<Vec<_>>();
+    let character_lookup = character::lookup(app.get_db(), &character_ids).await?;
+
+    let bans = rows
+        .into_iter()
+        .map(|ban| {
+            let added_by = ban
+                .added_by
+                .and_then(|id| character_lookup.get(&id).map(|c| c.clone()));
+            let name = match ban.kind.as_str() {
+                "character" => character_lookup.get(&ban.id).map(|c| c.name.clone()),
+                _ => None,
+            };
+
+            BanListResponseEntry {
+                kind: ban.kind,
+                id: ban.id,
+                expires_at: ban.expires_at.map(|ts| ts.timestamp()),
+                name,
+                added_by,
+            }
         })
         .collect();
 
