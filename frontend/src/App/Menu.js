@@ -92,7 +92,7 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
                 Bans
               </NavBar.Link>
             )}
-            {whoami && whoami.access["access-manage"] && (
+            {whoami && whoami.access["access-view"] && (
               <NavBar.Link exact to="/fc/acl">
                 ACL
               </NavBar.Link>

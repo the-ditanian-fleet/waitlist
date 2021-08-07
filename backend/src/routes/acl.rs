@@ -25,9 +25,8 @@ async fn add_acl(
         return Err(UserMadness::BadRequest(format!("Unknown level '{}'", input.level)).into());
     }
 
-    if to_be_granted.unwrap().contains("access-manage")
-        && !account.access.contains("access-manage-all")
-    {
+    let required_access = format!("access-manage:{}", input.level);
+    if !account.access.contains(&required_access) && !account.access.contains("access-manage-all") {
         return Err(UserMadness::BadRequest(format!("Cannot grant {}", input.level)).into());
     }
 
@@ -68,12 +67,11 @@ async fn remove_acl(
         .fetch_optional(app.get_db())
         .await?;
     if let Some(the_acl) = the_acl {
-        if let Some(access) = get_access_keys(&the_acl.level) {
-            if access.contains("access-manage") && !account.access.contains("access-manage-all") {
-                return Err(
-                    UserMadness::BadRequest(format!("Cannot revoke {}", the_acl.level)).into(),
-                );
-            }
+        let require_access = format!("access-manage:{}", the_acl.level);
+        if !account.access.contains(&require_access)
+            && !account.access.contains("access-manage-all")
+        {
+            return Err(UserMadness::BadRequest(format!("Cannot revoke {}", the_acl.level)).into());
         }
 
         sqlx::query!("DELETE FROM admins WHERE character_id=?", input.id)
@@ -101,7 +99,7 @@ async fn list_acl(
     account: AuthenticatedAccount,
     app: &rocket::State<Application>,
 ) -> Result<Json<ACLResponse>, Madness> {
-    account.require_access("access-manage")?;
+    account.require_access("access-view")?;
 
     let acls = sqlx::query!(
         "

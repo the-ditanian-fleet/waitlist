@@ -193,13 +193,25 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
             "skill-history-view",
             "waitlist-edit",
             "stats-view",
+            "access-view",
         ],
     );
     build_level(
         &mut result,
         "fc",
+        "fc-trainer",
+        vec![
+            "access-manage",
+            "access-manage:trainee",
+            "access-manage:trainee-advanced",
+            "access-manage:fc",
+        ],
+    );
+    build_level(
+        &mut result,
+        "fc-trainer",
         "council",
-        vec!["bans-view", "bans-manage", "access-manage"],
+        vec!["bans-view", "bans-manage", "access-manage:fc-trainer"],
     );
     build_level(&mut result, "council", "admin", vec!["access-manage-all"]);
 
