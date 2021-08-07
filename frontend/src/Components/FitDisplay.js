@@ -307,7 +307,7 @@ function DisplaySlot({ isDiff, groups, moduleInfo }) {
   );
 }
 
-export function DNADisplay({ dna, analysis = null }) {
+export function DNADisplay({ dna, analysis = null, name = null }) {
   const toastContext = React.useContext(ToastContext);
   const [hull, ids, counts] = React.useMemo(() => parseDna(dna), [dna]);
   const allIds = React.useMemo(() => ids.concat(extractAnalysisIds(analysis)), [ids, analysis]);
@@ -325,6 +325,8 @@ export function DNADisplay({ dna, analysis = null }) {
     );
   }
 
+  let displayName = name ? name : analysis && analysis.name ? analysis.name : moduleInfo[hull].name;
+
   return (
     <div>
       <DOM.Hull>
@@ -332,9 +334,7 @@ export function DNADisplay({ dna, analysis = null }) {
           src={`https://imageserver.eveonline.com/Type/${hull}_64.png`}
           alt={moduleInfo[hull].name}
         />
-        <DOM.Hull.Name>
-          {analysis && analysis.name ? analysis.name : moduleInfo[hull].name}
-        </DOM.Hull.Name>
+        <DOM.Hull.Name>{displayName}</DOM.Hull.Name>
         <DOM.Hull.Copy
           title="Copy to clipboard"
           onClick={(evt) => {
@@ -361,9 +361,9 @@ export function DNADisplay({ dna, analysis = null }) {
   );
 }
 
-function ImplantDisplay({ implants }) {
+export function ImplantDisplay({ implants, ...props }) {
   const podDna = implants.map((implant) => `${implant};1`).join(":");
-  return <DNADisplay dna={`670:${podDna}::`} />;
+  return <DNADisplay dna={`670:${podDna}::`} {...props} />;
 }
 
 export function FitDisplay({ fit }) {

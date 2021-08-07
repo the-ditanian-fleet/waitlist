@@ -4,8 +4,8 @@ import { addToast } from "../../Components/Toast";
 import { apiCall, errorToaster, useApi } from "../../api";
 import { Button, Buttons, InputGroup, NavButton, Textarea } from "../../Components/Form";
 import { useLocation } from "react-router-dom";
-import { PageTitle } from "../../Components/Page";
-import { FitDisplay } from "../../Components/FitDisplay";
+import { Content, PageTitle } from "../../Components/Page";
+import { FitDisplay, ImplantDisplay } from "../../Components/FitDisplay";
 import _ from "lodash";
 import { Box } from "../../Components/Box";
 import { Modal } from "../../Components/Modal";
@@ -65,13 +65,15 @@ export function Xup() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [reviewOpen, setReviewOpen] = React.useState(false);
 
+  const [implants] = useApi(`/api/implants?character_id=${authContext.current.id}`);
+
   const waitlist_id = queryParams.get("wl");
   if (!waitlist_id) {
     return <em>Missing waitlist information</em>;
   }
 
   return (
-    <div style={{ display: "flex" }}>
+    <>
       {reviewOpen && (
         <Modal open={true} setOpen={(evt) => null}>
           <Box>
@@ -79,43 +81,52 @@ export function Xup() {
           </Box>
         </Modal>
       )}
-      <div style={{ flexGrow: 1, marginRight: "1em" }}>
-        <h2 style={{ fontSize: "2em" }}>X-up with fit(s)</h2>
-        <Textarea
-          placeholder={exampleFit}
-          rows={15}
-          onChange={(evt) => setEft(evt.target.value)}
-          value={eft}
-          style={{ minWidth: "500px", marginBottom: "1em" }}
-        />
-        <InputGroup>
-          <Button static>{authContext.current.name}</Button>
-          <Button
-            variant="success"
-            onClick={(evt) => {
-              setIsSubmitting(true);
-              errorToaster(
-                toastContext,
-                xUp({ character: authContext.current.id, eft, toastContext, waitlist_id }).then(
-                  (evt) => setReviewOpen(true)
-                )
-              ).finally((evt) => setIsSubmitting(false));
-            }}
-            disabled={eft.trim().length < 50 || !eft.startsWith("[") || isSubmitting}
-          >
-            X-up
-          </Button>
-        </InputGroup>
+
+      <div style={{ display: "flex" }}>
+        <Content style={{ flex: 1 }}>
+          <h2>X-up with fit(s)</h2>
+          <Textarea
+            placeholder={exampleFit}
+            rows={15}
+            onChange={(evt) => setEft(evt.target.value)}
+            value={eft}
+            style={{ width: "100%", marginBottom: "1em" }}
+          />
+          <InputGroup>
+            <Button static>{authContext.current.name}</Button>
+            <Button
+              variant="success"
+              onClick={(evt) => {
+                setIsSubmitting(true);
+                errorToaster(
+                  toastContext,
+                  xUp({ character: authContext.current.id, eft, toastContext, waitlist_id }).then(
+                    (evt) => setReviewOpen(true)
+                  )
+                ).finally((evt) => setIsSubmitting(false));
+              }}
+              disabled={eft.trim().length < 50 || !eft.startsWith("[") || isSubmitting}
+            >
+              X-up
+            </Button>
+          </InputGroup>
+
+          <h2>How to X up?</h2>
+          <img
+            src={howToX}
+            alt="On the bottom left of the Fitting window you will find a copy button"
+          />
+        </Content>
+        <Box style={{ flex: 1 }}>
+          {implants ? (
+            <ImplantDisplay
+              implants={implants.implants}
+              name={`${authContext.current.name}'s capsule`}
+            />
+          ) : null}
+        </Box>
       </div>
-      <div>
-        <h2 style={{ textAlign: "right", fontSize: "2em" }}>How to X?</h2>
-        <img
-          width="300"
-          src={howToX}
-          alt="On the bottom left of the Fitting window you will find a copy button"
-        />
-      </div>
-    </div>
+    </>
   );
 }
 
