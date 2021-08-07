@@ -64,12 +64,29 @@ export function Guide() {
     );
   }
 
+  function Link({ href, children, ...props }) {
+    return href.startsWith("/") ? (
+      <NavLink exact to={href}>
+        {children}
+      </NavLink>
+    ) : (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
+  }
+
+  const components = {
+    a: Link,
+  };
+
   return (
     <GuideContent style={{ maxWidth: "800px" }}>
       <ReactMarkdown
         rehypePlugins={[rehypeRaw]}
         transformImageUri={resolveImage}
         transformLinkUri={null}
+        components={components}
       >
         {loadedData}
       </ReactMarkdown>

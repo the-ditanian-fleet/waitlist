@@ -74,3 +74,7 @@ Finally; select the history tab in the fleet window and select "Broadcast Histor
 Looking at your Character sheet Interactions tab then the Kill rights section, double check you have no kill rights against you. Having a killright available to you is perfectly fine. Then open your corporation window and make sure your corporation is not enrolled in factional warfare or has an active War Dec.
 
 ![](war.png)
+
+## Keep reading
+
+[First Fleet guide](/guide/xup)

@@ -99,3 +99,7 @@ New players are obviously going to make mistakes. TDF won't crucify you for it. 
 ## Still not sure?
 
 Just ask in fleet chat or over Teamspeak.
+
+## Keep reading
+
+[Anchoring guide](/guide/dps)
