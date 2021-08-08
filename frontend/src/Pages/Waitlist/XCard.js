@@ -29,6 +29,7 @@ import alphaBadge from "../Guide/guides/badges/alpha.png";
 import { SkillDisplay } from "../../Components/SkillDisplay";
 import { Box } from "../../Components/Box";
 import { Title } from "../../Components/Page";
+import { Button, InputGroup } from "../../Components/Form";
 
 const tagBadges = {
   "WARPSPEED1-10": [wBadge, "Warp Speed Implants"],
@@ -140,7 +141,9 @@ XCardDOM.ReviewComment = styled.div`
   color: ${(props) => props.theme.colors.secondary.text};
 `;
 
-function ShipDisplay({ fit }) {
+function ShipDisplay({ fit, onAction }) {
+  const authContext = React.useContext(AuthContext);
+  const toastContext = React.useContext(ToastContext);
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const namePrefix = fit.character ? `${fit.character.name}'s ` : "";
@@ -150,6 +153,35 @@ function ShipDisplay({ fit }) {
         {modalOpen ? (
           <Modal open={true} setOpen={setModalOpen}>
             <Box>
+              {authContext.access["waitlist-manage"] && (
+                <InputGroup style={{ marginBottom: "1em" }}>
+                  <Button
+                    variant="success"
+                    onClick={(evt) => {
+                      setModalOpen(false);
+                      errorToaster(toastContext, approveFit(fit.id)).then(onAction);
+                    }}
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    onClick={(evt) => {
+                      var rejectionReason = prompt(
+                        "Why is the fit being rejected? (Will be displayed to pilot)"
+                      );
+                      if (rejectionReason) {
+                        setModalOpen(false);
+                        errorToaster(toastContext, rejectFit(fit.id, rejectionReason)).then(
+                          onAction
+                        );
+                      }
+                    }}
+                  >
+                    Reject
+                  </Button>
+                </InputGroup>
+              )}
+
               <FitDisplay fit={fit} />
               {fit.tags.includes("STARTER-SKILLS") ? (
                 <>
@@ -274,7 +306,7 @@ export function XCard({ entry, fit, onAction }) {
         </XCardDOM.Head.Badges>
       </XCardDOM.Head>
       <XCardDOM.Content>
-        <ShipDisplay fit={fit} />
+        <ShipDisplay fit={fit} onAction={onAction} />
       </XCardDOM.Content>
       <XCardDOM.Content>
         {tagText.map((tag) => (
