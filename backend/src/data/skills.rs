@@ -64,19 +64,19 @@ pub async fn load_skills(
 
         let on_record = last_known_skills.get(&skill.skill_id);
         if let Some(on_record) = on_record {
-            if *on_record == skill.active_skill_level {
+            if *on_record == skill.trained_skill_level {
                 // Match: skill didn't change
                 continue;
             }
 
             sqlx::query!(
                 "INSERT INTO skill_history (character_id, skill_id, old_level, new_level, logged_at) VALUES (?, ?, ?, ?, ?)",
-                character_id, skill.skill_id, *on_record, skill.active_skill_level, now
+                character_id, skill.skill_id, *on_record, skill.trained_skill_level, now
             ).execute(&mut tx).await?;
         } else if !last_known_skills.is_empty() {
             sqlx::query!(
                 "INSERT INTO skill_history (character_id, skill_id, old_level, new_level, logged_at) VALUES (?, ?, 0, ?, ?)",
-                character_id, skill.skill_id, skill.active_skill_level, now
+                character_id, skill.skill_id, skill.trained_skill_level, now
             ).execute(&mut tx).await?;
         }
 
@@ -84,7 +84,7 @@ pub async fn load_skills(
             "REPLACE INTO skill_current (character_id, skill_id, level) VALUES (?, ?, ?)",
             character_id,
             skill.skill_id,
-            skill.active_skill_level
+            skill.trained_skill_level
         )
         .execute(&mut tx)
         .await?;
