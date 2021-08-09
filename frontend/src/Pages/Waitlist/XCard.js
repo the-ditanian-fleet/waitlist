@@ -101,7 +101,7 @@ XCardDOM.Head.Badges = styled.div`
     margin-left: 0.25em;
   }
   img {
-    height: 1.5em;
+    height: 1em;
   }
 `;
 XCardDOM.Content = styled.div`
