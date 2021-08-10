@@ -23,9 +23,12 @@ import _ from "lodash";
 import wBadge from "../Guide/guides/badges/w.png";
 import hBadge from "../Guide/guides/badges/h.png";
 import aBadge from "../Guide/guides/badges/a.png";
+import lBadge from "../Guide/guides/badges/l.png";
 import eBadge from "../Guide/guides/badges/e.png";
 import egoldBadge from "../Guide/guides/badges/egold.png";
 import starterBadge from "../Guide/guides/badges/starter.png";
+import hqfcBadge from "../Guide/guides/badges/hq.png";
+
 import { SkillDisplay } from "../../Components/SkillDisplay";
 import { Box } from "../../Components/Box";
 import { Title } from "../../Components/Page";
@@ -38,6 +41,8 @@ const tagBadges = {
   ELITE: [eBadge, "Elite"],
   "ELITE-GOLD": [egoldBadge, "Elite GOLD"],
   "STARTER-SKILLS": [starterBadge, "Starter skills"],
+  "HQ-FC": [hqfcBadge, "HQ FC"],
+  LOGI: [lBadge, "Logi Specialist"],
 };
 
 async function approveFit(id) {

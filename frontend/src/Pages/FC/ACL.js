@@ -25,9 +25,43 @@ async function addAcl(id, level) {
   return apiCall("/api/acl/add", { json: { id: parseInt(id), level } });
 }
 
+function ACLTable({ entries, onAction }) {
+  const toastContext = React.useContext(ToastContext);
+  const authContext = React.useContext(AuthContext);
+
+  return (
+    <Table fullWidth>
+      <TableHead>
+        <Row>
+          <CellHead>Name</CellHead>
+          <CellHead>Level</CellHead>
+          <CellHead>Actions</CellHead>
+        </Row>
+      </TableHead>
+      <TableBody>
+        {entries.map((admin) => (
+          <Row key={admin.id}>
+            <Cell>{admin.name}</Cell>
+            <Cell>{admin.level}</Cell>
+            <Cell>
+              {authContext.access["access-manage"] && (
+                <Button
+                  variant="danger"
+                  onClick={(evt) => toaster(toastContext, removeAcl(admin.id).then(onAction))}
+                >
+                  Remove
+                </Button>
+              )}
+            </Cell>
+          </Row>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+
 function ACLOverview() {
   const [acl, refreshAcl] = useApi("/api/acl/list");
-  const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
 
   if (!acl) {
@@ -37,33 +71,23 @@ function ACLOverview() {
   return (
     <>
       <PageTitle>Access control</PageTitle>
-      <Table fullWidth>
-        <TableHead>
-          <Row>
-            <CellHead>Name</CellHead>
-            <CellHead>Level</CellHead>
-            <CellHead>Actions</CellHead>
-          </Row>
-        </TableHead>
-        <TableBody>
-          {acl.acl.map((admin) => (
-            <Row key={admin.id}>
-              <Cell>{admin.name}</Cell>
-              <Cell>{admin.level}</Cell>
-              <Cell>
-                {authContext.access["access-manage"] && (
-                  <Button
-                    variant="danger"
-                    onClick={(evt) => toaster(toastContext, removeAcl(admin.id).then(refreshAcl))}
-                  >
-                    Remove
-                  </Button>
-                )}
-              </Cell>
-            </Row>
-          ))}
-        </TableBody>
-      </Table>
+
+      <Box>
+        <Title>Logi Specialist</Title>
+        <ACLTable
+          entries={acl.acl.filter((entry) => entry.level === "logi-specialist")}
+          onAction={refreshAcl}
+        />
+      </Box>
+
+      <Box>
+        <Title>FC</Title>
+        <ACLTable
+          entries={acl.acl.filter((entry) => entry.level !== "logi-specialist")}
+          onAction={refreshAcl}
+        />
+      </Box>
+
       {authContext.access["access-manage"] && <AddACL onAction={refreshAcl} />}
     </>
   );
@@ -92,6 +116,7 @@ function AddACL({ onAction }) {
           </label>
           <Select value={level} onChange={(evt) => setLevel(evt.target.value)}>
             <option></option>
+            <option value="logi-specialist">logi-specialist</option>
             <option value="trainee">trainee</option>
             <option value="trainee-advanced">trainee-advanced</option>
             <option value="fc">fc</option>

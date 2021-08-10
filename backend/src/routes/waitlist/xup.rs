@@ -189,6 +189,7 @@ async fn xup(
         implants: &implants,
         time_in_fleet,
         skills: &skills,
+        access_keys: account.access,
     };
 
     for fit in fits {

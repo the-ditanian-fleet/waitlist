@@ -32,6 +32,7 @@ pub struct PilotData<'a> {
     pub implants: &'a [TypeID],
     pub time_in_fleet: i64,
     pub skills: &'a Skills,
+    pub access_keys: &'a BTreeSet<String>,
 }
 
 pub struct FitChecker<'a> {
@@ -68,6 +69,7 @@ impl<'a> FitChecker<'a> {
         checker.check_logi_implants();
         checker.set_category();
         checker.add_implant_tag();
+        checker.add_snowflake_tags();
         checker.merge_tags();
 
         checker.finish()
@@ -267,6 +269,16 @@ impl<'a> FitChecker<'a> {
             category = "starter".to_string();
         }
         self.category = Some(category);
+    }
+
+    fn add_snowflake_tags(&mut self) {
+        if self.pilot.access_keys.contains("waitlist-tag:HQ-FC") {
+            self.tags.insert("HQ-FC");
+        } else if self.pilot.access_keys.contains("waitlist-tag:LOGI")
+            && self.fit.hull == type_id!("Nestor")
+        {
+            self.tags.insert("LOGI");
+        }
     }
 
     fn merge_tags(&mut self) {
