@@ -26,7 +26,7 @@ async function addAcl(id, level) {
 }
 
 function ACLOverview() {
-  const [acl] = useApi("/api/acl/list");
+  const [acl, refreshAcl] = useApi("/api/acl/list");
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
 
@@ -54,7 +54,7 @@ function ACLOverview() {
                 {authContext.access["access-manage"] && (
                   <Button
                     variant="danger"
-                    onClick={(evt) => toaster(toastContext, removeAcl(admin.id))}
+                    onClick={(evt) => toaster(toastContext, removeAcl(admin.id).then(refreshAcl))}
                   >
                     Remove
                   </Button>
@@ -64,12 +64,12 @@ function ACLOverview() {
           ))}
         </TableBody>
       </Table>
-      {authContext.access["access-manage"] && <AddACL />}
+      {authContext.access["access-manage"] && <AddACL onAction={refreshAcl} />}
     </>
   );
 }
 
-function AddACL() {
+function AddACL({ onAction }) {
   const toastContext = React.useContext(ToastContext);
   const [id, setId] = React.useState("");
   const [level, setLevel] = React.useState("");
@@ -99,7 +99,9 @@ function AddACL() {
             <option value="council">council</option>
           </Select>
         </p>
-        <Button onClick={(evt) => toaster(toastContext, addAcl(id, level))}>Confirm</Button>
+        <Button onClick={(evt) => toaster(toastContext, addAcl(id, level).then(onAction))}>
+          Confirm
+        </Button>
       </Box>
     </>
   );
