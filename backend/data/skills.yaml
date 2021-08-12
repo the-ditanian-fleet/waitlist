@@ -229,6 +229,9 @@ requirements:
     Trajectory Analysis:
       min: 4
       elite: 4
+    Weapon Upgrades:
+      min: 4
+      elite: 5
 
   _logistics: &logistics
     # Logistics skills: all logi pilots need these
@@ -320,9 +323,6 @@ requirements:
       min: 5
     Astronautics Rigging:
       gold: 5
-    Weapon Upgrades:
-      min: 4
-      elite: 5
     Advanced Weapon Upgrades:
       min: 5
 
@@ -359,9 +359,6 @@ requirements:
       elite: 4
     Gallente Battleship:
       min: 5
-    Weapon Upgrades:
-      min: 4
-      elite: 5
     Advanced Weapon Upgrades:
       min: 5
 
