@@ -171,6 +171,7 @@ requirements:
       min: 4
       elite: 5
     CPU Management:
+      min: 4
       elite: 5
     Capacitor Systems Operation:
       min: 3
