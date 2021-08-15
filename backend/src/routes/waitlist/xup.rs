@@ -8,7 +8,7 @@ use crate::{
     tdf,
     util::madness::{Madness, UserMadness},
 };
-use eve_data_core::{Fitting, TypeID};
+use eve_data_core::{Category, Fitting, TypeDB, TypeID};
 
 #[derive(Debug, Deserialize)]
 struct XupRequest {
@@ -193,6 +193,11 @@ async fn xup(
     };
 
     for fit in fits {
+        let hull_type = TypeDB::load_type(fit.hull)?;
+        if hull_type.category != Category::Ship {
+            return Err(UserMadness::BadRequest("Only ships can fly".to_string()).into());
+        }
+
         let fit_id = dedup_dna(&mut tx, fit.hull, &fit.to_dna()?).await?;
 
         // Delete existing X'up for the hull
