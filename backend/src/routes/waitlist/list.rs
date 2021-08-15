@@ -35,7 +35,7 @@ struct WaitlistEntryFit {
     id: i64,
     approved: bool,
     category: String,
-    hull: Option<Hull>,
+    hull: Hull,
     character: Option<Character>,
     tags: Vec<String>,
     hours_in_fleet: Option<i64>,
@@ -143,7 +143,13 @@ async fn list(
                 .unwrap()
                 .to_string(),
             tags,
-            hull: None,
+            hull: Hull {
+                id: record.fitting_hull as TypeID,
+                name: hull_names
+                    .get(&record.fitting_hull)
+                    .expect("Expected hull to exist")
+                    .clone(),
+            },
             character: None,
             hours_in_fleet: None,
             review_comment: None,
@@ -151,16 +157,6 @@ async fn list(
             implants: None,
             fit_analysis: None,
         };
-
-        if x_is_ours || account.access.contains("waitlist-view") || this_fit.approved {
-            this_fit.hull = Some(Hull {
-                id: record.fitting_hull as TypeID,
-                name: hull_names
-                    .get(&record.fitting_hull)
-                    .expect("Expected hull to exist")
-                    .clone(),
-            });
-        }
 
         let tags = record
             .wef_tags
