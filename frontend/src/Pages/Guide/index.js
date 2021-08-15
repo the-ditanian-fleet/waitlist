@@ -1,11 +1,13 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 import { useParams, NavLink } from "react-router-dom";
 import { Content } from "../../Components/Page";
 import styled from "styled-components";
 import { ToastContext } from "../../contexts";
 import { errorToaster } from "../../api";
+import { Table, TableHead, TableBody, Cell, CellHead, Row } from "../../Components/Table";
 
 const guideData = {};
 function importAll(r) {
@@ -78,12 +80,19 @@ export function Guide() {
 
   const components = {
     a: Link,
+    table: Table,
+    thead: TableHead,
+    tbody: TableBody,
+    th: CellHead,
+    td: Cell,
+    tr: Row,
   };
 
   return (
     <GuideContent style={{ maxWidth: "800px" }}>
       <ReactMarkdown
         rehypePlugins={[rehypeRaw]}
+        remarkPlugins={[remarkGfm]}
         transformImageUri={resolveImage}
         transformLinkUri={null}
         components={components}
