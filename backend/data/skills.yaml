@@ -60,6 +60,8 @@ categories:
     - Propulsion Jamming
     - Science
     - Sensor Linking
+    - Frequency Modulation
+    - Long Distance Jamming
     - Capacitor Emission Systems
     - Remote Armor Repair Systems
     - Remote Hull Repair Systems
@@ -445,6 +447,10 @@ requirements:
     Medium Drone Operation:
       min: 3
       elite: 5
+    Frequency Modulation:
+      gold: 5
+    Long Distance Jamming:
+      gold: 5
 
   Nestor:
     <<: [ *generic, *logistics ]
