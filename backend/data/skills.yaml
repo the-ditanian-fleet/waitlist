@@ -377,7 +377,7 @@ requirements:
       elite: 4
     Minmatar Battleship:
       min: 3
-      elite: 4
+      elite: 5
     Heavy Drone Operation:
       min: 3
       elite: 5
@@ -448,8 +448,12 @@ requirements:
       min: 3
       elite: 5
     Frequency Modulation:
+      min: 3
+      elite: 4
       gold: 5
     Long Distance Jamming:
+      min: 3
+      elite: 4
       gold: 5
 
   Nestor:
