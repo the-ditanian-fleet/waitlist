@@ -25,7 +25,7 @@ const EntryDOM = styled.div`
   }
 `;
 EntryDOM.Time = styled.div`
-  flex: 0 0 200px;
+  flex: 0 0 300px;
   padding: 0.5em;
 `;
 EntryDOM.Icon = styled.div`
@@ -41,7 +41,7 @@ function Entry({ time, icon, children }) {
   return (
     <EntryDOM>
       <EntryDOM.Icon>{icon && <FontAwesomeIcon fixedWidth icon={icon} />}</EntryDOM.Icon>
-      <EntryDOM.Time>{new Date(time * 1000).toLocaleString()}</EntryDOM.Time>
+      <EntryDOM.Time>{new Date(time * 1000).toUTCString()}</EntryDOM.Time>
       <EntryDOM.Content>{children}</EntryDOM.Content>
     </EntryDOM>
   );

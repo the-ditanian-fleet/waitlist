@@ -47,7 +47,7 @@ export function FleetCompHistory() {
                     <Cell>{entry.character.name}</Cell>
                     <Cell>{entry.hull.name}</Cell>
                     <Cell>
-                      {new Date(entry.logged_at * 1000).toLocaleString()} (
+                      {new Date(entry.logged_at * 1000).toUTCString()} (
                       {formatDuration(entry.time_in_fleet)})
                     </Cell>
                   </Row>

@@ -74,7 +74,7 @@ function BanEntry({ kind, id, name, expires_at, onAction, added_by }) {
         <a href={link}>{id}</a>
       </Cell>
       <Cell>{name}</Cell>
-      <Cell>{expires_at ? new Date(expires_at * 1000).toLocaleString() : null}</Cell>
+      <Cell>{expires_at ? new Date(expires_at * 1000).toUTCString() : null}</Cell>
       <Cell>{added_by && added_by.name}</Cell>
       {authContext.access["bans-manage"] && (
         <Cell>
