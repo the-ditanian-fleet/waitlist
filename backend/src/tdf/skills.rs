@@ -12,6 +12,7 @@ pub struct SkillData {
     pub categories: SkillCategories,
     pub relevant_skills: HashSet<TypeID>,
     pub name_lookup: HashMap<String, TypeID>,
+    pub id_lookup: HashMap<TypeID, String>,
 }
 
 lazy_static::lazy_static! {
@@ -70,7 +71,9 @@ fn build_skill_data() -> Result<SkillData, TypeError> {
     }
 
     let mut name_lookup = HashMap::new();
+    let mut id_lookup = HashMap::new();
     for (id, name) in TypeDB::names_of(&known_skills.iter().copied().collect::<Vec<TypeID>>())? {
+        id_lookup.insert(id, name.clone());
         name_lookup.insert(name, id);
     }
 
@@ -79,5 +82,6 @@ fn build_skill_data() -> Result<SkillData, TypeError> {
         categories,
         relevant_skills: known_skills,
         name_lookup,
+        id_lookup,
     })
 }

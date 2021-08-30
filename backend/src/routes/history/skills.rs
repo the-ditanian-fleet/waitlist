@@ -15,6 +15,7 @@ struct SkillHistoryResponseLine {
     old_level: SkillLevel,
     new_level: SkillLevel,
     logged_at: i64,
+    name: &'static str,
 }
 
 #[derive(Serialize)]
@@ -45,13 +46,18 @@ async fn skill_history(
     .fetch_all(app.get_db())
     .await?
     .into_iter()
+    .filter(|row| relevance.contains(&row.skill_id))
     .map(|row| SkillHistoryResponseLine {
         skill_id: row.skill_id as TypeID,
         old_level: row.old_level as SkillLevel,
         new_level: row.new_level as SkillLevel,
         logged_at: row.logged_at,
+        name: tdf_skills::skill_data()
+            .id_lookup
+            .get(&row.skill_id)
+            .unwrap()
+            .as_str(),
     })
-    .filter(|row| relevance.contains(&row.skill_id))
     .collect();
 
     Ok(Json(SkillHistoryResponse {
