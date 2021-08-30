@@ -59,7 +59,10 @@ function CombinedDisplay({ fleetHistory, xupHistory, skillHistory }) {
       thisGroup = [];
       groups.push({ key: time, group: thisGroup });
     }
-    maxTime = (endTime || time) + 3600; // Consider it a new group after an hour of inactivity
+
+    // Consider it a new group after three hours of inactivity.
+    // Why three? Well, nobody should be on the waitlist for that long, but an hour is possible.
+    maxTime = (endTime || time) + 3 * 3600;
 
     if (type === "fit") {
       thisGroup.push(<FitEntry key={key} {...entry} />);
