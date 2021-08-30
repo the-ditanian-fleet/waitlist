@@ -18,7 +18,7 @@ Elite badge pre requisites plus all skills to elite gold for the applicable ship
 
 ### Bastion
 
-Elite badge pre requisites for a Bastion-capable ship plus abyssal damage modules (better than faction).
+Elite badge pre requisites for a Bastion-capable ship plus abyssal damage modules minimum of 29% DPS Bonus, Marauders skill to 5, and abyssal plate with minimum 6k raw armor HP bonus.
 
 ![](bastion.png)
 
