@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
-export const Table = styled.table.attrs((props) => ({
-  className: `${props.fullWidth ? "full-width" : ""}`,
-}))`
-  &.full-width {
-    width: 100%;
-  }
+export const Table = styled.table`
+  ${(props) => props.fullWidth && "width: 100%;"}
+  ${(props) =>
+    props.edgeLine &&
+    `
+    border-top: solid 1px ${props.theme.colors.accent2};
+    border-bottom: solid 1px ${props.theme.colors.accent2};
+  `}
 `;
 
 export const TableHead = styled.thead`
-  text-align: left;
   border-bottom: solid 2px ${(props) => props.theme.colors.accent2};
 `;
 
@@ -30,6 +31,7 @@ export const Row = styled.tr`
 `;
 
 export const CellHead = styled.th`
+  text-align: left;
   padding: 0.5em;
   font-weight: 600;
 `;
