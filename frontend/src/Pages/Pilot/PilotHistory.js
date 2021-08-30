@@ -7,7 +7,7 @@ const Group = styled.div`
   margin-bottom: 2em;
 `;
 
-function CombinedDisplay({ fleetHistory, xupHistory, skillHistory }) {
+function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory }) {
   var everything = [];
 
   // Add xups
@@ -45,6 +45,10 @@ function CombinedDisplay({ fleetHistory, xupHistory, skillHistory }) {
       entry,
       key: `skill-${i}`,
     });
+  }
+
+  if (filter !== null) {
+    everything = everything.filter((entry) => filter(entry.type));
   }
 
   // Sort
@@ -94,9 +98,10 @@ function CombinedDisplay({ fleetHistory, xupHistory, skillHistory }) {
   return <div>{result}</div>;
 }
 
-export function PilotHistory({ fleetHistory, xupHistory, skillHistory }) {
+export function PilotHistory({ filter, fleetHistory, xupHistory, skillHistory }) {
   return (
     <CombinedDisplay
+      filter={filter}
       fleetHistory={fleetHistory}
       xupHistory={xupHistory}
       skillHistory={skillHistory}

@@ -5,12 +5,26 @@ import { PageTitle, Title } from "../../Components/Page";
 import { PilotHistory } from "./PilotHistory";
 import { useApi } from "../../api";
 import { ActivitySummary } from "./ActivitySummary";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGraduationCap, faPen, faPlane, faTimes } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+
+const FilterButtons = styled.span`
+  font-size: 0.75em;
+  margin-left: 2em;
+
+  a {
+    cursor: pointer;
+    padding: 0 0.2em;
+  }
+`;
 
 export function Pilot() {
   const authContext = React.useContext(AuthContext);
   const queryParams = new URLSearchParams(useLocation().search);
 
   var characterId = queryParams.get("character_id") || authContext.current.id;
+  const [filter, setFilter] = React.useState(null);
   const [basicInfo] = useApi(`/api/pilot/info?character_id=${characterId}`);
   const [fleetHistory] = useApi(`/api/history/fleet?character_id=${characterId}`);
   const [xupHistory] = useApi(`/api/history/xup?character_id=${characterId}`);
@@ -30,8 +44,26 @@ export function Pilot() {
       </div>
       <div style={{ display: "flex" }}>
         <div style={{ flex: 3, padding: "0.5em" }}>
-          <Title>History</Title>
+          <Title>
+            History
+            <FilterButtons>
+              <a onClick={(evt) => setFilter(null)} style={{ marginRight: "0.5em" }}>
+                <FontAwesomeIcon fixedWidth icon={faTimes} />
+              </a>
+              <a onClick={(evt) => setFilter("skill")}>
+                <FontAwesomeIcon fixedWidth icon={faGraduationCap} />
+              </a>
+              <a onClick={(evt) => setFilter("fit")}>
+                <FontAwesomeIcon fixedWidth icon={faPen} />
+              </a>
+              <a onClick={(evt) => setFilter("fleet")}>
+                <FontAwesomeIcon fixedWidth icon={faPlane} />
+              </a>
+            </FilterButtons>
+          </Title>
+
           <PilotHistory
+            filter={filter ? (type) => type === filter : null}
             fleetHistory={fleetHistory && fleetHistory.activity}
             xupHistory={xupHistory && xupHistory.xups}
             skillHistory={skillHistory && skillHistory.history}

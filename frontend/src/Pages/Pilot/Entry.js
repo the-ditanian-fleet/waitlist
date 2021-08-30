@@ -4,7 +4,7 @@ import { Box } from "../../Components/Box";
 import { DNADisplay } from "../../Components/FitDisplay";
 import { Modal } from "../../Components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGraduationCap, faPlane, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faGraduationCap, faPen, faPlane } from "@fortawesome/free-solid-svg-icons";
 import { Badge } from "../../Components/Badge";
 import { formatDuration } from "../../Util/time";
 
@@ -64,7 +64,7 @@ export function FitEntry({ logged_at, hull, dna, implants }) {
   const [showModal, setShowModal] = React.useState(false);
 
   return (
-    <Entry time={logged_at} icon={faTimes}>
+    <Entry time={logged_at} icon={faPen}>
       {showModal && (
         <Modal open={true} setOpen={setShowModal}>
           <Box style={{ display: "flex" }}>
