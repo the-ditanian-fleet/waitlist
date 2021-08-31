@@ -128,7 +128,7 @@ async fn list_bans(
         .map(|ban| {
             let added_by = ban
                 .added_by
-                .and_then(|id| character_lookup.get(&id).map(|c| c.clone()));
+                .and_then(|id| character_lookup.get(&id).cloned());
             let name = match ban.kind.as_str() {
                 "character" => character_lookup.get(&ban.id).map(|c| c.name.clone()),
                 _ => None,
