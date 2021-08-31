@@ -32,6 +32,7 @@ pub struct AuthResult {
 pub enum ESIError {
     DatabaseError(sqlx::Error),
     HTTPError(reqwest::Error),
+    NoToken,
     NotFound,
     Forbidden,
     HTTP520,
@@ -237,12 +238,17 @@ impl ESIClient {
     }
 
     async fn access_token(&self, character_id: i64) -> Result<String, ESIError> {
-        let record = sqlx::query!(
+        let record = match sqlx::query!(
             "SELECT * FROM access_token WHERE character_id=?",
             character_id
         )
-        .fetch_one(self.db.as_ref())
-        .await?;
+        .fetch_optional(self.db.as_ref())
+        .await?
+        {
+            Some(r) => r,
+            None => return Err(ESIError::NoToken),
+        };
+
         if record.expires >= chrono::Utc::now().timestamp() {
             return Ok(record.access_token);
         }
@@ -253,10 +259,38 @@ impl ESIClient {
         )
         .fetch_one(self.db.as_ref())
         .await?;
-        let refreshed = self
+        let refreshed = match self
             .raw
             .process_auth("refresh_token", &refresh.refresh_token)
-            .await?;
+            .await
+        {
+            Ok(r) => r,
+            Err(e) => {
+                if e.is_status() && e.status().unwrap() == 400 {
+                    warn!(
+                        "Deleting refresh token for character {} as it failed to be used: {:?}",
+                        character_id, e
+                    );
+                    let mut tx = self.db.begin().await?;
+                    sqlx::query!(
+                        "DELETE FROM access_token WHERE character_id=?",
+                        character_id
+                    )
+                    .execute(&mut tx)
+                    .await?;
+                    sqlx::query!(
+                        "DELETE FROM refresh_token WHERE character_id=?",
+                        character_id
+                    )
+                    .execute(&mut tx)
+                    .await?;
+                    tx.commit().await?;
+
+                    return Err(ESIError::NoToken);
+                }
+                return Err(e.into());
+            }
+        };
         self.save_auth(&refreshed).await?;
 
         Ok(refreshed.access_token)

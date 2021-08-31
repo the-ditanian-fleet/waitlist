@@ -3,9 +3,9 @@ use std::io::Cursor;
 use rocket::http::Status;
 use rocket::Response;
 
-use crate::core::auth::AuthorizationError;
 use crate::core::esi::ESIError;
 use crate::core::sse::SSEError;
+use crate::{core::auth::AuthorizationError, data::skills::SkillsError};
 
 use eve_data_core::{FitError, TypeError};
 
@@ -71,6 +71,15 @@ impl From<TypeError> for Madness {
 impl From<FitError> for Madness {
     fn from(error: FitError) -> Self {
         UserMadness::FitError(error).into()
+    }
+}
+
+impl From<SkillsError> for Madness {
+    fn from(error: SkillsError) -> Self {
+        match error {
+            SkillsError::ESIError(e) => e.into(),
+            SkillsError::Database(e) => e.into(),
+        }
     }
 }
 

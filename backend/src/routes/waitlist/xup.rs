@@ -145,7 +145,7 @@ async fn xup(
 
     let time_in_fleet = get_time_in_fleet(app.get_db(), input.character_id).await?;
     let implants = implants::get_implants(app, input.character_id).await?;
-    let skills = skills::load_skills(app, input.character_id).await?;
+    let skills = skills::load_skills(&app.esi_client, app.get_db(), input.character_id).await?;
 
     let mut tx = app.get_db().begin().await?;
 

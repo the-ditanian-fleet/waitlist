@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use serde::Deserialize;
 
-use crate::util::madness::Madness;
+use crate::core::esi::{ESIClient, ESIError};
 use eve_data_core::{SkillLevel, TypeID};
 
 #[derive(Deserialize, Debug)]
@@ -17,6 +17,21 @@ struct SkillResponse {
     skills: Vec<SkillResponseSkill>,
 }
 
+pub enum SkillsError {
+    ESIError(ESIError),
+    Database(sqlx::Error),
+}
+impl From<ESIError> for SkillsError {
+    fn from(e: ESIError) -> Self {
+        Self::ESIError(e)
+    }
+}
+impl From<sqlx::Error> for SkillsError {
+    fn from(e: sqlx::Error) -> Self {
+        Self::Database(e)
+    }
+}
+
 pub struct Skills(pub HashMap<TypeID, SkillLevel>);
 
 impl Skills {
@@ -29,11 +44,11 @@ impl Skills {
 }
 
 pub async fn load_skills(
-    app: &crate::app::Application,
+    esi_client: &ESIClient,
+    db: &crate::DB,
     character_id: i64,
-) -> Result<Skills, Madness> {
-    let skills: SkillResponse = app
-        .esi_client
+) -> Result<Skills, SkillsError> {
+    let skills: SkillResponse = esi_client
         .get(
             &format!("/v4/characters/{}/skills/", character_id),
             character_id,
@@ -44,14 +59,14 @@ pub async fn load_skills(
         "SELECT * FROM skill_current WHERE character_id = ?",
         character_id
     )
-    .fetch_all(app.get_db())
+    .fetch_all(db)
     .await?;
     let mut last_known_skills = HashMap::new();
     for skill in last_known_skills_q {
         last_known_skills.insert(skill.skill_id as TypeID, skill.level as SkillLevel);
     }
 
-    let mut tx = app.get_db().begin().await?;
+    let mut tx = db.begin().await?;
     let now = chrono::Utc::now().timestamp();
 
     let mut result = HashMap::new();

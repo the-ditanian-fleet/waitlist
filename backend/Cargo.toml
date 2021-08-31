@@ -29,6 +29,7 @@ toml = "*"
 branca = "0.10"
 hex = "0.4"
 regex = "*"
+rand = "*"
 
 [features]
 default = ["sqlite"]

@@ -34,10 +34,17 @@ pub struct FleetUpdaterConfig {
 }
 
 #[derive(Deserialize, Clone)]
+pub struct SkillUpdaterConfig {
+    pub enable: bool,
+    pub runtime: f64,
+}
+
+#[derive(Deserialize, Clone)]
 pub struct Config {
     pub database: DatabaseConfig,
     pub app: AppConfig,
     pub esi: ESIConfig,
     pub sse: SSEConfig,
     pub fleet_updater: FleetUpdaterConfig,
+    pub skill_updater: SkillUpdaterConfig,
 }

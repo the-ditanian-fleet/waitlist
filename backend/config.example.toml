@@ -20,3 +20,7 @@ secret = "0000000000000000000000000000000000000000000000000000000000000000"
 [fleet_updater]
 enable = true
 min_in_fleet = 8
+
+[skill_updater]
+enable = true
+runtime = 86400

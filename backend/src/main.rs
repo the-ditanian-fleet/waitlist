@@ -54,6 +54,12 @@ async fn main() {
         fleet_updater.start();
     }
 
+    if config.skill_updater.enable {
+        let skill_updater =
+            core::skill_updater::SkillUpdater::new(database.clone(), config.clone());
+        skill_updater.start();
+    }
+
     let application = app::new(database, config);
     rocket::build()
         .mount("/", routes::routes())
