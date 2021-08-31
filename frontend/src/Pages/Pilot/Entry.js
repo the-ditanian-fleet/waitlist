@@ -6,7 +6,7 @@ import { Modal } from "../../Components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap, faPen, faPlane } from "@fortawesome/free-solid-svg-icons";
 import { Badge } from "../../Components/Badge";
-import { formatDuration } from "../../Util/time";
+import { formatDatetime, formatDuration } from "../../Util/time";
 
 const Link = styled.a`
   cursor: pointer;
@@ -25,7 +25,7 @@ const EntryDOM = styled.div`
   }
 `;
 EntryDOM.Time = styled.div`
-  flex: 0 0 300px;
+  flex: 0 0 200px;
   padding: 0.5em;
 `;
 EntryDOM.Icon = styled.div`
@@ -41,7 +41,7 @@ function Entry({ time, icon, children }) {
   return (
     <EntryDOM>
       <EntryDOM.Icon>{icon && <FontAwesomeIcon fixedWidth icon={icon} />}</EntryDOM.Icon>
-      <EntryDOM.Time>{new Date(time * 1000).toUTCString()}</EntryDOM.Time>
+      <EntryDOM.Time>{formatDatetime(new Date(time * 1000))}</EntryDOM.Time>
       <EntryDOM.Content>{children}</EntryDOM.Content>
     </EntryDOM>
   );

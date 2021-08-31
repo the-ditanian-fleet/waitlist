@@ -5,6 +5,7 @@ import { Button, Input, NavButton, Select } from "../../Components/Form";
 
 import { AuthContext, ToastContext } from "../../contexts";
 import { useApi, toaster, apiCall } from "../../api";
+import { formatDatetime } from "../../Util/time";
 
 async function removeBan({ kind, id }) {
   return apiCall("/api/bans/remove", {
@@ -74,7 +75,7 @@ function BanEntry({ kind, id, name, expires_at, onAction, added_by }) {
         <a href={link}>{id}</a>
       </Cell>
       <Cell>{name}</Cell>
-      <Cell>{expires_at ? new Date(expires_at * 1000).toUTCString() : null}</Cell>
+      <Cell>{expires_at ? formatDatetime(new Date(expires_at * 1000)) : null}</Cell>
       <Cell>{added_by && added_by.name}</Cell>
       {authContext.access["bans-manage"] && (
         <Cell>

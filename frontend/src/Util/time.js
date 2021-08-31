@@ -18,3 +18,7 @@ export function formatDuration(durationSeconds) {
   }
   return groups[0];
 }
+
+export function formatDatetime(dateObj) {
+  return dateObj.toLocaleString("en-GB", { timeZone: "UTC" });
+}

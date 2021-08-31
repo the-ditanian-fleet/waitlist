@@ -4,7 +4,7 @@ import { Input, InputGroup } from "../../Components/Form";
 import _ from "lodash";
 import { Content } from "../../Components/Page";
 import { Cell, CellHead, Row, Table, TableBody, TableHead } from "../../Components/Table";
-import { formatDuration } from "../../Util/time";
+import { formatDatetime, formatDuration } from "../../Util/time";
 
 export function FleetCompHistory() {
   const [date, setDate] = React.useState("");
@@ -47,7 +47,7 @@ export function FleetCompHistory() {
                     <Cell>{entry.character.name}</Cell>
                     <Cell>{entry.hull.name}</Cell>
                     <Cell>
-                      {new Date(entry.logged_at * 1000).toUTCString()} (
+                      {formatDatetime(new Date(entry.logged_at * 1000))} (
                       {formatDuration(entry.time_in_fleet)})
                     </Cell>
                   </Row>
