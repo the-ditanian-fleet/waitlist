@@ -1,10 +1,7 @@
 export function formatDuration(durationSeconds) {
   var groups = [];
 
-  var days = Math.floor(durationSeconds / 86400);
-  if (days > 0) groups.push(`${days}d`);
-
-  var hours = Math.floor((durationSeconds % 86400) / 3600);
+  var hours = Math.floor(durationSeconds / 3600);
   if (hours > 0) groups.push(`${hours}h`);
 
   var minutes = Math.floor((durationSeconds % 3600) / 60);
