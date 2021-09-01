@@ -49,6 +49,8 @@ async fn empty_waitlist(
     .execute(&mut tx)
     .await?;
 
+    tx.commit().await?;
+
     Ok("OK")
 }
 
