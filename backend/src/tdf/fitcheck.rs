@@ -104,7 +104,6 @@ impl<'a> FitChecker<'a> {
 
         if skill_tier == "starter" {
             self.tags.insert("STARTER-SKILLS");
-            self.approved = false;
         } else if skill_tier == "gold" {
             self.tags.insert("GOLD-SKILLS");
         } else if skill_tier == "elite" {
@@ -284,8 +283,12 @@ impl<'a> FitChecker<'a> {
     fn set_category(&mut self) {
         let mut category =
             categories::categorize(self.fit).unwrap_or_else(|| "starter".to_string());
-        if category != "logi" && self.tags.contains("STARTER-SKILLS") {
-            category = "starter".to_string();
+        if self.tags.contains("STARTER-SKILLS") {
+            if category == "logi" {
+                self.approved = false;
+            } else {
+                category = "starter".to_string();
+            }
         }
         self.category = Some(category);
     }
