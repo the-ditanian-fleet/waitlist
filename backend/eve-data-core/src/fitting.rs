@@ -78,8 +78,8 @@ impl Fitting {
 
         Ok(Fitting {
             hull,
-            cargo,
             modules,
+            cargo,
         })
     }
 
