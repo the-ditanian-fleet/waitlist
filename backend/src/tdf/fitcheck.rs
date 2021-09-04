@@ -204,6 +204,25 @@ impl<'a> FitChecker<'a> {
                 comp_reqs
             ));
         }
+
+        if self
+            .fit
+            .modules
+            .get(&type_id!("Bastion Module I"))
+            .copied()
+            .unwrap_or(0)
+            > 0
+        {
+            if self.pilot.skills.get(type_id!("Hull Upgrades")) < 5 {
+                self.errors
+                    .push("Missing tank skill: Hull Upgrades 5 required".to_string());
+            }
+
+            if self.pilot.skills.get(type_id!("Mechanics")) < 4 {
+                self.errors
+                    .push("Missing tank skill: Mechanics 4 required".to_string());
+            }
+        }
     }
 
     fn check_time_in_fleet(&mut self) {
