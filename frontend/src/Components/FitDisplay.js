@@ -268,7 +268,7 @@ function DisplaySlot({ isDiff, groups, moduleInfo }) {
         Object.entries(groups[group]).map(([moduleId, count]) => (
           <DOM.Line key={moduleId} group={group}>
             <DOM.Line.Image
-              src={`https://imageserver.eveonline.com/Type/${moduleId}_32.png`}
+              src={`https://images.evetech.net/types/${moduleId}/icon?size=64`}
               alt={(moduleInfo[moduleId] || {}).name || null}
             />
             <DOM.Line.Count>{count}</DOM.Line.Count>
@@ -282,7 +282,7 @@ function DisplaySlot({ isDiff, groups, moduleInfo }) {
             <React.Fragment key={`${origModuleId} ${newModuleId}`}>
               <DOM.Line group="downgraded_orig">
                 <DOM.Line.Image
-                  src={`https://imageserver.eveonline.com/Type/${origModuleId}_32.png`}
+                  src={`https://images.evetech.net/types/${origModuleId}/icon?size=64`}
                   alt={(moduleInfo[origModuleId] || {}).name || null}
                 />
                 <DOM.Line.Count>{count}</DOM.Line.Count>
@@ -292,7 +292,7 @@ function DisplaySlot({ isDiff, groups, moduleInfo }) {
               </DOM.Line>
               <DOM.Line group="downgraded_new">
                 <DOM.Line.Image
-                  src={`https://imageserver.eveonline.com/Type/${newModuleId}_32.png`}
+                  src={`https://images.evetech.net/types/${newModuleId}/icon?size=64`}
                   alt={(moduleInfo[newModuleId] || {}).name || null}
                 />
                 <DOM.Line.Count>{count}</DOM.Line.Count>
@@ -331,7 +331,7 @@ export function DNADisplay({ dna, analysis = null, name = null }) {
     <div>
       <DOM.Hull>
         <DOM.Hull.Image
-          src={`https://imageserver.eveonline.com/Type/${hull}_64.png`}
+          src={`https://images.evetech.net/types/${hull}/icon?size=64`}
           alt={moduleInfo[hull].name}
         />
         <DOM.Hull.Name>{displayName}</DOM.Hull.Name>

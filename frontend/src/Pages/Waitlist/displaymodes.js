@@ -63,7 +63,7 @@ function CategoryHeading({ name, fleetComposition }) {
       <div>
         {shipCountsArr.map(([count, info]) => (
           <span key={info.id}>
-            <img src={`https://imageserver.eveonline.com/Type/${info.id}_32.png`} alt={info.name} />
+            <img src={`https://images.evetech.net/types/${info.id}/icon?size=64`} alt={info.name} />
             {count}
           </span>
         ))}

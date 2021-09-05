@@ -36,8 +36,8 @@ export function Pilot() {
         <PageTitle>{basicInfo && basicInfo.name}</PageTitle>
         <div style={{ marginLeft: "auto" }}>
           <img
-            src={`https://imageserver.eveonline.com/Character/${characterId}_128.jpg`}
-            style={{ borderRadius: "5px" }}
+            src={`https://images.evetech.net/characters/${characterId}/portrait?size=256`}
+            style={{ borderRadius: "5px", height: "128px" }}
             alt=""
           />
         </div>

@@ -204,7 +204,7 @@ function ShipDisplay({ fit, onAction }) {
         <a onClick={(evt) => setModalOpen(true)}>
           <img
             style={{ height: "40px" }}
-            src={"https://imageserver.eveonline.com/Type/" + fit.hull.id + "_64.png"}
+            src={`https://images.evetech.net/types/${fit.hull.id}/icon?size=64`}
             alt={fit.hull.name}
           />
         </a>
@@ -219,7 +219,7 @@ function ShipDisplay({ fit, onAction }) {
       <>
         <img
           style={{ height: "40px" }}
-          src={"https://imageserver.eveonline.com/Type/" + fit.hull.id + "_64.png"}
+          src={`https://images.evetech.net/types/${fit.hull.id}/icon?size=64`}
           alt={fit.hull.name}
         />
         <span>
@@ -233,7 +233,7 @@ function ShipDisplay({ fit, onAction }) {
       <>
         <img
           style={{ height: "40px" }}
-          src={"https://imageserver.eveonline.com/Type/28606_64.png"}
+          src={`https://images.evetech.net/types/28606/icon?size=64`}
           alt=""
         />
         <span>{namePrefix}Ship</span>
