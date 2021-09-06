@@ -96,7 +96,7 @@ impl ESIRawClient {
         self.http
             .post("https://login.eveonline.com/oauth/token")
             .basic_auth(&self.client_id, Some(&self.client_secret))
-            .json(&request)
+            .form(&request)
             .send()
             .await?
             .error_for_status()?
