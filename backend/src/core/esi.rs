@@ -238,8 +238,20 @@ impl ESIClient {
     }
 
     async fn access_token(&self, character_id: i64) -> Result<String, ESIError> {
-        let record = match sqlx::query!(
+        if let Some(record) = sqlx::query!(
             "SELECT * FROM access_token WHERE character_id=?",
+            character_id
+        )
+        .fetch_optional(self.db.as_ref())
+        .await?
+        {
+            if record.expires >= chrono::Utc::now().timestamp() {
+                return Ok(record.access_token);
+            }
+        }
+
+        let refresh = match sqlx::query!(
+            "SELECT * FROM refresh_token WHERE character_id=?",
             character_id
         )
         .fetch_optional(self.db.as_ref())
@@ -248,17 +260,6 @@ impl ESIClient {
             Some(r) => r,
             None => return Err(ESIError::NoToken),
         };
-
-        if record.expires >= chrono::Utc::now().timestamp() {
-            return Ok(record.access_token);
-        }
-
-        let refresh = sqlx::query!(
-            "SELECT * FROM refresh_token WHERE character_id=?",
-            character_id
-        )
-        .fetch_one(self.db.as_ref())
-        .await?;
         let refreshed = match self
             .raw
             .process_auth("refresh_token", &refresh.refresh_token)
