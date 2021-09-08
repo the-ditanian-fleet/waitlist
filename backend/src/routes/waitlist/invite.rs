@@ -4,6 +4,7 @@ use crate::{
     app::Application,
     core::{
         auth::{authorize_character, AuthenticatedAccount},
+        esi::ESIScope,
         sse::Event,
     },
     util::madness::{Madness, UserMadness},
@@ -77,6 +78,7 @@ async fn invite(
                 wing_id: squad_info.wing_id,
             },
             input.character_id,
+            ESIScope::Fleets_WriteFleet_v1,
         )
         .await?; // XXX Deal with error 520 which comes with a message indicating what's wrong
 

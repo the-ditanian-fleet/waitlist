@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use serde::Deserialize;
 
-use crate::core::esi::{ESIClient, ESIError};
+use crate::core::esi::{ESIClient, ESIError, ESIScope};
 use eve_data_core::{SkillLevel, TypeID};
 
 #[derive(Deserialize, Debug)]
@@ -52,6 +52,7 @@ pub async fn load_skills(
         .get(
             &format!("/v4/characters/{}/skills/", character_id),
             character_id,
+            ESIScope::Skills_ReadSkills_v1,
         )
         .await?;
 

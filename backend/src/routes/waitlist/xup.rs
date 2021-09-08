@@ -3,7 +3,10 @@ use serde::Deserialize;
 
 use crate::{
     app::Application,
-    core::auth::{authorize_character, AuthenticatedAccount},
+    core::{
+        auth::{authorize_character, AuthenticatedAccount},
+        esi::ESIScope,
+    },
     data::{implants, skills},
     tdf,
     util::madness::{Madness, UserMadness},
@@ -94,7 +97,11 @@ async fn am_i_banned(app: &Application, character_id: i64) -> Result<bool, Madne
 
     let esi_info: ESIInfo = app
         .esi_client
-        .get(&format!("/v4/characters/{}/", character_id), character_id)
+        .get(
+            &format!("/v4/characters/{}/", character_id),
+            character_id,
+            ESIScope::PublicData,
+        )
         .await?;
 
     if let Some(corporation_id) = esi_info.corporation_id {

@@ -3,7 +3,10 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     app::Application,
-    core::auth::{authorize_character, AuthenticatedAccount},
+    core::{
+        auth::{authorize_character, AuthenticatedAccount},
+        esi::ESIScope,
+    },
     util::madness::Madness,
 };
 
@@ -32,6 +35,7 @@ async fn open_window(
             ),
             &Empty {},
             input.character_id,
+            ESIScope::UI_OpenWindow_v1,
         )
         .await?;
 

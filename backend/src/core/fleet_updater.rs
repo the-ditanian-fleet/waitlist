@@ -1,4 +1,4 @@
-use crate::core::esi;
+use crate::core::esi::{self, ESIScope};
 use crate::data::character;
 use crate::{config::Config, util::madness::Madness};
 use eve_data_core::TypeID;
@@ -106,7 +106,11 @@ impl FleetUpdater {
 
                     let character_info: CharacterResponse = self
                         .esi_client
-                        .get(&format!("/v4/characters/{}/", id), fleet.boss_id)
+                        .get(
+                            &format!("/v4/characters/{}/", id),
+                            fleet.boss_id,
+                            ESIScope::PublicData,
+                        )
                         .await?;
 
                     sqlx::query!(

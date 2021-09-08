@@ -37,6 +37,32 @@ pub enum ESIError {
     NotFound,
     Forbidden,
     HTTP520,
+    MissingScope,
+}
+
+#[derive(Debug, Clone, Copy)]
+#[allow(non_camel_case_types)]
+pub enum ESIScope {
+    PublicData,
+    Fleets_ReadFleet_v1,
+    Fleets_WriteFleet_v1,
+    UI_OpenWindow_v1,
+    Skills_ReadSkills_v1,
+    Clones_ReadImplants_v1,
+}
+
+impl ESIScope {
+    pub fn as_str(&self) -> &'static str {
+        use ESIScope::*;
+        match self {
+            PublicData => "publicData",
+            Fleets_ReadFleet_v1 => "esi-fleets.read_fleet.v1",
+            Fleets_WriteFleet_v1 => "esi-fleets.write_fleet.v1",
+            UI_OpenWindow_v1 => "esi-ui.open_window.v1",
+            Skills_ReadSkills_v1 => "esi-skills.read_skills.v1",
+            Clones_ReadImplants_v1 => "esi-clones.read_implants.v1",
+        }
+    }
 }
 
 impl From<sqlx::Error> for ESIError {
@@ -245,7 +271,7 @@ impl ESIClient {
         Ok(())
     }
 
-    async fn access_token(&self, character_id: i64) -> Result<String, ESIError> {
+    async fn access_token_raw(&self, character_id: i64) -> Result<(String, String), ESIError> {
         if let Some(record) = sqlx::query!(
             "SELECT * FROM access_token WHERE character_id=?",
             character_id
@@ -254,7 +280,7 @@ impl ESIClient {
         .await?
         {
             if record.expires >= chrono::Utc::now().timestamp() {
-                return Ok(record.access_token);
+                return Ok((record.access_token, record.scopes));
             }
         }
 
@@ -302,21 +328,37 @@ impl ESIClient {
         };
         self.save_auth(&refreshed).await?;
 
-        Ok(refreshed.access_token)
+        Ok((refreshed.access_token, refreshed.scopes))
+    }
+
+    async fn access_token(&self, character_id: i64, scope: ESIScope) -> Result<String, ESIError> {
+        let (token, scopes) = self.access_token_raw(character_id).await?;
+
+        if !scopes.contains(scope.as_str()) {
+            return Err(ESIError::MissingScope);
+        }
+
+        Ok(token)
     }
 
     pub async fn get<D: serde::de::DeserializeOwned>(
         &self,
         path: &str,
         character_id: i64,
+        scope: ESIScope,
     ) -> Result<D, ESIError> {
-        let access_token = self.access_token(character_id).await?;
+        let access_token = self.access_token(character_id, scope).await?;
         let url = format!("https://esi.evetech.net{}", path);
         Ok(self.raw.get(&url, &access_token).await?.json().await?)
     }
 
-    pub async fn delete(&self, path: &str, character_id: i64) -> Result<(), ESIError> {
-        let access_token = self.access_token(character_id).await?;
+    pub async fn delete(
+        &self,
+        path: &str,
+        character_id: i64,
+        scope: ESIScope,
+    ) -> Result<(), ESIError> {
+        let access_token = self.access_token(character_id, scope).await?;
         let url = format!("https://esi.evetech.net{}", path);
         self.raw.delete(&url, &access_token).await?;
         Ok(())
@@ -327,8 +369,9 @@ impl ESIClient {
         path: &str,
         input: &E,
         character_id: i64,
+        scope: ESIScope,
     ) -> Result<(), ESIError> {
-        let access_token = self.access_token(character_id).await?;
+        let access_token = self.access_token(character_id, scope).await?;
         let url = format!("https://esi.evetech.net{}", path);
         self.raw.post::<E>(&url, input, &access_token).await?;
         Ok(())
@@ -337,6 +380,8 @@ impl ESIClient {
 
 pub mod fleet_members {
     use eve_data_core::TypeID;
+
+    use crate::core::esi::ESIScope;
 
     use super::{ESIClient, ESIError};
     use serde::Deserialize;
@@ -354,7 +399,11 @@ pub mod fleet_members {
         boss_id: i64,
     ) -> Result<Vec<ESIFleetMember>, ESIError> {
         Ok(client
-            .get(&format!("/v1/fleets/{}/members", fleet_id), boss_id)
+            .get(
+                &format!("/v1/fleets/{}/members", fleet_id),
+                boss_id,
+                ESIScope::Fleets_ReadFleet_v1,
+            )
             .await?)
     }
 }

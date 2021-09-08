@@ -4,7 +4,7 @@ use crate::{
     app::Application,
     core::{
         auth::{authorize_character, AuthenticatedAccount},
-        esi::ESIError,
+        esi::{ESIError, ESIScope},
     },
     util::{
         madness::{Madness, UserMadness},
@@ -59,11 +59,11 @@ async fn get_current_fleet_id(
         .get(
             &format!("/v1/characters/{}/fleet", character_id),
             character_id,
+            ESIScope::Fleets_ReadFleet_v1,
         )
         .await;
     if let Err(whatswrong) = basic_info {
         match whatswrong {
-            ESIError::Forbidden => return Err(UserMadness::ESIScopeMissing.into()),
             ESIError::NotFound => {
                 return Err(UserMadness::NotFound("You are not in a fleet").into())
             }
@@ -106,7 +106,11 @@ async fn fleet_info(
 
     let wings = app
         .esi_client
-        .get(&format!("/v1/fleets/{}/wings", fleet_id), character_id)
+        .get(
+            &format!("/v1/fleets/{}/wings", fleet_id),
+            character_id,
+            ESIScope::Fleets_ReadFleet_v1,
+        )
         .await;
     if let Err(whatswrong) = wings {
         match whatswrong {
@@ -264,6 +268,7 @@ async fn close_fleet(
             .delete(
                 &format!("/v1/fleets/{}/members/{}/", fleet_id, member.character_id),
                 input.character_id,
+                ESIScope::Fleets_WriteFleet_v1,
             )
             .await?;
     }

@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::app;
 use crate::core::auth::{AuthenticatedAccount, AuthenticationError, CookieSetter};
+use crate::core::esi::ESIScope;
 use crate::util::madness::UserMadness;
 use crate::util::{madness::Madness, types};
 
@@ -81,15 +82,15 @@ fn login_url(alt: bool, fc: bool, app: &rocket::State<app::Application>) -> Stri
     };
 
     let mut scopes = vec![
-        "publicData",
-        "esi-skills.read_skills.v1",
-        "esi-clones.read_implants.v1",
+        ESIScope::PublicData,
+        ESIScope::Skills_ReadSkills_v1,
+        ESIScope::Clones_ReadImplants_v1,
     ];
     if fc {
         scopes.extend(vec![
-            "esi-fleets.read_fleet.v1",
-            "esi-fleets.write_fleet.v1",
-            "esi-ui.open_window.v1",
+            ESIScope::Fleets_ReadFleet_v1,
+            ESIScope::Fleets_WriteFleet_v1,
+            ESIScope::UI_OpenWindow_v1,
         ])
     }
 
@@ -97,7 +98,7 @@ fn login_url(alt: bool, fc: bool, app: &rocket::State<app::Application>) -> Stri
         "https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri={}&client_id={}&scope={}&state={}",
         app.config.esi.url,
         app.config.esi.client_id,
-        scopes.join(" "),
+        scopes.iter().fold(String::new(), |acc, scope| acc + " " + scope.as_str()).trim_end(),
         state
     )
 }

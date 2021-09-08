@@ -51,6 +51,7 @@ impl From<ESIError> for Madness {
     fn from(error: ESIError) -> Self {
         match error {
             ESIError::DatabaseError(e) => e.into(),
+            ESIError::MissingScope => UserMadness::ESIScopeMissing.into(),
             _ => InternalMadness::ESIError(error).into(),
         }
     }
