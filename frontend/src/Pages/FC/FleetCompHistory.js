@@ -5,6 +5,8 @@ import _ from "lodash";
 import { Content } from "../../Components/Page";
 import { Cell, CellHead, Row, Table, TableBody, TableHead } from "../../Components/Table";
 import { formatDatetime, formatDuration } from "../../Util/time";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export function FleetCompHistory() {
   const [date, setDate] = React.useState("");
@@ -44,7 +46,15 @@ export function FleetCompHistory() {
               <TableBody>
                 {comp.map((entry) => (
                   <Row key={entry.character.id}>
-                    <Cell>{entry.character.name}</Cell>
+                    <Cell>
+                      {entry.character.name}
+                      {entry.is_boss && (
+                        <>
+                          {" "}
+                          <FontAwesomeIcon icon={faStar} />
+                        </>
+                      )}
+                    </Cell>
                     <Cell>{entry.hull.name}</Cell>
                     <Cell>
                       {formatDatetime(new Date(entry.logged_at * 1000))} (
