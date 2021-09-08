@@ -39,6 +39,11 @@ async fn add_acl(
         );
     }
 
+    // Alts shouldn't have ACLs, so unlink them
+    sqlx::query!("DELETE FROM alt_character WHERE alt_id = ?", input.id)
+        .execute(app.get_db())
+        .await?;
+
     sqlx::query!(
         "REPLACE INTO admins (character_id, level) VALUES (?, ?)",
         input.id,

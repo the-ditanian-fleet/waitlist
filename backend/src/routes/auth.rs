@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::app;
 use crate::core::auth::{AuthenticatedAccount, AuthenticationError, CookieSetter};
+use crate::util::madness::UserMadness;
 use crate::util::{madness::Madness, types};
 
 #[derive(Serialize)]
@@ -129,6 +130,20 @@ async fn callback(
         if input.state.is_some() && input.state.unwrap() == "alt" && account.is_some() {
             let account = account.unwrap();
             if account.id != character_id {
+                let is_admin = sqlx::query!(
+                    "SELECT character_id FROM admins WHERE character_id = ?",
+                    character_id
+                )
+                .fetch_optional(app.get_db())
+                .await?;
+
+                if is_admin.is_some() {
+                    return Err(UserMadness::BadRequest(
+                        "Character is flagged as a main and cannot be added as an alt".to_string(),
+                    )
+                    .into());
+                }
+
                 sqlx::query!(
                     "REPLACE INTO alt_character (account_id, alt_id) VALUES (?, ?)",
                     account.id,
