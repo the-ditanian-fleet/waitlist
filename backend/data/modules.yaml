@@ -39,12 +39,21 @@ alternatives:
   - - Guardian Antimatter Charge L
     - Dread Guristas Antimatter Charge L
 
+- - - Federation Navy Hobgoblin
+  - - Hobgoblin II
+  - - "'Augmented' Hobgoblin"
+
+- - - Federation Navy Hammerhead
+  - - Hammerhead II
+  - - "'Augmented' Hammerhead"
+
+- - - Federation Navy Ogre
+  - - Ogre II
+  - - "'Augmented' Ogre"
+
 from_meta: # Automagically determine alternatives
 - base: Sensor Booster II
 - base: Tracking Computer II
-- base: Ogre II
-- base: Hammerhead II
-- base: Hobgoblin II
 - base: Large Inductive Compact Remote Capacitor Transmitter
 - base: Supratidal Entropic Disintegrator II
 - base: Imperial Navy Drone Damage Amplifier
