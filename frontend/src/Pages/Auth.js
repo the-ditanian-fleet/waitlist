@@ -47,7 +47,17 @@ export function AuthCallback() {
         // Force page refresh
         window.location.href = "/";
       } else {
-        setMessage("An error occurred.");
+        setMessage(<p>An error occurred.</p>);
+        response.text().then((text) => {
+          setMessage(
+            <>
+              <p>An error occurred.</p>
+              <p>
+                Details: <em>{text}</em>
+              </p>
+            </>
+          );
+        });
       }
     });
   }, [code, state]);
