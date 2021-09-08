@@ -95,6 +95,7 @@ struct FleetCompEntry {
     character: Character,
     logged_at: i64,
     time_in_fleet: i64,
+    is_boss: bool,
 }
 
 #[derive(Debug, Serialize)]
@@ -112,7 +113,7 @@ async fn fleet_comp(
 
     let comp = sqlx::query!(
         "
-            SELECT fleet_id, hull, first_seen, last_seen, character_id, `character`.name AS character_name
+            SELECT fleet_id, hull, first_seen, last_seen, character_id, is_boss, `character`.name AS character_name
             FROM fleet_activity JOIN `character` ON character_id=`character`.id
             WHERE first_seen <= ? AND last_seen >= ?
         ",
@@ -137,6 +138,7 @@ async fn fleet_comp(
             },
             logged_at: entry.first_seen,
             time_in_fleet: entry.last_seen - entry.first_seen,
+            is_boss: entry.is_boss > 0,
         })
     }
 
