@@ -26,6 +26,7 @@ pub struct AuthResult {
     pub access_token: String,
     pub access_token_expiry: chrono::DateTime<chrono::Utc>,
     pub refresh_token: String,
+    pub scopes: String,
 }
 
 #[derive(Debug)]
@@ -104,13 +105,18 @@ impl ESIRawClient {
             .await
     }
 
-    async fn process_verify(&self, access_token: &str) -> Result<(i64, String), reqwest::Error> {
+    async fn process_verify(
+        &self,
+        access_token: &str,
+    ) -> Result<(i64, String, String), reqwest::Error> {
         #[derive(Debug, Deserialize)]
         struct VerifyResponse {
             #[serde(rename = "CharacterID")]
             character_id: i64,
             #[serde(rename = "CharacterName")]
             character_name: String,
+            #[serde(rename = "Scopes")]
+            scopes: String,
         }
 
         let result: VerifyResponse = self
@@ -118,7 +124,7 @@ impl ESIRawClient {
             .await?
             .json()
             .await?;
-        Ok((result.character_id, result.character_name))
+        Ok((result.character_id, result.character_name, result.scopes))
     }
 
     pub async fn process_auth(
@@ -127,7 +133,7 @@ impl ESIRawClient {
         token: &str,
     ) -> Result<AuthResult, reqwest::Error> {
         let token = self.process_oauth_token(grant_type, token).await?;
-        let (character_id, name) = self.process_verify(&token.access_token).await?;
+        let (character_id, name, scopes) = self.process_verify(&token.access_token).await?;
         Ok(AuthResult {
             character_id,
             character_name: name,
@@ -135,6 +141,7 @@ impl ESIRawClient {
             access_token_expiry: chrono::Utc::now()
                 + chrono::Duration::seconds(token.expires_in / 2),
             refresh_token: token.refresh_token,
+            scopes,
         })
     }
 
@@ -216,10 +223,11 @@ impl ESIClient {
 
         let expiry_timestamp = auth.access_token_expiry.timestamp();
         sqlx::query!(
-            "REPLACE INTO access_token (character_id, access_token, expires) VALUES (?, ?, ?)",
+            "REPLACE INTO access_token (character_id, access_token, expires, scopes) VALUES (?, ?, ?, ?)",
             auth.character_id,
             auth.access_token,
             expiry_timestamp,
+            auth.scopes,
         )
         .execute(&mut tx)
         .await?;

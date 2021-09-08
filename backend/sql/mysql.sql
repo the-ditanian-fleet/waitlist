@@ -11,6 +11,7 @@ CREATE TABLE `access_token` (
   `character_id` bigint NOT NULL,
   `access_token` varchar(255) NOT NULL,
   `expires` bigint NOT NULL,
+  `scopes` varchar(1024) NOT NULL,
   PRIMARY KEY (`character_id`),
   CONSTRAINT `access_token_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
