@@ -98,7 +98,7 @@ async fn am_i_banned(app: &Application, character_id: i64) -> Result<bool, Madne
     let esi_info: ESIInfo = app
         .esi_client
         .get(
-            &format!("/v4/characters/{}/", character_id),
+            &format!("/v5/characters/{}/", character_id),
             character_id,
             ESIScope::PublicData,
         )

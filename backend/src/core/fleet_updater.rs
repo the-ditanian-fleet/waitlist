@@ -107,7 +107,7 @@ impl FleetUpdater {
                     let character_info: CharacterResponse = self
                         .esi_client
                         .get(
-                            &format!("/v4/characters/{}/", id),
+                            &format!("/v5/characters/{}/", id),
                             fleet.boss_id,
                             ESIScope::PublicData,
                         )
