@@ -4,9 +4,11 @@ import { Box } from "../../Components/Box";
 import { DNADisplay } from "../../Components/FitDisplay";
 import { Modal } from "../../Components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGraduationCap, faPen, faPlane } from "@fortawesome/free-solid-svg-icons";
+import { faClipboard, faGraduationCap, faPen, faPlane } from "@fortawesome/free-solid-svg-icons";
 import { Badge } from "../../Components/Badge";
 import { formatDatetime, formatDuration } from "../../Util/time";
+import ReactMarkdown from "react-markdown";
+import { Content } from "../../Components/Page";
 
 const Link = styled.a`
   cursor: pointer;
@@ -87,6 +89,19 @@ export function SkillEntry({ logged_at, name, old_level, new_level }) {
       <Badge variant={variant}>
         {old_level} -&gt; {new_level}
       </Badge>
+    </Entry>
+  );
+}
+
+export function NoteEntry({ logged_at, author, note }) {
+  return (
+    <Entry time={logged_at} icon={faClipboard}>
+      <Content>
+        <p>
+          Note written by <strong>{author.name}</strong>
+        </p>
+        <ReactMarkdown>{note}</ReactMarkdown>
+      </Content>
     </Entry>
   );
 }

@@ -6,8 +6,15 @@ import { PilotHistory } from "./PilotHistory";
 import { useApi } from "../../api";
 import { ActivitySummary } from "./ActivitySummary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGraduationCap, faPen, faPlane, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClipboard,
+  faGraduationCap,
+  faPen,
+  faPlane,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import { InputGroup, NavButton } from "../../Components/Form";
 
 const FilterButtons = styled.span`
   font-size: 0.75em;
@@ -29,6 +36,9 @@ export function Pilot() {
   const [fleetHistory] = useApi(`/api/history/fleet?character_id=${characterId}`);
   const [xupHistory] = useApi(`/api/history/xup?character_id=${characterId}`);
   const [skillHistory] = useApi(`/api/history/skills?character_id=${characterId}`);
+  const [notes] = useApi(
+    authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
+  );
 
   return (
     <>
@@ -42,6 +52,14 @@ export function Pilot() {
           />
         </div>
       </div>
+      <InputGroup>
+        {authContext.access["notes-add"] && (
+          <NavButton to={`/fc/notes/add?character_id=${characterId}`}>Write note</NavButton>
+        )}
+        {authContext.access["bans-manage"] && (
+          <NavButton to={`/fc/bans/add?kind=character&id=${characterId}`}>Ban</NavButton>
+        )}
+      </InputGroup>
       <div style={{ display: "flex" }}>
         <div style={{ flex: 3, padding: "0.5em" }}>
           <Title>
@@ -59,6 +77,11 @@ export function Pilot() {
               <a onClick={(evt) => setFilter("fleet")}>
                 <FontAwesomeIcon fixedWidth icon={faPlane} />
               </a>
+              {authContext.access["notes-view"] && (
+                <a onClick={(evt) => setFilter("note")}>
+                  <FontAwesomeIcon fixedWidth icon={faClipboard} />
+                </a>
+              )}
             </FilterButtons>
           </Title>
 
@@ -67,6 +90,7 @@ export function Pilot() {
             fleetHistory={fleetHistory && fleetHistory.activity}
             xupHistory={xupHistory && xupHistory.xups}
             skillHistory={skillHistory && skillHistory.history}
+            notes={notes && notes.notes}
           />
         </div>
         <div style={{ flex: 1, padding: "0.5em" }}>

@@ -78,6 +78,10 @@ export const Content = styled.div`
     border-radius: 5px;
     background-color: ${(props) => props.theme.colors.accent1};
   }
+
+  img {
+    max-width: 100%;
+  }
 `;
 
 export const PageTitle = styled.h1`

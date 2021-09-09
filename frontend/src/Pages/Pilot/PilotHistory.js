@@ -1,13 +1,13 @@
 import _ from "lodash";
 import styled from "styled-components";
 
-import { FitEntry, SkillEntry, FleetEntry } from "./Entry";
+import { FitEntry, SkillEntry, FleetEntry, NoteEntry } from "./Entry";
 
 const Group = styled.div`
   margin-bottom: 2em;
 `;
 
-function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory }) {
+function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory, notes }) {
   var everything = [];
 
   // Add xups
@@ -47,6 +47,18 @@ function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory }) {
     });
   }
 
+  // Add notes, if they loaded
+  i = 0;
+  for (const entry of notes || []) {
+    i++;
+    everything.push({
+      time: entry.logged_at,
+      type: "note",
+      entry,
+      key: `note-${i}`,
+    });
+  }
+
   if (filter !== null) {
     everything = everything.filter((entry) => filter(entry.type));
   }
@@ -74,6 +86,8 @@ function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory }) {
       thisGroup.push(<FleetEntry key={key} {...entry} />);
     } else if (type === "skill") {
       thisGroup.push(<SkillEntry key={key} {...entry} />);
+    } else if (type === "note") {
+      thisGroup.push(<NoteEntry key={key} {...entry} />);
     }
   }
 
@@ -98,13 +112,14 @@ function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory }) {
   return <div>{result}</div>;
 }
 
-export function PilotHistory({ filter, fleetHistory, xupHistory, skillHistory }) {
+export function PilotHistory({ filter, fleetHistory, xupHistory, skillHistory, notes }) {
   return (
     <CombinedDisplay
       filter={filter}
       fleetHistory={fleetHistory}
       xupHistory={xupHistory}
       skillHistory={skillHistory}
+      notes={notes}
     />
   );
 }

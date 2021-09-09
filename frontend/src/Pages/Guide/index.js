@@ -1,13 +1,11 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
 import { useParams, NavLink } from "react-router-dom";
 import { Content } from "../../Components/Page";
 import styled from "styled-components";
 import { ToastContext } from "../../contexts";
 import { errorToaster } from "../../api";
-import { Table, TableHead, TableBody, Cell, CellHead, Row } from "../../Components/Table";
+import { Markdown } from "../../Components/Markdown";
 
 const guideData = {};
 function importAll(r) {
@@ -17,10 +15,6 @@ importAll(require.context("./guides", true, /\.(md|jpg|png)$/));
 
 const GuideContent = styled(Content)`
   max-width: 800px;
-
-  img {
-    max-width: 100%;
-  }
 `;
 
 export function Guide() {
@@ -66,39 +60,15 @@ export function Guide() {
     );
   }
 
-  function Link({ href, children, ...props }) {
-    return href.startsWith("/") ? (
-      <NavLink exact to={href}>
-        {children}
-      </NavLink>
-    ) : (
-      <a href={href} {...props}>
-        {children}
-      </a>
-    );
-  }
-
-  const components = {
-    a: Link,
-    table: Table,
-    thead: TableHead,
-    tbody: TableBody,
-    th: CellHead,
-    td: Cell,
-    tr: Row,
-  };
-
   return (
     <GuideContent style={{ maxWidth: "800px" }}>
-      <ReactMarkdown
+      <Markdown
         rehypePlugins={[rehypeRaw]}
-        remarkPlugins={[remarkGfm]}
         transformImageUri={resolveImage}
         transformLinkUri={null}
-        components={components}
       >
         {loadedData}
-      </ReactMarkdown>
+      </Markdown>
     </GuideContent>
   );
 }

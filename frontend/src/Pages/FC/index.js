@@ -6,6 +6,7 @@ import { Fleet, FleetRegister } from "./Fleet";
 import { Search } from "./Search";
 import { Statistics } from "./Statistics";
 import { FleetCompHistory } from "./FleetCompHistory";
+import { NoteAdd } from "./NoteAdd";
 
 export function FCRoutes() {
   return (
@@ -27,6 +28,9 @@ export function FCRoutes() {
       </Route>
       <Route exact path="/fc/fleet-comp-history">
         <FleetCompHistory />
+      </Route>
+      <Route exact path="/fc/notes/add">
+        <NoteAdd />
       </Route>
     </>
   );

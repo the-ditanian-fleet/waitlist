@@ -100,6 +100,16 @@ CREATE TABLE `skill_history` (
   CONSTRAINT `skill_history_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
 );
 
+CREATE TABLE `character_note` (
+  `id` INTEGER PRIMARY KEY NOT NULL,
+  `character_id` bigint NOT NULL,
+  `author_id` bigint NOT NULL,
+  `note` text NOT NULL,
+  `logged_at` bigint NOT NULL,
+  CONSTRAINT `character_note_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`),
+  CONSTRAINT `character_note_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `character` (`id`)
+);
+
 /* Temporary things */
 
 CREATE TABLE `fleet` (

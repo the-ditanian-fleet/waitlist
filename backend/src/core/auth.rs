@@ -205,6 +205,8 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
             "waitlist-tag:HQ-FC",
             "access-manage",
             "access-manage:logi-specialist",
+            "notes-view",
+            "notes-add",
         ],
     );
     build_level(

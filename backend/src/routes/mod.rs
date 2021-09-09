@@ -7,6 +7,7 @@ mod healthcheck;
 mod history;
 mod implants;
 mod modules;
+mod notes;
 mod pilot;
 mod search;
 mod skills;
@@ -33,6 +34,7 @@ pub fn routes() -> Vec<rocket::Route> {
         statistics::routes(),
         healthcheck::routes(),
         implants::routes(),
+        notes::routes(),
     ]
     .concat()
 }
