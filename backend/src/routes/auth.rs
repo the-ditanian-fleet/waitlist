@@ -78,7 +78,7 @@ async fn logout<'r>(
 fn login_url(alt: bool, fc: bool, app: &rocket::State<app::Application>) -> String {
     let state = match alt {
         true => "alt",
-        false => "",
+        false => "normal",
     };
 
     let mut scopes = vec![
