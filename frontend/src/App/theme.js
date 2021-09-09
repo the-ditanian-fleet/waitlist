@@ -155,4 +155,10 @@ theme["Elite GOLD"] = _.merge({}, theme.light, {
   },
 });
 
+theme.verydark = _.merge({}, theme.dark, {
+  colors: {
+    background: "#000000",
+  },
+});
+
 export default theme;
