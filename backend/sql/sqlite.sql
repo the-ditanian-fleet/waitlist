@@ -9,7 +9,7 @@ CREATE TABLE `character` (
 
 CREATE TABLE `access_token` (
   `character_id` bigint PRIMARY KEY NOT NULL,
-  `access_token` varchar(255) NOT NULL,
+  `access_token` varchar(2048) NOT NULL,
   `expires` bigint NOT NULL,
   `scopes` varchar(1024) NOT NULL,
   CONSTRAINT `access_token_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)

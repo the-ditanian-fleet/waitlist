@@ -9,7 +9,7 @@ CREATE TABLE `character` (
 
 CREATE TABLE `access_token` (
   `character_id` bigint NOT NULL,
-  `access_token` varchar(255) NOT NULL,
+  `access_token` varchar(2048) NOT NULL,
   `expires` bigint NOT NULL,
   `scopes` varchar(1024) NOT NULL,
   PRIMARY KEY (`character_id`),
