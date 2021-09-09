@@ -95,7 +95,7 @@ fn login_url(alt: bool, fc: bool, app: &rocket::State<app::Application>) -> Stri
     }
 
     format!(
-        "https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri={}&client_id={}&scope={}&state={}",
+        "https://login.eveonline.com/v2/oauth/authorize?response_type=code&redirect_uri={}&client_id={}&scope={}&state={}",
         app.config.esi.url,
         app.config.esi.client_id,
         scopes.iter().fold(String::new(), |acc, scope| acc + " " + scope.as_str()).trim_end(),
