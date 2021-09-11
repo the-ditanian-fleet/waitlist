@@ -146,7 +146,7 @@ function parseWallet(input) {
     });
   }
 
-  if (!lines.length) {
+  if (lines.length < 2) {
     return null;
   }
 
@@ -302,7 +302,12 @@ function ResultDisplay({ dataStr }) {
   if (!dataStr) {
     return null;
   }
-  const decoded = decodeData(dataStr);
+  var decoded;
+  try {
+    decoded = decodeData(dataStr);
+  } catch (e) {
+    return <em>Failed to load results</em>;
+  }
 
   const duration = decoded.endTime - decoded.startTime;
   const iskH = Math.round(decoded.isk / (duration / 3600) / (decoded.sites / (decoded.sites - 1)));
