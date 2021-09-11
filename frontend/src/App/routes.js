@@ -12,6 +12,7 @@ import { Guide, GuideIndex } from "../Pages/Guide";
 
 import { FCRoutes } from "../Pages/FC";
 import { AuthRoutes } from "../Pages/Auth";
+import { ISKh, ISKhCalc } from "../Pages/ISKh";
 
 export function Routes() {
   const authContext = React.useContext(AuthContext);
@@ -25,6 +26,12 @@ export function Routes() {
       </Route>
       <Route exact path="/guide/:guideName">
         <Guide />
+      </Route>
+      <Route exact path="/isk-h/calc">
+        <ISKhCalc />
+      </Route>
+      <Route exact path="/isk-h">
+        <ISKh />
       </Route>
       {authContext && (
         <>
