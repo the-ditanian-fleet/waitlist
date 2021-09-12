@@ -16,10 +16,20 @@ use crate::{
 use eve_data_core::{Fitting, TypeID};
 
 #[derive(Debug, Deserialize)]
-struct XupRequest {
-    eft: String,
-    waitlist_id: i64,
+struct DnaXup {
     character_id: i64,
+    dna: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct XupRequest {
+    waitlist_id: i64,
+
+    character_id: i64,
+    eft: String,
+
+    #[serde(default)]
+    dna: Vec<DnaXup>,
 }
 
 const MAX_X_PER_ACCOUNT: usize = 10;
@@ -278,11 +288,20 @@ async fn xup(
     account: AuthenticatedAccount,
     input: Json<XupRequest>,
 ) -> Result<&'static str, Madness> {
+    // Character authorization is done by xup_multi!
+
+    // EFT x'es
     let fits = Fitting::from_eft(&input.eft)?;
-    let xups = fits
+    let mut xups: Vec<_> = fits
         .into_iter()
         .map(|fit| (input.character_id, fit))
         .collect();
+
+    // DNA x'es
+    for dna_xup in &input.dna {
+        let fit = Fitting::from_dna(&dna_xup.dna)?;
+        xups.push((dna_xup.character_id, fit));
+    }
 
     xup_multi(app, account, input.waitlist_id, xups).await?;
 
