@@ -13,7 +13,7 @@ use crate::{
     tdf,
     util::madness::{Madness, UserMadness},
 };
-use eve_data_core::{Category, Fitting, TypeDB, TypeID};
+use eve_data_core::{Fitting, TypeID};
 
 #[derive(Debug, Deserialize)]
 struct XupRequest {
@@ -226,11 +226,7 @@ async fn xup_multi(
 
     // Actually write the individual entries now
     for (character_id, fit) in xups {
-        let hull_type = TypeDB::load_type(fit.hull)?;
-        if hull_type.category != Category::Ship {
-            return Err(UserMadness::BadRequest("Only ships can fly".to_string()).into());
-        }
-
+        fit.validate()?;
         let this_pilot_data = pilot_data.get(&character_id).unwrap();
 
         let fit_id = dedup_dna(&mut tx, fit.hull, &fit.to_dna()?).await?;

@@ -1,6 +1,9 @@
-use std::{collections::BTreeMap, num::ParseIntError};
+use std::{
+    collections::{BTreeMap, BTreeSet},
+    num::ParseIntError,
+};
 
-use crate::{Type, TypeError};
+use crate::TypeError;
 
 use super::{Category, TypeDB, TypeID};
 
@@ -15,6 +18,8 @@ pub struct Fitting {
 pub enum FitError {
     InvalidFit,
     InvalidModule,
+    InvalidCount,
+    InvalidHull,
 }
 
 impl From<ParseIntError> for FitError {
@@ -65,7 +70,7 @@ impl Fitting {
                 true
             } else {
                 let loaded_type = TypeDB::load_type(type_id)?;
-                Self::is_always_cargo(&loaded_type)
+                loaded_type.is_always_cargo()
             };
 
             let desto = match is_cargo {
@@ -93,7 +98,7 @@ impl Fitting {
 
         for (&id, &count) in &self.cargo {
             let inv_type = TypeDB::load_type(id)?;
-            if Self::is_always_cargo(&inv_type) {
+            if inv_type.is_always_cargo() {
                 dna += &format!("{};{}:", id, count);
             } else {
                 dna += &format!("{}_;{}:", id, count);
@@ -101,10 +106,6 @@ impl Fitting {
         }
 
         Ok(dna + ":")
-    }
-
-    fn is_always_cargo(what: &Type) -> bool {
-        what.category == Category::Charge || what.category == Category::Implant
     }
 
     pub fn from_eft(eft: &str) -> Result<Vec<Fitting>, FitError> {
@@ -149,7 +150,7 @@ impl Fitting {
                         true
                     } else {
                         let type_obj = TypeDB::load_type(type_id)?;
-                        Self::is_always_cargo(&type_obj)
+                        type_obj.is_always_cargo()
                             || (stacked && type_obj.category != Category::Drone)
                     };
 
@@ -167,6 +168,53 @@ impl Fitting {
         }
 
         Ok(fittings)
+    }
+
+    pub fn validate(&self) -> Result<(), FitError> {
+        // Build a set of all IDs to minimize database usage
+        let mut all_ids = BTreeSet::new();
+        all_ids.insert(self.hull);
+        for (&id, &count) in &self.modules {
+            all_ids.insert(id);
+            if count <= 0 {
+                return Err(FitError::InvalidCount);
+            }
+        }
+        for (&id, &count) in &self.cargo {
+            all_ids.insert(id);
+            if count <= 0 {
+                return Err(FitError::InvalidCount);
+            }
+        }
+        let all_ids = all_ids.into_iter().collect::<Vec<_>>();
+
+        // Load stuff!
+        let loaded_types = TypeDB::load_types(&all_ids)?;
+
+        // Validate that all types exist
+        for the_type in loaded_types.values() {
+            if the_type.is_none() {
+                return Err(FitError::InvalidModule);
+            }
+        }
+
+        // Validate the modules make sense
+        for id in self.modules.keys() {
+            if let Some(module_type) = loaded_types.get(id).unwrap() {
+                if module_type.is_always_cargo() {
+                    return Err(FitError::InvalidModule);
+                }
+            }
+        }
+
+        // Make sure the hull is a ship
+        if let Some(hull_type) = loaded_types.get(&self.hull).unwrap() {
+            if hull_type.category != Category::Ship {
+                return Err(FitError::InvalidHull);
+            }
+        }
+
+        Ok(())
     }
 }
 

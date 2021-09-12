@@ -49,6 +49,10 @@ impl Type {
         }
         None
     }
+
+    pub fn is_always_cargo(&self) -> bool {
+        self.category == Category::Charge || self.category == Category::Implant
+    }
 }
 
 std::thread_local!(static CONN: rusqlite::Connection = rusqlite::Connection::open("sqlite-shrunk.sqlite").unwrap());

@@ -123,6 +123,8 @@ impl<'r> rocket::response::Responder<'r, 'static> for Madness {
                     let reason = match e {
                         FitError::InvalidFit => "Invalid fit",
                         FitError::InvalidModule => "Invalid module",
+                        FitError::InvalidCount => "Invalid count",
+                        FitError::InvalidHull => "Only ships can fly",
                     };
                     Ok(Response::build()
                         .sized_body(reason.len(), Cursor::new(reason))
