@@ -1,3 +1,5 @@
+use std::collections::{HashMap, HashSet};
+
 use rocket::serde::json::Json;
 use serde::Deserialize;
 
@@ -19,6 +21,8 @@ struct XupRequest {
     waitlist_id: i64,
     character_id: i64,
 }
+
+const MAX_X_PER_ACCOUNT: usize = 10;
 
 async fn dedup_implants(db: &mut crate::DBTX<'_>, implants: &[TypeID]) -> Result<i64, sqlx::Error> {
     let mut implants = Vec::from(implants);
@@ -118,26 +122,26 @@ async fn am_i_banned(app: &Application, character_id: i64) -> Result<bool, Madne
     Ok(false)
 }
 
-#[post("/api/waitlist/xup", data = "<input>")]
-async fn xup(
-    app: &rocket::State<Application>,
+async fn xup_multi(
+    app: &Application,
     account: AuthenticatedAccount,
-    input: Json<XupRequest>,
-) -> Result<&'static str, Madness> {
-    authorize_character(app.get_db(), &account, input.character_id, None).await?;
-
+    waitlist_id: i64,
+    xups: Vec<(i64, Fitting)>,
+) -> Result<(), Madness> {
+    // Track the "now" from the start of the operation, to keep things fair
     let now = chrono::Utc::now().timestamp();
 
-    let fits = Fitting::from_eft(&input.eft)?;
-    if fits.is_empty() {
+    // Input sanity
+    if xups.is_empty() {
         return Err(UserMadness::BadRequest("No fits supplied".to_string()).into());
-    } else if fits.len() > 10 {
+    } else if xups.len() > MAX_X_PER_ACCOUNT {
         return Err(UserMadness::BadRequest("Too many fits".to_string()).into());
     }
 
+    // Make sure the waitlist is actually open
     if sqlx::query!(
         "SELECT id FROM waitlist WHERE id=? AND is_open=1",
-        input.waitlist_id
+        waitlist_id
     )
     .fetch_optional(app.get_db())
     .await?
@@ -146,20 +150,48 @@ async fn xup(
         return Err(UserMadness::BadRequest("Waitlist is closed".to_string()).into());
     }
 
-    if am_i_banned(app, input.character_id).await? {
-        return Err(UserMadness::BadRequest("You are banned".to_string()).into());
+    // Dedupe character IDs to avoid double work
+    let mut character_ids = HashSet::new();
+    for xup in xups.iter() {
+        character_ids.insert(xup.0);
     }
 
-    let time_in_fleet = get_time_in_fleet(app.get_db(), input.character_id).await?;
-    let implants = implants::get_implants(app, input.character_id).await?;
-    let skills = skills::load_skills(&app.esi_client, app.get_db(), input.character_id).await?;
+    // Check permissions/bans on all characters, and get ESI info
+    let mut character_info = HashMap::new();
+    for character_id in character_ids {
+        authorize_character(app.get_db(), &account, character_id, None).await?;
+        if am_i_banned(app, character_id).await? {
+            return Err(UserMadness::BadRequest("You are banned".to_string()).into());
+        }
 
+        let time_in_fleet = get_time_in_fleet(app.get_db(), character_id).await?;
+        let implants = implants::get_implants(app, character_id).await?;
+        let skills = skills::load_skills(&app.esi_client, app.get_db(), character_id).await?;
+
+        character_info.insert(character_id, (time_in_fleet, implants, skills));
+    }
+
+    let mut pilot_data = HashMap::new();
+    for (character_id, (time_in_fleet, implants, skills)) in character_info.iter() {
+        pilot_data.insert(
+            character_id,
+            tdf::fitcheck::PilotData {
+                implants,
+                time_in_fleet: *time_in_fleet,
+                skills,
+                access_keys: account.access,
+            },
+        );
+    }
+
+    // ESI work should now be done, start a db transaction
     let mut tx = app.get_db().begin().await?;
 
+    // Create the waitlist_entry record
     let entry_id = match sqlx::query!(
         "SELECT id FROM waitlist_entry WHERE account_id=? AND waitlist_id=?",
         account.id,
-        input.waitlist_id
+        waitlist_id
     )
     .fetch_optional(&mut tx)
     .await?
@@ -168,7 +200,7 @@ async fn xup(
         None => {
             let result = sqlx::query!(
                 "INSERT INTO waitlist_entry (waitlist_id, account_id, joined_at) VALUES (?, ?, ?)",
-                input.waitlist_id,
+                waitlist_id,
                 account.id,
                 now,
             )
@@ -178,34 +210,31 @@ async fn xup(
         }
     };
 
-    if sqlx::query!(
+    // Spam protection: limit x'es per account
+    if (sqlx::query!(
         "SELECT COUNT(*) count FROM waitlist_entry_fit WHERE entry_id=?",
         entry_id
     )
     .fetch_one(&mut tx)
     .await?
-    .count
-        > 10
+    .count as usize)
+        + xups.len()
+        > MAX_X_PER_ACCOUNT
     {
         return Err(UserMadness::BadRequest("Too many fits".to_string()).into());
     }
 
-    let implant_set_id = dedup_implants(&mut tx, &implants).await?;
-
-    let pilot_data = tdf::fitcheck::PilotData {
-        implants: &implants,
-        time_in_fleet,
-        skills: &skills,
-        access_keys: account.access,
-    };
-
-    for fit in fits {
+    // Actually write the individual entries now
+    for (character_id, fit) in xups {
         let hull_type = TypeDB::load_type(fit.hull)?;
         if hull_type.category != Category::Ship {
             return Err(UserMadness::BadRequest("Only ships can fly".to_string()).into());
         }
 
+        let this_pilot_data = pilot_data.get(&character_id).unwrap();
+
         let fit_id = dedup_dna(&mut tx, fit.hull, &fit.to_dna()?).await?;
+        let implant_set_id = dedup_implants(&mut tx, this_pilot_data.implants).await?;
 
         // Delete existing X'up for the hull
         if let Some(existing_x) = sqlx::query!("
@@ -214,7 +243,7 @@ async fn xup(
             sqlx::query!("DELETE FROM waitlist_entry_fit WHERE id = ?", existing_x.id).execute(&mut tx).await?;
         }
 
-        let fit_checked = tdf::fitcheck::FitChecker::check(&pilot_data, &fit)?;
+        let fit_checked = tdf::fitcheck::FitChecker::check(this_pilot_data, &fit)?;
         if let Some(error) = fit_checked.errors.into_iter().next() {
             return Err(UserMadness::BadRequest(error).into());
         }
@@ -228,19 +257,38 @@ async fn xup(
         sqlx::query!("
             INSERT INTO waitlist_entry_fit (character_id, entry_id, fit_id, category, approved, tags, implant_set_id, fit_analysis, cached_time_in_fleet)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ", input.character_id, entry_id, fit_id, fit_checked.category, fit_checked.approved, tags, implant_set_id, fit_analysis, time_in_fleet)
+        ", character_id, entry_id, fit_id, fit_checked.category, fit_checked.approved, tags, implant_set_id, fit_analysis, this_pilot_data.time_in_fleet)
         .execute(&mut tx).await?;
 
         // Log the x'up
         sqlx::query!(
             "INSERT INTO fit_history (character_id, fit_id, implant_set_id, logged_at) VALUES (?, ?, ?, ?)",
-            input.character_id, fit_id, implant_set_id, now,
+            character_id, fit_id, implant_set_id, now,
         ).execute(&mut tx).await?;
     }
 
+    // Done! Commit
     tx.commit().await?;
 
-    super::notify::notify_waitlist_update_and_xup(app, input.waitlist_id).await?;
+    // Let people and listeners know what just happened
+    super::notify::notify_waitlist_update_and_xup(app, waitlist_id).await?;
+
+    Ok(())
+}
+
+#[post("/api/waitlist/xup", data = "<input>")]
+async fn xup(
+    app: &rocket::State<Application>,
+    account: AuthenticatedAccount,
+    input: Json<XupRequest>,
+) -> Result<&'static str, Madness> {
+    let fits = Fitting::from_eft(&input.eft)?;
+    let xups = fits
+        .into_iter()
+        .map(|fit| (input.character_id, fit))
+        .collect();
+
+    xup_multi(app, account, input.waitlist_id, xups).await?;
 
     Ok("OK")
 }
