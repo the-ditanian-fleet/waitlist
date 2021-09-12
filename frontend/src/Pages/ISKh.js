@@ -220,11 +220,6 @@ export function ISKhCalc() {
           <div style={{ padding: "1em" }}>
             <ResultDisplay dataStr={dataStr} />
           </div>
-          {dataStr && (
-            <NavButton exact to={`/isk-h?d=${dataStr}`}>
-              Copyable link
-            </NavButton>
-          )}
         </div>
         {parsed && (
           <div style={{ flex: 2, padding: "0.5em" }}>
@@ -279,9 +274,9 @@ const ResultDOM = styled.div`
     border-radius: 10px;
     text-align: center;
     border: solid 1px ${props.theme.colors.accent4};
-    padding: 1em;
 
     > h1 {
+      margin-top: 0.5em;
       font-size: 2em;
       font-weight: 600;
       filter: drop-shadow(0px 1px 1px ${props.theme.colors.shadow});
@@ -290,10 +285,24 @@ const ResultDOM = styled.div`
       font-size: 1.5em;
       font-weight: 600;
     }
+    > * {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
 
     hr {
       border: 0;
       margin-top: 0.75em;
+    }
+    p:last-child {
+      border-top: solid 1px ${props.theme.colors.accent3};
+      font-size: 0.8em;
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+    }
+    a {
+      color: ${props.theme.colors.text};
+      text-decoration: none;
     }
   `}
 `;
@@ -311,6 +320,7 @@ function ResultDisplay({ dataStr }) {
 
   const duration = decoded.endTime - decoded.startTime;
   const iskH = Math.round(decoded.isk / (duration / 3600) / (decoded.sites / (decoded.sites - 1)));
+  const url = window.location.origin + `/isk-h?d=${dataStr}`;
 
   return (
     <>
@@ -331,6 +341,9 @@ function ResultDisplay({ dataStr }) {
         </p>
         <p>
           {formatDatetime(new Date(decoded.startTime * 1000))} ++ {formatDuration(duration)}
+        </p>
+        <p>
+          <a href={url}>{url}</a>
         </p>
       </ResultDOM>
     </>
