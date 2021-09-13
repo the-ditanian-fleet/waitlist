@@ -93,7 +93,7 @@ impl ESIRawClient {
         &self,
         grant_type: &str,
         token: &str,
-    ) -> Result<OAuthTokenResponse, reqwest::Error> {
+    ) -> Result<OAuthTokenResponse, ESIError> {
         #[derive(Serialize)]
         struct OAuthTokenRequest<'a> {
             grant_type: &'a str,
@@ -112,7 +112,8 @@ impl ESIRawClient {
                 _ => Some(token),
             },
         };
-        self.http
+        Ok(self
+            .http
             .post("https://login.eveonline.com/v2/oauth/token")
             .basic_auth(&self.client_id, Some(&self.client_secret))
             .form(&request)
@@ -120,13 +121,10 @@ impl ESIRawClient {
             .await?
             .error_for_status()?
             .json::<OAuthTokenResponse>()
-            .await
+            .await?)
     }
 
-    async fn process_verify(
-        &self,
-        access_token: &str,
-    ) -> Result<(i64, String, String), reqwest::Error> {
+    async fn process_verify(&self, access_token: &str) -> Result<(i64, String, String), ESIError> {
         #[derive(Debug, Deserialize)]
         struct VerifyResponse {
             #[serde(rename = "CharacterID")]
@@ -149,7 +147,7 @@ impl ESIRawClient {
         &self,
         grant_type: &str,
         token: &str,
-    ) -> Result<AuthResult, reqwest::Error> {
+    ) -> Result<AuthResult, ESIError> {
         let token = self.process_oauth_token(grant_type, token).await?;
         let (character_id, name, scopes) = self.process_verify(&token.access_token).await?;
         Ok(AuthResult {
@@ -163,11 +161,7 @@ impl ESIRawClient {
         })
     }
 
-    pub async fn get(
-        &self,
-        url: &str,
-        access_token: &str,
-    ) -> Result<reqwest::Response, reqwest::Error> {
+    pub async fn get(&self, url: &str, access_token: &str) -> Result<reqwest::Response, ESIError> {
         Ok(self
             .http
             .get(url)
@@ -181,7 +175,7 @@ impl ESIRawClient {
         &self,
         url: &str,
         access_token: &str,
-    ) -> Result<reqwest::Response, reqwest::Error> {
+    ) -> Result<reqwest::Response, ESIError> {
         Ok(self
             .http
             .delete(url)
@@ -196,7 +190,7 @@ impl ESIRawClient {
         url: &str,
         input: &E,
         access_token: &str,
-    ) -> Result<reqwest::Response, reqwest::Error> {
+    ) -> Result<reqwest::Response, ESIError> {
         Ok(self
             .http
             .post(url)
@@ -292,31 +286,29 @@ impl ESIClient {
             .await
         {
             Ok(r) => r,
-            Err(e) => {
-                if e.is_status() && e.status().unwrap() == 400 {
-                    warn!(
-                        "Deleting refresh token for character {} as it failed to be used: {:?}",
-                        character_id, e
-                    );
-                    let mut tx = self.db.begin().await?;
-                    sqlx::query!(
-                        "DELETE FROM access_token WHERE character_id=?",
-                        character_id
-                    )
-                    .execute(&mut tx)
-                    .await?;
-                    sqlx::query!(
-                        "DELETE FROM refresh_token WHERE character_id=?",
-                        character_id
-                    )
-                    .execute(&mut tx)
-                    .await?;
-                    tx.commit().await?;
+            Err(ESIError::Status(400)) => {
+                warn!(
+                    "Deleting refresh token for character {} as it failed to be used: HTTP 400",
+                    character_id
+                );
+                let mut tx = self.db.begin().await?;
+                sqlx::query!(
+                    "DELETE FROM access_token WHERE character_id=?",
+                    character_id
+                )
+                .execute(&mut tx)
+                .await?;
+                sqlx::query!(
+                    "DELETE FROM refresh_token WHERE character_id=?",
+                    character_id
+                )
+                .execute(&mut tx)
+                .await?;
+                tx.commit().await?;
 
-                    return Err(ESIError::NoToken);
-                }
-                return Err(e.into());
+                return Err(ESIError::NoToken);
             }
+            Err(e) => return Err(e),
         };
         self.save_auth(&refreshed).await?;
 
