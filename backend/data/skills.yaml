@@ -450,11 +450,9 @@ requirements:
     Frequency Modulation:
       min: 3
       elite: 4
-      gold: 5
     Long Distance Jamming:
       min: 3
       elite: 4
-      gold: 5
 
   Nestor:
     <<: [ *generic, *logistics ]
@@ -533,6 +531,10 @@ requirements:
       min: 5
     Cybernetics:
       min: 5
+    Frequency Modulation:
+      min: 3
+    Long Distance Jamming:
+      min: 3
 
   Damnation:
     <<: *generic
@@ -566,3 +568,7 @@ requirements:
       min: 5
     Cybernetics:
       min: 5
+    Frequency Modulation:
+      min: 3
+    Long Distance Jamming:
+      min: 3
