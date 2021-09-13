@@ -86,8 +86,8 @@ mod tests {
     #[test]
     fn test_data_load() {
         let cats = categories();
-        assert!(cats.len() > 0);
-        assert!(cats[0].id.len() > 0);
-        assert!(cats[0].name.len() > 0);
+        assert!(!cats.is_empty());
+        assert!(!cats[0].id.is_empty());
+        assert!(!cats[0].name.is_empty());
     }
 }

@@ -227,8 +227,7 @@ mod tests {
         let to_id = id_of(to);
         let the_match = variations
             .iter()
-            .filter(|v| v.to == to_id)
-            .next()
+            .find(|v| v.to == to_id)
             .expect("Missing expected variation [to]");
         match diff {
             Diff::Better => assert!(
