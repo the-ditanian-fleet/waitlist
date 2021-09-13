@@ -8,7 +8,7 @@ RUN sh shrink-sde.sh
 
 
 # Base image: have some deps etc
-FROM rust:1.54-alpine AS base
+FROM rust:1.55-alpine AS base
 WORKDIR /app/backend
 RUN apk add --no-cache musl-dev sqlite
 RUN cargo install cargo-chef
