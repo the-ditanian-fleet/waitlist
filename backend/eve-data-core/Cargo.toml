@@ -6,3 +6,4 @@ edition = "2018"
 [dependencies]
 rusqlite = { version = "*", features = ["bundled"] }
 lazy_static = "1"
+thiserror = "*"

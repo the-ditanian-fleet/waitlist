@@ -9,130 +9,71 @@ use crate::{core::auth::AuthorizationError, data::skills::SkillsError};
 
 use eve_data_core::{FitError, TypeError};
 
-#[derive(Debug)]
-pub enum InternalMadness {
-    Database(sqlx::Error),
-    ESIError(ESIError),
-    SSEError(SSEError),
-    TypeError(TypeError),
-}
-
-#[derive(Debug)]
-pub enum UserMadness {
-    AccessDenied,
-    FitError(FitError),
-    ESIScopeMissing,
-    BadRequest(String),
-    NotFound(&'static str),
-}
-
-#[derive(Debug)]
+#[derive(thiserror::Error, Debug)]
 pub enum Madness {
-    Internal(InternalMadness),
-    User(UserMadness),
-}
+    #[error("database error")]
+    DatabaseError(#[from] sqlx::Error),
+    #[error("SSE error: {0}")]
+    SSEError(#[from] SSEError),
+    #[error("ESI error: {0}")]
+    ESIError(#[from] ESIError),
+    #[error("type error: {0}")]
+    TypeError(#[from] TypeError),
+    #[error("fit error: {0}")]
+    FitError(#[from] FitError),
 
-impl From<sqlx::Error> for Madness {
-    fn from(error: sqlx::Error) -> Self {
-        Madness::Internal(InternalMadness::Database(error))
-    }
+    #[error("{0}")]
+    BadRequest(String),
+    #[error("access denied")]
+    AccessDenied,
+    #[error("{0}")]
+    NotFound(&'static str),
 }
 
 impl From<AuthorizationError> for Madness {
     fn from(error: AuthorizationError) -> Self {
         match error {
             AuthorizationError::DatabaseError(e) => e.into(),
-            AuthorizationError::AccessDenied => UserMadness::AccessDenied.into(),
+            AuthorizationError::AccessDenied => Self::AccessDenied,
         }
-    }
-}
-
-impl From<ESIError> for Madness {
-    fn from(error: ESIError) -> Self {
-        match error {
-            ESIError::DatabaseError(e) => e.into(),
-            ESIError::MissingScope => UserMadness::ESIScopeMissing.into(),
-            _ => InternalMadness::ESIError(error).into(),
-        }
-    }
-}
-
-impl From<SSEError> for Madness {
-    fn from(error: SSEError) -> Self {
-        InternalMadness::SSEError(error).into()
-    }
-}
-
-impl From<TypeError> for Madness {
-    fn from(error: TypeError) -> Self {
-        InternalMadness::TypeError(error).into()
-    }
-}
-
-impl From<FitError> for Madness {
-    fn from(error: FitError) -> Self {
-        UserMadness::FitError(error).into()
     }
 }
 
 impl From<SkillsError> for Madness {
     fn from(error: SkillsError) -> Self {
         match error {
-            SkillsError::ESIError(e) => e.into(),
             SkillsError::Database(e) => e.into(),
+            SkillsError::ESIError(e) => e.into(),
         }
-    }
-}
-
-impl From<UserMadness> for Madness {
-    fn from(error: UserMadness) -> Self {
-        Madness::User(error)
-    }
-}
-
-impl From<InternalMadness> for Madness {
-    fn from(error: InternalMadness) -> Self {
-        Madness::Internal(error)
     }
 }
 
 impl<'r> rocket::response::Responder<'r, 'static> for Madness {
     fn respond_to(self, _: &'r rocket::request::Request<'_>) -> rocket::response::Result<'static> {
-        match self {
-            Self::Internal(e) => {
-                error!("Something went wrong in the request! {:#?}", e);
-                Err(Status::InternalServerError)
+        let status = match &self {
+            Self::AccessDenied | Self::ESIError(ESIError::MissingScope | ESIError::NoToken) => {
+                Status::Unauthorized
             }
-            Self::User(e) => match e {
-                UserMadness::NotFound(e) => Ok(Response::build()
-                    .sized_body(e.len(), Cursor::new(e))
-                    .status(Status::NotFound)
-                    .finalize()),
-                UserMadness::BadRequest(e) => Ok(Response::build()
-                    .sized_body(e.len(), Cursor::new(e))
-                    .status(Status::BadRequest)
-                    .finalize()),
-                UserMadness::ESIScopeMissing => {
-                    let err = "Missing ESI scopes";
-                    Ok(Response::build()
-                        .sized_body(err.len(), Cursor::new(err))
-                        .status(Status::Unauthorized)
-                        .finalize())
-                }
-                UserMadness::FitError(e) => {
-                    let reason = match e {
-                        FitError::InvalidFit => "Invalid fit",
-                        FitError::InvalidModule => "Invalid module",
-                        FitError::InvalidCount => "Invalid count",
-                        FitError::InvalidHull => "Only ships can fly",
-                    };
-                    Ok(Response::build()
-                        .sized_body(reason.len(), Cursor::new(reason))
-                        .status(Status::BadRequest)
-                        .finalize())
-                }
-                UserMadness::AccessDenied => Err(Status::Unauthorized),
-            },
+
+            Self::DatabaseError(_)
+            | Self::SSEError(_)
+            | Self::ESIError(
+                ESIError::HTTPError(_) | ESIError::DatabaseError(_) | ESIError::Status(_),
+            ) => Status::InternalServerError,
+
+            Self::NotFound(_) => Status::NotFound,
+
+            Self::FitError(_) | Self::BadRequest(_) | Self::TypeError(_) => Status::BadRequest,
+        };
+
+        if status == Status::InternalServerError {
+            error!("Request error: {}: {:#?}", self, self);
         }
+
+        let error = format!("{}", self);
+        Ok(Response::build()
+            .sized_body(error.len(), Cursor::new(error))
+            .status(status)
+            .finalize())
     }
 }

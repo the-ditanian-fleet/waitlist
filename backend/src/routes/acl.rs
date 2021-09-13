@@ -1,7 +1,7 @@
 use crate::{
     app::Application,
     core::auth::{get_access_keys, AuthenticatedAccount},
-    util::madness::{Madness, UserMadness},
+    util::madness::Madness,
 };
 use rocket::serde::json::Json;
 use serde::{Deserialize, Serialize};
@@ -22,21 +22,25 @@ async fn add_acl(
 
     let to_be_granted = get_access_keys(&input.level);
     if to_be_granted.is_none() {
-        return Err(UserMadness::BadRequest(format!("Unknown level '{}'", input.level)).into());
+        return Err(Madness::BadRequest(format!(
+            "Unknown level '{}'",
+            input.level
+        )));
     }
 
     let required_access = format!("access-manage:{}", input.level);
     if !account.access.contains(&required_access) && !account.access.contains("access-manage-all") {
-        return Err(UserMadness::BadRequest(format!("Cannot grant {}", input.level)).into());
+        return Err(Madness::BadRequest(format!("Cannot grant {}", input.level)));
     }
 
     let character = sqlx::query!("SELECT name FROM `character` WHERE id=?", input.id)
         .fetch_optional(app.get_db())
         .await?;
     if character.is_none() {
-        return Err(
-            UserMadness::BadRequest(format!("Unknown character with ID {}", input.id)).into(),
-        );
+        return Err(Madness::BadRequest(format!(
+            "Unknown character with ID {}",
+            input.id
+        )));
     }
 
     // Alts shouldn't have ACLs, so unlink them
@@ -76,7 +80,10 @@ async fn remove_acl(
         if !account.access.contains(&require_access)
             && !account.access.contains("access-manage-all")
         {
-            return Err(UserMadness::BadRequest(format!("Cannot revoke {}", the_acl.level)).into());
+            return Err(Madness::BadRequest(format!(
+                "Cannot revoke {}",
+                the_acl.level
+            )));
         }
 
         sqlx::query!("DELETE FROM admins WHERE character_id=?", input.id)

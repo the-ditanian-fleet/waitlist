@@ -14,23 +14,32 @@ pub struct Fitting {
     pub cargo: BTreeMap<TypeID, i64>,
 }
 
-#[derive(Debug)]
+#[derive(thiserror::Error, Debug)]
 pub enum FitError {
-    InvalidFit,
+    #[error("fit failed to parse")]
+    ParseError,
+    #[error("unknown item type")]
     InvalidModule,
+    #[error("invalid item count")]
     InvalidCount,
+    #[error("only ships can fly")]
     InvalidHull,
+    #[error("internal error: {0}")]
+    Internal(#[source] TypeError),
 }
 
 impl From<ParseIntError> for FitError {
     fn from(_: ParseIntError) -> Self {
-        FitError::InvalidFit
+        FitError::ParseError
     }
 }
 
 impl From<TypeError> for FitError {
-    fn from(_: TypeError) -> Self {
-        FitError::InvalidModule
+    fn from(e: TypeError) -> Self {
+        match &e {
+            TypeError::Database(_) | &TypeError::MultipleMatches => FitError::Internal(e),
+            TypeError::NothingMatched => FitError::InvalidModule,
+        }
     }
 }
 
@@ -49,7 +58,7 @@ impl Fitting {
             }
             i += 1;
             if i > 1000 {
-                return Err(FitError::InvalidFit);
+                return Err(FitError::ParseError);
             }
 
             let mut mod_split = piece.splitn(2, ';');
@@ -120,7 +129,7 @@ impl Fitting {
                 let hull_name = pieces.next().unwrap().trim(); // 1st elmt
                 let ship_name = pieces.next();
                 if ship_name.is_none() {
-                    return Err(FitError::InvalidFit);
+                    return Err(FitError::ParseError);
                 }
                 let hull = TypeDB::id_of(hull_name)?;
                 fittings.push(Fitting {
@@ -163,7 +172,7 @@ impl Fitting {
                     *desto.entry(type_id).or_insert(0) += count;
                 }
             } else {
-                return Err(FitError::InvalidFit);
+                return Err(FitError::ParseError);
             }
         }
 

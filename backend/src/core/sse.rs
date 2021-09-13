@@ -7,15 +7,10 @@ pub struct SSEClient {
     url: String,
 }
 
-#[derive(Debug)]
+#[derive(thiserror::Error, Debug)]
 pub enum SSEError {
-    HTTPError(reqwest::Error),
-}
-
-impl From<reqwest::Error> for SSEError {
-    fn from(error: reqwest::Error) -> Self {
-        SSEError::HTTPError(error)
-    }
+    #[error("HTTP error while contacting SSE server")]
+    HTTPError(#[from] reqwest::Error),
 }
 
 #[derive(Debug, Serialize)]

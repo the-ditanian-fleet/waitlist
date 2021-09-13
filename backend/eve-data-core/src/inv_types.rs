@@ -7,17 +7,14 @@ use std::sync::{Arc, RwLock};
 pub type TypeID = i32;
 pub type SkillLevel = i8;
 
-#[derive(Debug)]
+#[derive(thiserror::Error, Debug)]
 pub enum TypeError {
-    Database(rusqlite::Error),
+    #[error("database error")]
+    Database(#[from] rusqlite::Error),
+    #[error("no matches for item")]
     NothingMatched,
+    #[error("unexpectedly got multiple item matches")]
     MultipleMatches,
-}
-
-impl From<rusqlite::Error> for TypeError {
-    fn from(err: rusqlite::Error) -> Self {
-        Self::Database(err)
-    }
 }
 
 #[derive(Clone, Debug)]

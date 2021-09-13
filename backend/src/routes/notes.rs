@@ -4,10 +4,7 @@ use serde::{Deserialize, Serialize};
 use crate::{
     app,
     core::auth::AuthenticatedAccount,
-    util::{
-        madness::{Madness, UserMadness},
-        types::Character,
-    },
+    util::{madness::Madness, types::Character},
 };
 
 #[derive(Debug, Serialize)]
@@ -70,7 +67,7 @@ async fn add_note(
     account.require_access("notes-add")?;
 
     if input.note.len() < 20 || input.note.len() > 5000 {
-        return Err(UserMadness::BadRequest("Invalid note".to_string()).into());
+        return Err(Madness::BadRequest("Invalid note".to_string()));
     }
 
     let now = chrono::Utc::now().timestamp();

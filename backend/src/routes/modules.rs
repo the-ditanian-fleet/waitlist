@@ -4,10 +4,7 @@ use eve_data_core::{TypeDB, TypeID};
 use rocket::serde::json::Json;
 use serde::Serialize;
 
-use crate::{
-    core::auth::AuthenticatedAccount,
-    util::madness::{Madness, UserMadness},
-};
+use crate::{core::auth::AuthenticatedAccount, util::madness::Madness};
 
 #[derive(Debug, Serialize)]
 struct Module {
@@ -48,13 +45,13 @@ fn module_info(
     for id in ids.split(',') {
         let numeric_id = id.parse::<TypeID>();
         if numeric_id.is_err() {
-            return Err(UserMadness::BadRequest("Invalid type ID given".to_string()).into());
+            return Err(Madness::BadRequest("Invalid type ID given".to_string()));
         }
         type_ids.push(numeric_id.unwrap());
     }
 
     if type_ids.len() > 200 {
-        return Err(UserMadness::BadRequest("Too many IDs".to_string()).into());
+        return Err(Madness::BadRequest("Too many IDs".to_string()));
     }
 
     Ok(Json(module_info_impl(&type_ids)?))

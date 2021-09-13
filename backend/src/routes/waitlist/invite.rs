@@ -7,7 +7,7 @@ use crate::{
         esi::ESIScope,
         sse::Event,
     },
-    util::madness::{Madness, UserMadness},
+    util::madness::Madness,
 };
 use eve_data_core::{TypeDB, TypeID};
 use serde::{Deserialize, Serialize};
@@ -58,7 +58,7 @@ async fn invite(
     .await?
     {
         Some(fleet) => fleet,
-        None => return Err(UserMadness::BadRequest("Fleet not configured".to_string()).into()),
+        None => return Err(Madness::BadRequest("Fleet not configured".to_string())),
     };
 
     #[derive(Debug, Serialize)]

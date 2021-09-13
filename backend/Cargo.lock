@@ -334,6 +334,7 @@ version = "0.1.0"
 dependencies = [
  "lazy_static",
  "rusqlite",
+ "thiserror",
 ]
 
 [[package]]
@@ -1861,6 +1862,7 @@ dependencies = [
  "serde_json",
  "serde_yaml",
  "sqlx",
+ "thiserror",
  "tokio",
  "toml",
  "yaml-merge-keys",

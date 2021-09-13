@@ -1,10 +1,7 @@
 use std::collections::HashSet;
 
 use crate::{
-    app::Application,
-    core::auth::AuthenticatedAccount,
-    data::character,
-    util::madness::{Madness, UserMadness},
+    app::Application, core::auth::AuthenticatedAccount, data::character, util::madness::Madness,
     util::types::Character,
 };
 
@@ -27,16 +24,18 @@ async fn add_ban(
     account.require_access("bans-manage")?;
 
     if input.kind != "character" && input.kind != "corporation" && input.kind != "alliance" {
-        return Err(UserMadness::BadRequest("Invalid argument for 'kind'".to_string()).into());
+        return Err(Madness::BadRequest(
+            "Invalid argument for 'kind'".to_string(),
+        ));
     }
 
     let expiry = match input.duration {
         None => None,
         Some(0) => None,
         Some(i) if i < 0 => {
-            return Err(
-                UserMadness::BadRequest("Duration must be zero or positive".to_string()).into(),
-            )
+            return Err(Madness::BadRequest(
+                "Duration must be zero or positive".to_string(),
+            ))
         }
         Some(i) => Some(chrono::Utc::now() + chrono::Duration::minutes(i)),
     };

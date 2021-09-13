@@ -11,7 +11,7 @@ use crate::{
     },
     data::{implants, skills},
     tdf,
-    util::madness::{Madness, UserMadness},
+    util::madness::Madness,
 };
 use eve_data_core::{Fitting, TypeID};
 
@@ -143,9 +143,9 @@ async fn xup_multi(
 
     // Input sanity
     if xups.is_empty() {
-        return Err(UserMadness::BadRequest("No fits supplied".to_string()).into());
+        return Err(Madness::BadRequest("No fits supplied".to_string()));
     } else if xups.len() > MAX_X_PER_ACCOUNT {
-        return Err(UserMadness::BadRequest("Too many fits".to_string()).into());
+        return Err(Madness::BadRequest("Too many fits".to_string()));
     }
 
     // Make sure the waitlist is actually open
@@ -157,7 +157,7 @@ async fn xup_multi(
     .await?
     .is_none()
     {
-        return Err(UserMadness::BadRequest("Waitlist is closed".to_string()).into());
+        return Err(Madness::BadRequest("Waitlist is closed".to_string()));
     }
 
     // Dedupe character IDs to avoid double work
@@ -171,7 +171,7 @@ async fn xup_multi(
     for character_id in character_ids {
         authorize_character(app.get_db(), &account, character_id, None).await?;
         if am_i_banned(app, character_id).await? {
-            return Err(UserMadness::BadRequest("You are banned".to_string()).into());
+            return Err(Madness::BadRequest("You are banned".to_string()));
         }
 
         let time_in_fleet = get_time_in_fleet(app.get_db(), character_id).await?;
@@ -231,7 +231,7 @@ async fn xup_multi(
         + xups.len()
         > MAX_X_PER_ACCOUNT
     {
-        return Err(UserMadness::BadRequest("Too many fits".to_string()).into());
+        return Err(Madness::BadRequest("Too many fits".to_string()));
     }
 
     // Actually write the individual entries now
@@ -251,7 +251,7 @@ async fn xup_multi(
 
         let fit_checked = tdf::fitcheck::FitChecker::check(this_pilot_data, &fit)?;
         if let Some(error) = fit_checked.errors.into_iter().next() {
-            return Err(UserMadness::BadRequest(error).into());
+            return Err(Madness::BadRequest(error));
         }
 
         let tags = fit_checked.tags.join(",");

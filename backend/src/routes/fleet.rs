@@ -7,7 +7,7 @@ use crate::{
         esi::{ESIError, ESIScope},
     },
     util::{
-        madness::{Madness, UserMadness},
+        madness::Madness,
         types::{Character, Hull},
     },
 };
@@ -64,9 +64,7 @@ async fn get_current_fleet_id(
         .await;
     if let Err(whatswrong) = basic_info {
         match whatswrong {
-            ESIError::NotFound => {
-                return Err(UserMadness::NotFound("You are not in a fleet").into())
-            }
+            ESIError::Status(404) => return Err(Madness::NotFound("You are not in a fleet")),
             e => return Err(e.into()),
         };
     }
@@ -114,9 +112,7 @@ async fn fleet_info(
         .await;
     if let Err(whatswrong) = wings {
         match whatswrong {
-            ESIError::NotFound => {
-                return Err(UserMadness::NotFound("You are not the fleet boss").into())
-            }
+            ESIError::Status(404) => return Err(Madness::NotFound("You are not the fleet boss")),
             e => return Err(e.into()),
         };
     }
@@ -153,7 +149,7 @@ async fn fleet_members(
         .await?
     {
         Some(fleet) => fleet,
-        None => return Err(UserMadness::NotFound("Fleet not configured").into()),
+        None => return Err(Madness::NotFound("Fleet not configured")),
     };
 
     let in_fleet =
@@ -228,11 +224,10 @@ async fn register_fleet(
             sqlx::query!("INSERT INTO fleet_squad (fleet_id, wing_id, squad_id, category) VALUES (?, ?, ?, ?)",
             input.fleet_id, wing_id, squad_id, category.id).execute(&mut tx).await?;
         } else {
-            return Err(UserMadness::BadRequest(format!(
+            return Err(Madness::BadRequest(format!(
                 "Missing assignment for {}",
                 category.name
-            ))
-            .into());
+            )));
         }
     }
 

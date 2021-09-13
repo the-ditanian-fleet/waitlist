@@ -29,14 +29,17 @@ pub struct AuthResult {
     pub scopes: String,
 }
 
-#[derive(Debug)]
+#[derive(thiserror::Error, Debug)]
 pub enum ESIError {
-    DatabaseError(sqlx::Error),
+    #[error("database error")]
+    DatabaseError(#[from] sqlx::Error),
+    #[error("ESI http error")]
     HTTPError(reqwest::Error),
+    #[error("ESI returned {0}")]
+    Status(u16),
+    #[error("no ESI token found")]
     NoToken,
-    NotFound,
-    Forbidden,
-    HTTP520,
+    #[error("missing ESI scope")]
     MissingScope,
 }
 
@@ -65,21 +68,10 @@ impl ESIScope {
     }
 }
 
-impl From<sqlx::Error> for ESIError {
-    fn from(error: sqlx::Error) -> Self {
-        ESIError::DatabaseError(error)
-    }
-}
-
 impl From<reqwest::Error> for ESIError {
     fn from(error: reqwest::Error) -> Self {
         if error.is_status() {
-            match error.status().unwrap().as_u16() {
-                403 => return ESIError::Forbidden,
-                404 => return ESIError::NotFound,
-                520 => return ESIError::HTTP520, // XXX These have a body!
-                _ => (),
-            };
+            return ESIError::Status(error.status().unwrap().as_u16());
         }
         ESIError::HTTPError(error)
     }

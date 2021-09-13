@@ -4,7 +4,6 @@ use serde::{Deserialize, Serialize};
 use crate::app;
 use crate::core::auth::{AuthenticatedAccount, AuthenticationError, CookieSetter};
 use crate::core::esi::ESIScope;
-use crate::util::madness::UserMadness;
 use crate::util::{madness::Madness, types};
 
 #[derive(Serialize)]
@@ -139,10 +138,9 @@ async fn callback(
                 .await?;
 
                 if is_admin.is_some() {
-                    return Err(UserMadness::BadRequest(
+                    return Err(Madness::BadRequest(
                         "Character is flagged as a main and cannot be added as an alt".to_string(),
-                    )
-                    .into());
+                    ));
                 }
 
                 sqlx::query!(

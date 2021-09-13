@@ -17,19 +17,12 @@ struct SkillResponse {
     skills: Vec<SkillResponseSkill>,
 }
 
+#[derive(thiserror::Error, Debug)]
 pub enum SkillsError {
-    ESIError(ESIError),
-    Database(sqlx::Error),
-}
-impl From<ESIError> for SkillsError {
-    fn from(e: ESIError) -> Self {
-        Self::ESIError(e)
-    }
-}
-impl From<sqlx::Error> for SkillsError {
-    fn from(e: sqlx::Error) -> Self {
-        Self::Database(e)
-    }
+    #[error("ESI error")]
+    ESIError(#[from] ESIError),
+    #[error("database error")]
+    Database(#[from] sqlx::Error),
 }
 
 pub struct Skills(pub HashMap<TypeID, SkillLevel>);

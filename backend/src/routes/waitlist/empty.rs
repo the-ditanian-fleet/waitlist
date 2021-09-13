@@ -1,8 +1,4 @@
-use crate::{
-    app::Application,
-    core::auth::AuthenticatedAccount,
-    util::madness::{Madness, UserMadness},
-};
+use crate::{app::Application, core::auth::AuthenticatedAccount, util::madness::Madness};
 
 use rocket::serde::json::Json;
 use serde::Deserialize;
@@ -24,10 +20,9 @@ async fn empty_waitlist(
         .fetch_one(app.get_db())
         .await?;
     if waitlist.is_open > 0 {
-        return Err(UserMadness::BadRequest(
+        return Err(Madness::BadRequest(
             "Waitlist must be closed in order to empty it".to_string(),
-        )
-        .into());
+        ));
     }
 
     let mut tx = app.get_db().begin().await?;

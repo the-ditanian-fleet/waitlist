@@ -77,7 +77,7 @@ impl FleetUpdater {
         let members_raw =
             match esi::fleet_members::get(&self.esi_client, fleet_id, fleet.boss_id).await {
                 Ok(m) => m,
-                Err(esi::ESIError::NotFound | esi::ESIError::Forbidden) => {
+                Err(esi::ESIError::Status(403) | esi::ESIError::Status(404)) => {
                     // 403/404 => Delete the fleet, move on
                     let mut tx = self.get_db().begin().await?;
                     sqlx::query!("DELETE FROM fleet_squad WHERE fleet_id=?", fleet_id)
