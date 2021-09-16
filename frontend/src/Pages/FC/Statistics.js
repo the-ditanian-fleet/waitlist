@@ -3,14 +3,10 @@ import _ from "lodash";
 import { useApi } from "../../api";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import styled, { ThemeContext } from "styled-components";
+import { Row, Col } from "react-awesome-styled-grid";
 
-const Graph = styled.div`
-  flex-basis: 50%;
-  height: 350px;
-`;
-Graph.Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+const Graph = styled(Col).attrs({ md: 4 })`
+  max-height: 350px;
 `;
 
 function makeColor(theme, name) {
@@ -318,7 +314,7 @@ export function Statistics() {
   }
 
   return (
-    <Graph.Container>
+    <Row>
       <Graph>
         <FleetTimeByMonth data={statsData.fleet_seconds_by_month} />
       </Graph>
@@ -343,6 +339,6 @@ export function Statistics() {
       <Graph>
         <TimeSpentByHull28d data={statsData.fleet_seconds_by_hull_28d} />
       </Graph>
-    </Graph.Container>
+    </Row>
   );
 }
