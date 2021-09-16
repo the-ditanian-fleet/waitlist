@@ -77,29 +77,17 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
             <NavBar.Link exact to="/guide">
               Guides
             </NavBar.Link>
+            <NavBar.Link exact to="/isk-h/calc">
+              ISK/h calc
+            </NavBar.Link>
             {whoami && whoami.access["fleet-view"] && (
               <NavBar.Link exact to="/fc/fleet">
                 Fleet
               </NavBar.Link>
             )}
-            {whoami && whoami.access["search"] && (
-              <NavBar.Link exact to="/fc/search">
-                Search
-              </NavBar.Link>
-            )}
-            {whoami && whoami.access["bans-view"] && (
-              <NavBar.Link exact to="/fc/bans">
-                Bans
-              </NavBar.Link>
-            )}
-            {whoami && whoami.access["access-view"] && (
-              <NavBar.Link exact to="/fc/acl">
-                ACL
-              </NavBar.Link>
-            )}
-            {whoami && whoami.access["stats-view"] && (
-              <NavBar.Link exact to="/fc/stats">
-                Statistics
+            {whoami && whoami.access["fleet-view"] && (
+              <NavBar.Link exact to="/fc">
+                FC
               </NavBar.Link>
             )}
             <NavBar.End>

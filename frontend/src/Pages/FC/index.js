@@ -7,6 +7,7 @@ import { Search } from "./Search";
 import { Statistics } from "./Statistics";
 import { FleetCompHistory } from "./FleetCompHistory";
 import { NoteAdd } from "./NoteAdd";
+import { FCMenu } from "./FCMenu";
 
 export function FCRoutes() {
   return (
@@ -14,6 +15,9 @@ export function FCRoutes() {
       <BanRoutes />
       <ACLRoutes />
 
+      <Route exact path="/fc">
+        <FCMenu />
+      </Route>
       <Route exact path="/fc/stats">
         <Statistics />
       </Route>

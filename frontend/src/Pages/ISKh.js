@@ -211,6 +211,10 @@ export function ISKhCalc() {
       <PageTitle>ISK/h calculator</PageTitle>
       <div style={{ display: "flex" }}>
         <div style={{ flex: 1, padding: "0.5em" }}>
+          <em>
+            Go to your in-game wallet, select all incursion payouts, and hit Ctrl-C. Then, paste
+            them here. Note: this calculator currently only works for English EVE clients.
+          </em>
           <Textarea
             value={input}
             onChange={(evt) => setInput(evt.target.value)}
