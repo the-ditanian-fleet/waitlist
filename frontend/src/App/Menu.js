@@ -2,9 +2,11 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts";
 import logoImage from "./logo.png";
 import styled from "styled-components";
-import { InputGroup, Select, NavButton } from "../Components/Form";
+import { InputGroup, Select, NavButton, AButton } from "../Components/Form";
 import { EventNotifier } from "../Components/Event";
 import { ThemeSelect } from "../Components/ThemeSelect";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 
 const NavBar = styled.div`
   display: flex;
@@ -111,6 +113,9 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
                 </InputGroup>
               )}
               <InputGroup>
+                <AButton title="Discord" href="https://discord.gg/YTysdbb">
+                  <FontAwesomeIcon icon={faDiscord} />
+                </AButton>
                 <EventNotifier />
                 <ThemeSelect theme={theme} setTheme={setTheme} />
                 {whoami ? (
