@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { InputGroup, NavButton } from "../../Components/Form";
+import { Row, Col } from "react-awesome-styled-grid";
 
 const FilterButtons = styled.span`
   font-size: 0.75em;
@@ -60,8 +61,8 @@ export function Pilot() {
           <NavButton to={`/fc/bans/add?kind=character&id=${characterId}`}>Ban</NavButton>
         )}
       </InputGroup>
-      <div style={{ display: "flex" }}>
-        <div style={{ flex: 3, padding: "0.5em" }}>
+      <Row>
+        <Col xs={4} md={6}>
           <Title>
             History
             <FilterButtons>
@@ -92,12 +93,12 @@ export function Pilot() {
             skillHistory={skillHistory && skillHistory.history}
             notes={notes && notes.notes}
           />
-        </div>
-        <div style={{ flex: 1, padding: "0.5em" }}>
+        </Col>
+        <Col xs={4} md={2}>
           <Title>Time in fleet</Title>
           <ActivitySummary summary={fleetHistory && fleetHistory.summary} />
-        </div>
-      </div>
+        </Col>
+      </Row>
     </>
   );
 }
