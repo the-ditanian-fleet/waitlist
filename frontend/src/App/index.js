@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { processAuth } from "../Pages/Auth";
 import { ToastDisplay } from "../Components/Toast";
 import { AuthContext, ToastContext, EventContext } from "../contexts";
-import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { Routes } from "./routes";
+import { Container } from "react-awesome-styled-grid";
 
 import { Menu } from "./Menu";
 import "./reset.css";
@@ -30,20 +31,6 @@ const GlobalStyle = createGlobalStyle`
   }
   strong, b {
     font-weight: bold;
-  }
-`;
-
-const Container = styled.div`
-  max-width: 1350px;
-  margin: auto;
-  @media only screen and (max-width: 1360px) {
-    max-width: 1180px;
-  }
-  @media only screen and (max-width: 1190px) {
-    max-width: 960px;
-  }
-  @media only screen and (max-width: 970px) {
-    max-width: 750px;
   }
 `;
 
