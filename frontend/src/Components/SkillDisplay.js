@@ -1,24 +1,15 @@
 import { useApi } from "../api";
 import { Badge } from "./Badge";
 import { InputGroup, Button, Buttons } from "./Form";
+import { Col, Row } from "react-awesome-styled-grid";
 
 import styled from "styled-components";
 import _ from "lodash";
 
 const SkillDom = {};
 
-SkillDom.Category = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  > * {
-    flex-grow: 0;
-    flex-basis: 25%;
-    min-width: 280px;
-  }
-`;
-
 SkillDom.Table = styled.div`
-  padding: 1em;
+  margin-bottom: 2em;
 `;
 
 SkillDom.Table.Name = styled.h3`
@@ -147,19 +138,20 @@ export function SkillList({ mySkills, shipName, filterMin }) {
 
   return (
     <>
-      <SkillDom.Category>
+      <Row>
         {categories.map((category) => (
-          <SkillTable
-            key={category}
-            title={category}
-            current={mySkills.current}
-            requirements={mySkills.requirements[shipName]}
-            category={mySkills.categories[category]}
-            ids={ids}
-            filterMin={filterMin}
-          />
+          <Col xs={4} sm={4} md={2} key={category}>
+            <SkillTable
+              title={category}
+              current={mySkills.current}
+              requirements={mySkills.requirements[shipName]}
+              category={mySkills.categories[category]}
+              ids={ids}
+              filterMin={filterMin}
+            />
+          </Col>
         ))}
-      </SkillDom.Category>
+      </Row>
     </>
   );
 }
