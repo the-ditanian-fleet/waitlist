@@ -115,10 +115,12 @@ function SkillTable({ title, current, requirements, ids, category, filterMin }) 
   }
 
   return (
-    <SkillDom.Table>
-      <SkillDom.Table.Name>{title}</SkillDom.Table.Name>
-      {entries}
-    </SkillDom.Table>
+    <Col xs={4} sm={4} md={2}>
+      <SkillDom.Table>
+        <SkillDom.Table.Name>{title}</SkillDom.Table.Name>
+        {entries}
+      </SkillDom.Table>
+    </Col>
   );
 }
 
@@ -140,16 +142,15 @@ export function SkillList({ mySkills, shipName, filterMin }) {
     <>
       <Row>
         {categories.map((category) => (
-          <Col xs={4} sm={4} md={2} key={category}>
-            <SkillTable
-              title={category}
-              current={mySkills.current}
-              requirements={mySkills.requirements[shipName]}
-              category={mySkills.categories[category]}
-              ids={ids}
-              filterMin={filterMin}
-            />
-          </Col>
+          <SkillTable
+            key={category}
+            title={category}
+            current={mySkills.current}
+            requirements={mySkills.requirements[shipName]}
+            category={mySkills.categories[category]}
+            ids={ids}
+            filterMin={filterMin}
+          />
         ))}
       </Row>
     </>
