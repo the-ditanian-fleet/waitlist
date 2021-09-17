@@ -146,10 +146,6 @@ function parseWallet(input) {
     });
   }
 
-  if (lines.length < 2) {
-    return null;
-  }
-
   lines = _.sortBy(lines, ["time", "value"]);
   var lastTime = null;
   var chars = 1;
@@ -191,6 +187,10 @@ function parseWallet(input) {
       lp: payout ? payout.lp : null,
       onGrid: payout ? payout.onGrid : null,
     });
+  }
+
+  if (siteTimes.length < 1) {
+    return null;
   }
 
   result.minTime = Math.min(...siteTimes);
