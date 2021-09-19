@@ -12,8 +12,9 @@ import { Row as GridRow, Col } from "react-awesome-styled-grid";
 import skillqueueImage from "./skillqueue.png";
 import { Modal } from "../../Components/Modal";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 import { useQuery } from "../../Util/query";
+import { Card } from "../../Components/Card";
+import { NavLink } from "react-router-dom";
 
 export function Plans() {
   const authContext = React.useContext(AuthContext);
@@ -130,33 +131,12 @@ function ShowPlan({ plan, mySkills }) {
   );
 }
 
-const PlanCard = styled.div`
-  margin-bottom: 1em;
-  background-color: ${(props) => props.theme.colors.accent1};
-  filter: drop-shadow(0px 1px 1px ${(props) => props.theme.colors.shadow});
-  border-radius: 5px;
-  padding: 0.5em;
-
-  > h3 {
-    font-weight: 600;
-    margin-bottom: 0.5em;
-    a {
-      text-decoration: inherit;
-    }
-  }
-  a {
-    color: inherit;
-  }
-  p {
-    margin-bottom: 0.5em;
-  }
-  .images {
-    margin-top: 1em;
-    line-height: 0;
-    img {
-      max-width: 64px;
-      margin: 1px;
-    }
+const CardImages = styled.div`
+  margin-top: 1em;
+  line-height: 0;
+  img {
+    max-width: 64px;
+    margin: 1px;
   }
 `;
 
@@ -167,29 +147,25 @@ function PlanList({ plans, mySkills }) {
       <GridRow>
         {plans.map((plan) => (
           <Col xs={4} sm={4} lg={3} key={plan.source.name}>
-            <PlanCard>
-              <h3>
-                <NavLink exact to={`/skills/plans?plan=${plan.source.name}`}>
-                  {plan.source.name}
-                </NavLink>
-              </h3>
-              <p>{plan.source.description}</p>
-              <p>
-                <NavLink exact to={`/skills/plans?plan=${plan.source.name}`}>
-                  Open
-                </NavLink>
-              </p>
-              <div className="images">
-                {plan.ships.map((ship) => (
-                  <img
-                    key={ship.id}
-                    src={`https://images.evetech.net/types/${ship.id}/render?size=128`}
-                    alt={ship.name}
-                    title={ship.name}
-                  />
-                ))}
-              </div>
-            </PlanCard>
+            <NavLink
+              exact
+              to={`/skills/plans?plan=${plan.source.name}`}
+              style={{ textDecoration: "inherit", color: "inherit" }}
+            >
+              <Card title={plan.source.name}>
+                <p>{plan.source.description}</p>
+                <CardImages>
+                  {plan.ships.map((ship) => (
+                    <img
+                      key={ship.id}
+                      src={`https://images.evetech.net/types/${ship.id}/render?size=128`}
+                      alt={ship.name}
+                      title={ship.name}
+                    />
+                  ))}
+                </CardImages>
+              </Card>
+            </NavLink>
           </Col>
         ))}
       </GridRow>
