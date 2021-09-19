@@ -1,5 +1,6 @@
 import React from "react";
-import { useLocation, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
+import { useQuery } from "../Util/query";
 
 function AuthStart({ fc = false, alt = false }) {
   const [message, setMessage] = React.useState("Redirecting to EVE login");
@@ -27,9 +28,7 @@ function AuthStart({ fc = false, alt = false }) {
 }
 
 export function AuthCallback() {
-  const query = new URLSearchParams(useLocation().search);
-  const code = query.get("code");
-  const state = query.get("state");
+  const [{ code, state }] = useQuery();
 
   const [message, setMessage] = React.useState("Processing login...");
   React.useEffect(() => {

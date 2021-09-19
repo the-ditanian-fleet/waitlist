@@ -1,7 +1,6 @@
 import React from "react";
 import { AuthContext, ToastContext, EventContext } from "../../contexts";
 import { apiCall, errorToaster, useApi } from "../../api";
-import { useLocation, useHistory } from "react-router-dom";
 import { InputGroup, Button, Buttons, NavButton } from "../../Components/Form";
 import {
   ColumnWaitlist,
@@ -12,6 +11,7 @@ import {
   NotepadWaitlist,
 } from "./displaymodes";
 import _ from "lodash";
+import { useQuery } from "../../Util/query";
 
 function coalesceCalls(func, wait) {
   var nextCall = null;
@@ -115,29 +115,23 @@ function useFleetComposition() {
 export function Waitlist() {
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
-  const queryParams = new URLSearchParams(useLocation().search);
-  const waitlistId = parseInt(queryParams.get("wl"));
+  const [query, setQuery] = useQuery();
+  const waitlistId = parseInt(query.wl);
   const [waitlistData, refreshWaitlist] = useWaitlist(waitlistId);
   const fleetComposition = useFleetComposition();
-  const displayMode = queryParams.get("mode") || "columns";
-  const history = useHistory();
+  const displayMode = query.mode || "columns";
 
   const setDisplayMode = (newMode) => {
-    queryParams.set("mode", newMode);
-    history.replace({
-      search: queryParams.toString(),
-    });
+    setQuery("mode", newMode);
   };
 
   React.useEffect(() => {
     // Redirect to wl=1 if we don't have one
     if (!waitlistId) {
-      history.replace({
-        search: `?wl=1`,
-      });
+      setQuery("wl", 1);
       return null;
     }
-  }, [waitlistId, history]);
+  }, [waitlistId, setQuery]);
 
   if (!waitlistId) {
     return null; // Should be redirecting

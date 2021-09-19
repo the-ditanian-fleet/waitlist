@@ -3,27 +3,20 @@ import { Input, NavButton } from "../../Components/Form";
 import { Cell, Table, Row, TableHead, TableBody, CellHead } from "../../Components/Table";
 import { useApi } from "../../api";
 import { AuthContext } from "../../contexts";
-import { useLocation, useHistory } from "react-router-dom";
+import { useQuery } from "../../Util/query";
 
 export function Search() {
   const authContext = React.useContext(AuthContext);
-  const history = useHistory();
-  const queryParams = new URLSearchParams(useLocation().search);
 
-  const searchTerm = queryParams.get("query") || "";
+  var [{ searchTerm }, setQuery] = useQuery();
   const setSearchTerm = (newTerm) => {
-    if (newTerm) {
-      queryParams.set("query", newTerm);
-    } else {
-      queryParams.delete("query");
-    }
-    history.replace({
-      search: queryParams.toString(),
-    });
+    setQuery("query", newTerm ? newTerm : null, true);
   };
 
   const [results] = useApi(
-    searchTerm.length >= 3 ? "/api/search?" + new URLSearchParams({ query: searchTerm }) : null
+    searchTerm && searchTerm.length >= 3
+      ? "/api/search?" + new URLSearchParams({ query: searchTerm })
+      : null
   );
 
   return (
