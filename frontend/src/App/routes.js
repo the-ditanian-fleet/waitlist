@@ -3,7 +3,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { AuthContext } from "../contexts";
 
-import { Skills } from "../Pages/Skills";
+import { SkillRoutes } from "../Pages/Skills";
 import { Waitlist } from "../Pages/Waitlist";
 import { Xup } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
@@ -35,9 +35,6 @@ export function Routes() {
       </Route>
       {authContext && (
         <>
-          <Route exact path="/skills">
-            <Skills />
-          </Route>
           <Route exact path="/xup">
             <Xup />
           </Route>
@@ -49,6 +46,7 @@ export function Routes() {
           </Route>
 
           <FCRoutes />
+          <SkillRoutes />
         </>
       )}
 

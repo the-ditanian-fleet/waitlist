@@ -201,6 +201,7 @@ requirements:
     Cybernetics:
       min: 3
       elite: 5
+      priority: 5
     Shield Management:
       elite: 4
     Shield Operation:
@@ -223,12 +224,14 @@ requirements:
     Rapid Firing:
       min: 3
       elite: 5
+      priority: 2
     Sharpshooter:
       min: 3
       elite: 5
     Surgical Strike:
       min: 3
       elite: 5
+      priority: 2
     Trajectory Analysis:
       min: 4
       elite: 4
@@ -293,9 +296,11 @@ requirements:
       elite: 5
     Large Pulse Laser Specialization:
       elite: 4
+      priority: 10
     Marauders:
       min: 3
       elite: 4
+      priority: 10
     Capacitor Emission Systems:
       min: 3
       elite: 4
@@ -336,9 +341,11 @@ requirements:
       elite: 5
     Large Blaster Specialization:
       elite: 4
+      priority: 10
     Marauders:
       min: 3
       elite: 4
+      priority: 10
     Capacitor Emission Systems:
       min: 3
       elite: 4
@@ -372,12 +379,14 @@ requirements:
       elite: 5
     Large Blaster Specialization:
       elite: 4
+      priority: 10
     Gallente Battleship:
       min: 3
       elite: 4
     Minmatar Battleship:
       min: 3
       elite: 5
+      priority: 5
     Heavy Drone Operation:
       min: 3
       elite: 5

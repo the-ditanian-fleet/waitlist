@@ -20,6 +20,7 @@ create index invMetaTypes_typeID on invMetaTypes (typeID);
 create index invMetaTypes_parentTypeID on invMetaTypes (parentTypeID);
 
 create table dgmTypeAttributes as select * from ext.dgmTypeAttributes where attributeID IN (
+    275, -- skill training multiplier
     633, -- meta level
     984,985,986,987, -- resists
     182,183,184,1285,1289,1290, -- skill req

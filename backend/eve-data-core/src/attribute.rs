@@ -1,6 +1,7 @@
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Attribute {
     MetaLevel,
+    TrainingTimeMultiplier,
 
     EmResist,
     ExplosiveResist,
@@ -27,6 +28,8 @@ impl Attribute {
     pub fn from_id(id: i32) -> Self {
         match id {
             633 => Self::MetaLevel,
+            275 => Self::TrainingTimeMultiplier,
+
             984 => Self::EmResist,
             985 => Self::ExplosiveResist,
             986 => Self::KineticResist,

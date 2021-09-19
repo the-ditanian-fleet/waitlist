@@ -3,7 +3,7 @@ use std::{
     collections::{BTreeMap, BTreeSet},
 };
 
-use super::{fitmatch, implantmatch};
+use super::{fitmatch, implantmatch, skills::SkillTier};
 
 use crate::data::{categories, fits::DoctrineFit, skills::Skills};
 use eve_data_core::{FitError, Fitting, TypeDB, TypeID};
@@ -75,12 +75,12 @@ impl<'a> FitChecker<'a> {
         checker.finish()
     }
 
-    fn check_skill_reqs_tier(&self, tier: &str) -> Result<bool, FitError> {
+    fn check_skill_reqs_tier(&self, tier: SkillTier) -> Result<bool, FitError> {
         let ship_name = TypeDB::name_of(self.fit.hull)?;
         if let Some(reqs) = super::skills::skill_data().requirements.get(&ship_name) {
             for (&skill_id, tiers) in reqs {
                 if let Some(req) = tiers.get(tier) {
-                    if self.pilot.skills.get(skill_id) < *req {
+                    if self.pilot.skills.get(skill_id) < req {
                         return Ok(false);
                     }
                 }
@@ -92,11 +92,11 @@ impl<'a> FitChecker<'a> {
     }
 
     fn check_skill_reqs(&mut self) -> Result<(), FitError> {
-        let skill_tier = if self.check_skill_reqs_tier("gold")? {
+        let skill_tier = if self.check_skill_reqs_tier(SkillTier::Gold)? {
             "gold"
-        } else if self.check_skill_reqs_tier("elite")? {
+        } else if self.check_skill_reqs_tier(SkillTier::Elite)? {
             "elite"
-        } else if self.check_skill_reqs_tier("min")? {
+        } else if self.check_skill_reqs_tier(SkillTier::Min)? {
             "basic"
         } else {
             "starter"

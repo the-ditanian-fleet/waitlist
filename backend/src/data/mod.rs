@@ -3,6 +3,7 @@ pub mod character;
 pub mod fitdiffer;
 pub mod fits;
 pub mod implants;
+pub mod skillplans;
 pub mod skills;
 pub mod tags;
 pub mod variations;
