@@ -92,6 +92,11 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
                 FC
               </NavBar.Link>
             )}
+            {whoami && whoami.access["search"] && (
+              <NavBar.Link exact to="/fc/search">
+                Search
+              </NavBar.Link>
+            )}
             <NavBar.End>
               {whoami && (
                 <InputGroup style={{ marginRight: "2em" }}>
