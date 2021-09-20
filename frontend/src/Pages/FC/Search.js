@@ -8,15 +8,13 @@ import { useQuery } from "../../Util/query";
 export function Search() {
   const authContext = React.useContext(AuthContext);
 
-  var [{ searchTerm }, setQuery] = useQuery();
+  var [{ query }, setQuery] = useQuery();
   const setSearchTerm = (newTerm) => {
     setQuery("query", newTerm ? newTerm : null, true);
   };
 
   const [results] = useApi(
-    searchTerm && searchTerm.length >= 3
-      ? "/api/search?" + new URLSearchParams({ query: searchTerm })
-      : null
+    query && query.length >= 3 ? "/api/search?" + new URLSearchParams({ query }) : null
   );
 
   return (
@@ -25,7 +23,7 @@ export function Search() {
         <label>
           <strong>Search term:</strong>
           <br />
-          <Input value={searchTerm} onChange={(evt) => setSearchTerm(evt.target.value)} />
+          <Input value={query} onChange={(evt) => setSearchTerm(evt.target.value)} />
         </label>
       </div>
       {results == null ? null : results.results.length ? (
