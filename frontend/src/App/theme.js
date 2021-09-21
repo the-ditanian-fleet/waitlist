@@ -63,6 +63,16 @@ const theme = {
       accent2: "#dbdbdb",
       accent3: "#999999",
       accent4: "#666666",
+
+      tdfShields: {
+        red: "#d60015",
+        green: "#19b915",
+        blue: "#0076c2",
+        yellow: "#d2bd00",
+        purple: "#8b00c7",
+        neutral: "#4b4b4b",
+        text: "#ffffff",
+      },
     },
   }),
   dark: _.merge({}, globals, {
@@ -120,6 +130,16 @@ const theme = {
       accent2: "#454545",
       accent3: "#757575",
       accent4: "#ababab",
+
+      tdfShields: {
+        red: "#9a121f",
+        green: "#21861e",
+        blue: "#105b8b",
+        yellow: "#968912",
+        purple: "#69118e",
+        neutral: "#777777",
+        text: "#cccccc",
+      },
     },
   }),
 };

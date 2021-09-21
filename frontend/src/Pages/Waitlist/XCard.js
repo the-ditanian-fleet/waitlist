@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import { ToastContext, AuthContext } from "../../contexts";
 import { apiCall, errorToaster } from "../../api";
 import { NavLink } from "react-router-dom";
@@ -20,14 +20,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 
-import wBadge from "../Guide/guides/badges/w.png";
-import hBadge from "../Guide/guides/badges/h.png";
-import aBadge from "../Guide/guides/badges/a.png";
-import lBadge from "../Guide/guides/badges/l.png";
-import eBadge from "../Guide/guides/badges/e.png";
 import egoldBadge from "../Guide/guides/badges/egold.png";
-import starterBadge from "../Guide/guides/badges/starter.png";
-import hqfcBadge from "../Guide/guides/badges/hq.png";
 
 import { SkillDisplay } from "../../Components/SkillDisplay";
 import { Box } from "../../Components/Box";
@@ -35,14 +28,13 @@ import { Title } from "../../Components/Page";
 import { Button, InputGroup } from "../../Components/Form";
 
 const tagBadges = {
-  "WARPSPEED1-10": [wBadge, "Warp Speed Implants"],
-  "HYBRID1-10": [hBadge, "Hybrid Implants"],
-  "AMULET1-10": [aBadge, "Amulet Implants"],
-  ELITE: [eBadge, "Elite"],
-  "ELITE-GOLD": [egoldBadge, "Elite GOLD"],
-  "STARTER-SKILLS": [starterBadge, "Starter skills"],
-  "HQ-FC": [hqfcBadge, "HQ FC"],
-  LOGI: [lBadge, "Logi Specialist"],
+  "WARPSPEED1-10": ["red", "W", "Warp Speed Implants"],
+  "HYBRID1-10": ["red", "H", "Hybrid Implants"],
+  "AMULET1-10": ["red", "A", "Amulet Implants"],
+  ELITE: ["yellow", "E", "Elite"],
+  "STARTER-SKILLS": ["neutral", "S", "Starter skills"],
+  "HQ-FC": ["blue", "H", "HQ FC"],
+  LOGI: ["green", "L", "Logi Specialist"],
 };
 
 async function approveFit(id) {
@@ -105,8 +97,15 @@ XCardDOM.Head.Badges = styled.div`
   > * {
     margin-left: 0.25em;
   }
+  > *:last-child {
+    margin-left: 0.5em;
+  }
+  > span {
+    display: flex;
+    align-items: center;
+  }
   img {
-    height: 1em;
+    height: 1.3em;
   }
 `;
 XCardDOM.Content = styled.div`
@@ -262,6 +261,40 @@ function SkillButton({ characterId, ship }) {
   );
 }
 
+function Shield({ color, letter, title }) {
+  const theme = React.useContext(ThemeContext);
+
+  return (
+    <span title={title}>
+      <svg
+        style={{ height: "1.2em", filter: `drop-shadow(0px 1px 1px ${theme.colors.shadow})` }}
+        viewBox="0 0 26.5 27.8"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g>
+          <path
+            style={{ fill: theme.colors.tdfShields[color] }}
+            d="m 13.229167,0 c 0,0 6.085417,0.79375 13.229167,3.96875 0,0 -0.79375,10.054167 -3.961217,15.955009 -2.275956,4.239997 -6.622116,7.857491 -9.26795,7.857491 M 13.229167,0 C 13.229167,0 7.14375,0.79375 0,3.96875 c 0,0 0.79375,10.054167 3.9612174,15.955009 2.2759552,4.239997 6.6221156,7.857491 9.2679496,7.857491"
+          />
+          <text
+            style={{
+              fontSize: "1.3em",
+              fontWeight: "700",
+              textAnchor: "middle",
+              fill: theme.colors.tdfShields.text,
+              textRendering: "geometricPrecision",
+            }}
+            x="13.25"
+            y="20.5"
+          >
+            {letter}
+          </text>
+        </g>
+      </svg>
+    </span>
+  );
+}
+
 export function XCard({ entry, fit, onAction }) {
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
@@ -271,9 +304,16 @@ export function XCard({ entry, fit, onAction }) {
   var tagText = [];
   var tagImages = [];
   _.forEach(fit.tags || [], (tag) => {
-    if (tag in tagBadges) {
+    if (tag === "ELITE-GOLD") {
+      tagImages.push(<img key={tag} src={egoldBadge} alt={"Elite GOLD"} title={"Elite GOLD"} />);
+    } else if (tag in tagBadges) {
       tagImages.push(
-        <img key={tag} src={tagBadges[tag][0]} alt={tagBadges[tag][1]} title={tagBadges[tag][1]} />
+        <Shield
+          key={tag}
+          color={tagBadges[tag][0]}
+          letter={tagBadges[tag][1]}
+          title={tagBadges[tag][2]}
+        />
       );
     } else {
       tagText.push(tag);
