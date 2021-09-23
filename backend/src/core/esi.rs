@@ -103,7 +103,7 @@ impl ESIRawClient {
             scope: Option<String>,
         }
 
-        let scope_str = scopes.map(|s| s.iter().fold(String::new(), |a, b| a + b + " "));
+        let scope_str = scopes.map(|s| join_scopes(s));
 
         let request = OAuthTokenRequest {
             grant_type,
@@ -148,12 +148,7 @@ impl ESIRawClient {
             .await?
             .json()
             .await?;
-        let scopes = result
-            .scopes
-            .split(' ')
-            .filter(|s| !s.is_empty())
-            .map(|s| s.to_string())
-            .collect();
+        let scopes = split_scopes(&result.scopes);
         Ok((result.character_id, result.character_name, scopes))
     }
 
@@ -239,11 +234,8 @@ impl ESIClient {
         .await?
         {
             let mut merged_scopes = result.scopes.clone();
-            for extra_scope in previous_token.scopes.split(' ') {
-                if extra_scope.is_empty() {
-                    continue;
-                }
-                merged_scopes.insert(extra_scope.to_string());
+            for extra_scope in split_scopes(&previous_token.scopes) {
+                merged_scopes.insert(extra_scope);
             }
 
             let second_attempt = match self
@@ -281,7 +273,7 @@ impl ESIClient {
         }
 
         let expiry_timestamp = auth.access_token_expiry.timestamp();
-        let scopes = auth.scopes.iter().fold(String::new(), |a, b| a + b + " ");
+        let scopes = join_scopes(&auth.scopes);
         sqlx::query!(
             "REPLACE INTO access_token (character_id, access_token, expires, scopes) VALUES (?, ?, ?, ?)",
             auth.character_id,
@@ -318,15 +310,7 @@ impl ESIClient {
         .await?
         {
             if record.expires >= chrono::Utc::now().timestamp() {
-                return Ok((
-                    record.access_token,
-                    record
-                        .scopes
-                        .split(' ')
-                        .filter(|s| !s.is_empty())
-                        .map(|s| s.to_string())
-                        .collect(),
-                ));
+                return Ok((record.access_token, split_scopes(&record.scopes)));
             }
         }
 
@@ -450,4 +434,16 @@ pub mod fleet_members {
             )
             .await?)
     }
+}
+
+fn split_scopes(input: &str) -> BTreeSet<String> {
+    input
+        .split(' ')
+        .filter(|s| !s.is_empty())
+        .map(|s| s.to_string())
+        .collect()
+}
+
+fn join_scopes(input: &BTreeSet<String>) -> String {
+    input.iter().fold(String::new(), |a, b| a + b + " ")
 }
