@@ -18,6 +18,7 @@ CREATE TABLE `access_token` (
 CREATE TABLE `refresh_token` (
   `character_id` bigint PRIMARY KEY NOT NULL,
   `refresh_token` varchar(255) NOT NULL,
+  `scopes` varchar(1024) NOT NULL,
   CONSTRAINT `refresh_token_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
 );
 

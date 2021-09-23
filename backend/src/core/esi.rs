@@ -261,9 +261,10 @@ impl ESIClient {
         .await?;
 
         sqlx::query!(
-            "REPLACE INTO refresh_token (character_id, refresh_token) VALUES (?, ?)",
+            "REPLACE INTO refresh_token (character_id, refresh_token, scopes) VALUES (?, ?, ?)",
             auth.character_id,
-            auth.refresh_token
+            auth.refresh_token,
+            scopes,
         )
         .execute(&mut tx)
         .await?;
