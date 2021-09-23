@@ -93,7 +93,7 @@ impl ESIRawClient {
         &self,
         grant_type: &str,
         token: &str,
-        scopes: Option<BTreeSet<&str>>,
+        scopes: Option<&BTreeSet<String>>,
     ) -> Result<OAuthTokenResponse, ESIError> {
         #[derive(Serialize)]
         struct OAuthTokenRequest<'a> {
@@ -161,7 +161,7 @@ impl ESIRawClient {
         &self,
         grant_type: &str,
         token: &str,
-        scopes: Option<BTreeSet<&str>>,
+        scopes: Option<&BTreeSet<String>>,
     ) -> Result<AuthResult, ESIError> {
         let token = self.process_oauth_token(grant_type, token, scopes).await?;
         let (character_id, name, scopes) = self.process_verify(&token.access_token).await?;
@@ -225,8 +225,40 @@ impl ESIClient {
         }
     }
 
-    pub async fn process_auth(&self, grant_type: &str, token: &str) -> Result<i64, ESIError> {
-        let result = self.raw.process_auth(grant_type, token, None).await?;
+    pub async fn process_authorization_code(&self, code: &str) -> Result<i64, ESIError> {
+        let mut result = self
+            .raw
+            .process_auth("authorization_code", code, None)
+            .await?;
+
+        if let Some(previous_token) = sqlx::query!(
+            "SELECT * FROM refresh_token WHERE character_id=?",
+            result.character_id
+        )
+        .fetch_optional(self.db.as_ref())
+        .await?
+        {
+            let mut merged_scopes = result.scopes.clone();
+            for extra_scope in previous_token.scopes.split(' ') {
+                if extra_scope.is_empty() {
+                    continue;
+                }
+                merged_scopes.insert(extra_scope.to_string());
+            }
+
+            let second_attempt = match self
+                .raw
+                .process_auth("refresh_token", &result.refresh_token, Some(&merged_scopes))
+                .await
+            {
+                Ok(r) => r,
+                Err(ESIError::Status(400)) => result,
+                Err(e) => return Err(e),
+            };
+
+            result = second_attempt;
+        }
+
         self.save_auth(&result).await?;
         Ok(result.character_id)
     }

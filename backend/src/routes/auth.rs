@@ -123,7 +123,7 @@ async fn callback(
 
     let character_id = app
         .esi_client
-        .process_auth("authorization_code", input.code)
+        .process_authorization_code(input.code)
         .await?;
 
     let logged_in_account =
