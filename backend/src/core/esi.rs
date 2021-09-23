@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use std::sync::Arc;
+use std::{collections::BTreeSet, sync::Arc};
 
 struct ESIRawClient {
     http: reqwest::Client,
@@ -26,7 +26,7 @@ pub struct AuthResult {
     pub access_token: String,
     pub access_token_expiry: chrono::DateTime<chrono::Utc>,
     pub refresh_token: String,
-    pub scopes: String,
+    pub scopes: BTreeSet<String>,
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -93,13 +93,17 @@ impl ESIRawClient {
         &self,
         grant_type: &str,
         token: &str,
+        scopes: Option<BTreeSet<&str>>,
     ) -> Result<OAuthTokenResponse, ESIError> {
         #[derive(Serialize)]
         struct OAuthTokenRequest<'a> {
             grant_type: &'a str,
             refresh_token: Option<&'a str>,
             code: Option<&'a str>,
+            scope: Option<String>,
         }
+
+        let scope_str = scopes.map(|s| s.iter().fold(String::new(), |a, b| a + b + " "));
 
         let request = OAuthTokenRequest {
             grant_type,
@@ -111,6 +115,7 @@ impl ESIRawClient {
                 "refresh_token" => None,
                 _ => Some(token),
             },
+            scope: scope_str,
         };
         Ok(self
             .http
@@ -124,7 +129,10 @@ impl ESIRawClient {
             .await?)
     }
 
-    async fn process_verify(&self, access_token: &str) -> Result<(i64, String, String), ESIError> {
+    async fn process_verify(
+        &self,
+        access_token: &str,
+    ) -> Result<(i64, String, BTreeSet<String>), ESIError> {
         #[derive(Debug, Deserialize)]
         struct VerifyResponse {
             #[serde(rename = "CharacterID")]
@@ -140,15 +148,22 @@ impl ESIRawClient {
             .await?
             .json()
             .await?;
-        Ok((result.character_id, result.character_name, result.scopes))
+        let scopes = result
+            .scopes
+            .split(' ')
+            .filter(|s| !s.is_empty())
+            .map(|s| s.to_string())
+            .collect();
+        Ok((result.character_id, result.character_name, scopes))
     }
 
     pub async fn process_auth(
         &self,
         grant_type: &str,
         token: &str,
+        scopes: Option<BTreeSet<&str>>,
     ) -> Result<AuthResult, ESIError> {
-        let token = self.process_oauth_token(grant_type, token).await?;
+        let token = self.process_oauth_token(grant_type, token, scopes).await?;
         let (character_id, name, scopes) = self.process_verify(&token.access_token).await?;
         Ok(AuthResult {
             character_id,
@@ -211,7 +226,7 @@ impl ESIClient {
     }
 
     pub async fn process_auth(&self, grant_type: &str, token: &str) -> Result<i64, ESIError> {
-        let result = self.raw.process_auth(grant_type, token).await?;
+        let result = self.raw.process_auth(grant_type, token, None).await?;
         self.save_auth(&result).await?;
         Ok(result.character_id)
     }
@@ -234,12 +249,13 @@ impl ESIClient {
         }
 
         let expiry_timestamp = auth.access_token_expiry.timestamp();
+        let scopes = auth.scopes.iter().fold(String::new(), |a, b| a + b + " ");
         sqlx::query!(
             "REPLACE INTO access_token (character_id, access_token, expires, scopes) VALUES (?, ?, ?, ?)",
             auth.character_id,
             auth.access_token,
             expiry_timestamp,
-            auth.scopes,
+            scopes,
         )
         .execute(&mut tx)
         .await?;
@@ -257,7 +273,10 @@ impl ESIClient {
         Ok(())
     }
 
-    async fn access_token_raw(&self, character_id: i64) -> Result<(String, String), ESIError> {
+    async fn access_token_raw(
+        &self,
+        character_id: i64,
+    ) -> Result<(String, BTreeSet<String>), ESIError> {
         if let Some(record) = sqlx::query!(
             "SELECT * FROM access_token WHERE character_id=?",
             character_id
@@ -266,7 +285,15 @@ impl ESIClient {
         .await?
         {
             if record.expires >= chrono::Utc::now().timestamp() {
-                return Ok((record.access_token, record.scopes));
+                return Ok((
+                    record.access_token,
+                    record
+                        .scopes
+                        .split(' ')
+                        .filter(|s| !s.is_empty())
+                        .map(|s| s.to_string())
+                        .collect(),
+                ));
             }
         }
 
@@ -282,7 +309,7 @@ impl ESIClient {
         };
         let refreshed = match self
             .raw
-            .process_auth("refresh_token", &refresh.refresh_token)
+            .process_auth("refresh_token", &refresh.refresh_token, None)
             .await
         {
             Ok(r) => r,
