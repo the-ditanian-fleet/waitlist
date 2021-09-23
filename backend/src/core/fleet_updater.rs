@@ -129,7 +129,7 @@ impl FleetUpdater {
             let mut changed = HashSet::new();
 
             let on_waitlist: HashMap<i64, _> =
-                sqlx::query!("SELECT waitlist_id, character_id FROM waitlist_entry_fit JOIN waitlist_entry ON waitlist_entry_fit.entry_id=waitlist_entry.id")
+                sqlx::query!("SELECT entry_id, waitlist_id, character_id FROM waitlist_entry_fit JOIN waitlist_entry ON waitlist_entry_fit.entry_id=waitlist_entry.id")
                     .fetch_all(self.get_db())
                     .await?
                     .into_iter()
@@ -141,9 +141,12 @@ impl FleetUpdater {
                 if let Some(record) = on_waitlist.get(&id) {
                     changed.insert(record.waitlist_id);
 
-                    sqlx::query!("DELETE FROM waitlist_entry_fit WHERE character_id=?", id)
-                        .execute(&mut tx)
-                        .await?;
+                    sqlx::query!(
+                        "DELETE FROM waitlist_entry_fit WHERE entry_id=?",
+                        record.entry_id
+                    )
+                    .execute(&mut tx)
+                    .await?;
                 }
             }
             sqlx::query!("DELETE FROM waitlist_entry WHERE id NOT IN (SELECT entry_id FROM waitlist_entry_fit)").execute(&mut tx).await?;
