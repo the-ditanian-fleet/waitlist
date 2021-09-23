@@ -324,9 +324,15 @@ impl ESIClient {
             Some(r) => r,
             None => return Err(ESIError::NoToken),
         };
+
+        let refresh_scopes = split_scopes(&refresh.scopes);
         let refreshed = match self
             .raw
-            .process_auth("refresh_token", &refresh.refresh_token, None)
+            .process_auth(
+                "refresh_token",
+                &refresh.refresh_token,
+                Some(&refresh_scopes),
+            )
             .await
         {
             Ok(r) => r,
