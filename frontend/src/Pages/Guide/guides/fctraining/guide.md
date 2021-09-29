@@ -1,3 +1,4 @@
+
 # Tryouts
 
 TDF is always looking for some new FC's!
@@ -27,19 +28,21 @@ Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I,
 **L : Letters**
 
 ## TPPH
-* Room 1
-N : Outuni, Osti
-L : Auga, Vylade
-* Room 2
-N : Romi, Auga, Deltole, Osti
-L : Mara, Anthem
-* Room 3
-1. 
-N : Mara, Osti 
+### Room 1
+* N : Outuni, Osti
+* L : Auga, Vylade
+### Room 2
+* N : Romi, Auga, Deltole, Osti
+* L : Mara, Anthem
+### Room 3
+**Wave 1**
+* N : Mara, Osti 
 * 1 X tag Osti
-2.
-N : Intaki, Deltole, Osti
+
+**Wave 2**
+ * N : Intaki, Deltole, Osti
 * 1 X tag Osti
-3. 
-N : Arnon, Outuni, Osti
-L : Anthem, Yulai
+
+**Wave 3**
+* N : Arnon, Outuni, Osti
+* L : Anthem, Yulai
