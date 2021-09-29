@@ -10,7 +10,7 @@ If you have any doubts or questions, ask any FC, FC Trainer or council !
 
 # Joining the training program
 
-To officially join the training program you need an **L tag** and a fully skilled **primary booster** (no starter skills on waitlist) . the HQ mailing list has an EOS fit.
+To officially join the training program you need an **L tag** and a fully skilled **Primary booster** (no starter skills on waitlist). the HQ mailing list has an EOS fit.
 
 # Training program stages
 ## Trainee
@@ -27,7 +27,8 @@ Fc's that just got tagged, they need 6 logi and cannot train nestors or new FC's
 
 # Tagging
 You can have this open on your phone in your tryouts and/or first trainee fleets.
-Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I, A seperate shortcut for X tag and a shortcut for broadcast align.
+Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I, A seperate shortcut for X tag and a shortcut for broadcast align. Some of these tags can be done differently, you will learn what you prefer while FCing.
+
 **N : Numbers**
 **L : Letters**
 
@@ -50,3 +51,25 @@ Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I,
 **Wave 3**
 * N : Arnon, Outuni, Osti
 * L : Anthem, Yulai
+
+## NRF
+**Wave 1**
+* N : Romi, Osti, Deltole
+* L : Mara, Uitra, Vylade
+
+**Wave 2**
+* N : Romi, Osti
+* L : Anthem, Yulai
+
+**Wave 3**
+* N : Mara, Romi
+* L : Anthem, Yulai
+
+**Wave 4**
+* N : Intaki, Outuni, Deltole, Osti, Romi
+* L : Anthem, Yulai
+
+
+## TCRC
+* N : Deltole, Outuni
+* X tag's on schmaels (see scouting (MARKDOWNLINKPLEASEMAKE) guide)
