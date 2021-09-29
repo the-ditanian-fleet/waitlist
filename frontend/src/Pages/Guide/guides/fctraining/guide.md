@@ -6,6 +6,8 @@ Is fleet down during your prime time? Want to fix that?
 
 There is no pressure to accept a T badge straight away. You can ask to voice and/or tag a few fleets, see if it's for you. All thats required is an L badge! You can ask any full FC to do a tryout, you can do up to five tryouts.
 
+If you have any doubts or questions, ask any FC, FC Trainer or council !
+
 # Joining the training program
 
 To officially join the training program you need an **L tag** and a fully skilled **primary booster** (no starter skills on waitlist) . the HQ mailing list has an EOS fit.
