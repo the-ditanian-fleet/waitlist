@@ -18,7 +18,7 @@ Progressing to the next stage requires passing **VAN FLEET** (yes seriously), It
 ## Advanced Trainee
 In this stage efficiency, safety and in depth knowledge will be trained and expected. You will need to master contesting, knowing how the agro mechanics work. Knowing NPC's and why we tag them the way we do. Fleet control will also need to be mastered.
 ## Probitionary FC
-
+Fc's that just got tagged, they need 6 logi and cannot train nestors or new FC's. The Probitionary period can last up to 3 months.
 
 
 # Tags
