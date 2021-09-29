@@ -17,6 +17,8 @@ In this first stage you will learn how to voice fleet, tag and doing waitlist in
 Progressing to the next stage requires passing **VAN FLEET** (yes seriously), It's a backseat with an FC Trainer, you will do invites trough channel waitlist so make sure you know all the fits ! 
 ## Advanced Trainee
 In this stage efficiency, safety and in depth knowledge will be trained and expected. You will need to master contesting, knowing how the agro mechanics work. Knowing NPC's and why we tag them the way we do. Fleet control will also need to be mastered.
+
+Progressing to the next stage requires passing **BUS FLEET** along with getting at least one other +1 from any FC Trainer or council.
 ## Probitionary FC
 Fc's that just got tagged, they need 6 logi and cannot train nestors or new FC's. The Probitionary period can last up to 3 months.
 
