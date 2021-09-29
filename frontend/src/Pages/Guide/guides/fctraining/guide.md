@@ -23,7 +23,7 @@ Progressing to the next stage requires passing **BUS FLEET** along with getting 
 Fc's that just got tagged, they need 6 logi and cannot train nestors or new FC's. The Probitionary period can last up to 3 months.
 
 
-# Tags
+# Tagging
 You can have this open on your phone in your tryouts and/or first trainee fleets.
 Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I, A seperate shortcut for X tag and a shortcut for broadcast align.
 **N : Numbers**
