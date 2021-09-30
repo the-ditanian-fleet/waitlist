@@ -18,6 +18,7 @@ import {
   faInfo,
   faLevelUpAlt,
   faSignInAlt,
+  faUserGraduate,
 } from "@fortawesome/free-solid-svg-icons";
 
 const guideData = {};
@@ -134,6 +135,9 @@ export function GuideIndex() {
         <GuideCard slug="scouting" name="Scouting guide" icon={faBinoculars}>
           Scouts give the FC information on what&apos;s happening elsewhere. Learn how to perform
           this role!
+        </GuideCard>
+        <GuideCard slug="fctraining" name="Becoming an FC" icon={faUserGraduate}>
+          Do you want to join the TDF team?
         </GuideCard>
       </Row>
     </>
