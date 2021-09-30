@@ -71,4 +71,4 @@ Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I,
 
 ## TCRC
 * N : Deltole, Outuni
-* X tag's on schmaels (see scouting (MARKDOWNLINKPLEASEMAKE) guide)
+* X tag's on schmaels (see [Scouting](/guide/scouting) guide)
