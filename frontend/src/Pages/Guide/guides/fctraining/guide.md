@@ -28,6 +28,7 @@ Fc's that just got tagged, they need 6 logi and cannot train nestors or new FC's
 # Tagging
 You can have this open on your phone in your tryouts and/or first trainee fleets.
 Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I, a seperate shortcut for X tag and a shortcut for broadcast align. **Some of these tags can be done differently, you will learn what you prefer while FCing.**
+
 **The scrams are ROADS**
 Renyn Outuni, Auga, Deltole, Schmael
 
