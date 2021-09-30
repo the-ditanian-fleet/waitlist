@@ -58,4 +58,4 @@ Finally, once you have all skills to elite gold for your ship get your **elite g
 
 ## Branch out
 
-Once you're done upgrading, consider branching out to another ship. Maybe try logistics? If you are in a timezone with low pilot numbers consider training up another DPS alt and earn twice the payouts!
+Once you're done upgrading, consider branching out to another ship. Maybe try logistics and work toward the L badge. If you are in a timezone with low pilot numbers consider training up another DPS alt and earn twice the payouts! Once you have your elite badge pilots are allowed to bring a doctrine fitted alt to fleet.
