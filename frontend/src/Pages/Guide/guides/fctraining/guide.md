@@ -10,9 +10,9 @@ If you have any doubts or questions, ask any FC, FC Trainer or council !
 
 # Joining the training program
 
-To officially join the training program you need an **L tag** and a fully skilled **Primary booster** (no starter skills on waitlist). the HQ mailing list has an EOS fit.
+To officially join the training program you need an **L tag** and a fully skilled **Primary booster** (no starter skills on waitlist). the HQ mailing list has an EOS fit. Ask any council or FC Trainer to join.
 
-# Training program stages
+# Training Program Stages
 ## Trainee
 In this first stage you will learn how to voice fleet, tag and doing waitlist invites/motd updates. You will be expected to learn and know every role and anchor position.
 
