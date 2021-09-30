@@ -115,6 +115,9 @@ export function GuideIndex() {
         <GuideCard slug="dps" name="Anchoring" icon={faAnchor}>
           Where should you park your ship?
         </GuideCard>
+        <GuideCard slug="roles" name="Roles" icon={faMuscle}>
+          What is my purpose? Learn roles here.
+        </GuideCard>
         <GuideCard slug="upgrade" name="Upgrading" icon={faLevelUpAlt}>
           TDF expects you to upgrade. What&apos;s the recommended way to do it?
         </GuideCard>
