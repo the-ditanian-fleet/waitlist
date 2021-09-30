@@ -46,7 +46,7 @@ Once your set is complete you can upgrade to the _HYBRID fits on the mailing lis
 
 Now it's time to get the **elite fit**. You do not need to have every skill at elite level to fly the fit! Go buy those upgrades while still training/injecting the skills. 
 
-- This is a good time to get **abyssal modules**. [mutaplasmid.space](https://mutaplasmid.space/) is a good website for finding contracts, but remember abyssals must be "better than faction". See the badges section for Bastion badge requirements for abyssals should you wish to obtain it.
+- This is a good time to get **abyssal modules**. [mutaplasmid.space](https://mutaplasmid.space/) is a good website for finding contracts, but remember abyssals must be "better than faction". See the badges section for [Bastion Badge](/guide/badges) requirements for abyssals should you wish to obtain it.
 
  - Finish by getting all the **elite skills**. The order is up to you, but we recommend getting the skills that give the biggest damage increase first, and of course maximize your survivability by upgrading the tank skills.
 
