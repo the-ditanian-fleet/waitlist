@@ -17,7 +17,7 @@ Advantages
 * You can skip waitlist
 * You help TDF grow
 
-Disadvanteges
+Disadvantages
 * Pilots will use anything you say against you (soundboards)
 * You will hear way too much german in backcomms
 
