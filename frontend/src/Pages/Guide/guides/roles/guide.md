@@ -6,8 +6,8 @@ Below you can see all the available roles with a brief description, more concise
 
 |   Role   |         Description         |
 |----------| --------------------------- |
-| **DDD**  | The light drone bunny, shoots frigates in all sites. Held by Vindicators |
-| **HHH**  | The heavy drone bunny, shoots untagged cruisers and numbers backwards. Held by Vindicators. |
+| **DDD**  | The light drone bunny, shoots frigates in all sites. Fulfilled by a single Vindicator |
+| **HHH**  | The heavy drone bunny, shoots untagged cruisers and numbers backwards. Fulfilled by up to three Vindicators. |
 | **MTAC/CIVI**  | Specific to TCRCs (HQ's) & OCF (Assaults). Used to transport items to complete a site. Held by Nightmares and Paladins |
 | **MS**  | Short for meatshield, sent into TCRCs to establish aggro to allow for safer entry into a preloaded site. Primarily held by Damnation.|
 
@@ -86,4 +86,4 @@ As you are warping in to the site there are four stages the site can be called, 
 - If there are Deltoles and Frigates within 40km the site is "Frigates"
 - If there are Outunis the site is "Full"
 
-![](MStcrc.png)
+![](MStcrc.PNG)
