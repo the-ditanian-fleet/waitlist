@@ -20,20 +20,20 @@ Try to sit still as much as possible, hitting frigates with large guns is not ea
 
 There is a priority order to frigates, but remember to always shoot the frigates closest to optimal, and with the lowest transversal, you will kill them much faster this way so keep checking your overview, and memorise your optimal ranges with each ammo type.
 
-You will have light drones as support but they are NOT your main source of damage, so make sure to keep shooting. Splitting your gun groupings can be beneficial to kill multiple frigates at once and helps to keep drones shooting. If you are struggling for damage keep your guns grouped together.
+You will have light drones as support but they are NOT your main source of damage, so make sure to keep shooting. Splitting your gun groupings can be beneficial to kill multiple frigates at once and helps to keep drones shooting. If you are struggling for damage however keep your guns grouped together.
 
 If a wave spawns and is pulled away from you switch to Null! Do not be idle, you can still kill off frigates with Null. If frigates are out of web range, overheat your webs, it costs very little in paste to repair webs so make good use of it.
 
-The meatshield or MS is usually tagged with the letter Z, use this to aid you in finding where to anchor during waves.
+The meatshield or MS is usually tagged with the letter Z, use this to aid you in finding where to anchor during waves as the meatshield often acts as aggro for most sites.
 
 ### TPPH
-- 1st room burn forward one or two propmod cycles or keep aggro target at range 5km, prioritise Schmaeel, then Tama. At the beginning of the room have Null loaded to try to kill one or two as they burn in close, switch to either Void or Antimatter and work through remaining frigates.
+- 1st room burn forward one or two propmod cycles or keep aggro target at range 5km, prioritise Schmaeels, then Tama. At the beginning of the room have Null loaded to try to kill one or two as they burn in close, switch to either Void or Antimatter and work through remaining frigates.
 - 2nd room burn forward or set aggro target to keep at range 5km. Kill the four frigates as fast as you can so you can carry on with your burn.
 - 3rd room burn directly to your anchor, you want to be between the 2nd wave spawn and the MS but on the closer side to the MS. When the 2nd wave spawns and the MS pulls aggro towards itself you should be well within web range of the frigates. Start with Schmaeels first then on to Tamas. The 2nd wave of frigates is the hardest to kill due to their large number compared to the rest of the wave, you are racing to kill the frigates before the last Ostingele is killed.
 
 ### NRF
-- 1st wave you want to burn towards the aggro target and keep at range 5km, depending on the size of the spawn you may need to start anchoring before the wave dies. Be in position for next wave! Use all the tricks you have learned, there will be a switch so prepare for that and spread your webs.
-- 2nd, 3rd & 4th wave your anchor will be above the MS and between them and the wave spawns, this way the frigates should come to you. Start with Scmhaaels, then onto Tamas. Remember to burn in to the 4th wave to help shoot everything else once frigates are dead.
+- 1st wave you want to burn towards the aggro target and keep at range 5km, depending on the size of the spawn you may need to start anchoring before the wave dies. Be in position for next wave! Use all the tricks you have learned, there will be a switch so prepare for that and spread your webs accordingly.
+- 2nd, 3rd & 4th wave your anchor will be above the MS and between them and the wave spawns, this way the frigates should come to you. Start with Schmaeels, then onto Tamas. Remember to burn in to the 4th wave to help shoot everything else once frigates are dead.
 
 ### TCRC
 - Niarjas are your **TOP** priority in this site, this is because they Jam & Neut, they also respawn. When you land on the beacon sit still, and using null, quickly kill the closest Niarja. Next spread your webs for nearby Schmaeels but dont bother with the tag X's. Switch to Void or Antimatter (if you have the range) and try to kill off as many Schmaeels as you can before the aggro switchs. When aggro switches the remaining Schmaeels will burn toward the tower so align and MJD to the left of it. When you land kill the remaining Niarja & between Niarja respawns kill off untagged Schmaeels. 
