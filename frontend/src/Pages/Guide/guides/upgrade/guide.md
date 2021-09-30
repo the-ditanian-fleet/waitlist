@@ -1,11 +1,17 @@
 # Upgrading
+TDF has great affordable starter fits. We will help you get spacerich, however TDF expects you to upgrade to elite ASAP. We have an SRP to make sure you keep that ship. After you have fully upgraded to elite, spend the isk any way you want.
 
-If you're low on ISK, you can start by getting the **Megathron**. If you do, it's important that you focus on upgrading to another ship as soon as possible. TDF works with a tier system. Pilots can be categorized as starter, basic, elite and elite gold.
+TDF works with a tier system. Pilots can be categorized as starter, basic, elite and elite gold. See upgrade guidance as per below:
 
 ## Starter
 
-1. **Get a starter fit**, you will need level 2 armor compensation skills to be able to x-up, and you need to be able to online all the modules from the fit. (If you are Alpha status and cannot use the MJD in cargo this is fine, we understand pilots will need time to Omega their accounts)
-2. Get a Nightmare or Vindicator then Omega your account ASAP.
+1. **Get a starter fit**, you will need level 2 armor compensation skills to be able to x-up, and you need to be able to online all the modules from the fit. We recommend the Vindi or Nightmare starters.
+
+(If you are Alpha status and cannot use the MJD in thr cargo this is fine, we understand pilots will need time to Omega their accounts) If you're low on ISK, you can start by getting the **Megathron**. If you do, it's important that you focus on upgrading to another ship as soon as possible. 
+
+2. Omega your account **ASAP**. Start with one month its plenty!
+3. If you are still in a Megathron get yourself a Vindi or Nightmare.
+4. Past 30 hours in fleet its important to show progression in your upgrading, either via ship, skills, or fit.
 
 ## Basic
 **Upgrade to basic fits** as soon as you can.
