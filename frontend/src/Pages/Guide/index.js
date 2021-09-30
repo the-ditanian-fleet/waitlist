@@ -137,7 +137,7 @@ export function GuideIndex() {
           this role!
         </GuideCard>
         <GuideCard slug="fctraining" name="Becoming an FC" icon={faUserGraduate}>
-          How to become a TDF FC!
+          Do you want to join the TDF team?
         </GuideCard>
       </Row>
     </>
