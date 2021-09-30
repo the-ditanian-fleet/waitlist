@@ -10,6 +10,17 @@ If you have any doubts or questions, ask any FC, FC Trainer or council !
 
 # Joining the training program
 
+Advantages
+* There will always be a fleet *(from your perspective)*
+* You will get a shiny badge on discord
+* Spices incursions up, less boring routine
+* You can skip waitlist
+* You help TDF grow
+
+Disadvanteges
+* Pilots will use anything you say against you (soundboards)
+* You will hear way too much german in backcomms
+
 To officially join the training program you need an **L tag** and a fully skilled **Primary booster** (no starter skills on waitlist). the HQ mailing list has an EOS fit. Ask any council or FC Trainer to join.
 
 # Training Program Stages
