@@ -22,7 +22,7 @@ There is a priority order to frigates, but remember to always shoot the frigates
 
 You will have light drones as support but they are NOT your main source of damage, so make sure to keep shooting. Splitting your gun groupings can be beneficial to kill multiple frigates at once and helps to keep drones shooting. If you are struggling for damage however keep your guns grouped together.
 
-If a wave spawns and is pulled away from you switch to Null! Do not be idle, you can still kill off frigates with Null. If frigates are out of web range, overheat your webs, it costs very little in paste to repair webs so make good use of it.
+If a wave spawn is pulled away from you switch to Null! Do not be idle, you can still kill off frigates with Null. If frigates are out of web range, overheat your webs, it costs very little in paste to repair webs so make good use of it. Use both groups of guns to kill single targets if needed.
 
 The meatshield or MS is usually tagged with the letter Z, use this to aid you in finding where to anchor during waves as the meatshield often acts as aggro for most sites.
 
