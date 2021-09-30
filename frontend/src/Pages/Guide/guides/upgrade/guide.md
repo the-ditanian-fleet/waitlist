@@ -32,7 +32,7 @@ Once you have the basic fit ready to go, continue **training and injecting basic
 
 1. **Upgrade to the advanced fit.** Your skills will already be sufficient, so buy those new modules!
 
-2. **Get your Hybrid set implants**. You will need cybernetics 5 trained for the hard wires. The recommended purchase order for the set is:
+2. **Get your Hybrid set implants**. See TDF-IMPLANT1 mailing list in game for reference. You will need cybernetics 5 trained for the hard wires. The recommended purchase order for the set is:
 - Slot 10 (6% damage Alpha) make sure you get the implant that corresponds to your gun type!
 - Slot 9 (6% damage ROF)
 - Slot 8 (6% capacitor capacity)
