@@ -27,7 +27,7 @@ Fc's that just got tagged, they need 6 logi and cannot train nestors or new FC's
 
 # Tagging
 You can have this open on your phone in your tryouts and/or first trainee fleets.
-Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I, A seperate shortcut for X tag and a shortcut for broadcast align. Some of these tags can be done differently, you will learn what you prefer while FCing.
+Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I, A seperate shortcut for X tag and a shortcut for broadcast align. **Some of these tags can be done differently, you will learn what you prefer while FCing.**
 
 **N : Numbers**
 **L : Letters**
@@ -45,7 +45,7 @@ Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I,
 * 1 X tag Osti
 
 **Wave 2**
- * N : Intaki, Deltole, Osti
+ * N : Intaki, Deltole, Romi, Osti
 * 1 X tag Osti
 
 **Wave 3**
@@ -62,13 +62,12 @@ Make sure to set shortcuts for tagging, you need the sequencers 1 - 9 and A - I,
 * L : Anthem, Yulai
 
 **Wave 3**
-* N : Mara, Romi
+* N : Mara, Romi, Vylade
 * L : Anthem, Yulai
 
 **Wave 4**
-* N : Intaki, Outuni, Deltole, Osti, Romi
+* N : Intaki, Outuni, Deltole, Osti
 * L : Anthem, Yulai
-
 
 ## TCRC
 * N : Deltole, Outuni
