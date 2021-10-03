@@ -1,6 +1,6 @@
 # FC documentation (WIP)
 ## Stuff you need acces to
-- full waitlist acces
+- Full waitlist acces
 - TDF-FCs (channel)
 - tdf-backseat-report
 - FC-chat on discord
