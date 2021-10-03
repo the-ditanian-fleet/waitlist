@@ -32,27 +32,27 @@
 > 1 = Bad, 2 = Not Great, 3 = Average, 4 = Good, 5 = Very Good
 > 
 > Tagging:
-> - Speed:
-> - Order:
-> - Contest Reasoning: <trainee/backseat/detail>
+> \- Speed:
+> \- Order:
+> \- Contest Reasoning: <trainee/backseat/detail>
 > Control:
-> - Fleet:
-> - Comms:
-> - Special tasks: <if appointed>
+> \- Fleet:
+> \- Comms:
+> \- Special tasks: <if appointed>
 > Knowledge:
- - Logistics:
- - NPC:
- - Fittings:
- - Sites:
-
-Backseat Comments:
-
-
-Incidents (with explanation and how the Trainee handled it):
-
-Where They Need Improvement:
-
-Are they ready for advanced training? [No/Ready/Qualified]:
-
-Would you recommend for tags [Yes/No] (with reasoning):
+> \- Logistics:
+> \- NPC:
+> \- Fittings:
+> \- Sites:
+>
+> Backseat Comments:
+>
+>
+> Incidents (with explanation and how the Trainee handled it):
+>
+> Where They Need Improvement:
+>
+> Are they ready for advanced training? [No/Ready/Qualified]:
+>
+> Would you recommend for tags [Yes/No] (with reasoning):
  
