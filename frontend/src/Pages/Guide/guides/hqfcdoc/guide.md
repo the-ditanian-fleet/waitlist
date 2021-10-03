@@ -21,38 +21,38 @@
 > Training FC was responsible for the waitlist: [yes/no]  
 > Training FC has been debriefed by the backseat: [yes/no]  
 >
-> Number Of Sites (By Type):
-> <insert link ISK/h>
-> HQ: <all including lost contests>
-> TPPH:
-> NRF:
-> TCRC:
+> Number Of Sites (By Type):  
+> <insert link ISK/h>  
+> HQ: <all including lost contests>  
+> TPPH:  
+> NRF:  
+> TCRC:  
 > 
-> General Rating
-> 1 = Bad, 2 = Not Great, 3 = Average, 4 = Good, 5 = Very Good
+> General Rating  
+> 1 = Bad, 2 = Not Great, 3 = Average, 4 = Good, 5 = Very Good  
 > 
-> Tagging:
-> \- Speed:
-> \- Order:
-> \- Contest Reasoning: <trainee/backseat/detail>
-> Control:
-> \- Fleet:
-> \- Comms:
-> \- Special tasks: <if appointed>
-> Knowledge:
-> \- Logistics:
-> \- NPC:
-> \- Fittings:
-> \- Sites:
+> Tagging:  
+> \- Speed:  
+> \- Order:  
+> \- Contest Reasoning: <trainee/backseat/detail>  
+> Control:  
+> \- Fleet:  
+> \- Comms:  
+> \- Special tasks: <if appointed>  
+> Knowledge:  
+> \- Logistics:  
+> \- NPC:  
+> \- Fittings:  
+> \- Sites:  
 >
-> Backseat Comments:
+> Backseat Comments:  
 >
 >
-> Incidents (with explanation and how the Trainee handled it):
+> Incidents (with explanation and how the Trainee handled it):  
+>  
+> Where They Need Improvement:  
 >
-> Where They Need Improvement:
+> Are they ready for advanced training? [No/Ready/Qualified]:  
 >
-> Are they ready for advanced training? [No/Ready/Qualified]:
->
-> Would you recommend for tags [Yes/No] (with reasoning):
+> Would you recommend for tags [Yes/No] (with reasoning):  
  
