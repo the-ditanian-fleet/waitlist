@@ -87,11 +87,7 @@ export function Guide() {
 function GuideCard({ icon, slug, name, children }) {
   return (
     <Col xs={4} sm={4} lg={3}>
-      <NavLink
-        style={{ textDecoration: "inherit", color: "inherit" }}
-        exact
-        to={`${slug}`}
-      >
+      <NavLink style={{ textDecoration: "inherit", color: "inherit" }} exact to={`${slug}`}>
         <Card
           title={
             <>
@@ -111,20 +107,12 @@ export function GuideIndex() {
     <>
       <PageTitle>Guides</PageTitle>
       <Row>
-        <GuideCard
-          slug="/guide/newbro"
-          name="New-Bro guide"
-          icon={faGraduationCap}
-        >
+        <GuideCard slug="/guide/newbro" name="New-Bro guide" icon={faGraduationCap}>
           Haven&apos;t flown with TDF yet? Read this first!
         </GuideCard>
-        <GuideCard
-          slug="/guide/xup"
-          name="First Fleet guide"
-          icon={faSignInAlt}
-        >
-          What to do before joining your first fleet, how to join your first
-          fleet, and how not to die during your first fleet.
+        <GuideCard slug="/guide/xup" name="First Fleet guide" icon={faSignInAlt}>
+          What to do before joining your first fleet, how to join your first fleet, and how not to
+          die during your first fleet.
         </GuideCard>
         <GuideCard slug="/guide/dps" name="Anchoring" icon={faAnchor}>
           Where should you park your ship?
@@ -138,37 +126,21 @@ export function GuideIndex() {
         <GuideCard slug="/guide/logi" name="Logistics guide" icon={faHeart}>
           Logistics are in charge of keeping the fleet alive. How do we do this?
         </GuideCard>
-        <GuideCard
-          slug="/guide/bastion"
-          name="Using Bastion"
-          icon={faFistRaised}
-        >
-          The Bastion Module offers a great damage increase, but it has to be
-          used safely. Learn how!
+        <GuideCard slug="/guide/bastion" name="Using Bastion" icon={faFistRaised}>
+          The Bastion Module offers a great damage increase, but it has to be used safely. Learn
+          how!
         </GuideCard>
-        <GuideCard
-          slug="/guide/badges"
-          name="Information about badges"
-          icon={faIdBadge}
-        >
+        <GuideCard slug="/guide/badges" name="Information about badges" icon={faIdBadge}>
           What are all these badges I see?
         </GuideCard>
         <GuideCard slug="/guide/tips" name="General tips" icon={faInfo}>
           Some general advice to keep you rich.
         </GuideCard>
-        <GuideCard
-          slug="/guide/scouting"
-          name="Scouting guide"
-          icon={faBinoculars}
-        >
-          Scouts give the FC information on what&apos;s happening elsewhere.
-          Learn how to perform this role!
+        <GuideCard slug="/guide/scouting" name="Scouting guide" icon={faBinoculars}>
+          Scouts give the FC information on what&apos;s happening elsewhere. Learn how to perform
+          this role!
         </GuideCard>
-        <GuideCard
-          slug="fctraining"
-          name="Becoming an FC"
-          icon={faUserGraduate}
-        >
+        <GuideCard slug="fctraining" name="Becoming an FC" icon={faUserGraduate}>
           Do you want to join the TDF team?
         </GuideCard>
       </Row>
