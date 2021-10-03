@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthContext } from "../../contexts";
-import { useLocation, useHistory, NavLink } from "react-router-dom";
+import { useLocation, useHistory} from "react-router-dom";
 import { PageTitle } from "../../Components/Page";
 import { useApi } from "../../api";
 
@@ -27,11 +27,6 @@ export function Skills() {
     <>
       <PageTitle>{basicInfo ? `Skills for ${basicInfo.name}` : "Skills"}</PageTitle>
       <SkillDisplay characterId={characterId} ship={ship} setShip={setShip} />
-      <p>
-        <NavLink exact to="/skills/plans" style={{ color: "inherit" }}>
-          Skill plans
-        </NavLink>
-      </p>
     </>
   );
 }
