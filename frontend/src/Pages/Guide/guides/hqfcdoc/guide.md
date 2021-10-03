@@ -16,10 +16,10 @@
  > Date: 
 > Training Fc:
 > Backseat:
-> Training FC is aware of the Trainee FC Rules: [yes/no]\n
-> Training FC has done the introduction speech: [yes/no]
-> Training FC was responsible for the waitlist: [yes/no]
-> Training FC has been debriefed by the backseat: [yes/no]
+> Training FC is aware of the Trainee FC Rules: [yes/no]  
+> Training FC has done the introduction speech: [yes/no]  
+> Training FC was responsible for the waitlist: [yes/no]  
+> Training FC has been debriefed by the backseat: [yes/no]  
 >
 > Number Of Sites (By Type):
 > <insert link ISK/h>
