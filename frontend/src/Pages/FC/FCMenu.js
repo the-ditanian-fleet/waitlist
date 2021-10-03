@@ -1,48 +1,79 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Content } from "../../Components/Page";
+import { PageTitle } from "../../Components/Page";
 import { AuthContext } from "../../contexts";
+import { Row, Col } from "react-awesome-styled-grid";
+import { Card } from "../../Components/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGraduationCap,
+  faBan,
+  faUserCheck,
+  faChartLine,
+} from "@fortawesome/free-solid-svg-icons";
+
+function GuideCard({ icon, slug, name, children }) {
+  return (
+    <Col xs={4} sm={4} lg={3}>
+      <NavLink
+        style={{ textDecoration: "inherit", color: "inherit" }}
+        exact
+        to={`/fc/${slug}`}
+      >
+        <Card
+          title={
+            <>
+              <FontAwesomeIcon fixedWidth icon={icon} /> {name}
+            </>
+          }
+        >
+          <p>{children}</p>
+        </Card>
+      </NavLink>
+    </Col>
+  );
+}
 
 export function FCMenu() {
   const authContext = React.useContext(AuthContext);
-
   return (
-    <Content>
-      {authContext && authContext.access["fleet-view"] && (
-        <p>
-          <NavLink exact to="/fc/fleet">
-            Fleet setup
-          </NavLink>
-        </p>
-      )}
-      {authContext && authContext.access["search"] && (
-        <p>
-          <NavLink exact to="/fc/search">
-            Search pilot
-          </NavLink>
-        </p>
-      )}
-      {authContext && authContext.access["bans-view"] && (
-        <p>
-          <NavLink exact to="/fc/bans">
-            Bans
-          </NavLink>
-        </p>
-      )}
-      {authContext && authContext.access["access-view"] && (
-        <p>
-          <NavLink exact to="/fc/acl">
-            ACL
-          </NavLink>
-        </p>
-      )}
-      {authContext && authContext.access["stats-view"] && (
-        <p>
-          <NavLink exact to="/fc/stats">
-            Statistics
-          </NavLink>
-        </p>
-      )}
-    </Content>
+    <>
+      <PageTitle>FC Dashboard</PageTitle>
+      <Row>
+        {authContext && authContext.access["bans-view"] && (
+          <GuideCard slug="bans" name="Bans" icon={faBan}></GuideCard>
+        )}
+        {authContext && authContext.access["access-view"] && (
+          <GuideCard
+            slug="acl"
+            name="Permissions"
+            icon={faUserCheck}
+          ></GuideCard>
+        )}
+        {authContext &&
+          authContext.access["fleet-view"] && ( //fleet view should be any fc
+            <GuideCard
+              slug="stats"
+              name="FC Training"
+              icon={faGraduationCap}
+            ></GuideCard>
+          )}
+        {authContext &&
+          authContext.access["search"] && ( //any full FC
+            <GuideCard
+              slug="fctrainin"
+              name="FC Documentation"
+              icon={faGraduationCap}
+            ></GuideCard>
+          )}
+        {authContext && authContext.access["stats-view"] && (
+          <GuideCard
+            slug="stats"
+            name="Statistics"
+            icon={faChartLine}
+          ></GuideCard>
+        )}
+      </Row>
+    </>
   );
 }
