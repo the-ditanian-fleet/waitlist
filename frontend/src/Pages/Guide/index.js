@@ -140,7 +140,7 @@ export function GuideIndex() {
           Scouts give the FC information on what&apos;s happening elsewhere. Learn how to perform
           this role!
         </GuideCard>
-        <GuideCard slug="fctraining" name="Becoming an FC" icon={faUserGraduate}>
+        <GuideCard slug="/guide/fctraining" name="Becoming an FC" icon={faUserGraduate}>
           Do you want to join the TDF team?
         </GuideCard>
       </Row>
