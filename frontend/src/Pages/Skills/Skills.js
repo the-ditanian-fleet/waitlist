@@ -25,9 +25,7 @@ export function Skills() {
 
   return (
     <>
-      <PageTitle>
-        {basicInfo ? `Skills for ${basicInfo.name}` : "Skills"}
-      </PageTitle>
+      <PageTitle>{basicInfo ? `Skills for ${basicInfo.name}` : "Skills"}</PageTitle>
       <SkillDisplay characterId={characterId} ship={ship} setShip={setShip} />
     </>
   );
