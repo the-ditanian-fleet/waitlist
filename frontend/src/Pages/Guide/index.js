@@ -15,6 +15,7 @@ import {
   faGraduationCap,
   faHeart,
   faIdBadge,
+  faBook,
   faInfo,
   faLevelUpAlt,
   faSignInAlt,
@@ -119,7 +120,7 @@ export function GuideIndex() {
         <GuideCard slug="/guide/upgrade" name="Upgrading" icon={faLevelUpAlt}>
           TDF expects you to upgrade. What&apos;s the recommended way to do it?
         </GuideCard>
-		<GuideCard slug="/skills/plans" name="Skill Plans" icon={faUserGraduate}>
+		<GuideCard slug="/skills/plans" name="Skill Plans" icon={faBook}>
           Skill plans for anyone with doubts what to skill first.
         </GuideCard>
         <GuideCard slug="/guide/logi" name="Logistics guide" icon={faHeart}>
