@@ -9,6 +9,7 @@ import {
   faGraduationCap,
   faBan,
   faUserCheck,
+  faBiohazard,	
   faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -55,7 +56,7 @@ export function FCMenu() {
         </GuideCard>
 		)}
 		{authContext && authContext.access["search"] && ( //any full FC
-        <GuideCard slug="/guide/hqfcdoc" name="FC Documentation" icon={faGraduationCap}>
+        <GuideCard slug="/guide/hqfcdoc" name="FC Documentation" icon={faBiohazard}>
         </GuideCard>
 		)}
 		{authContext && authContext.access["stats-view"] && (
