@@ -2,7 +2,8 @@ import React from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { Content, PageTitle } from "../../Components/Page";
 import styled from "styled-components";
-import { ToastContext } from "../../contexts";
+import { ToastContext, AuthContext } from "../../contexts";
+
 import { errorToaster } from "../../api";
 import { Markdown } from "../../Components/Markdown";
 import { Row, Col } from "react-awesome-styled-grid";
@@ -103,6 +104,7 @@ function GuideCard({ icon, slug, name, children }) {
 }
 
 export function GuideIndex() {
+  const authContext = React.useContext(AuthContext);
   return (
     <>
       <PageTitle>Guides</PageTitle>
@@ -120,9 +122,11 @@ export function GuideIndex() {
         <GuideCard slug="/guide/upgrade" name="Upgrading" icon={faLevelUpAlt}>
           TDF expects you to upgrade. What&apos;s the recommended way to do it?
         </GuideCard>
-        <GuideCard slug="/skills/plans" name="Skill Plans" icon={faBook}>
-          Skill plans for anyone with doubts what to skill first.
-        </GuideCard>
+        {authContext && (
+          <GuideCard slug="/skills/plans" name="Skill Plans" icon={faBook}>
+            Skill plans for anyone with doubts what to skill first.
+          </GuideCard>
+        )}
         <GuideCard slug="/guide/logi" name="Logistics guide" icon={faHeart}>
           Logistics are in charge of keeping the fleet alive. How do we do this?
         </GuideCard>
