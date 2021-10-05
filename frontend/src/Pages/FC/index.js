@@ -1,5 +1,6 @@
+import React from "react";
 import { Route } from "react-router-dom";
-
+import { AuthContext } from "../../contexts";
 import { BanRoutes } from "./Bans";
 import { ACLRoutes } from "./ACL";
 import { Fleet, FleetRegister } from "./Fleet";
@@ -7,9 +8,10 @@ import { Search } from "./Search";
 import { Statistics } from "./Statistics";
 import { FleetCompHistory } from "./FleetCompHistory";
 import { NoteAdd } from "./NoteAdd";
-import { FCMenu } from "./FCMenu";
+import { FCMenu, GuideFC } from "./FCMenu";
 
 export function FCRoutes() {
+  const authContext = React.useContext(AuthContext);
   return (
     <>
       <BanRoutes />
@@ -36,6 +38,16 @@ export function FCRoutes() {
       <Route exact path="/fc/notes/add">
         <NoteAdd />
       </Route>
+      {authContext.access["stats-view"] && (
+        <Route exact path="/fc/documentation">
+          <GuideFC />
+        </Route>
+      )}
+      {authContext.access["fleet-view"] && (
+        <Route exact path="/fc/trainee">
+          <GuideFC />
+        </Route>
+      )}
     </>
   );
 }
