@@ -2,7 +2,8 @@ import React from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { Content, PageTitle } from "../../Components/Page";
 import styled from "styled-components";
-import { ToastContext } from "../../contexts";
+import { ToastContext, AuthContext } from "../../contexts";
+
 import { errorToaster } from "../../api";
 import { Markdown } from "../../Components/Markdown";
 import { Row, Col } from "react-awesome-styled-grid";
@@ -15,9 +16,11 @@ import {
   faGraduationCap,
   faHeart,
   faIdBadge,
+  faBook,
   faInfo,
   faLevelUpAlt,
   faSignInAlt,
+  faUserGraduate,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -86,7 +89,7 @@ export function Guide() {
 function GuideCard({ icon, slug, name, children }) {
   return (
     <Col xs={4} sm={4} lg={3}>
-      <NavLink style={{ textDecoration: "inherit", color: "inherit" }} exact to={`/guide/${slug}`}>
+      <NavLink style={{ textDecoration: "inherit", color: "inherit" }} exact to={`${slug}`}>
         <Card
           title={
             <>
@@ -102,42 +105,51 @@ function GuideCard({ icon, slug, name, children }) {
 }
 
 export function GuideIndex() {
+  const authContext = React.useContext(AuthContext);
   return (
     <>
       <PageTitle>Guides</PageTitle>
       <Row>
-        <GuideCard slug="newbro" name="New-Bro guide" icon={faGraduationCap}>
+        <GuideCard slug="/guide/newbro" name="New-Bro guide" icon={faGraduationCap}>
           Haven&apos;t flown with TDF yet? Read this first!
         </GuideCard>
-        <GuideCard slug="xup" name="First Fleet guide" icon={faSignInAlt}>
+        <GuideCard slug="/guide/xup" name="First Fleet guide" icon={faSignInAlt}>
           What to do before joining your first fleet, how to join your first fleet, and how not to
           die during your first fleet.
         </GuideCard>
-        <GuideCard slug="dps" name="Anchoring" icon={faAnchor}>
+        <GuideCard slug="/guide/dps" name="Anchoring" icon={faAnchor}>
           Where should you park your ship?
         </GuideCard>
         <GuideCard slug="roles" name="Roles" icon={faUsers}>
           What is my purpose? Learn the roles here.
         </GuideCard>
-        <GuideCard slug="upgrade" name="Upgrading" icon={faLevelUpAlt}>
+        <GuideCard slug="upgrade" name="Upgrading" icon={faLevelUpAlt}
           TDF expects you to upgrade. What&apos;s the recommended way to do it?
         </GuideCard>
-        <GuideCard slug="logi" name="Logistics guide" icon={faHeart}>
+        {authContext && (
+          <GuideCard slug="/skills/plans" name="Skill Plans" icon={faBook}>
+            Skill plans for anyone with doubts what to skill first.
+          </GuideCard>
+        )}
+        <GuideCard slug="/guide/logi" name="Logistics guide" icon={faHeart}>
           Logistics are in charge of keeping the fleet alive. How do we do this?
         </GuideCard>
-        <GuideCard slug="bastion" name="Using Bastion" icon={faFistRaised}>
+        <GuideCard slug="/guide/bastion" name="Using Bastion" icon={faFistRaised}>
           The Bastion Module offers a great damage increase, but it has to be used safely. Learn
           how!
         </GuideCard>
-        <GuideCard slug="badges" name="Information about badges" icon={faIdBadge}>
+        <GuideCard slug="/guide/badges" name="Information about badges" icon={faIdBadge}>
           What are all these badges I see?
         </GuideCard>
-        <GuideCard slug="tips" name="General tips" icon={faInfo}>
-          Some general advice to keep you rich
+        <GuideCard slug="/guide/tips" name="General tips" icon={faInfo}>
+          Some general advice to keep you rich.
         </GuideCard>
-        <GuideCard slug="scouting" name="Scouting guide" icon={faBinoculars}>
+        <GuideCard slug="/guide/scouting" name="Scouting guide" icon={faBinoculars}>
           Scouts give the FC information on what&apos;s happening elsewhere. Learn how to perform
           this role!
+        </GuideCard>
+        <GuideCard slug="/guide/fctraining" name="Becoming an FC" icon={faUserGraduate}>
+          Do you want to join the TDF team?
         </GuideCard>
       </Row>
     </>

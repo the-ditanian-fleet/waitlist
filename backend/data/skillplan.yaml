@@ -59,7 +59,7 @@ plans:
     level: 4
   - type: fit
     hull: Kronos
-    fit: TDF_KRONOS_ADVANCED_HYBRID_BASTION
+    fit: TDF_KRONOS_ELITE_HYBRID_BASTION
   - type: skills
     from: Kronos
     tier: min
@@ -75,7 +75,7 @@ plans:
 
 - name: TDF_SNIPER
   description: >
-    Sit still and move stuff: these are our long-range snipers. This skill plan takes you from the
+    Sit still and shoot stuff: these are our long-range snipers. This skill plan takes you from the
     starter Nightmare to the basic Nightmare and finally the elite Paladin.
   plan:
   - type: tank
@@ -98,7 +98,7 @@ plans:
     level: 4
   - type: fit
     hull: Paladin
-    fit: TDF_PALADIN_ADVANCED_HYBRID_BASTION
+    fit: TDF_PALLY_ELITE_HYBRID_BASTION
   - type: skills
     from: Paladin
     tier: min
@@ -257,7 +257,7 @@ plans:
     level: 4
   - type: fit
     hull: Kronos
-    fit: TDF_KRONOS_ADVANCED_HYBRID_BASTION
+    fit: TDF_KRONOS_ELITE_HYBRID_BASTION
   - type: skills
     from: Kronos
     tier: min
@@ -280,7 +280,7 @@ plans:
     from: min
   - type: fit
     hull: Paladin
-    fit: TDF_PALADIN_BASIC
+    fit: TDF_PALLY_BASIC
   - type: skills
     from: Paladin
     tier: min
@@ -291,7 +291,7 @@ plans:
     level: 4
   - type: fit
     hull: Paladin
-    fit: TDF_PALADIN_ADVANCED_HYBRID_BASTION
+    fit: TDF_PALLY_ELITE_HYBRID_BASTION
   - type: skills
     from: Paladin
     tier: elite
@@ -421,7 +421,7 @@ plans:
     fit: TDF_KRONOS_ELITE_HYBRID_BASTION
   - type: fit
     hull: Paladin
-    fit: TDF_PALADIN_ELITE_HYBRID_BASTION
+    fit: TDF_PALLY_ELITE_HYBRID_BASTION
   - type: fit
     hull: Nightmare
     fit: TDF_NM_ADVANCED_HYBRID
