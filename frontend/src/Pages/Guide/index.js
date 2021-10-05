@@ -123,7 +123,7 @@ export function GuideIndex() {
         <GuideCard slug="roles" name="Roles" icon={faUsers}>
           What is my purpose? Learn the roles here.
         </GuideCard>
-        <GuideCard slug="upgrade" name="Upgrading" icon={faLevelUpAlt}
+        <GuideCard slug="upgrade" name="Upgrading" icon={faLevelUpAlt}>
           TDF expects you to upgrade. What&apos;s the recommended way to do it?
         </GuideCard>
         {authContext && (
