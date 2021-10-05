@@ -21,6 +21,7 @@ import {
   faLevelUpAlt,
   faSignInAlt,
   faUserGraduate,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
 const guideData = {};
@@ -119,7 +120,10 @@ export function GuideIndex() {
         <GuideCard slug="/guide/dps" name="Anchoring" icon={faAnchor}>
           Where should you park your ship?
         </GuideCard>
-        <GuideCard slug="/guide/upgrade" name="Upgrading" icon={faLevelUpAlt}>
+        <GuideCard slug="roles" name="Roles" icon={faUsers}>
+          What is my purpose? Learn the roles here.
+        </GuideCard>
+        <GuideCard slug="upgrade" name="Upgrading" icon={faLevelUpAlt}
           TDF expects you to upgrade. What&apos;s the recommended way to do it?
         </GuideCard>
         {authContext && (
