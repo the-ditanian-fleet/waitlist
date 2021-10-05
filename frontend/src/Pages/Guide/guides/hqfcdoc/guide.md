@@ -13,7 +13,7 @@
 
 ## loss mail
 
-**To:** <All council members>  
+**To:** <All council members> <Name of pilot> 
 **Subject:** Loss Mail: <Name of pilot>
 
 ```
