@@ -13,18 +13,18 @@
 
 ## loss mail
 
-To: <All council members>, <Person who lost ship>
+To: <All council members>  
 Subject: Loss Mail: <Name of pilot>
 
-Date: <YYYY-MM-DD>
-FC:
-Killmail:  
+Date: <YYYY-MM-DD>  
+FC:  
+Killmail:
 
-Logis involved:  
+Logis involved:
 
-Situation:  
+Situation:
 
-Recommendation:  
+Recommendation:
 
 ## Backseat mail
 
