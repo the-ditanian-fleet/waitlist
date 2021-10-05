@@ -16,18 +16,15 @@
 To: <All council members>, <Person who lost ship>
 Subject: Loss Mail: <Name of pilot>
 
----
-
 Date: <YYYY-MM-DD>
 FC:
+Killmail:  
 
-<insert ingame killmail>
+Logis involved:  
 
-Logis involved:
+Situation:  
 
-Situation:
-
-Recommendation:
+Recommendation:  
 
 ## Backseat mail
 
