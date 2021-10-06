@@ -1,10 +1,13 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { PageTitle } from "../../Components/Page";
-import { AuthContext } from "../../contexts";
+import { NavLink, useLocation } from "react-router-dom";
+import { Content, PageTitle } from "../../Components/Page";
+import { AuthContext, ToastContext } from "../../contexts";
 import { Row, Col } from "react-awesome-styled-grid";
 import { Card } from "../../Components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { errorToaster } from "../../api";
+import { Markdown } from "../../Components/Markdown";
+import styled from "styled-components";
 import {
   faGraduationCap,
   faBan,
@@ -13,10 +16,73 @@ import {
   faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 
+const guideData = {};
+function importAll(r) {
+  r.keys().forEach((key) => (guideData[key] = r(key)));
+}
+importAll(require.context("./guides", true, /\.(md|jpg|png)$/));
+
+const GuideContent = styled(Content)`
+  max-width: 800px;
+`;
+
+function getSecondPart(str) {
+  return str.split("/").pop();
+}
+
+export function GuideFC() {
+  const toastContext = React.useContext(ToastContext);
+  const guideName = useLocation();
+  const loc = getSecondPart(guideName.pathname);
+  const [loadedData, setLoadedData] = React.useState(null);
+  const guidePath = `./${loc}`;
+  const filename = `${guidePath}/guide.md`;
+
+  React.useEffect(() => {
+    setLoadedData(null);
+    if (!(filename in guideData)) return;
+
+    errorToaster(
+      toastContext,
+      fetch(guideData[filename].default)
+        .then((response) => response.text())
+        .then(setLoadedData)
+    );
+  }, [toastContext, filename]);
+
+  const resolveImage = (name) => {
+    const originalName = `${guidePath}/${name}`;
+    if (originalName in guideData) {
+      return guideData[originalName].default;
+    }
+    return name;
+  };
+
+  if (!guideData[filename]) {
+    return <div>client : a{loc}a</div>;
+  }
+
+  if (!loadedData) {
+    return (
+      <>
+        <em>Loading...</em>
+      </>
+    );
+  }
+
+  return (
+    <GuideContent style={{ maxWidth: "800px" }}>
+      <Markdown transformImageUri={resolveImage} transformLinkUri={null}>
+        {loadedData}
+      </Markdown>
+    </GuideContent>
+  );
+}
+
 function GuideCard({ icon, slug, name, children }) {
   return (
     <Col xs={4} sm={4} lg={3}>
-      <NavLink style={{ textDecoration: "inherit", color: "inherit" }} exact to={`${slug}`}>
+      <NavLink style={{ textDecoration: "inherit", color: "inherit" }} exact to={`/fc/${slug}`}>
         <Card
           title={
             <>
@@ -38,25 +104,21 @@ export function FCMenu() {
       <PageTitle>FC Dashboard</PageTitle>
       <Row>
         {authContext && authContext.access["bans-view"] && (
-          <GuideCard slug="/fc/bans" name="Bans" icon={faBan}></GuideCard>
+          <GuideCard slug="bans" name="Bans" icon={faBan}></GuideCard>
         )}
         {authContext && authContext.access["access-view"] && (
-          <GuideCard slug="/fc/acl" name="Permissions" icon={faUserCheck}></GuideCard>
+          <GuideCard slug="acl" name="Permissions" icon={faUserCheck}></GuideCard>
         )}
         {authContext &&
           authContext.access["fleet-view"] && ( //fleet view should be any fc
-            <GuideCard
-              slug="/guide/hqtraineehelp"
-              name="FC Training"
-              icon={faGraduationCap}
-            ></GuideCard>
+            <GuideCard slug="trainee" name="FC Training" icon={faGraduationCap}></GuideCard>
           )}
         {authContext &&
           authContext.access["search"] && ( //any full FC
-            <GuideCard slug="/guide/hqfcdoc" name="FC Documentation" icon={faBiohazard}></GuideCard>
+            <GuideCard slug="documentation" name="FC Documentation" icon={faBiohazard}></GuideCard>
           )}
         {authContext && authContext.access["stats-view"] && (
-          <GuideCard slug="/fc/stats" name="Statistics" icon={faChartLine}></GuideCard>
+          <GuideCard slug="stats" name="Statistics" icon={faChartLine}></GuideCard>
         )}
       </Row>
     </>
