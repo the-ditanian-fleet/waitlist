@@ -8,9 +8,9 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 
 1. **Get a starter fit**, you will need level 2 armor compensation skills to be able to x-up, and you need to be able to online all the modules from the fit. We recommend the Vindi or Nightmare starters.
 
-(If you are Alpha status and cannot use the MJD in thr cargo this is fine, we understand pilots will need time to Omega their accounts) If you're low on ISK, you can start by getting the **Megathron**. If you do, it's important that you focus on upgrading to another ship as soon as possible.
+(If you are Alpha status and cannot use the MJD in the cargo this is fine, we understand pilots will need time to Omega their accounts) If you're low on ISK, you can start by getting the **Megathron**. If you do, it's important that you focus on upgrading to another ship as soon as possible.
 
-2. Omega your account **ASAP**. Start with one month its plenty!
+2. Omega your account **ASAP**. Start with one month, its plenty!
 3. If you are still in a Megathron get yourself a Vindi or Nightmare.
 4. Past 30 hours in fleet its important to show progression in your upgrading, either via ship, skills, or fit.
 
