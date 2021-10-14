@@ -11,7 +11,7 @@
 
 ## Rules
 
-## loss mail
+## Loss mail
 
 **To:** \<All council members> \<Name of pilot>  
 **Subject:** Loss Mail: \<Name of pilot>
@@ -74,6 +74,28 @@ Incidents (with explanation and how the Trainee handled it):
 Where They Need Improvement:
 
 Are they ready for advanced training? [No/Ready/Qualified]:
-```
+
 
 Would you recommend for tags [Yes/No] (with reasoning):
+```
+
+## FC Meeting Notes
+
+Meeting notes need to be taken and sent to entire FC team.
+If someone does not volunteer, the meeting leader can do themself or delegate to someone that is in attendance.
+
+Example:
+Meeting Notes **YYYY-MM-DD**
+\------------------------------------
+Key:
+A = Approved during meeting
+C = Council will vote on / follow up
+N = Discussion / Note. No change or action required
+X = topic submitted but not brought up during meeting
+
+- C - Topic 1
+  - topic note 1
+  - topic note 2
+- X - Topic 2
+- A - Topic 3
+  - topic 3 note 1
