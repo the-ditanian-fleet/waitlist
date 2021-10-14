@@ -100,4 +100,4 @@ As you are warping in to the site there are four stages the site can be called, 
 - If there are Deltoles and Frigates within 40km the site is "Frigates"
 - If there are Outunis the site is "Full"
 
-![](MStcrc.PNG)
+![](MStcrc.png)
