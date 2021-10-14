@@ -1,23 +1,23 @@
 # Anchoring
 
-Below you will find visual and written guidance on anchoring, bastion points and when to Micro Jump Drive. However please remember this is for guidance only, different situations and events can and will change the course of your anchoring, bastion activation and MJD, so it is by no means a "one and only" guide. Hopefully it will serve to help newer pilots to understand where and when to anchor, bastion, & MJD. All guidance is subject to change too so check back as we continue to figure out the best way to keep our ISK/h going up. **Remember, FC instructions overrule any guidance!**
+Below you will find visual and written guidance on anchoring, bastion points and when to Micro Jump Drive. However please remember this is for guidance only, different situations and events can and will change the course of your anchoring, bastion activation and MJD, so it is by no means a "one and only" guide. Hopefully it will serve to help newer pilots to understand where and when to anchor, bastion, & MJD. If you are flying a Megathron you should follow the Vindicator guidance. All guidance is subject to change too so check back as we continue to figure out the best way to keep our ISK/h going up. **Remember, FC instructions overrule any guidance!**
 
 Note: All images are shown as a top-down overview of each room/site with the tactical overlay enabled. Each picture shows the start of 1st wave for each site/room.
 
 ## Legend
 
-|         Symbol         |          Meaning           |
-| :--------------------: | :------------------------: |
-|    ![](anchor.png)     |        Anchor point        |
-|    ![](bastion.png)    |       Bastion point        |
-|  ![](flight_path.png)  |        Flight path         |
-|      ![](mjd.png)      |       MJD Direction        |
-| ![](landing_point.png) |     MJD Landing point      |
-|   ![](elevation.png)   |     Elevation Distance     |
-|         K1/2/3         |       Kronos (pink)        |
-|        V1/2/3/4        |     Vindicator (blue)      |
-|         S1/2/3         | Paladin/Nightmare (yellow) |
-|           L1           |     Logistics (green)      |
+|         Symbol         |           Meaning           |
+| :--------------------: | :-------------------------: |
+|    ![](anchor.png)     |        Anchor point         |
+|    ![](bastion.png)    |        Bastion point        |
+|  ![](flight_path.png)  |         Flight path         |
+|      ![](mjd.png)      |        MJD Direction        |
+| ![](landing_point.png) |      MJD Landing point      |
+|   ![](elevation.png)   |     Elevation Distance      |
+|         K1/2/3         |        Kronos (pink)        |
+|        V1/2/3/4        | Vindicator/Megathron (blue) |
+|         S1/2/3         | Paladin/Nightmare (yellow)  |
+|           L1           |      Logistics (green)      |
 
 ## TPPH (True Power Provisional Headquarters)
 
@@ -27,7 +27,7 @@ Note: All images are shown as a top-down overview of each room/site with the tac
 
 Bastions:
 
-- Turn left, burn towards outgate (K1 & S1), start with Scorch/Null, bastion as soon as you reach top speed, you should be roughly 1/3 through your burn when you bastion (see x), this lets you drift towards outgate while maintaining bastion. Paladins should use Conflagration during bastion, Null for Kronos (unless all three battleships are within Void range).
+- Turn left, burn towards outgate (K1 & S1), start with Scorch/Null, bastion as soon as you reach top speed, you should be roughly 1/3 through your burn when you bastion (see x), this lets you drift towards outgate while maintaining bastion. Paladins should use Conflag during bastion, Null for Kronos (unless all three battleships are within Void range).
 
 Vindicator:
 
@@ -35,7 +35,7 @@ Vindicator:
 
 Nightmare:
 
-- Turn left, burn to outgate (S1), switch to Conflagration where appropriate to apply max DPS.
+- Turn left, burn to outgate (S1), switch to Conflag where appropriate to apply max DPS.
 
 Logistics:
 
@@ -47,7 +47,7 @@ Logistics:
 
 Bastions:
 
-- Start with Scorch/Null, burn towards outgate (K1 & S1), bastion as soon as you reach top speed (see x), drift towards outgate. Paladins switch to Conflagration once Sansha in range, Null for Kronos entire room unless several targets in Void range.
+- Start with Scorch/Null, burn towards outgate (K1 & S1), bastion as soon as you reach top speed (see x), drift towards outgate. Paladins switch to Conflag once Sansha in range, Null for Kronos entire room unless several targets in Void range.
 
 Vindicator:
 
@@ -55,7 +55,7 @@ Vindicator:
 
 Nightmare:
 
-- Burn straight to outgate (S1), switch to Conflagration where appropriate to apply max DPS.
+- Burn straight to outgate (S1), switch to Conflag where appropriate to apply max DPS.
 
 Logistics:
 
@@ -67,7 +67,7 @@ Logistics:
 
 Bastions:
 
-- Bastion one cycle as soon as you land on beacon (K1 & S1) use Scorch/Null "It's Tama Time!", once bastion cycle ends Q align to the left of tower and up, add roughly 20km for elevation. As Kronos you're aiming to jump right on-top of 2nd wave spawn (see pink MJD landing point), but you are burning 10km back (K2) to be in Void range for both 2nd & 3rd wave. As Paladin you want to MJD roughly 10km from 2nd wave spawn (see yellow MJD landing point) so that you land between the wave and tower, Paladins should also burn back 10km (S2) to be in optimal range with Conflagration of all wave spawns and tower. **Burning back here is VERY important for both bastion ships as it allows you to stay in bastion throughout both waves and be in optimal range of high DPS ammo.** Kronos should burn to the final anchor point (K3) once 3rd wave is nearly finished.
+- Bastion one cycle as soon as you land on beacon (K1 & S1) use Scorch/Null "It's Tama Time!", once bastion cycle ends Q align to the left of tower and up, add roughly 20km for elevation. As Kronos you're aiming to jump right on-top of 2nd wave spawn (see pink MJD landing point), but you are burning 10km back (K2) to be in Void range for both 2nd & 3rd wave. As Paladin you want to MJD roughly 10km from 2nd wave spawn (see yellow MJD landing point) so that you land between the wave and tower, Paladins should also burn back 10km (S2) to be in optimal range with Conflag of all wave spawns and tower. **Burning back here is VERY important for both bastion ships as it allows you to stay in bastion throughout both waves and be in optimal range of high DPS ammo.** Kronos should burn to the final anchor point (K3) once 3rd wave is nearly finished.
 
 Vindicator:
 
@@ -75,7 +75,7 @@ Vindicator:
 
 Nightmare:
 
-- When entering the room sit still, shoot targets as per FC instruction, once bastion cycles end for other pilots you want to MJD roughly 10km from 2nd wave spawn and make sure to add 20km or so elevation (see yellow MJD landing point) so that you land between the wave and tower, Nightmares should also burn back 10km (S2) to be in optimal range with Conflagration of all wave spawns and tower. Your anchors are the same as Paladins just without bastion cycles in them.
+- When entering the room sit still, shoot targets as per FC instruction, once bastion cycles end for other pilots you want to MJD roughly 10km from 2nd wave spawn and make sure to add 20km or so elevation (see yellow MJD landing point) so that you land between the wave and tower, Nightmares should also burn back 10km (S2) to be in optimal range with Conflag of all wave spawns and tower. Your anchors are the same as Paladins just without bastion cycles in them.
 
 Logistics:
 
@@ -87,7 +87,7 @@ Logistics:
 
 Bastions:
 
-- Paladins one cycle bastion as soon as you land on beacon (S1) once bastion cycle ends jump forward to anchor (S2) align slightly left and add about 15km elevation. You are aiming to land between the 2nd and 3rd wave spawns for Conflagration optimal range. Continue to bastion through 2nd and 3rd wave spawns shooting Conflagration, once 3rd wave is nearly dead align to next anchor (S3) and add roughly another 15km elevation to align _(this is a good time to bring in drones!)_. Once final wave spawns shoot Intaki, Outuni then jump to anchor (S3), bastion until 4th wave is nearly dead and make sure to use Conflagration, try to be out of bastion before the site finishes to ensure quick exit.
+- Paladins one cycle bastion as soon as you land on beacon (S1) once bastion cycle ends jump forward to anchor (S2) and add about 15km elevation. When you land **burn back toward beacon 10km**. You are aiming to land between the 2nd and 3rd wave spawns for Conflag optimal range. Continue to bastion through 2nd and 3rd wave spawns shooting Conflag, once 3rd wave is nearly dead align to next anchor (S3) and add roughly another 15km elevation to align _(this is a good time to bring in drones!)_. Once final wave spawns shoot Intaki, Outuni then jump to anchor (S3), bastion until 4th wave is nearly dead and make sure to use Conflag, try to be out of bastion before the site finishes to ensure quick exit.
 - Kronos should burn toward first anchor (K1) once at max speed bastion one cycle (see x enroute to K1) once bastion ends continue toward (K1) to anchor for 2nd and 3rd wave, bastion through 2nd wave and aim to finish your bastion cycle midway or earlier through 3rd wave, allowing you time to burn to (K2) anchor for 4th wave. Being in position in 4th wave is more important than being in bastion during 3rd wave as Kronos will apply more damage in 4th wave than any other!
 
 Vindicator:
@@ -96,7 +96,7 @@ Vindicator:
 
 Nightmare:
 
-- On entry to site sit still on beacon (S1), once mara is dead/bastion ends you can jump forward toward anchor point (S2), align slightly left and add about 15km elevation. You are aiming to land between the 2nd and 3rd wave spawns for Conflagration optimal range. Due to the long cooldown time of MJD for nightmares we recommend Nightmares to stay on the (S2) anchor to shoot CQC targets (the number tags) and not follow Paladins to the final (S3) anchor, should the next site be a TCRC or contest it is much more valuable to have your MJD off cooldown so you can make a jump if necessary.
+- On entry to site sit still on beacon (S1), once mara is dead/bastion ends you can jump forward toward anchor point (S2), align slightly left and add about 15km elevation. You are aiming to land between the 2nd and 3rd wave spawns for Conflag optimal range. Due to the long cooldown time of MJD for nightmares we recommend Nightmares to stay on the (S2) anchor to shoot CQC targets (the number tags) and not follow Paladins to the final (S3) anchor, should the next site be a TCRC or contest it is much more valuable to have your MJD off cooldown so you can make a jump if necessary.
 
 Logistics:
 
