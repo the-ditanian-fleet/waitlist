@@ -1,6 +1,12 @@
 # Upgrading
 
-TDF has great affordable starter fits. We will help you get spacerich, however TDF expects you to upgrade to elite ASAP. We have an SRP to make sure you keep that ship. After you have fully upgraded to elite, spend the isk any way you want.
+TDF has great affordable starter fits. We will help you get spacerich. We have an SRP to make sure you keep that ship. After you have fully upgraded to elite, spend the isk any way you want.
+
+We expect all pilots to upgrade their primary ship to Elite in a reasonable amount of time, which will involve upgrading the ship itself, but also your skills and implants. Until you are elite, you should expect to spend most of your earned money buying modules and skill injectors.
+
+We have hard upper bounds for the time you can spend in fleet while upgrading, but don’t treat these as targets. Upgrade as soon as you reasonably can, and you will stay well within the limits.
+
+All pilots are required to be out of the Starter squad by 50 hours of fleet time and be in an advanced fit (or higher) by 100 hours. By 150 hours you must be elite, though bastion-fitted marauders get 250 hours for this.
 
 TDF works with a tier system. Pilots can be categorized as starter, basic, elite and elite gold. See upgrade guidance as per below:
 
