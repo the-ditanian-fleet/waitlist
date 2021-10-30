@@ -86,7 +86,7 @@ If someone does not volunteer, the meeting leader can do themself or delegate to
 
 Example:
 Meeting Notes **YYYY-MM-DD**
-\------------------------------------
+
 Key:
 A = Approved during meeting
 C = Council will vote on / follow up
