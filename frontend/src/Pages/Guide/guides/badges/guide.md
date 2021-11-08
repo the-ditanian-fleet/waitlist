@@ -22,6 +22,12 @@ Elite badge pre requisites for a Bastion-capable ship plus abyssal damage module
 
 ![](bastion.png)
 
+### Vebbicator
+
+Elite badge pre requisites for a Vindicator. Abyssal webifier's minimum of 16km base range bonus & 62% base strength bonus, Minmatar BS skill to 5.
+
+![](v.png)
+
 ### Logistics Specialist
 
 Permitted to fly Nestor Logistics.
@@ -52,6 +58,12 @@ Can promote Trainee FC's to full HQ/AS/VG tags and conduct bus fleets for traine
 Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault and Vanguard sites with SRP cover.
 
 ![](hq.png)
+
+### Probationary Headquarters, Assault & Vanguard Fleet Commander
+
+Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault and Vanguard sites with SRP cover. Cannot take training nestors, do backseats or run Redbar below 75% influence.
+
+![](hqp.png)
 
 ### Assault & Vanguard Fleet Commander
 
