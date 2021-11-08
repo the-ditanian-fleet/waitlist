@@ -22,7 +22,7 @@ Elite badge pre requisites for a Bastion-capable ship plus abyssal damage module
 
 ![](bastion.png)
 
-### Vebbicator
+### Vebicator
 
 Elite badge pre requisites for a Vindicator. Abyssal webifier's minimum of 16km base range bonus & 62% base strength bonus, Minmatar BS skill to 5.
 
