@@ -22,15 +22,15 @@ Elite badge pre-requisites for a Bastion-capable ship plus abyssal damage module
 
 ![](bastion.png)
 
-### Vebicator
+### Vindi
 
-Elite badge pre-requisites for a Vindicator plus Abyssal webs with minimum of 16km base range & 62% base strength bonus, Minmatar BS skill to 5.
+Elite badge pre-requisites for a Vindicator plus abyssal webifiers with minimum of 16km base range & 62% base strength bonus & Minmatar BS skill to 5.
 
 ![](v.png)
 
 ### Logistics Specialist
 
-Permitted to fly Nestor Logistics.
+Permitted to fly Nestor Logistics. Requires all Nestor skills to elite plus "training" for the use of Nestor.
 
 ![](l.png)
 
