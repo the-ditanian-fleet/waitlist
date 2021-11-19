@@ -95,9 +95,9 @@ As MS it is important the FC can hear you clearly and that you respond in a time
 
 As you are warping in to the site there are four stages the site can be called, this is to let the FC know how long they need to wait before sending the fleet in. As each new wave spawns you should call what you see as per below:
 
+![](ms_tcrc.PNG)
+
 - If there are no Deltoles the site is called "Normal"
 - If there are only Deltole NPCs within 40km the site is "Deltoles"
 - If there are Deltoles and Frigates within 40km the site is "Frigates"
 - If there are Outunis the site is "Full"
-
-![](ms_tcrc.PNG)

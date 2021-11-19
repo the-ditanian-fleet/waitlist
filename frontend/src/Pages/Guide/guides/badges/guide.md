@@ -16,17 +16,17 @@ Elite badge pre-requisites plus all skills to elite gold for the applicable ship
 
 ![](egold.png)
 
-### Bastion
+### Bastion Specialist
 
 Elite badge pre-requisites for a Bastion-capable ship plus abyssal damage modules minimum of 29% DPS Bonus, Marauders skill to 5, and abyssal plate with minimum 6k raw armor HP bonus.
 
 ![](bastion.png)
 
-### Vindi
+### Web Specialist
 
 Elite badge pre-requisites for a Vindicator plus abyssal webifiers with minimum of 16km base range & 62% base strength bonus & Minmatar BS skill to 5.
 
-![](v.png)
+![](wv.png)
 
 ### Logistics Specialist
 
@@ -61,7 +61,7 @@ Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, 
 
 ### Probationary Headquarters, Assault & Vanguard Fleet Commander
 
-Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault and Vanguard sites with SRP cover. Cannot take training nestors, do backseats or run Redbar below 75% influence.
+Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault and Vanguard sites with SRP cover. Cannot take training nestors or do backseats for Trainee FC's.
 
 ![](hqp.png)
 
