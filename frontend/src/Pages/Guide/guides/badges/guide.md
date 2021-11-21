@@ -24,7 +24,7 @@ Elite badge pre-requisites for a Bastion-capable ship plus abyssal damage module
 
 ### Web Specialist
 
-Elite badge pre-requisites for a Vindicator plus abyssal webifiers with minimum of 16km base range & 62% base strength bonus & Minmatar BS skill to 5.
+Elite badge pre-requisites for a Vindicator plus abyssal webifiers with minimum of 16km base range & 62% base strength bonus plus Gallente BS skill to 5.
 
 ![](wv.png)
 
