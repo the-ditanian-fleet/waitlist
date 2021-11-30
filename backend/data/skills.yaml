@@ -55,10 +55,10 @@ categories:
     - Power Grid Management
     - Nanite Interfacing
     - Nanite Operation
+    - Energy Grid Upgrades
     - Weapon Upgrades
     - Advanced Weapon Upgrades
     - Propulsion Jamming
-    - Science
     - Sensor Linking
     - Frequency Modulation
     - Long Distance Jamming
@@ -76,6 +76,7 @@ categories:
   Neural Enhancement:
     - Biology
     - Cybernetics
+    - Science
     - Neurotoxin Control
     - Neurotoxin Recovery
   Spaceship Command:
@@ -199,9 +200,11 @@ requirements:
       min: 3
       elite: 5
     Cybernetics:
-      min: 3
+      min: 2
       elite: 5
       priority: 5
+    Science:
+      elite: 5
     Shield Management:
       elite: 4
     Shield Operation:
@@ -219,8 +222,7 @@ requirements:
       min: 3
       elite: 4
     Motion Prediction:
-      min: 3
-      elite: 5
+      min: 5
     Rapid Firing:
       min: 3
       elite: 5
@@ -251,6 +253,8 @@ requirements:
       min: 3
     Hull Upgrades:
       min: 5
+    Energy Grid Upgrades:
+      min: 2
 
   # Start of per-ship skills
   Nightmare:
@@ -265,8 +269,7 @@ requirements:
       min: 3
       elite: 4
     Large Energy Turret:
-      min: 4
-      elite: 5
+      min: 5
     Large Pulse Laser Specialization:
       elite: 4
     Remote Armor Repair Systems:
@@ -288,12 +291,13 @@ requirements:
       elite: 5
     Radar Sensor Compensation:
       elite: 4
+    Energy Grid Upgrades:
+      min: 2
 
   Paladin:
     <<: [ *generic, *gunnery, *sideeffects ]
     Large Energy Turret:
-      min: 4
-      elite: 5
+      min: 5
     Large Pulse Laser Specialization:
       elite: 4
       priority: 10
@@ -322,6 +326,7 @@ requirements:
     Repair Drone Operation:
       min: 1
     Science:
+      min: 3
       elite: 5
     Advanced Target Management:
       elite: 3
@@ -329,16 +334,15 @@ requirements:
       elite: 4
     Amarr Battleship:
       min: 5
-    Astronautics Rigging:
-      gold: 5
     Advanced Weapon Upgrades:
+      min: 5
+    Energy Grid Upgrades:
       min: 5
 
   Kronos:
     <<: [ *generic, *gunnery, *sideeffects ]
     Large Hybrid Turret:
-      min: 4
-      elite: 5
+      min: 5
     Large Blaster Specialization:
       elite: 4
       priority: 10
@@ -371,12 +375,13 @@ requirements:
       min: 5
     Advanced Weapon Upgrades:
       min: 5
+    Energy Grid Upgrades:
+      min: 5
 
   Vindicator:
     <<: [ *generic, *gunnery, *sideeffects ]
     Large Hybrid Turret:
-      min: 4
-      elite: 5
+      min: 5
     Large Blaster Specialization:
       elite: 4
       priority: 10
@@ -391,7 +396,7 @@ requirements:
       min: 3
       elite: 5
     Propulsion Jamming:
-      min: 4
+      min: 1
       elite: 4
     Magnetometric Sensor Compensation:
       elite: 4
@@ -404,6 +409,8 @@ requirements:
     Gallente Battleship:
       min: 3
     Large Hybrid Turret:
+      min: 4
+    Propulsion Jamming:
       min: 4
 
   Guardian:
@@ -443,7 +450,6 @@ requirements:
       min: 4
     Logistics Cruisers:
       min: 5
-      elite: 5
     Sensor Linking:
       min: 3
       elite: 4
@@ -457,10 +463,8 @@ requirements:
       min: 3
       elite: 5
     Frequency Modulation:
-      min: 3
       elite: 4
     Long Distance Jamming:
-      min: 3
       elite: 4
 
   Nestor:
@@ -491,11 +495,9 @@ requirements:
       elite: 5
     Shield Emission Systems:
       min: 3
-      elite: 4
       gold: 4
     Remote Hull Repair Systems:
       min: 3
-      elite: 4
       gold: 4
     Heavy Drone Operation:
       min: 3
@@ -541,9 +543,9 @@ requirements:
     Cybernetics:
       min: 5
     Frequency Modulation:
-      min: 3
+      elite: 4
     Long Distance Jamming:
-      min: 3
+      elite: 4
 
   Damnation:
     <<: *generic
@@ -578,6 +580,6 @@ requirements:
     Cybernetics:
       min: 5
     Frequency Modulation:
-      min: 3
+      elite: 4
     Long Distance Jamming:
-      min: 3
+      elite: 4
