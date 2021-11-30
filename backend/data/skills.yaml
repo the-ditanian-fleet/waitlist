@@ -203,8 +203,6 @@ requirements:
       min: 2
       elite: 5
       priority: 5
-    Science:
-      elite: 5
     Shield Management:
       elite: 4
     Shield Operation:
@@ -288,6 +286,7 @@ requirements:
       min: 3
       elite: 5
     Science:
+      min: 3
       elite: 5
     Radar Sensor Compensation:
       elite: 4
@@ -495,9 +494,11 @@ requirements:
       elite: 5
     Shield Emission Systems:
       min: 3
+      elite: 4
       gold: 4
     Remote Hull Repair Systems:
       min: 3
+      elite: 4
       gold: 4
     Heavy Drone Operation:
       min: 3
