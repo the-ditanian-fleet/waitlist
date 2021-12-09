@@ -2,11 +2,11 @@
 
 ## Joining a TDF fleet
 
-When the MOTD states that fleet is running, x-up on the [TDF WAITLIST](/) with your ship fitting, Join voice comms; [Teamspeak 3](https://www.teamspeak.com/en/) (server details are in **TDF-Official** MOTD) and wait for fleet invite.
+When the MOTD states that fleet is running, x-up on the [TDF WAITLIST](/) with your ship fitting, Join voice comms; [Teamspeak 3](https://www.teamspeak.com/en/) (server details are in **TDF-Official** MOTD in game) make sure you are no more than 2 jumps out when you x-up and wait for fleet invite.
 
 ## Using the Waitlist
 
-Sign in on the waitlist with your eve account, login is done trough CCP, thus we have no acces to your EVE credentials. When the waitlist is open click on **Join Waitlist**. Copy paste your fit on the window and click **X-UP**.
+Sign in on the waitlist with your eve account, login is done through CCP, thus we have no access to your EVE credentials. When the waitlist is open click on **Join Waitlist**. Copy paste your fit on the window and click **X-UP**.
 
 ![](copytoclipboard.png)
 
@@ -18,12 +18,12 @@ Sign in on the waitlist with your eve account, login is done trough CCP, thus we
 
 ## Entering Grid
 
-If this is your very first time in a TDF fleet make sure to notify the FC. He will usually help you! If not, once you have your fleet invite you can either join the fleet in the current site, by warping to the FC. Or wait at the next acceleration gate before the fleet arrives, by warping to the latest align to. If you are joining the fleet mid site, **you must warp to FC again**. If you are at the correct site you will be unable to warp and your ship will tell you it has natural phenomenon. If you warp to the latest align to broadcast, you must wait for the fleet to arrive. Once you are at the correct site, ask for gate status or wait for FC to call the gate status.
+If this is your very first time in a TDF fleet make sure to notify the FC. He will usually help you! If not, once you have your fleet invite you can either join the fleet in the current site, by warping to the FC. Or wait at the next acceleration gate before the fleet arrives, by warping to the latest align to. If you are joining the fleet mid site, **you must warp to FC again**. If you are at the correct site you will be unable to warp and your ship will tell you it has the **natural phenomenon** error message. If you warp to the latest align to broadcast, you must wait for the fleet to arrive. Once you are at the correct site, ask for gate status or wait for FC to call the gate status.
 
-When you ask for gate status do not say the colors. There might be someone else waiting at a gate. If all they hear is "green." you might owe them a new ship.
+When you ask for gate status **do not say any colors**. There might be someone else waiting at a gate. If all they hear is "green" you might owe them a new ship.
 
 **RED** = Do not use any acceleration gates.  
-**GREEN** = Take the gate once you are sure you are at the correct site by warping to FC and you have natural phenomenon.
+**GREEN** = Take the gate once you are sure you are at the correct site by warping to FC and you have **natural phenomenon**.
 
 If you are unsure; **ALWAYS** warp to the FC, if you at the correct site you will not move, if you at the wrong site you will warp to the correct one.
 
@@ -31,7 +31,9 @@ If you are unsure; **ALWAYS** warp to the FC, if you at the correct site you wil
 
 ## Ship Replacement Program
 
-Paying 15M ISK to the TDF SRP corporation (a link is provided in the fleet MOTD) covers your ship until the next server downtime. Simply right click the corporation and "Give Money." The cover is for FC and logi error. You are not covered for your own mistakes. Be sure to broadcast on time and make sure you are in the right place in the right site. The payout is for everything destroyed if you die (up to 6Bn ISK). The fleet will pick up anything in your wreck and contract it to you. SRP is completely optional but strongly recommended.
+Paying 15M ISK to the TDF SRP corporation (a link is provided in the fleet MOTD) covers your ship until the next server downtime. Simply right click the corporation and "Give Money." The cover is for FC and logi error. You are not covered for your own mistakes. Be sure to broadcast on time and make sure you are in the right place in the right site. The payout is for everything destroyed if you die (up to 7 Billion ISK). The fleet will pick up anything in your wreck and contract it to you. SRP is completely optional but strongly recommended.
+
+Pilots now have the option to pay 100mil ISK to SRP to cover yourself for an entire focus, pay it at the start of the focus if you are likely to forget to pay it each time you fly. Again this is optional.
 
 ![](paysrp.png)
 
@@ -48,7 +50,7 @@ Drag their name from anywhere to the watchlist window.
 
 ## Anchors
 
-Fleet anchors are the positions you need to move to, make sure to have them open and ready when first joining fleet! If this is your first time anchoring on another Vindi is tolerated if you are confused on where to go.
+Fleet anchors are the positions you need to move to, make sure to have them open and ready when first joining fleet! If this is your first time, anchoring on a pilot with the same ship type is tolerated if you are confused on where to go, but make sure you use keep at range.
 
 **Logi:** Cruisers will orbit a Nestor in the site to help speed tank.
 
