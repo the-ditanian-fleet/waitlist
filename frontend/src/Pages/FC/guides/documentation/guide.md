@@ -34,7 +34,7 @@ Upgrade numbers (check their history to judge !)
 - FC 1. TCRC 3:2 1. NRF 3:1 / 2:2 1. TPPH 3:1 / 2:2
   PFC has the same requirements as Training FC.
   Starter skills on logi are all **required** except on the starter fit oneiros.
-  
+
   ### Misc
 
 1. Every member above the hierarchy of the active FC may cancel an active FC decision. This must be limited to a minimum and for good reasons (e.g. safety or active FC breaking rules).
