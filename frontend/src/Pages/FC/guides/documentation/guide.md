@@ -29,19 +29,19 @@ Upgrade numbers (check their history to judge !)
 1. Alts should be dropped in favor of a real player, even starter
 2. The active FC is permitted to take two payouts as a reward
 
-### Misc
+### Logi requirements
+
+- FC 1. TCRC 3:2 1. NRF 3:1 / 2:2 1. TPPH 3:1 / 2:2
+  PFC has the same requirements as Training FC.
+  Starter skills on logi are all **required** except on the starter fit oneiros.
+  
+  ### Misc
 
 1. Every member above the hierarchy of the active FC may cancel an active FC decision. This must be limited to a minimum and for good reasons (e.g. safety or active FC breaking rules).
 2. Any FC should announce a TDF fleet in discord while (re)forming or after taking over the fleet. Limit your pings 1 per hour in discord.
 3. FCs should run fleets with no more than 4 starter pilots on grid, to ensure the fleet is ISK-effective.
 4. Mom is done on a community rotation, ask in discord #TDF-FC for more information.
 5. Only full FC's may backseat Nestors or Trainee's
-
-### Logi requirements
-
-- FC 1. TCRC 3:2 1. NRF 3:1 / 2:2 1. TPPH 3:1 / 2:2
-  PFC has the same requirements as Training FC.
-  Starter skills on logi are all **required** except on the starter fit oneiros.
 
 ## Loss mail
 
