@@ -1,4 +1,4 @@
-# Training help (WIP)
+# Training help
 
 ## Things you need acces to
 
