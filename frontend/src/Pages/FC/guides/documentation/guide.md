@@ -31,9 +31,9 @@ Upgrade numbers (check their history to judge !)
 
 ### Logi requirements
 
-- FC 1. TCRC 3:2 1. NRF 3:1 / 2:2 1. TPPH 3:1 / 2:2
-  PFC has the same requirements as Training FC.
-  Starter skills on logi are all **required** except on the starter fit oneiros.
+1. TCRC 3:2 1. NRF 3:1 / 2:2 1. TPPH 3:1 / 2:2
+1. PFC has the same requirements as Training FC.
+1. Starter skills on logi are all **required** except on the starter fit oneiros.
 
 ### Misc
 
