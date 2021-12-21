@@ -296,7 +296,7 @@ requirements:
       min: 5
       elite: 5
     CPU Management:
-      min: 4
+      min: 3
       elite: 5
     Remote Armor Repair Systems:
       min: 5
@@ -305,6 +305,7 @@ requirements:
       min: 5
       elite: 5
     Power Grid Management:
+      min: 3
       elite: 5
     Spaceship Command:
       elite: 5
@@ -512,6 +513,10 @@ requirements:
     Medium Drone Operation:
       min: 1
       elite: 5
+    CPU Management:
+      min: 4
+    Power Grid Management:
+      min: 5
     Cybernetics:
       min: 5
 
@@ -535,6 +540,10 @@ requirements:
     Medium Drone Operation:
       min: 1
       elite: 5
+    CPU Management:
+      min: 4
+    Power Grid Management:
+      min: 5
     Frequency Modulation:
       elite: 4
     Long Distance Jamming:
