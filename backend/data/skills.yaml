@@ -261,6 +261,7 @@ requirements:
     Armor Rigging:
       elite: 4
     Mechanics:
+      min: 4
       elite: 5
     Acceleration Control:
       min: 3
@@ -561,8 +562,6 @@ requirements:
       min: 5
     Kinetic Armor Compensation:
       min: 5
-    Mechanics:
-      min: 3
     Advanced Target Management:
       min: 5
     Amarr Battleship:
