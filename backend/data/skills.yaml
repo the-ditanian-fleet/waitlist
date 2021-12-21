@@ -274,6 +274,7 @@ requirements:
       min: 4
       elite: 5
     Drones:
+      min: 5
       elite: 5
     Gallente Drone Specialization:
       elite: 4
@@ -320,6 +321,7 @@ requirements:
     Signature Analysis:
       elite: 5
     Biology:
+      min: 3
       elite: 5
     Shield Management:
       elite: 4
@@ -500,15 +502,15 @@ requirements:
       min: 4
     Logistics Cruisers:
       min: 5
-    Remote Armor Repair Systems:
-      min: 5
     Radar Sensor Compensation:
       elite: 4
     Amarr Cruiser:
       min: 5
     Light Drone Operation:
+      min: 1
       elite: 5
     Medium Drone Operation:
+      min: 1
       elite: 5
     Cybernetics:
       min: 5
@@ -524,15 +526,14 @@ requirements:
     Logistics Cruisers:
       min: 5
     Sensor Linking:
-      min: 3
+      min: 4
       elite: 4
-    Remote Armor Repair Systems:
-      min: 5
     Magnetometric Sensor Compensation:
       elite: 4
     Gallente Cruiser:
       min: 5
     Medium Drone Operation:
+      min: 1
       elite: 5
     Frequency Modulation:
       elite: 4
@@ -540,7 +541,7 @@ requirements:
       elite: 4
 
   Nestor:
-    <<: [ *generic, *logistics ]
+    <<: [ *logistics ]
     EM Armor Compensation:
       min: 5
     Explosive Armor Compensation:
@@ -549,6 +550,8 @@ requirements:
       min: 5
     Kinetic Armor Compensation:
       min: 5
+    Mechanics:
+      min: 3
     Advanced Target Management:
       min: 5
     Amarr Battleship:
@@ -556,8 +559,6 @@ requirements:
     Gallente Battleship:
       min: 3
       elite: 4
-    Remote Armor Repair Systems:
-      min: 5
     High Speed Maneuvering:
       min: 4
     Magnetometric Sensor Compensation:
@@ -565,6 +566,8 @@ requirements:
     Repair Drone Operation:
       min: 3
       elite: 5
+    Drone Durability:
+      min: 1
     Shield Emission Systems:
       min: 3
       elite: 4
@@ -574,7 +577,7 @@ requirements:
       elite: 4
       gold: 4
     Heavy Drone Operation:
-      min: 3
+      min: 1
       elite: 5
     Cybernetics:
       min: 5
