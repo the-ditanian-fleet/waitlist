@@ -23,7 +23,9 @@ Any cruiser pilot can train to become a trusted Logi pilot, speak to a member of
 ## Requirements
 
 The EM-806 Implant is required for all Nestors & Guardians.
-**Basic skills are a minimum** You can not have any starter level skills. Exception: TDF_ONI_HQ_STARTER_LOGI4 (Sensor Linking 3, Logistics Cruiser 4 Allowed)
+**Basic skills are a minimum** You can not have any starter level skills.
+
+Exception: TDF_ONI_HQ_STARTER_LOGI4 (Sensor Linking 3, Logistics Cruiser 4 Allowed)
 
 ## Fleet Mechanics
 
