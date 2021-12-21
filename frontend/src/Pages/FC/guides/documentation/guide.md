@@ -7,6 +7,7 @@
 - tdf-backseat-report
 - FC-chat on discord
 - TDF PILOTS
+- TDF FC
 - TDF-Official motd
 
 ## Rules
