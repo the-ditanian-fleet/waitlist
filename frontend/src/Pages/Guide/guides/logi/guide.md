@@ -20,9 +20,10 @@ Any cruiser pilot can train to become a trusted Logi pilot, speak to a member of
 - Links - Remote Tracking Computers or Remote Sensor Boosters provided by logi pilots to increase tracking/locking speeds of targeting dps pilots.
 - Cap - Remote Capacitor Transmitter used to give capacitor to pilots who need it.
 
-## Implants
+## Requirements
 
 The EM-806 Implant is required for all Nestors & Guardians.
+**Basic skills are a minimum** Any starter skills. Exception: TDF_ONI_HQ_STARTER_LOGI4 (Sensor Linking 3, Logistics Cruiser 4 Allowed)
 
 ## Fleet Mechanics
 
