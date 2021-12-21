@@ -2,8 +2,10 @@
 
 ## Requirements
 
+### DPS
 To get started in TDF all you need is to be able to **fully online your ship**, and have the **four armor compensation skills at level 2** for starter fits, 4+ for any other fits. The **basic skills** are the skills you should focus on when you start flying. As long as you still have skills at the starter level and are using a starter fit you will be placed in the starter squad, which is limited to 4 - 5 in fleet.
 
+### LOGI
 EM-806 Implant is required for all Nestors & Guardians.
 **Basic skills are a minimum** You can not have any starter level skills.  
 Exception: TDF_ONI_HQ_STARTER_LOGI4 (Sensor Linking 3, Logistics Cruiser 4 Allowed)
