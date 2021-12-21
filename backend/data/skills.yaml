@@ -274,7 +274,7 @@ requirements:
       min: 4
       elite: 5
     Drones:
-      min: 5
+      min: 3
       elite: 5
     Gallente Drone Specialization:
       elite: 4
@@ -548,6 +548,8 @@ requirements:
       elite: 4
     Long Distance Jamming:
       elite: 4
+    Drones:
+      min: 5
 
   Nestor:
     <<: [ *logistics ]
@@ -595,6 +597,8 @@ requirements:
     Thermodynamics:
       min: 4
       elite: 5
+    Drones:
+      min: 5
 
   Eos:
     <<: *generic
