@@ -532,7 +532,7 @@ requirements:
       min: 5
     Sensor Linking:
       min: 4
-      elite: 4
+      elite: 5
     Magnetometric Sensor Compensation:
       elite: 4
     Gallente Cruiser:
