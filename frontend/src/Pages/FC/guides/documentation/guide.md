@@ -6,7 +6,7 @@
 - TDF-FCs (channel)
 - tdf-backseat-report
 - FC-chat on discord
-- TDF-PILOTS
+- TDF PILOTS
 - TDF-Official motd
 
 ## Rules
