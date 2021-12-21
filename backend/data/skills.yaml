@@ -241,16 +241,92 @@ requirements:
 
   _logistics: &logistics
     # Logistics skills: all logi pilots need these
-    Advanced Target Management:
-      min: 3
-    Capacitor Management:
-      min: 5
-    Capacitor Systems Operation:
-      min: 5
-    Acceleration Control:
-      min: 3
+    EM Armor Compensation:
+      min: 4
+      elite: 5
+    Explosive Armor Compensation:
+      min: 4
+      elite: 5
+    Thermal Armor Compensation:
+      min: 4
+      elite: 5
+    Kinetic Armor Compensation:
+      min: 4
+      elite: 5
+    Armor Layering:
+      elite: 4
     Hull Upgrades:
       min: 5
+      elite: 5
+    Armor Rigging:
+      elite: 4
+    Mechanics:
+      elite: 5
+    Acceleration Control:
+      min: 3
+      elite: 4
+    Evasive Maneuvering:
+      elite: 4
+    Warp Drive Operation:
+      min: 3
+      elite: 5
+    Navigation:
+      min: 4
+      elite: 5
+    Drones:
+      elite: 5
+    Gallente Drone Specialization:
+      elite: 4
+    Drone Durability:
+      elite: 4
+    Drone Navigation:
+      elite: 4
+    Drone Avionics:
+      elite: 4
+    Advanced Drone Avionics:
+      elite: 4
+    Drone Interfacing:
+      elite: 4
+    Drone Sharpshooting:
+      elite: 4
+    Thermodynamics:
+      elite: 4
+    Capacitor Management:
+      min: 5
+      elite: 5
+    CPU Management:
+      min: 4
+      elite: 5
+    Remote Armor Repair Systems:
+      min: 5
+      elite: 5
+    Capacitor Systems Operation:
+      min: 5
+      elite: 5
+    Power Grid Management:
+      elite: 5
+    Spaceship Command:
+      elite: 5
+    Nanite Interfacing:
+      elite: 4
+    Nanite Operation:
+      elite: 4
+    Target Management:
+      min: 4
+      elite: 5
+    Long Range Targeting:
+      min: 3
+      elite: 5
+    Signature Analysis:
+      elite: 5
+    Biology:
+      elite: 5
+    Shield Management:
+      elite: 4
+    Shield Operation:
+      elite: 4
+    Advanced Target Management:
+      min: 3
     Energy Grid Upgrades:
       min: 2
 
@@ -413,7 +489,7 @@ requirements:
       min: 4
 
   Guardian:
-    <<: [ *generic, *logistics ]
+    <<: [ *logistics ]
     Afterburner:
       min: 4
     Capacitor Emission Systems:
@@ -431,16 +507,14 @@ requirements:
     Amarr Cruiser:
       min: 5
     Light Drone Operation:
-      min: 3
       elite: 5
     Medium Drone Operation:
-      min: 3
       elite: 5
     Cybernetics:
       min: 5
 
   Oneiros:
-    <<: [ *generic, *logistics ]
+    <<: [ *logistics ]
     Afterburner:
       min: 4
     Evasive Maneuvering:
@@ -459,7 +533,6 @@ requirements:
     Gallente Cruiser:
       min: 5
     Medium Drone Operation:
-      min: 3
       elite: 5
     Frequency Modulation:
       elite: 4
