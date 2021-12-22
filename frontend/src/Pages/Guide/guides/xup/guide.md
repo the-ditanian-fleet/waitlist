@@ -65,7 +65,7 @@ If you choose to anchor on someone use the Keep at range function to keep you fr
 To assign drones first you need to launch them. The simplest method is to drag the drones from the drone window into space. Then you can right click on the deployed group in the drone window, go to assist and click the name of the person that is your drone bunny.
 
 Assignment order is as follows: -  
-Light drones:        DDD > Any vindicator  
+Light drones: DDD > Any vindicator  
 Heavy/Medium Drones: HHH > HHH2 > HHH3 > Complain to FC
 
 It's much easier to keep track of your drone bunny by adding them to your watchlist. When you right click to assist, there is a watch list sub menu.
