@@ -1,4 +1,4 @@
-# Training help (WIP)
+# Training help
 
 ## Things you need acces to
 
@@ -7,12 +7,34 @@
 
 ## Rules
 
-- Must have backseat before starting fleet
-- Are required to only allow pilots who meet SRP standards for TDF’s fleets.
-- Are required to hound their backseats if they do not provide a report that meets the standards as described in the Backseats section of this page. No backseat report means the fleet never happened!
-- Must have 6 logistics for TCRC, 5 for NRF & TPPHs(3 Nestors, 3 cruiser Logi).
-- Can not FC if the influence is below 75% blue bar.
-- Should be responsible for initial fleet form-up when possible.
+- ALL
+  1. Must have a backseat PRIOR to starting the fleet.
+  1. Required to only allow pilots who meet SRP standards for TDF’s fleets.
+  1. Are required to run with multiple FCs.
+  1. Are required to do the introduction speech on every fleet they run.
+  1. Are required to hound their backseats if they do not provide a report
+  1. No backseat report means the fleet never happened!
+  1. Must have a fully trained booster alt
+  1. Must demonstrate the ability to contest other fleets
+- VG
+  1. Follow battleship targets when shooting, CQC/Sniper Tags in order etc.
+  1. Must have 2 (Two) logi in total.
+  1. Must have at least 1 Max booster (Armor/Skirmish).
+  1. Cannot fly if the influence is below 50% blue bar.
+  1. Must be responsible for fleet recruitment and inviting-wise. A secretary may only be appointed when the fleet is heading towards being upgraded.
+  1. Must run a standard style VG fleet. (No bastion/warp speed fleets)
+- ASSAULT
+  1. May be the anchor (but must be flying a Battleship).
+  1. Must have 4 logistics, with two Nestors.
+  1. Must have at least 1 Max booster (Armor/Skirmish)
+  1. Cannot fly if the influence is above 75%.
+  1. Should be responsible for initial fleet form-up when possible. (FC able to update TDF-O) unless a trainer states otherwise.
+- HQ
+  1. Must have 6 logi for TCRC & NRF, 5 for TPPH
+  1. Must be flying 1 Battleship and 1 fully skilled booster (Primary Armor/Skirmish).
+  1. Must have 2 backseats / 1 FC trainer/ 1 council to run the Kundalini for the first time even if fully tagged HQ FC.
+  1. Cannot fly if the influence is below 75% blue bar.
+  1. Should be responsible for initial fleet form-up when possible. (FC able to update TDF-O) unless a trainer states otherwise
 
 ## Fleet Start Safety Speech
 
