@@ -4,7 +4,7 @@
 
 To get started in TDF all you need is to be able to **fully online your ship**, and have the **four armor compensation skills at level 2** for starter fits, 4+ for any other fits. The **basic skills** are the skills you should focus on when you start flying. As long as you still have skills at the starter level and are using a starter fit you will be placed in the starter squad, which is limited to 4 - 5 in fleet.
 
-_"TDF has great affordable starter fits. TDF will help you get spacerich, however TDF expects you to upgrade to pro fits ASAP and has SRP to make sure you keep that ship. It's only fair to all pilots who have made the effort to upgrade and it improves site times tremendously. After you have upgraded, spend the isk any way you want."_
+_"TDF has great affordable starter fits. TDF will help you get spacerich, however TDF expects you to upgrade to elite fits ASAP and has SRP to make sure you keep that ship. It's only fair to all pilots who have made the effort to upgrade and it improves site times tremendously. After you have upgraded, spend the isk any way you want."_
 
 ## Joining TDF's Channel
 
@@ -24,12 +24,12 @@ In order to continue flying our current doctrine please join our fitting mailing
 
 ![](mailinglisthq.png)
 
-The mailing lists have a selection of fits which allow for any budget or skill level and they are all covered by the TDF Ship Replacement Program (SRP). All fittings have their minimum skill requirements in the mailing list. Basic and above require level 4, with a ship specific exception for the Paladin which requires 5.
+The mailing lists have a selection of fits which allow for any budget or skill level and they are all covered by the TDF Ship Replacement Program (SRP). All fittings have their minimum skill requirements in the mailing list. Basic and above require level 4 armor comps while starters only need level 2.
 
 Pick a fit you would like to fly. If you need help just ask in the TDF-Official channel or in Discord for any advice getting set up.
 
 The general rule of thumb when we run Vanguards (VG) you need 9850 armor HP + 55% resists.  
-For Assaults (AS) & Headquarters (HQ) you need 17k armor hp + 65% omni resists. You still need to fly the correct mailing list fit. You are allowed to use module variants meta4+. Tank downgrades or different fits are not accepted.
+For Assaults (AS) & Headquarters (HQ) you need 17k armor hp + 65% omni resists. You still need to fly the correct mailing list fits however. You are allowed to use module variants meta4+. **Tank module downgrades or different fits are not accepted.**
 
 ## Ship Settings
 
@@ -41,13 +41,13 @@ For Assaults (AS) & Headquarters (HQ) you need 17k armor hp + 65% omni resists. 
 
 ![](healthalert.png)
 
-**Drones:** Lastly; while in space set your drones to passive and focus fire. You must have drones in your drone bay for the drone window to appear. Click the hamburger menu in the top left of your drone window and select "passive" "focus fire."
+**Drones:** Lastly; while in space set your drones to passive and focus fire. You must have drones in your drone bay for the drone window to appear. Click the hamburger menu in the top left of your drone window and select "passive" "focus fire." Passive is a requirement as aggressive drones can cause aggro splits in sites and we dont want that. This gets your expensive drones killed.
 
 ![](drones.png)
 
 ## Interface Settings
 
-**Duels:** From the escape menu general settings tab set auto decline duel invites and auto targeting to 0 Targets.
+**Duels/Auto Target Back:** From the escape menu general settings tab set auto decline duel invites and auto targeting to 0 Targets.
 
 ![](retargetnduel.png)
 
@@ -71,7 +71,7 @@ Finally; select the history tab in the fleet window and select "Broadcast Histor
 
 ## Faction Warfare / War Decs / Killrights
 
-Looking at your Character sheet Interactions tab then the Kill rights section, double check you have no kill rights against you. Having a killright available to you is perfectly fine. Then open your corporation window and make sure your corporation is not enrolled in factional warfare or has an active War Dec.
+Looking at your Character sheet Interactions tab then the Kill rights section, double check you have no kill rights against you. Having a killright available to you is perfectly fine. Then open your corporation window and make sure your corporation is not enrolled in factional warfare or has an active War Dec. If you have any of the above you will be asked to fix them before joining the fleet.
 
 ![](war.png)
 
