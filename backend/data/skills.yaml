@@ -520,6 +520,8 @@ requirements:
       min: 5
     Cybernetics:
       min: 5
+    Long Range Targeting:
+      min: 5
 
   Oneiros:
     <<: [ *logistics ]
@@ -550,6 +552,8 @@ requirements:
     Long Distance Jamming:
       elite: 4
     Drones:
+      min: 5
+    Long Range Targeting:
       min: 5
 
   Nestor:
