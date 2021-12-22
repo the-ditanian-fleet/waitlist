@@ -315,7 +315,7 @@ requirements:
     Nanite Operation:
       elite: 4
     Target Management:
-      min: 4
+      min: 5
       elite: 5
     Long Range Targeting:
       min: 3
