@@ -254,6 +254,7 @@ requirements:
       min: 4
       elite: 5
     Armor Layering:
+      min: 3
       elite: 4
     Hull Upgrades:
       min: 5
@@ -267,6 +268,7 @@ requirements:
       min: 3
       elite: 4
     Evasive Maneuvering:
+      min: 3
       elite: 4
     Warp Drive Operation:
       min: 3
@@ -318,9 +320,10 @@ requirements:
       min: 5
       elite: 5
     Long Range Targeting:
-      min: 3
+      min: 5
       elite: 5
     Signature Analysis:
+      min: 5
       elite: 5
     Biology:
       min: 3
@@ -520,8 +523,6 @@ requirements:
       min: 5
     Cybernetics:
       min: 5
-    Long Range Targeting:
-      min: 5
 
   Oneiros:
     <<: [ *logistics ]
@@ -535,7 +536,7 @@ requirements:
       min: 5
     Sensor Linking:
       min: 4
-      elite: 5
+      elite: 4
     Magnetometric Sensor Compensation:
       elite: 4
     Gallente Cruiser:
@@ -552,8 +553,6 @@ requirements:
     Long Distance Jamming:
       elite: 4
     Drones:
-      min: 5
-    Long Range Targeting:
       min: 5
 
   Nestor:
