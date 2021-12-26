@@ -6,7 +6,8 @@
 - TDF-FCs (channel)
 - tdf-backseat-report
 - FC-chat on discord
-- TDF-PILOTS
+- TDF PILOTS
+- TDF FC
 - TDF-Official motd
 
 ## Rules
@@ -31,8 +32,9 @@ Upgrade numbers (check their history to judge !)
 
 ### Logi requirements
 
-1. TCRC 3:2 NRF 3:1 / 2:2 TPPH 3:1 / 2:2
-1. PFC has the same requirements as Training FC.
+1. Full FC: TCRC 3:2 NRF 3:1 / 2:2 TPPH 3:1 / 2:2
+1. PHQ FC: TCRC 3:3 / 4:2 NRF 3:3 / 4:2 TPPH 3:2 / 2:3
+
 1. Starter skills on logi are all **required** except on the starter fit oneiros.
 
 ### Misc
