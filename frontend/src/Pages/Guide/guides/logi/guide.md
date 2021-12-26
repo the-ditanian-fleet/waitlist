@@ -10,9 +10,9 @@ We use three logistics ships. Oneiros, Guardian and Nestor. These ships all have
 - Guardian - Provides capacitor to ships who need it.
 - Nestor - Refitting services and also the main reps of the fleet. 1 Nestor = 2 cruiser of reps.
 
-Starter Logi pilots should bring either a Guardian or Oneiros to fleet. Nestors are reserved for trusted logi pilots who hold a L badge on teamspeak.
+Starter Logi pilots should bring either a Guardian or Oneiros to fleet. Nestors are reserved for trusted logi pilots who hold a Logi Specialist badge on teamspeak.
 
-Any cruiser pilot can train to become a trusted Logi pilot, speak to a member of the FC team to learn more.
+Any cruiser pilot can train to become a trusted Logi pilot, see requirements section below.
 
 ## Terminology
 
@@ -20,9 +20,18 @@ Any cruiser pilot can train to become a trusted Logi pilot, speak to a member of
 - Links - Remote Tracking Computers or Remote Sensor Boosters provided by logi pilots to increase tracking/locking speeds of targeting dps pilots.
 - Cap - Remote Capacitor Transmitter used to give capacitor to pilots who need it.
 
-## Implants
+## Requirements
 
 The EM-806 Implant is required for all Nestors & Guardians.
+**Basic skills are a minimum** You can not have any starter level skills for logi ships. Skill requirements are listed in the in game logi mailing list.
+
+_Exception: TDF_ONI_HQ_STARTER_LOGI4 (Sensor Linking 3, Logistics Cruiser 4 Allowed)_
+
+To obtain Logi Specialist badge you will need 3 signoffs from different FCs, and a minimum 20 hours in cruiser logi (we recommend 50 depending on pilot skill level). You also must have your skills for Nestor to elite before you can attain L badge. But you are permitted to fly TN (training nestor) while these skills are training.
+
+While flying Training Nestor you will be tested on Logi mechanics, requirements and your ability to see who has aggro via lasers and scram notifications.
+
+To get started simply get yourself the Nestor fit, x-up with the fit on waitlist and inform the FC that you are hoping to get a spot in fleet as Training Nestor and they will add you to the list. TN spots are limited to 1 in fleet and are not guaranteed so please be patient.
 
 ## Fleet Mechanics
 
@@ -34,7 +43,7 @@ Colour coding your watchlist is advised so you can see who is who at a glance. Y
 
 To add a member of the fleet to your watchlist you simple right click their name, click pilot > fleet > add to watchlist.
 
-You can also add an entire squad to your watchlist by right clicking on the squad commander position in the fleet window > add members to watch list.
+You can also add an entire squad to your watchlist by right clicking on the squad commander position in the fleet window > add squad members to watch list.
 
 ![](watchlist.png)
 
@@ -59,13 +68,13 @@ All armor/shield broadcasts should be locked up!
 
 As a logi you should always try to follow lasers to see who is currently taking damage in the case of a tired/distracted/new pilot who may not broadcast on time. In these cases you may use the ‘Broadcast target’ feature to broadcast this person for the other logi to lock up.
 
-## FC?! WHAT DO?!?
+## Logi Guideance
 
-Upon entering a site, cruiser logi should immediately burn forward; if you immediately orbit a nestor you will most likely go backwards off the beacon, leaving you behind the rest of the fleet. Once the Nestors are in front of you, establish an orbit of 7500m on your Nestor of choice. You can do this by holding W and clicking on a Nestor in your watchlist. Orbit with prop mod on always.
+Upon entering a site, cruiser logi should immediately burn forward in all sites; if you immediately orbit a nestor you will most likely go backwards off the beacon, leaving you behind the rest of the fleet. Once the Nestors are close to their anchors, establish an orbit of 7500m on your Nestor of choice. You can do this by holding W and clicking on a Nestor in your watchlist. Orbit with your prop mod on always.
 
-Nestors should burn directly to their anchors by using the Q command in space.
+Nestors should burn directly to their anchors by using the Q align command in space.
 
-Watch for broadcasts. When a shield/armor broadcast is received you should immediately lock them up and dump all of your reps onto them (for armor, for shield usually 1 rep is enough if needed at all).Once the target is stable, cruiser logi quickly decycle down to 1 rep to leave the rest available for the next broadcast. Nestors will generally dump 4-6 reps and decycle to 3 as needed. _Remember armor lands at the end of the rep cycle_.
+Watch for broadcasts. When a shield/armor broadcast is received you should immediately lock them up and **dump all of your reps onto them** (for armor, for shield usually 1 rep is enough if needed at all). Once the target is stable, cruiser logi quickly decycle down to 1 rep to leave the rest available for the next broadcast. Nestors will dump 6 reps and decycle to 3 as needed but 3 is the MINIMUM for Nestors. _Remember armor reps land at the end of the rep cycle_.
 
 Once the aggro has been established and your target is stable you can continue on to do other tasks such as: repping and assigning your drones, checking your orbit etc, lock up DDD/HHH for remote tracking links.
 
@@ -97,13 +106,13 @@ Dont forget to deploy your drones!
 
 ### Oneiros
 
-When flying an Oni, one of the most important things to remember is that your speed is your tank! Always orbit with your AB on.
+When flying an Oni, one of the most important things to remember is that your speed is your tank! Always orbit with your afterburner on.
 
-Your special role in the fleet is to provide remote tracking links to the DDD/HHH. If there is more than one Oni in fleet, work together to decide who will link which drone bunny. Add the DDD/HHH to your watchlist for faster locking on entering sites.
+Your special role in the fleet is to provide remote tracking links to the DDD/HHH. If there is more than one Oni in fleet, work together with your fellow oni to decide who will link which drone bunny. Add the DDD/HHHs to your watchlist for faster locking on entering sites.
 
 All links go to DDD in a TCRC.
 
-Generally speaking, most DDD's will want 2 tracking/1 opti link, while HHH's should get 1 opti each. DDD/HHH will be listed in the fleet MOTD.
+Generally speaking, most DDD's will want 2 tracking/1 opti link, while HHH's should get 1 opti each. DDD/HHHs will be listed in the fleet MOTD.
 
 ## Sites
 
@@ -119,15 +128,15 @@ Upon landing after the first gate, turn left and start burning to the out-gate, 
 
 In the second room you will burn straight ahead to the next out-gate using the same Q command.
 
-Once you land in the third room you will want to immediately burn forward a bit and then establish your obit of 7500km on your chosen Nestor. Nestors will burn directly to tier anchor spot which is approx 15km left of the battletower. Deploy your DPS drones.
+Once you land in the third room you will want to immediately burn forward a bit and then establish your obit of 7500km on your chosen Nestor. Nestors will burn directly to their anchor spot which is approx 15km left of the battletower. Deploy your DPS drones.
 
 #### Nation Rebirth Facility (NRF)
 
-After taking the gate Nestors will want to burn approx 75km forward. Staying about 10-15km from the small tower so cruisers can orbit you. Cruisers will want to again burn forward before establishing their orbits.
+After taking the gate Nestors will want to burn approx 75km forward. Staying about 10-15km from the small tower so cruisers can orbit you. Cruisers will want to again burn forward before establishing their orbits on Nestors.
 
 #### True Creations Research Center (TCRC)
 
-This site can be particularly dangerous, so as a logi you must pay attention to broadcasts/aggro switches, which happen every 1min approx.
+This site can be particularly dangerous, so as a logi you must pay attention to broadcasts/aggro switches, which happen every minute approximately.
 
 The FC will order the Meatshield (usually a Damnation) to enter the site first and establish the aggro. Depending on how pre-loaded the site is we will take the gate anywhere from 0-30 seconds after the meatshield.
 
