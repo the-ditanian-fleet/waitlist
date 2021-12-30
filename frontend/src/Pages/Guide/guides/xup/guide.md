@@ -2,7 +2,7 @@
 
 ## Joining a TDF fleet
 
-When the MOTD states that fleet is running, x-up on the [TDF WAITLIST](/) with your ship fitting, Join voice comms; [Teamspeak 3](https://www.teamspeak.com/en/) (server details are in **TDF-Official** MOTD in game) make sure you are no more than 2 jumps out when you x-up and wait for fleet invite. If you are more than 2 jumps out you will be dropped from the fleet!
+When the MOTD states that fleet is running, x-up on the [TDF WAITLIST](/waitlist?wl=1) (requires login) with your ship fitting, Join voice comms; [Teamspeak 3](https://www.teamspeak.com/en/) (server details are in **TDF-Official** MOTD in game) make sure you are no more than 2 jumps out when you x-up and wait for fleet invite. If you are more than 2 jumps out you will be dropped from the fleet!
 
 ## Using the Waitlist
 
