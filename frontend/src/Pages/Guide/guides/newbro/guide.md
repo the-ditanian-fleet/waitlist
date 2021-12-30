@@ -12,7 +12,7 @@ To get started in TDF all you need is to be able to **fully online your ship**, 
 
 EM-806 Implant is required for all Nestors & Guardians.
 
-**Basic tier skills are a minimum** You also need to be able to fully online your ship.
+**Basic tier skills are a minimum**, you also need to be able to fully online your ship.
 
 - Exception: **TDF_ONI_HQ_STARTER_LOGI4** (Sensor Linking 3, Logistics Cruiser 4 Allowed)
 
