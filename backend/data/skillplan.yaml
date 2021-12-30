@@ -31,7 +31,7 @@ plans:
     from: Vindicator
     tier: gold
 
-    - name: TDF_Vindi Elite
+- name: TDF_Vindi Elite
   description: >
     This skill plan will take you to through starter mega to elite Vindi only.
   plan:
