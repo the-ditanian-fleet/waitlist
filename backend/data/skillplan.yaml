@@ -31,6 +31,33 @@ plans:
     from: Vindicator
     tier: gold
 
+- name: TDF_Vindi Elite
+  description: >
+    This skill plan will take you to through starter mega to elite Vindi only.
+  plan:
+  - type: tank
+    from: starter
+  - type: fit
+    hull: Megathron
+    fit: TDF_MEGA_STARTER
+  - type: fit
+    hull: Vindicator
+    fit: TDF_VINDI_STARTER
+  - type: tank
+    from: min
+  - type: fit
+    hull: Vindicator
+    fit: TDF_VINDI_BASIC
+  - type: skills
+    from: Vindicator
+    tier: min
+  - type: fit
+    hull: Vindicator
+    fit: TDF_VINDI_ELITE_HYBRID
+  - type: skills
+    from: Vindicator
+    tier: elite
+
 - name: TDF_CQC
   description: >
     Close Quarters Combat: these ships like to get close! This plan takes you through the
