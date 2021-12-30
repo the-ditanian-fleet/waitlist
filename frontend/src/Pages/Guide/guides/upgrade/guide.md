@@ -6,7 +6,7 @@ We expect all pilots to upgrade their primary ship to Elite in a reasonable amou
 
 We have hard upper bounds for the time you can spend in fleet while upgrading, but don’t treat these as targets. Upgrade as soon as you reasonably can, and you will stay well within the limits.
 
-All pilots are required to be out of the Starter squad by 50 hours of fleet time and be in an advanced fit (or higher) by 100 hours. By 150 hours you must be elite, though bastion-fitted marauders get 250 hours for this.
+**All pilots are required to be out of the Starter squad by 50 hours of fleet time and be in an advanced fit (or higher) by 100 hours. By 150 hours you must be elite. Bastion-fitted marauders have 250 hours.**
 
 TDF works with a tier system. Pilots can be categorized as starter, basic, elite and elite gold. See upgrade guidance as per below:
 

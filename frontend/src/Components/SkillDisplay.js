@@ -157,6 +157,8 @@ export function SkillList({ mySkills, shipName, filterMin }) {
   );
 }
 
+export function Legend() {}
+
 export function SkillDisplay({ characterId, ship, setShip = null, filterMin = false }) {
   const [skills] = useApi(`/api/skills?character_id=${characterId}`);
 
@@ -199,10 +201,19 @@ export function SkillDisplay({ characterId, ship, setShip = null, filterMin = fa
           </InputGroup>
         </Buttons>
       )}
-      <div style={{ marginBottom: "1em" }}>
-        Legend: <Badge variant="danger">Starter</Badge> <Badge variant="warning">Basic</Badge>{" "}
-        <Badge variant="secondary">Elite</Badge> <Badge variant="success">Elite GOLD</Badge>
-      </div>
+
+      {ship === "Nestor" || ship === "Guardian" || ship === "Oneiros" ? (
+        <div style={{ marginBottom: "1em" }}>
+          Legend: <Badge variant="danger">Required</Badge> <Badge variant="warning">Basic</Badge>{" "}
+          <Badge variant="secondary">Elite</Badge> <Badge variant="success">Elite GOLD</Badge>
+        </div>
+      ) : (
+        <div style={{ marginBottom: "1em" }}>
+          Legend: <Badge variant="danger">Starter</Badge> <Badge variant="warning">Basic</Badge>{" "}
+          <Badge variant="secondary">Elite</Badge> <Badge variant="success">Elite GOLD</Badge>
+        </div>
+      )}
+
       {skills ? (
         <SkillList mySkills={skills} shipName={ship} filterMin={filterMin} />
       ) : (
