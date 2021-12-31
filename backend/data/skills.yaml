@@ -65,6 +65,7 @@ categories:
     - Capacitor Emission Systems
     - Remote Armor Repair Systems
     - Remote Hull Repair Systems
+    - Repair Systems
     - Shield Emission Systems
   Targeting:
     - Target Management
@@ -390,6 +391,9 @@ requirements:
     Capacitor Emission Systems:
       min: 3
       elite: 4
+    Repair Systems:
+      min: 2
+      gold: 2
     Remote Armor Repair Systems:
       min: 3
       elite: 4
@@ -435,6 +439,9 @@ requirements:
     Capacitor Emission Systems:
       min: 3
       elite: 4
+    Repair Systems:
+      min: 2
+      gold: 2
     Remote Armor Repair Systems:
       min: 3
       elite: 4

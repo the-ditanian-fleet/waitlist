@@ -1,9 +1,8 @@
 plans:
-- name: TDF_WEBS
+
+- name: TDF_VINDI_BASIC
   description: >
-    Web all the things! This skill plan trains you into an elite webber, supporting the
-    rest of the fleet by slowing the enemies down. Why would you shoot a moving target
-    if you can halt it first?
+    MEGA > VINDI_STARTER > VINDI_BASIC: This skill plan will train you from starter Megathron in to the basic Vindi fit, this will get you out of starter queue.
   plan:
   - type: tank
     from: starter
@@ -21,19 +20,31 @@ plans:
   - type: skills
     from: Vindicator
     tier: min
-  - type: fit
-    hull: Vindicator
-    fit: TDF_VINDI_ELITE_HYBRID
-  - type: skills
-    from: Vindicator
-    tier: elite
-  - type: skills
-    from: Vindicator
-    tier: gold
 
-- name: TDF_Vindi Elite
+- name: TDF_NIGHTMARE_BASIC
   description: >
-    This skill plan will take you to through starter mega to elite Vindi only.
+    MEGA > NM_STARTER > NM_BASIC: This skill plan will train you from starter Megathron in to the basic Nightmare fit, this will get you out of starter queue.
+  plan:
+  - type: tank
+    from: starter
+  - type: fit
+    hull: Megathron
+    fit: TDF_MEGA_STARTER
+  - type: fit
+    hull: Nightmare
+    fit: TDF_NM_STARTER
+  - type: tank
+    from: min
+  - type: fit
+    hull: Nightmare
+    fit: TDF_NM_BASIC
+  - type: skills
+    from: Nightmare
+    tier: min
+
+- name: TDF_VINDI_ELITE
+  description: >
+    MEGA > VINDI_STARTER > VINDI_BASIC > VINDI_ADVANCED > VINDI_ELITE: This skill plan will train you from starter Megathron through to the elite Vindi fit.
   plan:
   - type: tank
     from: starter
@@ -51,6 +62,9 @@ plans:
   - type: skills
     from: Vindicator
     tier: min
+  - type: skill
+    from: Cybernetics
+    level: 4
   - type: fit
     hull: Vindicator
     fit: TDF_VINDI_ELITE_HYBRID
@@ -58,10 +72,9 @@ plans:
     from: Vindicator
     tier: elite
 
-- name: TDF_CQC
+- name: TDF_KRONOS_ELITE
   description: >
-    Close Quarters Combat: these ships like to get close! This plan takes you through the
-    starter Megathron to the basic Vindicator, and then on to the Kronos. Maximum damage!
+    MEGA > VINDI_BASIC > VINDI_ADVANCED > KRONOS_ELITE: This skill plan will train you from starter Megathron through to the elite Kronos fit.
   plan:
   - type: tank
     from: starter
@@ -84,29 +97,25 @@ plans:
   - type: skill
     from: Cybernetics
     level: 4
+  - type: skills
+    from: Kronos
+    tier: min
   - type: fit
     hull: Kronos
     fit: TDF_KRONOS_ELITE_HYBRID_BASTION
   - type: skills
     from: Kronos
-    tier: min
-  - type: skills
-    from: Kronos
     tier: elite
-  - type: skill
-    from: Marauders
-    level: 5
-  - type: skills
-    from: Kronos
-    tier: gold
 
-- name: TDF_SNIPER
+- name: TDF_PALADIN_ELITE
   description: >
-    Sit still and shoot stuff: these are our long-range snipers. This skill plan takes you from the
-    starter Nightmare to the basic Nightmare and finally the elite Paladin.
+    MEGA > NM_STARTER > NM_BASIC > NM_ADVANCED > PALLY_ELITE: This skill plan will train you from starter Megathron through to the elite Paladin fit.
   plan:
   - type: tank
     from: starter
+  - type: fit
+    hull: Megathron
+    fit: TDF_MEGA_STARTER
   - type: fit
     hull: Nightmare
     fit: TDF_NM_STARTER
@@ -123,185 +132,19 @@ plans:
   - type: skill
     from: Cybernetics
     level: 4
+  - type: skills
+    from: Paladin
+    tier: min
   - type: fit
     hull: Paladin
     fit: TDF_PALLY_ELITE_HYBRID_BASTION
   - type: skills
     from: Paladin
-    tier: min
-  - type: skills
-    from: Paladin
     tier: elite
-  - type: skill
-    from: Marauders
-    level: 5
-  - type: skills
-    from: Paladin
-    tier: gold
 
-- name: TDF_LOGISTICS
+- name: TDF_PALADIN_ELITE v2
   description: >
-    Logistics pilots keep the fleet alive. This plan trains you into an Oneiros, then a Guardian,
-    and finally a Nestor.
-  plan:
-  - type: fit
-    hull: Oneiros
-    fit: TDF_ONI_HQ_STARTER_LOGI4
-  - type: tank
-    from: min
-  - type: skill
-    from: Logistics Cruisers
-    level: 4
-  - type: skills
-    from: Oneiros
-    tier: min
-  - type: fit
-    hull: Oneiros
-    fit: TDF_ONI_HQ_STARTER
-  - type: fit
-    hull: Oneiros
-    fit: TDF_ONI_HQ_BASIC
-
-  - type: fit
-    hull: Guardian
-    fit: TDF_GUARD_HQ_BASIC
-  - type: skills
-    from: Guardian
-    tier: min
-
-  - type: skills
-    from: Oneiros
-    tier: elite
-  - type: skills
-    from: Guardian
-    tier: elite
-
-  - type: skills
-    from: Nestor
-    tier: min
-  - type: skills
-    from: Nestor
-    tier: elite
-
-  - type: skills
-    from: Nestor
-    tier: gold
-  - type: skills
-    from: Oneiros
-    tier: gold
-  - type: skills
-    from: Guardian
-    tier: gold
-
-#- name: TDF_MEGA_ALPHA
-#  description: >
-#    Megathron skill plan for alphas. Use this if you want to fly with TDF and don't have the ISK
-#    to buy a Vindicator right away. Once you have enough ISK, switch to one of the other skill plans!
-#  alpha: true
-#  plan:
-#  - type: tank
-#    from: starter
-#  - type: fit
-#    hull: Megathron
-#    fit: TDF_MEGA_STARTER
-#  - type: skills
-#    from: Megathron
-#    tier: min
-#
-#- name: TDF_VINDI_ALPHA
-#  description: >
-#    Vindicator skill plan for alphas. This will get you into a Vindicator as soon as possible,
-#    and then continues training some Vindicator skills afterwards. Once you upgrade to omega,
-#    replace this skill plan with the regular skill plans!
-#  alpha: true
-#  plan:
-#  - type: tank
-#    from: starter
-#  - type: fit
-#    hull: Vindicator
-#    fit: TDF_VINDI_STARTER
-#  - type: tank
-#    from: min
-#  - type: fit
-#    hull: Vindicator
-#    fit: TDF_VINDI_BASIC
-#  - type: skills
-#    from: Vindicator
-#    tier: min
-#
-#- name: TDF_NM_ALPHA
-#  description: >
-#    Nightmare skill plan for alphas. Use this to fly a starter Nightmare until you're omega,
-#    then switch to one of the regular skill plans.
-#  alpha: true
-#  plan:
-#  - type: tank
-#    from: starter
-#  - type: fit
-#    hull: Nightmare
-#    fit: TDF_NM_STARTER
-#  - type: tank
-#    from: min
-#  - type: fit
-#    hull: Nightmare
-#    fit: TDF_NM_BASIC
-#  - type: skills
-#    from: Nightmare
-#    tier: min
-
-- name: TDF_VINDICATOR
-  description: >
-    A Vindicator webs things. Use this plan if you only want to fly a Vindicator.
-  plan:
-  - type: tank
-    from: starter
-  - type: fit
-    hull: Vindicator
-    fit: TDF_VINDI_STARTER
-  - type: tank
-    from: min
-  - type: fit
-    hull: Vindicator
-    fit: TDF_VINDI_BASIC
-  - type: skills
-    from: Vindicator
-    tier: min
-  - type: skills
-    from: Vindicator
-    tier: elite
-  - type: skills
-    from: Vindicator
-    tier: gold
-
-- name: TDF_KRONOS
-  description: >
-    Maximum DPS! This plan takes you straight to the Elite Kronos.
-  plan:
-  - type: tank
-    from: bastion
-  - type: skill
-    from: Cybernetics
-    level: 4
-  - type: fit
-    hull: Kronos
-    fit: TDF_KRONOS_ELITE_HYBRID_BASTION
-  - type: skills
-    from: Kronos
-    tier: min
-  - type: skills
-    from: Kronos
-    tier: elite
-  - type: skill
-    from: Marauders
-    level: 5
-  - type: skills
-    from: Kronos
-    tier: gold
-
-- name: TDF_PALADIN
-  description: >
-    Straight into a Paladin? This plan will take you from the basic Paladin fit to the
-    elite bastion Paladin!
+    PALLY_BASIC > PALLY_ADVANCED > PALLY_ELITE: This skill plan will train you from basic Paladin through to the elite Paladin fit.
   plan:
   - type: tank
     from: min
@@ -311,6 +154,9 @@ plans:
   - type: skills
     from: Paladin
     tier: min
+  - type: fit
+    hull: Paladin
+    fit: TDF_PALLY_ADVANCED
   - type: tank
     from: bastion
   - type: skill
@@ -322,26 +168,65 @@ plans:
   - type: skills
     from: Paladin
     tier: elite
-  - type: skill
-    from: Marauders
-    level: 5
-  - type: skills
-    from: Paladin
-    tier: gold
 
-- name: TDF_ONEIROS
+# Mega to NM_basic
+
+# NM_basic Pally_elite (no fits in the middle)
+
+# Vindi_basic - Kronos_elite (no fits in the middle)
+
+- name: VINDICATOR ELITE
   description: >
-    The Oneiros is an armor repair ship that provides additional support to the fleet through
-    tracking links that improve the ability to hit stuff.
+    Elite skills Vindi plan, simple.
   plan:
   - type: fit
-    hull: Oneiros
-    fit: TDF_ONI_HQ_STARTER_LOGI4
+    hull: Vindicator
+    fit: TDF_VINDI_ELITE_HYBRID
+  - type: skills
+    from: Vindicator
+    tier: elite
+
+- name: KRONOS ELITE
+  description: >
+    Elite skills Kronos plan, simple.
+  plan:
+  - type: fit
+    hull: Kronos
+    fit: TDF_KRONOS_ELITE_HYBRID_BASTION
+  - type: skills
+    from: Kronos
+    tier: elite
+
+- name: PALADIN ELITE
+  description: >
+    Elite skills Paladin plan, simple.
+  plan:
+  - type: fit
+    hull: Paladin
+    fit: TDF_PALLY_ELITE_HYBRID_BASTION
+  - type: skills
+    from: Paladin
+    tier: elite
+
+- name: TDF_ONEIROS_STARTER
+  description: >
+    This skill plan trains you into the STARTER_AFFORDABLE fit. Use this to get started in Onieros.
+  plan:
   - type: tank
     from: min
-  - type: skill
-    from: Logistics Cruisers
-    level: 4
+  - type: skills
+    from: Oneiros
+    tier: min
+  - type: fit
+    hull: Oneiros
+    fit: TDF_ONI_HQ_STARTER_AFFORDABLE
+
+- name: TDF_ONEIROS_ELITE
+  description: >
+    This skill plan trains you into elite Oneiros.
+  plan:
+  - type: tank
+    from: min
   - type: skills
     from: Oneiros
     tier: min
@@ -353,39 +238,49 @@ plans:
     fit: TDF_ONI_HQ_BASIC
   - type: fit
     hull: Oneiros
+    fit: TDF_ONI_HQ_ADVANCED
+  - type: fit
+    hull: Oneiros
     fit: TDF_ONI_HQ_ELITE
   - type: skills
     from: Oneiros
     tier: elite
-  - type: skills
-    from: Oneiros
-    tier: gold
 
-- name: TDF_GUARDIAN
+- name: TDF_GUARDIAN_BASIC
   description: >
-    The Guardian is a flying battery that also has strong armor repairers. This ship keeps
-    the fleet alive, but also actively makes it faster by ensuring nobody runs low on energy.
+    This skill plan trains you into the GUARDIAN_BASIC fit. Use this to get started in Guardian.
   plan:
-  - type: fit
-    hull: Guardian
-    fit: TDF_GUARD_HQ_BASIC
   - type: tank
     from: min
   - type: skills
     from: Guardian
     tier: min
+  - type: fit
+    hull: Guardian
+    fit: TDF_GUARD_HQ_BASIC
+
+- name: TDF_GUARDIAN_ELITE
+  description: >
+    This skill plan trains you into elite Guardian.
+  plan:
+  - type: tank
+    from: min
+  - type: skills
+    from: Guardian
+    tier: min
+  - type: fit
+    hull: Guardian
+    fit: TDF_GUARD_HQ_ADVANCED
+  - type: fit
+    hull: Guardian
+    fit: TDF_GUARD_HQ_ELITE
   - type: skills
     from: Guardian
     tier: elite
-  - type: skills
-    from: Guardian
-    tier: gold
 
 - name: TDF_NESTOR
   description: >
-    The Nestor is our primary logistics boat, with the repairing power of an Oneiros and
-    Guardian combined. Only our most experienced logistics pilots are allowed to fly this,
-    so don't take this as your first ship.
+    This skill plan trains you into elite Nestor.
   plan:
   - type: skills
     from: Nestor
@@ -396,9 +291,6 @@ plans:
   - type: skills
     from: Nestor
     tier: elite
-  - type: skills
-    from: Nestor
-    tier: gold
 
 - name: TDF_EOS
   description: >
@@ -413,9 +305,6 @@ plans:
   - type: skills
     from: Eos
     tier: elite
-  - type: skills
-    from: Eos
-    tier: gold
 
 - name: TDF_DAMNATION
   description: >
@@ -430,9 +319,6 @@ plans:
   - type: skills
     from: Damnation
     tier: elite
-  - type: skills
-    from: Damnation
-    tier: gold
 
 - name: TDF_EVERYTHING
   description: >
