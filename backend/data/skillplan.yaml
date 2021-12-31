@@ -204,7 +204,7 @@ plans:
 
 - name: TDF_ONEIROS_STARTER
   description: >
-    This skill plan trains you into the STARTER_AFFORDABLE fit. Use this to get started in Onieros.
+    This skill plan trains you into the ONEIROS_AFFORDABLE fit. Use this to get started in Oni.
   plan:
   - type: tank
     from: min
@@ -288,7 +288,7 @@ plans:
 
 - name: TDF_EOS
   description: >
-    TDF's primary booster. Usually only FCs fly these.
+    TDF's primary booster. Elite level skills.
   plan:
   - type: skills
     from: Eos
@@ -302,7 +302,7 @@ plans:
 
 - name: TDF_DAMNATION
   description: >
-    TDF's secondary booster. Normally doesn't get paid so train this on an alt.
+    TDF's secondary booster. Elite level skills.
   plan:
   - type: skills
     from: Damnation
@@ -316,7 +316,7 @@ plans:
 
 - name: TDF_EVERYTHING
   description: >
-    Train the entire TDF doctrine, including boosters! Not really a serious skill plan.
+    Train the entire TDF doctrine, including boosters! Not really a serious skill plan. Trains everything to Elite Gold level.
   plan:
   - type: tank
     from: min

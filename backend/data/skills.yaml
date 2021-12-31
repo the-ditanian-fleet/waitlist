@@ -43,6 +43,7 @@ categories:
     - Advanced Drone Avionics
     - Drone Interfacing
     - Drone Sharpshooting
+    - Electronic Warfare
     - Light Drone Operation
     - Medium Drone Operation
     - Heavy Drone Operation
@@ -167,6 +168,8 @@ requirements:
       elite: 4
     Drone Sharpshooting:
       min: 3
+      elite: 4
+    Electronic Warfare:
       elite: 4
     Thermodynamics:
       min: 3
@@ -293,6 +296,8 @@ requirements:
     Drone Interfacing:
       elite: 4
     Drone Sharpshooting:
+      elite: 4
+    Electronic Warefare:
       elite: 4
     Thermodynamics:
       elite: 4
