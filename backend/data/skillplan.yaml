@@ -169,12 +169,6 @@ plans:
     from: Paladin
     tier: elite
 
-# Mega to NM_basic
-
-# NM_basic Pally_elite (no fits in the middle)
-
-# Vindi_basic - Kronos_elite (no fits in the middle)
-
 - name: VINDICATOR ELITE
   description: >
     Elite skills Vindi plan, simple.
