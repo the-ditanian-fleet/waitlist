@@ -43,6 +43,7 @@ categories:
     - Advanced Drone Avionics
     - Drone Interfacing
     - Drone Sharpshooting
+    - Electronic Warfare
     - Light Drone Operation
     - Medium Drone Operation
     - Heavy Drone Operation
@@ -65,6 +66,7 @@ categories:
     - Capacitor Emission Systems
     - Remote Armor Repair Systems
     - Remote Hull Repair Systems
+    - Repair Systems
     - Shield Emission Systems
   Targeting:
     - Target Management
@@ -166,6 +168,8 @@ requirements:
       elite: 4
     Drone Sharpshooting:
       min: 3
+      elite: 4
+    Electronic Warfare:
       elite: 4
     Thermodynamics:
       min: 3
@@ -293,6 +297,8 @@ requirements:
       elite: 4
     Drone Sharpshooting:
       elite: 4
+    Electronic Warefare:
+      elite: 4
     Thermodynamics:
       elite: 4
     Capacitor Management:
@@ -390,6 +396,9 @@ requirements:
     Capacitor Emission Systems:
       min: 3
       elite: 4
+    Repair Systems:
+      min: 2
+      gold: 2
     Remote Armor Repair Systems:
       min: 3
       elite: 4
@@ -435,6 +444,9 @@ requirements:
     Capacitor Emission Systems:
       min: 3
       elite: 4
+    Repair Systems:
+      min: 2
+      gold: 2
     Remote Armor Repair Systems:
       min: 3
       elite: 4
