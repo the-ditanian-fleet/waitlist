@@ -2,35 +2,39 @@
 
 ## What are badges for?
 
-Badges are a tool mostly for FCs to quickly see what the fleet composition looks like and to check a pilots fitting meets requirements. Used to quickly verify information about a pilot without the need for every FC to know exactly what every pilot has. Plus some people like them. To obtain a badge, ask an FC and they will start the process.
+Badges are a tool mostly for FCs to quickly see what the fleet composition looks like and to check a pilots fitting meets requirements. To join Elite fleets you must have the Elite badge on TS and on the waitlist. Specialist badges are not required for any pilot but are there if you wish to upgrade further.
 
 ### Elite Badge
 
+Requirements to get elite badge are:
 Elite fitting or better WITH implants 1-10 and all skills to elite or better for the applicable ship. (See your skills page)
 
 ![](e.png)
 
 ### Elite Gold Badge
 
+Requirements to get elite gold badge are:
 Elite badge pre-requisites plus all skills to elite gold for the applicable ship. (See your skills page)
 
 ![](egold.png)
 
 ### Bastion Specialist
 
-Elite badge pre-requisites for a Bastion-capable ship plus abyssal damage modules minimum of 29% DPS Bonus, Marauders skill to 5, and abyssal plate with minimum 6k raw armor HP bonus.
+Requirements to get bastion specialist badge are:
+Elite badge pre-requisites for a Bastion-capable ship plus abyssal damage modules with a minimum of 29% DPS Bonus, Marauders skill to 5, and abyssal plate with minimum 6k raw armor HP bonus.
 
 ![](bastion.png)
 
 ### Web Specialist
 
+Requirements to get web specialist badge are:
 Elite badge pre-requisites for a Vindicator plus abyssal webifiers with minimum of 16km base range & 62% base strength bonus plus Gallente BS skill to 5.
 
 ![](wv.png)
 
 ### Logistics Specialist
 
-Permitted to fly Nestor Logistics. Requires all Nestor skills to elite plus "training" for the use of Nestor.
+Permitted to fly Nestor Logistics. Requires all Nestor skills to elite plus "training" for the use of Nestor, of which 3 Full HQ FC sign offs are required.
 
 ![](l.png)
 
