@@ -170,6 +170,7 @@ requirements:
       min: 3
       elite: 4
     Electronic Warfare:
+      elite: 4
       gold: 4
     Thermodynamics:
       min: 3
