@@ -657,6 +657,8 @@ requirements:
       elite: 4
     Long Distance Jamming:
       elite: 4
+    Armor Rigging:
+      gold: 0
 
   Damnation:
     <<: *generic
@@ -694,3 +696,5 @@ requirements:
       elite: 4
     Long Distance Jamming:
       elite: 4
+    Armor Rigging:
+      gold: 0
