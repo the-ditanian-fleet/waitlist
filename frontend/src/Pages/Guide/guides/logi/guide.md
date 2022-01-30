@@ -23,6 +23,7 @@ Any cruiser pilot can train to become a trusted Logi pilot, see requirements sec
 ## Upgrade Policy
 
 Upgrading for logi is expected much the same as DPS, the hour limits are as follows:
+
 - Basic fit & skills by 50 hours fleet time
 - Advanced fit by 100 hours fleet time
 - Elite fit & skills by 150 hours fleet time
