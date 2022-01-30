@@ -2,7 +2,9 @@
 
 ## Requirements
 
-TDF uses a progress system Starter, Basic, Elite, Elite Gold are the different tiers you can achieve on your ship specific skills. You can see your current status for each ship on the skill page. The target level displayed for each skill is what is required to reach the next tier.
+TDF uses a progress system for pilots, Starter, Basic, Elite & Elite Gold are the different tiers you can achieve on your ship specific skills. You can see your current skill tiers for each ship on the [Skill Page](/skills). The target level displayed for each skill is what is required to reach the next tier, while the actual level is displayed on the left.
+
+Due to our [upgrade policy](/guide/upgrade), we highly recommend pilots to create an incursion alt when first joining TDF.
 
 ### DPS
 
@@ -10,13 +12,11 @@ To get started in TDF all you need is to be able to **fully online your ship**, 
 
 ### LOGI
 
-EM-806 Implant is required for all Nestors & Guardians.
-
-**Basic tier skills are a minimum**, you also need to be able to fully online your ship.
+To fly logi with TDF you will need **required tier skills as a minimum**, you also need to be able to **fully online all modules on your ship**. Any red skills must be trained before you can fly with the exception of the logi4 onieros fit below:
 
 - Exception: **TDF_ONI_HQ_STARTER_LOGI4** (Sensor Linking 3, Logistics Cruiser 4 Allowed)
 
-_"TDF has great affordable starter fits. TDF will help you get spacerich, however TDF expects you to upgrade to elite fits ASAP and has SRP to make sure you keep that ship. It's only fair to all pilots who have made the effort to upgrade and it improves site times tremendously. After you have upgraded, spend the isk any way you want."_
+Logi spots are limited in fleet to 5 or less usually so we recommend getting a DPS ship alongside your logi ship. More logi specific requirements and guidance can be found in the [Logi guide](/guide/logi).
 
 ## Joining TDF's Channel
 
