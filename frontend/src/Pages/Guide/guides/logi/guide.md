@@ -20,6 +20,15 @@ Any cruiser pilot can train to become a trusted Logi pilot, see requirements sec
 - Links - Remote Tracking Computers or Remote Sensor Boosters provided by logi pilots to increase tracking/locking speeds of targeting dps pilots.
 - Cap - Remote Capacitor Transmitter used to give capacitor to pilots who need it.
 
+## Upgrade Policy
+
+Upgrading for logi is expected much the same as DPS, the hour limits are as follows:
+- Basic fit & skills by 50 hours fleet time
+- Advanced fit by 100 hours fleet time
+- Elite fit & skills by 150 hours fleet time
+
+These hours apply to both cruiser and Nestor. L badge is the elite badge equivalent for logi, pilots wishing to only fly cruiser are not expected to get Nestor and L badge, you can stay in a cruiser if you wish to, but be aware DPS will be prioritised over you if the logi numbers are fulfilled, should we have a surplus of cruisers in fleet it will be last in first out in favor of DPS ships as well.
+
 ## Requirements
 
 The EM-806 Implant is required for all Nestors & Guardians.
