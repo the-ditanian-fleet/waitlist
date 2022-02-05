@@ -144,6 +144,12 @@ const theme = {
   }),
 };
 
+theme.AMOLED = _.merge({}, theme.dark, {
+  colors: {
+    background: "#000000",
+  },
+});
+
 theme.ninjaholic = _.merge({}, theme.dark, {
   colors: {
     background: "#290052",
@@ -172,12 +178,6 @@ theme["Elite GOLD"] = _.merge({}, theme.light, {
   logo: {
     filter:
       "invert(1) sepia(1) saturate(10000%) hue-rotate(-15deg) drop-shadow(1px 1px 0.5px #a67c00) contrast(90%)",
-  },
-});
-
-theme.verydark = _.merge({}, theme.dark, {
-  colors: {
-    background: "#000000",
   },
 });
 
