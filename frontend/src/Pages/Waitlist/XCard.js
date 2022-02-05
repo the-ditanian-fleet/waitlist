@@ -427,6 +427,9 @@ export function XCard({ entry, fit, onAction }) {
           </a>
         )}
       </XCardDOM.Footer>
+      <XCardDOM.Footer>
+        {_.isFinite(fit.hours_in_fleet) && fit.hours_in_fleet < 1 ? <span>NEWBRO</span> : null}
+      </XCardDOM.Footer>
     </XCardDOM>
   );
 }
