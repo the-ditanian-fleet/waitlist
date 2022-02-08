@@ -99,11 +99,7 @@ export function Xup() {
 
           <div>
             <label>
-              <input
-                type="checkbox"
-                checked={alt}
-                onChange={handleChange}
-              />
+              <input type="checkbox" checked={alt} onChange={handleChange} />
               This is an ALT (I already have a character in fleet)
             </label>
           </div>
