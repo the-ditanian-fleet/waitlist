@@ -219,7 +219,7 @@ async fn register_fleet(
     .execute(&mut tx)
     .await?;
 
-    for category in crate::data::categories::categories() {
+    for category in crate::data::categories::squadcategories() {
         if let Some((wing_id, squad_id)) = input.assignments.get(&category.id) {
             sqlx::query!("INSERT INTO fleet_squad (fleet_id, wing_id, squad_id, category) VALUES (?, ?, ?, ?)",
             input.fleet_id, wing_id, squad_id, category.id).execute(&mut tx).await?;
