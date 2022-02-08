@@ -64,7 +64,7 @@ export function Xup() {
   const [eft, setEft] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [reviewOpen, setReviewOpen] = React.useState(false);
-  const [alt, setAlt] = React.useState(false); //added
+  const [alt, setAlt] = React.useState(false);
   const [implants] = useApi(`/api/implants?character_id=${authContext.current.id}`);
 
   const handleChange = () => {
@@ -102,7 +102,7 @@ export function Xup() {
               <input
                 type="checkbox"
                 checked={alt}
-                onChange={handleChange} //CHECKBOX
+                onChange={handleChange}
               />
               This is an ALT (I already have a character in fleet)
             </label>
