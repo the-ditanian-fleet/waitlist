@@ -45,7 +45,7 @@ async fn invite(
     .fetch_one(app.get_db())
     .await?;
 	// needs to match category.yaml file
-	let select_cat = if xup.wef_is_alt > 0 {"sponge".to_string()} else {xup.wef_category};
+	let select_cat = if xup.wef_is_alt > 0 {"alt".to_string()} else {xup.wef_category};
     let squad_info = match sqlx::query!(
         "
             SELECT fleet_id, squad_id, wing_id FROM fleet

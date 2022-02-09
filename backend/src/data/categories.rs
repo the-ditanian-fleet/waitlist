@@ -28,7 +28,6 @@ fn build_category_data() -> Result<CategoryData, TypeError> {
     #[derive(Deserialize)]
     struct CategoryFile {
         categories: Vec<WaitlistCategory>,
-		altcategory: Vec<WaitlistCategory>,
         rules: Vec<CategoryRule>,
     }
 
@@ -62,14 +61,12 @@ fn build_category_data() -> Result<CategoryData, TypeError> {
 
         rules
     };
-	let mut squadc = file.categories.to_vec();
-	squadc.push(WaitlistCategory{
-                id: file.altcategory[0].id.to_string(),
-                name: file.altcategory[0].name.to_string(),
-            });
+	// removes alts from waitlist page categories 
+	let mut cat = file.categories.to_vec();
+	cat.retain(|x| x.id !="alt");
     Ok(CategoryData {
-        categories: file.categories,
-		squadcategories: squadc,
+        categories: cat,
+		squadcategories: file.categories,
         rules,
     })
 }
