@@ -12,10 +12,6 @@ categories:
   - id: alt
     name: Alts
 
-altcategory:
-  - id: sponge
-    name: Sponges
-
 rules:
   # Logi
   - item: Oneiros
