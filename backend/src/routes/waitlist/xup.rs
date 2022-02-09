@@ -27,7 +27,7 @@ struct XupRequest {
 
     character_id: i64,
     eft: String,
-	is_alt : bool,
+    is_alt: bool,
 
     #[serde(default)]
     dna: Vec<DnaXup>,
@@ -138,7 +138,7 @@ async fn xup_multi(
     account: AuthenticatedAccount,
     waitlist_id: i64,
     xups: Vec<(i64, Fitting)>,
-	is_alt: bool,
+    is_alt: bool,
 ) -> Result<(), Madness> {
     // Track the "now" from the start of the operation, to keep things fair
     let now = chrono::Utc::now().timestamp();
@@ -214,7 +214,7 @@ async fn xup_multi(
                 "INSERT INTO waitlist_entry (waitlist_id, account_id, joined_at) VALUES (?, ?, ?)",
                 waitlist_id,
                 account.id,
-                now, 
+                now,
             )
             .execute(&mut tx)
             .await?;

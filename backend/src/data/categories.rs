@@ -8,9 +8,8 @@ use super::variations;
 
 struct CategoryData {
     categories: Vec<WaitlistCategory>,
-	squadcategories: Vec<WaitlistCategory>,
+    squadcategories: Vec<WaitlistCategory>,
     rules: Vec<(TypeID, String)>,
-	
 }
 
 lazy_static::lazy_static! {
@@ -61,12 +60,12 @@ fn build_category_data() -> Result<CategoryData, TypeError> {
 
         rules
     };
-	// removes alts from waitlist page categories 
-	let mut cat = file.categories.to_vec();
-	cat.retain(|x| x.id !="alt");
+    // removes alts from waitlist page categories
+    let mut cat = file.categories.to_vec();
+    cat.retain(|x| x.id != "alt");
     Ok(CategoryData {
         categories: cat,
-		squadcategories: file.categories,
+        squadcategories: file.categories,
         rules,
     })
 }
