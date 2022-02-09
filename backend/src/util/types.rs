@@ -13,7 +13,7 @@ pub struct Hull {
     pub name: String,
 }
 
-#[derive(Deserialize, Serialize, Debug)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
 pub struct WaitlistCategory {
     pub id: String,
     pub name: String,

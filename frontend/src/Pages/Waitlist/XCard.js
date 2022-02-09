@@ -298,7 +298,7 @@ function Shield({ color, letter, title }) {
 export function XCard({ entry, fit, onAction }) {
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
-
+  const is_alt = fit.is_alt;
   const accountName = entry.character ? entry.character.name : "Name hidden";
   var isSelf = entry.character && entry.character.id === authContext.account_id;
   var tagText = [];
@@ -347,7 +347,7 @@ export function XCard({ entry, fit, onAction }) {
         <XCardDOM.Head.Badges>
           {tagImages}
           {approvalFlag}
-          <TimeDisplay relativeTo={entry.joined_at} />
+          <TimeDisplay relativeTo={entry.joined_at} isAlt={is_alt} />
         </XCardDOM.Head.Badges>
       </XCardDOM.Head>
       <XCardDOM.Content>
@@ -426,6 +426,11 @@ export function XCard({ entry, fit, onAction }) {
             <FontAwesomeIcon icon={faCheck} />
           </a>
         )}
+      </XCardDOM.Footer>
+      <XCardDOM.Footer>
+        {!is_alt && _.isFinite(fit.hours_in_fleet) && fit.hours_in_fleet < 1 ? (
+          <span>NEWBRO</span>
+        ) : null}
       </XCardDOM.Footer>
     </XCardDOM>
   );

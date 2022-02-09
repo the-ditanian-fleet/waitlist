@@ -26,13 +26,13 @@ async fn invite(
 ) -> Result<&'static str, Madness> {
     account.require_access("fleet-invite")?;
     authorize_character(app.get_db(), &account, input.character_id, None).await?;
-
     let xup = sqlx::query!(
         "
             SELECT
                 wef.id wef_id,
                 wef.category wef_category,
                 wef.character_id wef_character_id,
+				wef.is_alt wef_is_alt,
                 we.account_id we_account_id,
                 fitting.hull fitting_hull
             FROM waitlist_entry_fit wef
@@ -44,7 +44,8 @@ async fn invite(
     )
     .fetch_one(app.get_db())
     .await?;
-
+	// needs to match category.yaml file
+	let select_cat = if xup.wef_is_alt > 0 {"sponge".to_string()} else {xup.wef_category};
     let squad_info = match sqlx::query!(
         "
             SELECT fleet_id, squad_id, wing_id FROM fleet
@@ -52,7 +53,8 @@ async fn invite(
             WHERE boss_id=? AND category=?
         ",
         input.character_id,
-        xup.wef_category
+		select_cat,
+        
     )
     .fetch_optional(app.get_db())
     .await?

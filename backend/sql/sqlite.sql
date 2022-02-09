@@ -161,6 +161,7 @@ CREATE TABLE `waitlist_entry_fit` (
   `fit_analysis` text,
   `review_comment` text,
   `cached_time_in_fleet` bigint NOT NULL,
+  `is_alt` tinyint NOT NULL,
   CONSTRAINT `waitlist_entry_fit_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`),
   CONSTRAINT `waitlist_entry_fit_ibfk_2` FOREIGN KEY (`entry_id`) REFERENCES `waitlist_entry` (`id`),
   CONSTRAINT `waitlist_entry_fit_ibfk_3` FOREIGN KEY (`fit_id`) REFERENCES `fitting` (`id`),

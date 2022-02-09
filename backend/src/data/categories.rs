@@ -8,7 +8,9 @@ use super::variations;
 
 struct CategoryData {
     categories: Vec<WaitlistCategory>,
+	squadcategories: Vec<WaitlistCategory>,
     rules: Vec<(TypeID, String)>,
+	
 }
 
 lazy_static::lazy_static! {
@@ -26,6 +28,7 @@ fn build_category_data() -> Result<CategoryData, TypeError> {
     #[derive(Deserialize)]
     struct CategoryFile {
         categories: Vec<WaitlistCategory>,
+		altcategory: Vec<WaitlistCategory>,
         rules: Vec<CategoryRule>,
     }
 
@@ -59,15 +62,24 @@ fn build_category_data() -> Result<CategoryData, TypeError> {
 
         rules
     };
-
+	let mut squadc = file.categories.to_vec();
+	squadc.push(WaitlistCategory{
+                id: file.altcategory[0].id.to_string(),
+                name: file.altcategory[0].name.to_string(),
+            });
     Ok(CategoryData {
         categories: file.categories,
+		squadcategories: squadc,
         rules,
     })
 }
 
 pub fn categories() -> &'static Vec<WaitlistCategory> {
     &CATEGORY_DATA.categories
+}
+
+pub fn squadcategories() -> &'static Vec<WaitlistCategory> {
+    &CATEGORY_DATA.squadcategories
 }
 
 pub fn categorize(fit: &Fitting) -> Option<String> {
