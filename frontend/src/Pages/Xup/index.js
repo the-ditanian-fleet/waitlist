@@ -14,19 +14,19 @@ import howToX from "./howtox.png";
 
 const exampleFit = String.raw`
 [Vindicator, Vindicator]
-Centum A-Type Multispectrum Energized Membrane
-Centum A-Type Multispectrum Energized Membrane
 Shadow Serpentis Damage Control
-Abyssal Magnetic Field Stabilizer
-Abyssal Magnetic Field Stabilizer
-Abyssal Magnetic Field Stabilizer
-Abyssal Magnetic Field Stabilizer
+Centum A-Type Multispectrum Energized Membrane
+Centum A-Type Multispectrum Energized Membrane
+Federation Navy Magnetic Field Stabilizer
+Federation Navy Magnetic Field Stabilizer
+Federation Navy Magnetic Field Stabilizer
+Federation Navy Magnetic Field Stabilizer
 
 Core X-Type 500MN Microwarpdrive
 Federation Navy Stasis Webifier
 Federation Navy Stasis Webifier
-Shadow Serpentis Tracking Computer
-Shadow Serpentis Tracking Computer
+Federation Navy Stasis Webifier
+Large Micro Jump Drive
 
 Neutron Blaster Cannon II
 Neutron Blaster Cannon II
@@ -37,8 +37,22 @@ Neutron Blaster Cannon II
 Neutron Blaster Cannon II
 Neutron Blaster Cannon II
 
-Large Explosive Armor Reinforcer I
-Large Hybrid Burst Aerator II
+Large Hybrid Locus Coordinator II
+Large Explosive Armor Reinforcer II
+Large Hyperspatial Velocity Optimizer II
+
+
+
+'Augmented' Ogre x5
+
+Null L x10000
+Nanite Repair Paste x2000
+Void L x20000
+Agency 'Pyrolancea' DB7 Dose III x1
+Standard Drop Booster x10
+Quafe Zero Classic x1
+Agency 'Pyrolancea' DB3 Dose I x10
+Agency 'Pyrolancea' DB5 Dose II x10
 `.trim();
 
 async function xUp({ character, eft, toastContext, waitlist_id }) {
