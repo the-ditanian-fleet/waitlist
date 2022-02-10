@@ -182,6 +182,7 @@ CREATE TABLE `waitlist_entry_fit` (
   `fit_analysis` text,
   `review_comment` text,
   `cached_time_in_fleet` bigint NOT NULL,
+  `is_alt` tinyint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `character_id` (`character_id`),
   KEY `entry_id` (`entry_id`),

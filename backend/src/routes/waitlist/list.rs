@@ -43,6 +43,7 @@ struct WaitlistEntryFit {
     dna: Option<String>,
     implants: Option<Vec<TypeID>>,
     fit_analysis: Option<Value>,
+    is_alt: bool,
 }
 
 #[get("/api/waitlist?<waitlist_id>")]
@@ -84,6 +85,7 @@ async fn list(
                 wef.review_comment wef_review_comment,
                 wef.tags wef_tags,
                 wef.fit_analysis wef_fit_analysis,
+				wef.is_alt wef_is_alt,
                 char_wef.id char_wef_id,
                 char_wef.name char_wef_name,
                 char_we.id char_we_id,
@@ -156,6 +158,7 @@ async fn list(
             dna: None,
             implants: None,
             fit_analysis: None,
+            is_alt: record.wef_is_alt > 0,
         };
 
         let tags = record

@@ -55,9 +55,9 @@ Agency 'Pyrolancea' DB3 Dose I x10
 Agency 'Pyrolancea' DB5 Dose II x10
 `.trim();
 
-async function xUp({ character, eft, toastContext, waitlist_id }) {
+async function xUp({ character, eft, toastContext, waitlist_id, alt }) {
   await apiCall("/api/waitlist/xup", {
-    json: { eft: eft, character_id: character, waitlist_id: parseInt(waitlist_id) },
+    json: { eft: eft, character_id: character, waitlist_id: parseInt(waitlist_id), is_alt: alt },
   });
 
   addToast(toastContext, {
@@ -78,8 +78,12 @@ export function Xup() {
   const [eft, setEft] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [reviewOpen, setReviewOpen] = React.useState(false);
-
+  const [alt, setAlt] = React.useState(false);
   const [implants] = useApi(`/api/implants?character_id=${authContext.current.id}`);
+
+  const handleChange = () => {
+    setAlt(!alt);
+  };
 
   const waitlist_id = queryParams.get("wl");
   if (!waitlist_id) {
@@ -106,6 +110,14 @@ export function Xup() {
             value={eft}
             style={{ width: "100%", marginBottom: "1em" }}
           />
+
+          <div>
+            <label>
+              <input type="checkbox" checked={alt} onChange={handleChange} />
+              This is an ALT (I already have a character in fleet)
+            </label>
+          </div>
+
           <InputGroup>
             <Button static>{authContext.current.name}</Button>
             <Button
@@ -114,9 +126,13 @@ export function Xup() {
                 setIsSubmitting(true);
                 errorToaster(
                   toastContext,
-                  xUp({ character: authContext.current.id, eft, toastContext, waitlist_id }).then(
-                    (evt) => setReviewOpen(true)
-                  )
+                  xUp({
+                    character: authContext.current.id,
+                    eft,
+                    toastContext,
+                    waitlist_id,
+                    alt,
+                  }).then((evt) => setReviewOpen(true))
                 ).finally((evt) => setIsSubmitting(false));
               }}
               disabled={eft.trim().length < 50 || !eft.startsWith("[") || isSubmitting}
