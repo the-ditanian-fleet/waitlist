@@ -83,7 +83,7 @@ function ShowPlan({ plan, mySkills }) {
             {plan.ships.map((ship) => (
               <img
                 key={ship.id}
-                src={`https://images.evetech.net/types/${ship.id}/render?size=256`}
+                src={`https://images.evetech.net/types/${ship.id}/render?size=128`}
                 style={{ maxWidth: "128px", margin: "0.5em" }}
                 alt={ship.name}
                 title={ship.name}
