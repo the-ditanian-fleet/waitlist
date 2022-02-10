@@ -1,0 +1,87 @@
+version: "3.8"
+
+services:
+  frontend:
+    container_name: ${CONTAINER_NAME}frontend
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+    hostname: "waitlistfrontend"
+    build: './frontend'
+    env_file:
+    - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.waitlist.loadbalancer.server.port=3000"
+      - "traefik.http.routers.waitlist.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.waitlist.entrypoints=web"
+      - "traefik.http.routers.waitlist-secure.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.waitlist-secure.entrypoints=websecure"
+      - "traefik.http.routers.waitlist-secure.tls=true"
+        #      - "traefik.http.routers.waitlist-secure.tls.certresolver=letsencrypt" #uncomment me on prod
+      - "traefik.http.middlewares.redirecthttps.redirectscheme.scheme=https"
+      - "traefik.http.routers.waitlist.middlewares=redirecthttps"
+    networks:
+      - waitlist
+      - web
+    healthcheck:
+      disable: true
+    depends_on:
+      - backend
+        #    restart: always
+  backend:
+    container_name: ${CONTAINER_NAME}backend
+    hostname: "waitlistbackend"
+    build: './backend'
+    environment:
+      - RUST_BACKTRACE=full #remove me on prod
+    env_file:
+    - .env
+    networks:
+      - waitlist
+    healthcheck:
+      disable: true
+      #    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+    volumes:
+      - data:/tdf_wl
+      - type: bind
+        source: ./backend/config.toml
+        target: /tdf_wl/config.toml
+  traefik:
+    image: "traefik:v2.3"
+    container_name: "traefik"
+    command:
+      - "--log.level=ERROR"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+        #      - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+        #      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+        #      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+        #      # Remove below line when ready for production
+        #      - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+        #      - "--certificatesresolvers.letsencrypt.acme.email=MYEMAIL@someemailprobablygmail.com"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" #comment me on prod
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - web
+    restart: always
+
+volumes:
+     data:
+networks:
+    waitlist:
+    web:
+       external: true
