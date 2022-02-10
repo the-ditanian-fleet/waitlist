@@ -45,6 +45,7 @@ RUN cargo build --release --no-default-features --features=${DATABASE_ENGINE}
 FROM alpine
 COPY --from=sde-export /data/sqlite-shrunk.sqlite /tdf_wl/sqlite-shrunk.sqlite
 COPY --from=builder /app/backend/target/release/tdf_wl /tdf_wl/bin
+COPY --from=builder /wl-dev.sqlite /tdf_wl/wl-dev.sqlite
 
 WORKDIR /tdf_wl
 COPY data data
