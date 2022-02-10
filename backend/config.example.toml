@@ -1,5 +1,5 @@
 [database]
-url = "sqlite:waitlist.sqlite"
+url = "sqlite:wl-dev.sqlite"
 min_connections = 1
 max_connections = 5
 connect_timeout = 2
