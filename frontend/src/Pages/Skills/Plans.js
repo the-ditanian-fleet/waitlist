@@ -158,7 +158,7 @@ function PlanList({ plans, mySkills }) {
                   {plan.ships.map((ship) => (
                     <img
                       key={ship.id}
-                      src={`https://images.evetech.net/types/${ship.id}/render?size=128`}
+                      src={`https://images.evetech.net/types/${ship.id}/render?size=64`}
                       alt={ship.name}
                       title={ship.name}
                     />
