@@ -14,19 +14,19 @@ import howToX from "./howtox.png";
 
 const exampleFit = String.raw`
 [Vindicator, Vindicator]
-Centum A-Type Multispectrum Energized Membrane
-Centum A-Type Multispectrum Energized Membrane
 Shadow Serpentis Damage Control
-Abyssal Magnetic Field Stabilizer
-Abyssal Magnetic Field Stabilizer
-Abyssal Magnetic Field Stabilizer
-Abyssal Magnetic Field Stabilizer
+Centum A-Type Multispectrum Energized Membrane
+Centum A-Type Multispectrum Energized Membrane
+Federation Navy Magnetic Field Stabilizer
+Federation Navy Magnetic Field Stabilizer
+Federation Navy Magnetic Field Stabilizer
+Federation Navy Magnetic Field Stabilizer
 
 Core X-Type 500MN Microwarpdrive
 Federation Navy Stasis Webifier
 Federation Navy Stasis Webifier
-Shadow Serpentis Tracking Computer
-Shadow Serpentis Tracking Computer
+Federation Navy Stasis Webifier
+Large Micro Jump Drive
 
 Neutron Blaster Cannon II
 Neutron Blaster Cannon II
@@ -37,13 +37,27 @@ Neutron Blaster Cannon II
 Neutron Blaster Cannon II
 Neutron Blaster Cannon II
 
-Large Explosive Armor Reinforcer I
-Large Hybrid Burst Aerator II
+Large Hybrid Locus Coordinator II
+Large Explosive Armor Reinforcer II
+Large Hyperspatial Velocity Optimizer II
+
+
+
+'Augmented' Ogre x5
+
+Null L x10000
+Nanite Repair Paste x2000
+Void L x20000
+Agency 'Pyrolancea' DB7 Dose III x1
+Standard Drop Booster x10
+Quafe Zero Classic x1
+Agency 'Pyrolancea' DB3 Dose I x10
+Agency 'Pyrolancea' DB5 Dose II x10
 `.trim();
 
-async function xUp({ character, eft, toastContext, waitlist_id }) {
+async function xUp({ character, eft, toastContext, waitlist_id, alt }) {
   await apiCall("/api/waitlist/xup", {
-    json: { eft: eft, character_id: character, waitlist_id: parseInt(waitlist_id) },
+    json: { eft: eft, character_id: character, waitlist_id: parseInt(waitlist_id), is_alt: alt },
   });
 
   addToast(toastContext, {
@@ -64,8 +78,12 @@ export function Xup() {
   const [eft, setEft] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [reviewOpen, setReviewOpen] = React.useState(false);
-
+  const [alt, setAlt] = React.useState(false);
   const [implants] = useApi(`/api/implants?character_id=${authContext.current.id}`);
+
+  const handleChange = () => {
+    setAlt(!alt);
+  };
 
   const waitlist_id = queryParams.get("wl");
   if (!waitlist_id) {
@@ -92,6 +110,14 @@ export function Xup() {
             value={eft}
             style={{ width: "100%", marginBottom: "1em" }}
           />
+
+          <div>
+            <label>
+              <input type="checkbox" checked={alt} onChange={handleChange} />
+              This is an ALT (I already have a character in fleet)
+            </label>
+          </div>
+
           <InputGroup>
             <Button static>{authContext.current.name}</Button>
             <Button
@@ -100,9 +126,13 @@ export function Xup() {
                 setIsSubmitting(true);
                 errorToaster(
                   toastContext,
-                  xUp({ character: authContext.current.id, eft, toastContext, waitlist_id }).then(
-                    (evt) => setReviewOpen(true)
-                  )
+                  xUp({
+                    character: authContext.current.id,
+                    eft,
+                    toastContext,
+                    waitlist_id,
+                    alt,
+                  }).then((evt) => setReviewOpen(true))
                 ).finally((evt) => setIsSubmitting(false));
               }}
               disabled={eft.trim().length < 50 || !eft.startsWith("[") || isSubmitting}

@@ -9,6 +9,8 @@ categories:
     name: Bastion
   - id: starter
     name: Starter
+  - id: alt
+    name: Alts
 
 rules:
   # Logi

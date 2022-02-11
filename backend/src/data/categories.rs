@@ -8,6 +8,7 @@ use super::variations;
 
 struct CategoryData {
     categories: Vec<WaitlistCategory>,
+    squadcategories: Vec<WaitlistCategory>,
     rules: Vec<(TypeID, String)>,
 }
 
@@ -59,15 +60,22 @@ fn build_category_data() -> Result<CategoryData, TypeError> {
 
         rules
     };
-
+    // removes alts from waitlist page categories
+    let mut cat = file.categories.to_vec();
+    cat.retain(|x| x.id != "alt");
     Ok(CategoryData {
-        categories: file.categories,
+        categories: cat,
+        squadcategories: file.categories,
         rules,
     })
 }
 
 pub fn categories() -> &'static Vec<WaitlistCategory> {
     &CATEGORY_DATA.categories
+}
+
+pub fn squadcategories() -> &'static Vec<WaitlistCategory> {
+    &CATEGORY_DATA.squadcategories
 }
 
 pub fn categorize(fit: &Fitting) -> Option<String> {

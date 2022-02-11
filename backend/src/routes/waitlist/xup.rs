@@ -27,6 +27,7 @@ struct XupRequest {
 
     character_id: i64,
     eft: String,
+    is_alt: bool,
 
     #[serde(default)]
     dna: Vec<DnaXup>,
@@ -137,6 +138,7 @@ async fn xup_multi(
     account: AuthenticatedAccount,
     waitlist_id: i64,
     xups: Vec<(i64, Fitting)>,
+    is_alt: bool,
 ) -> Result<(), Madness> {
     // Track the "now" from the start of the operation, to keep things fair
     let now = chrono::Utc::now().timestamp();
@@ -243,10 +245,18 @@ async fn xup_multi(
         let implant_set_id = dedup_implants(&mut tx, this_pilot_data.implants).await?;
 
         // Delete existing X'up for the hull
-        if let Some(existing_x) = sqlx::query!("
-            SELECT waitlist_entry_fit.id FROM waitlist_entry_fit JOIN fitting ON fit_id=fitting.id WHERE entry_id = ? AND hull = ?
-        ", entry_id, fit.hull).fetch_optional(&mut tx).await? {
-            sqlx::query!("DELETE FROM waitlist_entry_fit WHERE id = ?", existing_x.id).execute(&mut tx).await?;
+        if is_alt {
+            if let Some(existing_x) = sqlx::query!("
+            SELECT waitlist_entry_fit.id FROM waitlist_entry_fit JOIN fitting ON fit_id=fitting.id WHERE character_id = ? AND hull = ? AND is_alt = 1
+            ",character_id, fit.hull).fetch_optional(&mut tx).await? {
+                sqlx::query!("DELETE FROM waitlist_entry_fit WHERE id = ?", existing_x.id).execute(&mut tx).await?;
+            }
+        } else { 
+            if let Some(existing_x) = sqlx::query!("
+            SELECT waitlist_entry_fit.id FROM waitlist_entry_fit JOIN fitting ON fit_id=fitting.id WHERE entry_id = ? AND hull = ? AND is_alt = 0
+            ", entry_id, fit.hull).fetch_optional(&mut tx).await? {
+                sqlx::query!("DELETE FROM waitlist_entry_fit WHERE id = ?", existing_x.id).execute(&mut tx).await?;
+            }
         }
 
         let fit_checked = tdf::fitcheck::FitChecker::check(this_pilot_data, &fit)?;
@@ -261,9 +271,9 @@ async fn xup_multi(
 
         // Add the fit to the waitlist
         sqlx::query!("
-            INSERT INTO waitlist_entry_fit (character_id, entry_id, fit_id, category, approved, tags, implant_set_id, fit_analysis, cached_time_in_fleet)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ", character_id, entry_id, fit_id, fit_checked.category, fit_checked.approved, tags, implant_set_id, fit_analysis, this_pilot_data.time_in_fleet)
+            INSERT INTO waitlist_entry_fit (character_id, entry_id, fit_id, category, approved, tags, implant_set_id, fit_analysis, cached_time_in_fleet, is_alt)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ", character_id, entry_id, fit_id, fit_checked.category, fit_checked.approved, tags, implant_set_id, fit_analysis, this_pilot_data.time_in_fleet, is_alt)
         .execute(&mut tx).await?;
 
         // Log the x'up
@@ -303,7 +313,7 @@ async fn xup(
         xups.push((dna_xup.character_id, fit));
     }
 
-    xup_multi(app, account, input.waitlist_id, xups).await?;
+    xup_multi(app, account, input.waitlist_id, xups, input.is_alt).await?;
 
     Ok("OK")
 }
