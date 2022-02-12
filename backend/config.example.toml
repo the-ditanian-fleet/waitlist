@@ -11,10 +11,10 @@ token_secret = "0000000000000000000000000000000000000000000000000000000000000000
 [esi]
 client_id = "EVE Client ID"
 client_secret = "EVE Client Secret"
-url = "http://localhost:3000/auth/cb"
+url = "https://waitlist.mycooldomain.local/auth/cb"
 
 [sse]
-url = "http://localhost:8000"
+url = "https://waitlist.mycooldomain.local
 secret = "0000000000000000000000000000000000000000000000000000000000000000"
 
 [fleet_updater]
