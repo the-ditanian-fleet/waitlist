@@ -78,6 +78,10 @@ pub fn squadcategories() -> &'static Vec<WaitlistCategory> {
     &CATEGORY_DATA.squadcategories
 }
 
+pub fn rules() -> &'static Vec<(TypeID, String)> {
+    &CATEGORY_DATA.rules
+}
+
 pub fn categorize(fit: &Fitting) -> Option<String> {
     for (type_id, category) in &CATEGORY_DATA.rules {
         if fit.hull == *type_id || fit.modules.contains_key(type_id) {
