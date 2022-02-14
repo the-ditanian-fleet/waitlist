@@ -37,12 +37,14 @@ This docker-compose setup runs by default with a local sqlite db. MySQL is suppo
 
 1. **Clone the repo**
     ```shell
-    git clone https://$REPOURL
+    git clone --recurse-submodules https://github.com/fleischsalatinspace/waitlist.git
 
 1. **Create a *.env* file (copy .env.example) and make sure every config option has an entry.**
     ```shell
-    CONTAINER_NAME="waitlist"   # docker container name prefix
-    DOMAIN="waitlist.mycooldomain.local"             # The domain you will be using
+    CONTAINER_NAME="waitlist" # docker container name prefix
+    DOMAIN="waitlist.mycooldomain.local" # The domain you will be using
+    SSE_SECRET="<<sse.secret from backend/config.toml>>"
+
 
 1. **Copy `backend/config.example.toml` to `backend/config.toml` and edit to your liking
    * Generate new secrets with `openssl rand -hex 32`
@@ -54,6 +56,7 @@ This docker-compose setup runs by default with a local sqlite db. MySQL is suppo
     docker network create web && docker-compose up -d --build
     ```
     * Display live container logs with `docker-compose logs -t -f`
+    * Stop containers with `docker-compose down`
 
 1. **Open the http://< your-domain >/ page.**
    * Accept invalid TLS certificate
@@ -69,7 +72,7 @@ This docker-compose setup runs by default with a local sqlite db. MySQL is suppo
    * Exit sqlite3 client with `.quit` and exit shell with CTRL+C or `exit`
 
 1. **When everything works, configure Traefik correctly for production**
-    * Remove the commented lines in traefik service definition  in `docker-compose.yml`
+    * Remove the commented lines in Traefik service definition  in `docker-compose.yml`
 
 > Hint: If you need to make changes, perform your edits first, then do `docker-compose down` to bring down the project, and then `docker-compose up --build -d` to rebuild the containers and run them again.
 
@@ -85,7 +88,8 @@ If you want to run other services in docker on the same host that also need to b
 
 ## Development
 
-TBA
+* Setting up a local dev environment of this project is quite messy because of the sse-server
+* TO-DO: docs
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details

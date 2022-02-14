@@ -14,7 +14,7 @@ client_secret = "EVE Client Secret"
 url = "https://waitlist.mycooldomain.local/auth/cb"
 
 [sse]
-url = "https://waitlist.mycooldomain.local
+url = "https://waitlist.mycooldomain.local/sse-server"
 secret = "0000000000000000000000000000000000000000000000000000000000000000"
 
 [fleet_updater]
