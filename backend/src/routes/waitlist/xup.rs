@@ -251,11 +251,11 @@ async fn xup_multi(
             ",character_id, fit.hull).fetch_optional(&mut tx).await? {
                 sqlx::query!("DELETE FROM waitlist_entry_fit WHERE id = ?", existing_x.id).execute(&mut tx).await?;
             }
-        } else { 
+        } else {
             if let Some(existing_x) = sqlx::query!("
             SELECT waitlist_entry_fit.id FROM waitlist_entry_fit JOIN fitting ON fit_id=fitting.id WHERE entry_id = ? AND hull = ? AND is_alt = 0
             ", entry_id, fit.hull).fetch_optional(&mut tx).await? {
-                sqlx::query!("DELETE FROM waitlist_entry_fit WHERE id = ?", existing_x.id).execute(&mut tx).await?;
+            sqlx::query!("DELETE FROM waitlist_entry_fit WHERE id = ?", existing_x.id).execute(&mut tx).await?;
             }
         }
 
