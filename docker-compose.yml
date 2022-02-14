@@ -53,6 +53,38 @@ services:
       - type: bind
         source: ./backend/config.toml
         target: /tdf_wl/config.toml
+  sseserver:
+    container_name: ${CONTAINER_NAME}sseserver
+    hostname: "waitlistsseserver"
+    build: './sse-server'
+    environment:
+      - RUST_BACKTRACE=full #remove me on prod
+    env_file:
+    - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.waitlist-sse.loadbalancer.server.port=8000"
+      - "traefik.http.routers.waitlist-sse.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.waitlist-sse.rule=PathPrefix(`/sse-server`)"
+      - "traefik.http.routers.waitlist-sse.entrypoints=web"
+      - "traefik.http.routers.waitlist-sse-secure.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.waitlist-sse-secure.rule=PathPrefix(`/sse-server`)"
+      - "traefik.http.routers.waitlist-sse-secure.entrypoints=websecure"
+      - "traefik.http.routers.waitlist-sse-secure.tls=true"
+        #      - "traefik.http.routers.waitlist-sse-secure.tls.certresolver=letsencrypt" #uncomment me on prod
+      - "traefik.http.middlewares.redirecthttps.redirectscheme.scheme=https"
+      - "traefik.http.routers.waitlist-sse.middlewares=redirecthttps"
+    networks:
+      - waitlist
+      - web
+    healthcheck:
+      disable: true
+      #    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
   traefik:
     image: "traefik:v2.3"
     container_name: "traefik"
