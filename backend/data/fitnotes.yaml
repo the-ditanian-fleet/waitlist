@@ -11,3 +11,9 @@ notes:
   - name: TDF_GUARD_HQ_ELITE
     description: >
         Implant Required: EM-806
+  - name: TDF_DAMNATION
+    description: >
+        This ship has a very high EHP, it used as a meatshield (tank).
+  - name: TDF_EOS
+    description: >
+        Typically used by the active FC as primary booster with no starter level skills. Can be used as a meatshield/secondary booster by anyone while you are working on becoming trainee FC.

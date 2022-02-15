@@ -1,14 +1,9 @@
-use crate::{
-    util::{
-        madness::Madness,
-    },
-};
-use crate::{data::yamlhelper};
+use crate::data::yamlhelper;
+use crate::util::madness::Madness;
+use eve_data_core::TypeID;
 use rocket::serde::json::Json;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
-use eve_data_core::TypeID;
-
 
 #[derive(Debug, Serialize)]
 pub struct DNAFitting {
@@ -18,8 +13,8 @@ pub struct DNAFitting {
 #[derive(Debug, Serialize)]
 struct FittingResponse {
     fittingdata: Option<Vec<DNAFitting>>,
-	notes: Option<Vec<FittingNote>>,
-	rules: Option<Vec<(TypeID, String)>>,
+    notes: Option<Vec<FittingNote>>,
+    rules: Option<Vec<TypeID>>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -38,12 +33,6 @@ fn load_notes_from_file() -> Vec<FittingNote> {
     file.notes
 }
 
-
-
-
-
-
-
 #[get("/api/fittings")]
 async fn fittings() -> Result<Json<FittingResponse>, Madness> {
     let mut fittingformatted = BTreeMap::new();
@@ -57,12 +46,13 @@ async fn fittings() -> Result<Json<FittingResponse>, Madness> {
         });
         id += 1;
     }
-	let mut logirules = Vec::new();
-	
-	for rule in crate::data::categories::rules(){
-		if rule.1 == "logi" {logirules.push(rule.clone())}
-		
-	}	
+    let mut logirules = Vec::new();
+
+    for rule in crate::data::categories::rules() {
+        if rule.1 == "logi" {
+            logirules.push(rule.0)
+        }
+    }
     Ok(Json(FittingResponse {
         fittingdata: Some(
             fittingformatted
@@ -70,8 +60,8 @@ async fn fittings() -> Result<Json<FittingResponse>, Madness> {
                 .map(|(_id, entry)| entry)
                 .collect(),
         ),
-		notes: Some(load_notes_from_file()),
-		rules: Some(logirules),
+        notes: Some(load_notes_from_file()),
+        rules: Some(logirules),
     }))
 }
 

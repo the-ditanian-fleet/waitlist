@@ -18,6 +18,7 @@ const FitCard = styled.div`
   filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
   min-width: 245px;
   width: 360px;
+  max-width 100%;
   a {
     color: inherit;
     text-decoration: none;
@@ -82,21 +83,18 @@ const NoteUI = styled.div`
 `;*/
 
 const NoteUI = styled.div`
-  display: flex;
   background-color: ${(props) => props.theme.colors[props.variant].color};
   color: ${(props) => props.theme.colors.text};
   border-radius: 5px;
-  max-width: 100%;
+  display: flex;
+  max-width: 480px;
   filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
-  tex {
-    padding: 0.1em 0.5em;
-  }
+  padding: 0.1em 0.5em;
 `;
 
 const DisplayDOM = styled.div`
   display: flex;
   flex-wrap: wrap;
-
   > div {
     padding: 0.5em;
   }
@@ -108,10 +106,10 @@ function Fitout({ data, tier }) {
   var logiid = [];
   var notes = {};
   var fitnote;
-  _.forEach(data.rules, (ship, i) => {
-    logiid.push(ship[0]);
+  _.forEach(data.rules, (ship) => {
+    logiid.push(ship);
   });
-  _.forEach(data.notes, (note, i) => {
+  _.forEach(data.notes, (note) => {
     notes[note.name] = note.description;
   });
 
@@ -132,7 +130,7 @@ function Fitout({ data, tier }) {
             <ShipDisplay
               fit={value}
               id={id}
-              implant={value.name.indexOf("HYBRID") !== -1}
+              hybrid={value.name.indexOf("HYBRID") !== -1}
               note={fitnote}
             />
           </div>
@@ -140,7 +138,12 @@ function Fitout({ data, tier }) {
       } else {
         dps.push(
           <div key={key}>
-            <ShipDisplay fit={value} id={id} implant={value.name.indexOf("HYBRID") !== -1} />
+            <ShipDisplay
+              fit={value}
+              id={id}
+              hybrid={value.name.indexOf("HYBRID") !== -1}
+              note={fitnote}
+            />
           </div>
         );
       }
@@ -161,8 +164,18 @@ function Fitout({ data, tier }) {
       <>
         <Box>
           <Title>DPS</Title>
+          {tier === "Starter" ? (
+            <p>
+              These are the only ships you can fly with all <b>Armor Compensation</b> skills at
+              level 2, all others require at least 4.
+            </p>
+          ) : (
+            <br />
+          )}
           <DisplayDOM>{dps}</DisplayDOM>
+          <br />
           <Title>LOGISTICS</Title>
+          <br />
           <DisplayDOM>{logi}</DisplayDOM>
         </Box>
       </>
@@ -170,48 +183,49 @@ function Fitout({ data, tier }) {
   }
 }
 
-function ShipDisplay({ fit, id, implant, note }) {
+function ShipDisplay({ fit, id, hybrid, note }) {
   const [modalOpen, setModalOpen] = React.useState(false); //add
-
-  if (fit.dna && fit.name) {
-    return (
-      <>
-        {modalOpen ? (
-          <Modal open={true} setOpen={setModalOpen}>
-            <Box>
-              <div style={{ display: "flex" }}>
-                <div style={{ margin: "0 0.5em" }}>
-                  <DNADisplay dna={fit.dna} />
-                </div>
+  return (
+    <>
+      {modalOpen ? (
+        <Modal open={true} setOpen={setModalOpen}>
+          <Box>
+            <div style={{ display: "flex" }}>
+              <div style={{ margin: "0 0.5em" }}>
+                <DNADisplay dna={fit.dna} />
               </div>
-              <NoteUI variant={"warning"}>{note ? <tex>{note}</tex> : null}</NoteUI>
-            </Box>
-          </Modal>
-        ) : null}
-        <Box>
-          <FitCard variant={"secondary"}>
-            <a onClick={(evt) => setModalOpen(true)}>
-              <FitCard.Content>
-                <img
-                  style={{ height: "64px" }}
-                  src={`https://images.evetech.net/types/${id}/icon`}
-                  alt={fit.name}
-                />
-                {fit.name}
+            </div>
+            {note ? <NoteUI variant={"warning"}>{note}</NoteUI> : null}
+            {hybrid ? (
+              <NoteUI variant={"danger"}>
+                This fit requires at least Amulet 1 - 5. See mailing list: <br />
+                TDF-Implants
+              </NoteUI>
+            ) : null}
+          </Box>
+        </Modal>
+      ) : null}
+      <Box>
+        <FitCard variant={"secondary"}>
+          <a onClick={(evt) => setModalOpen(true)}>
+            <FitCard.Content>
+              <img
+                style={{ height: "64px" }}
+                src={`https://images.evetech.net/types/${id}/icon`}
+                alt={fit.name}
+              />
+              {fit.name}
 
-                <FitCard.Content.Badges>
-                  {note ? <FontAwesomeIcon icon={faExclamationCircle} /> : null}
-                  {implant ? <Shield color="red" letter="H" title="Hybrid Implants" /> : null}
-                </FitCard.Content.Badges>
-              </FitCard.Content>
-            </a>
-          </FitCard>
-        </Box>
-      </>
-    );
-  } else {
-    return <p> YOU MADE A MISTAKE </p>;
-  }
+              <FitCard.Content.Badges>
+                {note ? <FontAwesomeIcon icon={faExclamationCircle} /> : null}
+                {hybrid ? <Shield color="red" letter="H" title="Hybrid Implants" /> : null}
+              </FitCard.Content.Badges>
+            </FitCard.Content>
+          </a>
+        </FitCard>
+      </Box>
+    </>
+  );
 }
 
 export { Fitout };

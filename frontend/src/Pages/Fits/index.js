@@ -32,7 +32,7 @@ function FitsDisplay({ tier, setTier = null }) {
 
   return (
     <>
-	<PageTitle>HQ FITS</PageTitle>
+      <PageTitle>HQ FITS</PageTitle>
       {setTier != null && (
         <Buttons style={{ marginBottom: "1em" }}>
           <InputGroup>
@@ -56,9 +56,6 @@ function FitsDisplay({ tier, setTier = null }) {
           </InputGroup>
         </Buttons>
       )}
-      {/*<div style={{ marginBottom: "1em" }}>
-        Legend: <Badge variant="danger">No Implants</Badge> <Badge variant="success">Hybrid</Badge>{" "}
-</div>*/}
 
       {tier === "Starter" ? (
         <Fitout data={fitData} tier="Starter" />
