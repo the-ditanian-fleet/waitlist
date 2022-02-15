@@ -6,7 +6,6 @@ import { ToastContext, AuthContext } from "../../contexts";
 
 import { errorToaster } from "../../api";
 import { Markdown } from "../../Components/Markdown";
-//import { Col, Row } from "react-awesome-styled-grid";
 import { Card, CardArray, CardMargin } from "../../Components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
