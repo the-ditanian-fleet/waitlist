@@ -27,7 +27,6 @@ const FitCard = styled.div`
     color: ${(props) => props.theme.colors[props.variant || "input"].text};
     border-color: ${(props) => props.theme.colors.accent3};
     background-color: ${(props) => props.theme.colors[props.variant || "input"].accent};
-  
 `;
 
 FitCard.Content = styled.div`
@@ -64,23 +63,6 @@ FitCard.Content.Badges = styled.div`
     height: 1.3em;
   }
 `;
-/*
-const NoteUI = styled.div`
-  display: flex;
-  background-color: ${(props) => props.theme.colors[props.variant].color};
-  color: ${(props) => props.theme.colors.text};
-  border-radius: 5px;
-  width: 400px;
-  filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
-  margin: 0.1em;
-  > * {
-    flex-grow: 1;
-    flex-basis: 0;
-  }
-  tex {
-    padding: 0.1em 0.5em;
-  }
-`;*/
 
 const NoteUI = styled.div`
   background-color: ${(props) => props.theme.colors[props.variant].color};
