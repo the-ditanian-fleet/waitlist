@@ -65,13 +65,16 @@ FitCard.Content.Badges = styled.div`
 `;
 
 const NoteUI = styled.div`
-  background-color: ${(props) => props.theme.colors[props.variant].color};
-  color: ${(props) => props.theme.colors.text};
-  border-radius: 5px;
-  display: flex;
-  max-width: 480px;
-  filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
-  padding: 0.1em 0.5em;
+  padding: 0.2em 0em;
+  tex {
+    background-color: ${(props) => props.theme.colors[props.variant].color};
+    color: ${(props) => props.theme.colors.text};
+    border-radius: 5px;
+    display: flex;
+    max-width: 480px;
+    filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
+    padding: 0.1em 0.5em;
+  }
 `;
 
 const DisplayDOM = styled.div`
@@ -177,11 +180,17 @@ function ShipDisplay({ fit, id, hybrid, note }) {
                 <DNADisplay dna={fit.dna} />
               </div>
             </div>
-            {note ? <NoteUI variant={"warning"}>{note}</NoteUI> : null}
+            {note ? (
+              <NoteUI variant={"warning"}>
+                <tex>{note}</tex>
+              </NoteUI>
+            ) : null}
             {hybrid ? (
               <NoteUI variant={"danger"}>
-                This fit requires at least Amulet 1 - 5. See mailing list: <br />
-                TDF-Implants
+                <tex>
+                  This fit requires at least Amulet 1 - 5. See mailing list: <br />
+                  TDF-Implants
+                </tex>
               </NoteUI>
             ) : null}
           </Box>
