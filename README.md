@@ -39,16 +39,15 @@ This docker-compose setup runs by default with a local sqlite db. MySQL is suppo
     ```shell
     git clone --recurse-submodules https://github.com/fleischsalatinspace/waitlist.git
 
+1. **Copy `backend/config.example.toml` to `backend/config.toml` and edit to your liking
+   * Generate new secrets with `openssl rand -hex 32`
+   * Change `token_secret` and `secret` to a new one
+
 1. **Create a *.env* file (copy .env.example) and make sure every config option has an entry.**
     ```shell
     CONTAINER_NAME="waitlist" # docker container name prefix
     DOMAIN="waitlist.mycooldomain.local" # The domain you will be using
     SSE_SECRET="<<sse.secret from backend/config.toml>>"
-
-
-1. **Copy `backend/config.example.toml` to `backend/config.toml` and edit to your liking
-   * Generate new secrets with `openssl rand -hex 32`
-   * Change `token_secret` and `secret` to a new one
 
 1. **Build & Run it**
     ```shell
