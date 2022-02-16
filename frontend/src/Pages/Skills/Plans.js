@@ -137,9 +137,6 @@ function ShowPlan({ plan, mySkills }) {
 const CardImages = styled.div`
   margin-top: 1em;
   line-height: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
   img {
     max-width: 64px;
     margin: 1px;
