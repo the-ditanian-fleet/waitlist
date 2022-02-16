@@ -2,6 +2,7 @@ mod acl;
 mod auth;
 mod bans;
 mod categories;
+mod fittings;
 mod fleet;
 mod healthcheck;
 mod history;
@@ -37,6 +38,7 @@ pub fn routes() -> Vec<rocket::Route> {
         implants::routes(),
         notes::routes(),
         skillplans::routes(),
+        fittings::routes(),
     ]
     .concat()
 }

@@ -79,6 +79,9 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
             <NavBar.Link exact to="/guide">
               Guides
             </NavBar.Link>
+            <NavBar.Link exact to="/fits">
+              Fits
+            </NavBar.Link>
             <NavBar.Link exact to="/isk-h/calc">
               ISK/h calc
             </NavBar.Link>
