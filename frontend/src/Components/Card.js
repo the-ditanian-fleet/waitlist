@@ -24,6 +24,10 @@ const CardBody = styled.div`
 export const CardArray = styled.div`
   display: flex;
   align-items: stretch;
+<<<<<<< HEAD
+=======
+  align-content: flex-start;
+>>>>>>> real/main
   flex-wrap: wrap;
 `;
 
