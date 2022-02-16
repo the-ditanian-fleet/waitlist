@@ -189,7 +189,7 @@ function ShipDisplay({ fit, id, hybrid, note }) {
               <NoteUI variant={"danger"}>
                 <tex>
                   This fit requires at least Amulet 1 - 5. See mailing list: <br />
-                  TDF-Implants
+                  TDF-Implant1
                 </tex>
               </NoteUI>
             ) : null}

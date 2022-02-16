@@ -4,13 +4,13 @@ export const CardMargin = styled.div`
   padding: 0.4em 0.55em;
 `;
 const CardContainer = styled.div`
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   background-color: ${(props) => props.theme.colors.accent1};
   filter: drop-shadow(0px 1px 1px ${(props) => props.theme.colors.shadow});
   border-radius: 5px;
   border: solid 1px ${(props) => (props.theme.colors[props.variant] || {}).color || "transparent"};
   height: 100%;
-  width: 330px;
+  width: ${(props) => (props.size ? props.size : "330px")};
 `;
 const CardHeader = styled.h3`
   font-weight: 600;
@@ -28,9 +28,9 @@ export const CardArray = styled.div`
   flex-wrap: wrap;
 `;
 
-export function Card({ variant, title, children, ...props }) {
+export function Card({ variant, title, size, children, ...props }) {
   return (
-    <CardContainer variant={variant} {...props}>
+    <CardContainer size={size} variant={variant} {...props}>
       <CardHeader variant={variant}>{title}</CardHeader>
       <CardBody>{children}</CardBody>
     </CardContainer>
