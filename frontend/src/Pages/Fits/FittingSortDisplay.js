@@ -36,7 +36,7 @@ FitCard.Content = styled.div`
   color: ${(props) => props.theme.colors.text};
   border-radius: 5px;
   img {
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 3px 0px 0px 3px;
     margin-right: 0.5em;
     align-self: flex-start;
   }
