@@ -24,3 +24,14 @@ Commonly used items are:
 There is also the case of the Ogdin's Eye Coordination Enhancer which has the same tracking bonus as the MR-706 but the Ogdin is much cheaper.
 
 ![](ogdin.png)
+
+## Usefull Links
+
+- [Best place to buy abyssals!](https://mutaplasmid.space/appraisal/)
+- [Gank intel](https://eve-gatecheck.space/eve/)
+- [Tool for people who sell their LP themselves](https://www.fuzzwork.co.uk/lpstore/)
+- [Fit tool](https://github.com/pyfa-org/Pyfa/releases/)
+- [Skill plan tool](https://github.com/peterhaneve/evemon/releases/)
+- [Online market tool](https://evemarketer.com/)
+- [Incursion rats](https://eve-incursions.de/rats)
+- [Incursion wiki page](https://wiki.eveuniversity.org/Incursions/)
