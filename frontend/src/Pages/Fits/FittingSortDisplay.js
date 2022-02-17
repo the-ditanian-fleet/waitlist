@@ -11,22 +11,15 @@ import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 const FitCard = styled.div`
   border: solid 2px ${(props) => props.theme.colors[props.variant].color};
-  background-color: ${(props) => props.theme.colors[props.variant].color};
-  color: ${(props) => props.theme.colors[props.variant].text};
   border-radius: 5px;
   font-size: 0.9em;
   filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
-  min-width: 245px;
   width: 360px;
-  max-width 100%;
   a {
-    color: inherit;
-    text-decoration: none;
   }
   &:hover:not(:disabled):not(.static) {
-    color: ${(props) => props.theme.colors[props.variant || "input"].text};
     border-color: ${(props) => props.theme.colors.accent3};
-    background-color: ${(props) => props.theme.colors[props.variant || "input"].accent};
+	cursor: pointer;
 `;
 
 FitCard.Content = styled.div`
@@ -36,14 +29,11 @@ FitCard.Content = styled.div`
   color: ${(props) => props.theme.colors.text};
   border-radius: 5px;
   img {
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 3px 0px 0px 3px;
     margin-right: 0.5em;
     align-self: flex-start;
   }
-  &:hover {
-    color: ${(props) => props.theme.colors.accent4};
-    cursor: pointer;
-  }
+}
 `;
 FitCard.Content.Badges = styled.div`
   margin-left: auto;
@@ -51,11 +41,11 @@ FitCard.Content.Badges = styled.div`
   flex-shrink: 0;
   align-items: center;
   > * {
-    margin-left: 0.25em;
-    margin-right: 0.5em;
+    margin-left: 0.1em;
   }
   > *:last-child {
-    margin-left: 0.5em;
+    margin-left: 0.4em;
+    margin-right: 0.5em;
   }
   > span {
     display: flex;
@@ -68,12 +58,13 @@ FitCard.Content.Badges = styled.div`
 
 const NoteUI = styled.div`
   padding: 0.2em 0em;
-  tex {
+  display: flex;
+  > tex {
     background-color: ${(props) => props.theme.colors[props.variant].color};
     color: ${(props) => props.theme.colors.text};
     border-radius: 5px;
-    display: flex;
-    max-width: 480px;
+    width: 100%;
+    max-width: 500px;
     filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
     padding: 0.1em 0.5em;
   }
@@ -139,17 +130,17 @@ function Fitout({ data, tier }) {
   if (tier === "Other") {
     return (
       <>
-        <Box>
+        <div style={{ margin: "2.5em 0em" }}>
           <Title>Secondary Support Ships</Title>
           <p>These ships are never used as main characters in fleet.</p>
           <DisplayDOM>{dps}</DisplayDOM>
-        </Box>
+        </div>
       </>
     );
   } else {
     return (
       <>
-        <Box>
+        <div style={{ margin: "2.5em 0em" }}>
           <Title>DPS</Title>
           {tier === "Starter" ? (
             <p>
@@ -164,7 +155,7 @@ function Fitout({ data, tier }) {
           <Title>LOGISTICS</Title>
           <br />
           <DisplayDOM>{logi}</DisplayDOM>
-        </Box>
+        </div>
       </>
     );
   }
@@ -190,7 +181,7 @@ function ShipDisplay({ fit, id, hybrid, note }) {
             {hybrid ? (
               <NoteUI variant={"danger"}>
                 <tex>
-                  This fit requires at least Amulet 1 - 5. See mailing list: <br />
+                  HYBRID FIT! This fit requires at least Amulet 1 - 5. See mailing list: <br />
                   TDF-Implant1
                 </tex>
               </NoteUI>

@@ -1,9 +1,9 @@
 use regex::Regex;
-use std::collections::{BTreeSet, HashMap};
+use std::collections::{BTreeSet, BTreeMap};
 
 use eve_data_core::{Fitting, TypeID};
 
-type FitData = HashMap<TypeID, Vec<DoctrineFit>>;
+type FitData = BTreeMap<TypeID, Vec<DoctrineFit>>;
 
 lazy_static::lazy_static! {
     static ref FITS: FitData = load_fits();
@@ -16,7 +16,7 @@ pub struct DoctrineFit {
 }
 
 fn load_fits() -> FitData {
-    let mut fits = HashMap::new();
+    let mut fits = BTreeMap::new();
 
     let fit_data = std::fs::read_to_string("./data/fits.dat").expect("Could not load fits.dat");
     let fit_regex = Regex::new(r#"<a href="fitting:([0-9:;_]+)">([^<]+)</a>"#).unwrap();
