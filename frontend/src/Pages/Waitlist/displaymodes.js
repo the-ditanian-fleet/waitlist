@@ -15,7 +15,6 @@ const CategoryHeadingDOM = styled.div`
     font-weight: 600;
     padding: 0.2em;
   }
-
   > div {
     display: flex;
     opacity: 0.7;
