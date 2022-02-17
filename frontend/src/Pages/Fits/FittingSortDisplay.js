@@ -141,17 +141,17 @@ function Fitout({ data, tier }) {
   if (tier === "Other") {
     return (
       <>
-        <Box>
+        <div style={{ margin: "2.5em 0em" }}>
           <Title>Secondary Support Ships</Title>
           <p>These ships are never used as main characters in fleet.</p>
           <DisplayDOM>{dps}</DisplayDOM>
-        </Box>
+        </div>
       </>
     );
   } else {
     return (
       <>
-        <Box>
+        <div style={{ margin: "2.5em 0em" }}>
           <Title>DPS</Title>
           {tier === "Starter" ? (
             <p>
@@ -166,7 +166,7 @@ function Fitout({ data, tier }) {
           <Title>LOGISTICS</Title>
           <br />
           <DisplayDOM>{logi}</DisplayDOM>
-        </Box>
+        </div>
       </>
     );
   }
