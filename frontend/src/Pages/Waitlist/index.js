@@ -9,6 +9,7 @@ import {
   MatrixWaitlist,
   RowWaitlist,
   NotepadWaitlist,
+  CategoryHeading,
 } from "./displaymodes";
 import _ from "lodash";
 import { useQuery } from "../../Util/query";
@@ -185,7 +186,9 @@ export function Waitlist() {
             </Button>
           )}
         </InputGroup>
+        <CategoryHeading name="Alts" fleetComposition={fleetComposition} />
       </Buttons>
+
       {displayMode === "columns" ? (
         <ColumnWaitlist
           waitlist={waitlistData}

@@ -157,7 +157,7 @@ async fn fleet_members(
     let character_ids: Vec<_> = in_fleet.iter().map(|member| member.character_id).collect();
     let mut characters = crate::data::character::lookup(app.get_db(), &character_ids).await?;
 
-    let category_lookup: HashMap<_, _> = crate::data::categories::categories()
+    let category_lookup: HashMap<_, _> = crate::data::categories::squadcategories()
         .iter()
         .map(|c| (&c.id as &str, &c.name))
         .collect();

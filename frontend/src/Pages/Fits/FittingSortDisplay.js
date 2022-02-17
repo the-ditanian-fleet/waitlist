@@ -44,6 +44,7 @@ FitCard.Content = styled.div`
     color: ${(props) => props.theme.colors.accent4};
     cursor: pointer;
   }
+}
 `;
 FitCard.Content.Badges = styled.div`
   margin-left: auto;
@@ -51,11 +52,11 @@ FitCard.Content.Badges = styled.div`
   flex-shrink: 0;
   align-items: center;
   > * {
-    margin-left: 0.25em;
-    margin-right: 0.5em;
+    margin-left: 0.1em;
   }
   > *:last-child {
-    margin-left: 0.5em;
+    margin-left: 0.4em;
+    margin-right: 0.5em;
   }
   > span {
     display: flex;
@@ -68,11 +69,12 @@ FitCard.Content.Badges = styled.div`
 
 const NoteUI = styled.div`
   padding: 0.2em 0em;
-  tex {
+  display: flex;
+  > tex {
     background-color: ${(props) => props.theme.colors[props.variant].color};
     color: ${(props) => props.theme.colors.text};
     border-radius: 5px;
-    display: flex;
+    width: 100%;
     max-width: 480px;
     filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
     padding: 0.1em 0.5em;
@@ -190,7 +192,7 @@ function ShipDisplay({ fit, id, hybrid, note }) {
             {hybrid ? (
               <NoteUI variant={"danger"}>
                 <tex>
-                  This fit requires at least Amulet 1 - 5. See mailing list: <br />
+                  HYBRID FIT! This fit requires at least Amulet 1 - 5. See ML: <br />
                   TDF-Implant1
                 </tex>
               </NoteUI>

@@ -11,6 +11,10 @@ const CardContainer = styled.div`
   border: solid 1px ${(props) => (props.theme.colors[props.variant] || {}).color || "transparent"};
   height: 100%;
   width: ${(props) => (props.size ? props.size : "330px")};
+
+  &:hover {
+    border: solid 1px ${(props) => props.theme.colors.accent2};
+  }
 `;
 const CardHeader = styled.h3`
   font-weight: 600;
