@@ -75,7 +75,7 @@ const NoteUI = styled.div`
     color: ${(props) => props.theme.colors.text};
     border-radius: 5px;
     width: 100%;
-    max-width: 480px;
+    max-width: 500px;
     filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
     padding: 0.1em 0.5em;
   }
@@ -192,7 +192,7 @@ function ShipDisplay({ fit, id, hybrid, note }) {
             {hybrid ? (
               <NoteUI variant={"danger"}>
                 <tex>
-                  HYBRID FIT! This fit requires at least Amulet 1 - 5. See ML: <br />
+                  HYBRID FIT! This fit requires at least Amulet 1 - 5. See mailing list: <br />
                   TDF-Implant1
                 </tex>
               </NoteUI>
