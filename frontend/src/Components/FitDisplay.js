@@ -68,7 +68,6 @@ DOM.Hull = styled.div`
   font-size: 1.2em;
   font-weight: 600;
   margin-bottom: 0.5em;
-  min-width: 480px;
 `;
 DOM.Hull.Image = styled.img`
   height: 2em;
