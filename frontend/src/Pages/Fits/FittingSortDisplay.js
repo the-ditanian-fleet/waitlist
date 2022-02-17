@@ -11,22 +11,15 @@ import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 const FitCard = styled.div`
   border: solid 2px ${(props) => props.theme.colors[props.variant].color};
-  background-color: ${(props) => props.theme.colors[props.variant].color};
-  color: ${(props) => props.theme.colors[props.variant].text};
   border-radius: 5px;
   font-size: 0.9em;
   filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
-  min-width: 245px;
   width: 360px;
-  max-width 100%;
   a {
-    color: inherit;
-    text-decoration: none;
   }
   &:hover:not(:disabled):not(.static) {
-    color: ${(props) => props.theme.colors[props.variant || "input"].text};
     border-color: ${(props) => props.theme.colors.accent3};
-    background-color: ${(props) => props.theme.colors[props.variant || "input"].accent};
+	cursor: pointer;
 `;
 
 FitCard.Content = styled.div`
@@ -39,10 +32,6 @@ FitCard.Content = styled.div`
     border-radius: 3px 0px 0px 3px;
     margin-right: 0.5em;
     align-self: flex-start;
-  }
-  &:hover {
-    color: ${(props) => props.theme.colors.accent4};
-    cursor: pointer;
   }
 }
 `;
