@@ -34,4 +34,3 @@ There is also the case of the Ogdin's Eye Coordination Enhancer which has the sa
 - [Skill plan tool](https://github.com/peterhaneve/evemon/releases/)
 - [Online market tool](https://evemarketer.com/)
 - [Incursion rats](https://eve-incursions.de/rats)
-- [Incursion wiki page](https://wiki.eveuniversity.org/Incursions/)

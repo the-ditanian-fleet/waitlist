@@ -6,7 +6,7 @@ import { Content, PageTitle } from "../../Components/Page";
 import { Table, Row, Cell, TableHead, TableBody, CellHead } from "../../Components/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPaste } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "../../Components/Form";
+import { Button, Buttons } from "../../Components/Form";
 import { Row as GridRow, Col } from "react-awesome-styled-grid";
 
 import skillqueueImage from "./skillqueue.png";
@@ -76,9 +76,15 @@ function ShowPlan({ plan, mySkills }) {
   return (
     <GridRow>
       <Col xs={4} md={4}>
-        <NavLink exact to={`/skills/plans`} style={{ textDecoration: "inherit", color: "inherit" }}>
-          <Card title="Back" size={"60px"}></Card>
-        </NavLink>
+        <Buttons>
+          <NavLink
+            exact
+            to={`/skills/plans`}
+            style={{ textDecoration: "inherit", color: "inherit" }}
+          >
+            <Button>Back</Button>
+          </NavLink>
+        </Buttons>
         <Content>
           <h2>{plan.source.name}</h2>
           <p>{plan.source.description}</p>
