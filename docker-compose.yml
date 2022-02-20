@@ -49,7 +49,8 @@ services:
         limits:
           cpus: '1'
     volumes:
-      - data:/tdf_wl
+      - datadb:/tdf_wl/db/
+      - dataapp:/tdf_wl/data/
       - type: bind
         source: ./backend/config.toml
         target: /tdf_wl/config.toml
@@ -112,7 +113,8 @@ services:
     restart: always
 
 volumes:
-     data:
+     datadb:
+     dataapp:
 networks:
     waitlist:
     web:
