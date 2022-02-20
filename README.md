@@ -47,7 +47,7 @@ This docker-compose setup runs by default with a local sqlite db. MySQL is suppo
     ```shell
     CONTAINER_NAME="waitlist" # docker container name prefix
     DOMAIN="waitlist.mycooldomain.local" # The domain you will be using
-    SSE_SECRET="<<sse.secret from backend/config.toml>>"
+    SSE_SECRET="<<sse.secret from backend/config.toml>>" # sse "secret" value from backend/config.toml 
 
 1. **Build & Run it**
     ```shell
@@ -75,8 +75,8 @@ This docker-compose setup runs by default with a local sqlite db. MySQL is suppo
 
 > Hint: If you need to make changes, perform your edits first, then do `docker-compose down` to bring down the project, and then `docker-compose up --build -d` to rebuild the containers and run them again.
 
-
-
+1. **Adding waitlists**
+   * Currently, there is no way to initiate a new waitlist via UI. So use this SQL `insert into waitlist (id,name,is_open,is_archived) values ('1','NAMEOFYOURWAITLIST','0','0');`
 ### Using Traefik
 
 To keep things simple, the structure of this project assumes that you will use Traefik to provide access to your Pathfinder docker container and nothing else. As such, Traefik containers start and stop with the Pathfinder containers.
