@@ -64,7 +64,7 @@ This docker-compose setup runs by default with a local sqlite db. MySQL is suppo
 1. **Adding first admin**
    * Get shell in backend container `docker-compose exec backend sh -c "/bin/sh"`
    * Temporary installation of sqlite3 client `apk add sqlite`
-   * Connect to sqlite db `sqlite3 wl-dev.sqlite`
+   * Connect to sqlite db `sqlite3 db/wl-dev.sqlite`
    * Display at least once logged in characters `select * from character;`
    * Copy the `character_id` of your character and execute `insert into admins (character_id,level) values ('YOURCHARACTERID','council');`
    * Your logged in character should now see at the top of the website `Fleet, FC, Search`
