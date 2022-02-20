@@ -7,6 +7,7 @@ import { useQuery } from "../../Util/query";
 import { Title } from "../../Components/Page";
 import { Modal } from "../../Components/Modal";
 import { Box } from "../../Components/Box";
+import { removeAcl } from "./ACL";
 
 async function addAcl(id, level) {
   return apiCall("/api/acl/add", { json: { id: parseInt(id), level } });
@@ -23,8 +24,6 @@ export function Search() {
   const [results] = useApi(
     query && query.length >= 3 ? "/api/search?" + new URLSearchParams({ query }) : null
   );
-
-  const [refreshAcl] = useApi("/api/acl/list");
 
   return (
     <>
@@ -51,7 +50,7 @@ export function Search() {
                 <Cell>{character.name}</Cell>
                 <Cell>{character.id}</Cell>
                 <Cell>
-                  <Buttons>
+                  <Buttons marginb={"0em"}>
                     <InputGroup>
                       <NavButton to={"/skills?character_id=" + character.id}>Skills</NavButton>
                       <NavButton to={"/pilot?character_id=" + character.id}>Information</NavButton>
@@ -59,7 +58,7 @@ export function Search() {
                   </Buttons>
                 </Cell>
                 <Cell>
-                  <Buttons>
+                  <Buttons marginb={"0em"}>
                     <InputGroup>
                       {authContext.access["bans-manage"] &&
                         authContext.account_id !== character.id && (
@@ -68,9 +67,7 @@ export function Search() {
                           </NavButton>
                         )}
                       {authContext.access["access-manage"] &&
-                        authContext.account_id !== character.id && (
-                          <AddACL onAction={refreshAcl} who={character} />
-                        )}
+                        authContext.account_id !== character.id && <AddACL who={character} />}
                     </InputGroup>
                   </Buttons>
                 </Cell>
@@ -85,16 +82,19 @@ export function Search() {
   );
 }
 
-function AddACL({ onAction, who }) {
+function AddACL({ who }) {
   const toastContext = React.useContext(ToastContext);
   const [level, setLevel] = React.useState("");
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [acl, refreshAcl] = useApi("/api/acl/list");
   return (
     <>
       {modalOpen ? (
         <Modal open={true} setOpen={setModalOpen}>
           <Box>
             <Title>{who.name}</Title>
+            <FindLevel id={who.id} acl={acl} />
+            <br />
             <p>
               <label>
                 Level
@@ -113,7 +113,13 @@ function AddACL({ onAction, who }) {
             <br />
             <Button
               variant={"success"}
-              onClick={(evt) => toaster(toastContext, addAcl(who.id, level).then(onAction))}
+              onClick={(evt) => (
+                <>
+                  {level === ""
+                    ? toaster(toastContext, removeAcl(who.id).then(refreshAcl))
+                    : toaster(toastContext, addAcl(who.id, level).then(refreshAcl))}
+                </>
+              )}
             >
               Confirm
             </Button>
@@ -123,4 +129,9 @@ function AddACL({ onAction, who }) {
       <Button onClick={(evt) => setModalOpen(true)}>ACL</Button>
     </>
   );
+}
+
+function FindLevel({ id, acl }) {
+  const find = acl.acl.filter((entry) => entry.id === id)[0];
+  return <>{find ? <p>{find.level}</p> : <p>No level!</p>}</>;
 }

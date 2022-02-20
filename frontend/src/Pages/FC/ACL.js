@@ -29,7 +29,7 @@ export function ACLRoutes() {
   );
 }
 
-async function removeAcl(id) {
+export async function removeAcl(id) {
   return apiCall("/api/acl/remove", { json: { id } });
 }
 
