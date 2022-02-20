@@ -162,7 +162,7 @@ function Fitout({ data, tier }) {
 }
 
 function ShipDisplay({ fit, id, hybrid, note }) {
-  const [modalOpen, setModalOpen] = React.useState(false); //add
+  const [modalOpen, setModalOpen] = React.useState(false);
   return (
     <>
       {modalOpen ? (

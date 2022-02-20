@@ -13,7 +13,7 @@ import { useLocation, useHistory } from "react-router-dom";
 export function Fits() {
   const queryParams = new URLSearchParams(useLocation().search);
   const history = useHistory();
-  var Tier = queryParams.get("Tier") || "Starter";
+  var tier = queryParams.get("Tier") || "Starter";
   const setTier = (newTier) => {
     queryParams.set("Tier", newTier);
     history.push({
@@ -21,7 +21,7 @@ export function Fits() {
     });
   };
 
-  return <FitsDisplay tier={Tier} setTier={setTier} />;
+  return <FitsDisplay tier={tier} setTier={setTier} />;
 }
 
 function FitsDisplay({ tier, setTier = null }) {

@@ -18,7 +18,6 @@ const CardContainer = styled.div`
 const CardHeader = styled.h3`
   font-weight: 600;
   padding: 0.2em 0.5em;
-  border-radius: 5px 5px 0 0;
 `;
 const CardBody = styled.div`
   padding: 0.5em 0.5em 0em;
