@@ -6,14 +6,14 @@ import { Content, PageTitle } from "../../Components/Page";
 import { Table, Row, Cell, TableHead, TableBody, CellHead } from "../../Components/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPaste } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "../../Components/Form";
+import { Button, Buttons } from "../../Components/Form";
 import { Row as GridRow, Col } from "react-awesome-styled-grid";
 
 import skillqueueImage from "./skillqueue.png";
 import { Modal } from "../../Components/Modal";
 import styled from "styled-components";
 import { useQuery } from "../../Util/query";
-import { Card } from "../../Components/Card";
+import { Card, CardMargin, CardArray } from "../../Components/Card";
 import { NavLink } from "react-router-dom";
 
 export function Plans() {
@@ -76,6 +76,15 @@ function ShowPlan({ plan, mySkills }) {
   return (
     <GridRow>
       <Col xs={4} md={4}>
+        <Buttons>
+          <NavLink
+            exact
+            to={`/skills/plans`}
+            style={{ textDecoration: "inherit", color: "inherit" }}
+          >
+            <Button>Back</Button>
+          </NavLink>
+        </Buttons>
         <Content>
           <h2>{plan.source.name}</h2>
           <p>{plan.source.description}</p>
@@ -144,9 +153,9 @@ function PlanList({ plans, mySkills }) {
   return (
     <>
       <PageTitle>Skill plans</PageTitle>
-      <GridRow>
+      <CardArray>
         {plans.map((plan) => (
-          <Col xs={4} sm={4} lg={3} key={plan.source.name}>
+          <CardMargin key={plan.source.name}>
             <NavLink
               exact
               to={`/skills/plans?plan=${plan.source.name}`}
@@ -158,7 +167,7 @@ function PlanList({ plans, mySkills }) {
                   {plan.ships.map((ship) => (
                     <img
                       key={ship.id}
-                      src={`https://images.evetech.net/types/${ship.id}/render?size=64`}
+                      src={`https://images.evetech.net/types/${ship.id}/icon?size=64`}
                       alt={ship.name}
                       title={ship.name}
                     />
@@ -166,9 +175,9 @@ function PlanList({ plans, mySkills }) {
                 </CardImages>
               </Card>
             </NavLink>
-          </Col>
+          </CardMargin>
         ))}
-      </GridRow>
+      </CardArray>
     </>
   );
 }

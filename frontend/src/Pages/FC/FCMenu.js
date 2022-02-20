@@ -2,8 +2,7 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { Content, PageTitle } from "../../Components/Page";
 import { AuthContext, ToastContext } from "../../contexts";
-import { Row, Col } from "react-awesome-styled-grid";
-import { Card } from "../../Components/Card";
+import { Card, CardArray, CardMargin } from "../../Components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { errorToaster } from "../../api";
 import { Markdown } from "../../Components/Markdown";
@@ -81,7 +80,7 @@ export function GuideFC() {
 
 function GuideCard({ icon, slug, name, children }) {
   return (
-    <Col xs={4} sm={4} lg={3}>
+    <CardMargin>
       <NavLink style={{ textDecoration: "inherit", color: "inherit" }} exact to={`/fc/${slug}`}>
         <Card
           title={
@@ -93,7 +92,7 @@ function GuideCard({ icon, slug, name, children }) {
           <p>{children}</p>
         </Card>
       </NavLink>
-    </Col>
+    </CardMargin>
   );
 }
 
@@ -102,7 +101,7 @@ export function FCMenu() {
   return (
     <>
       <PageTitle>FC Dashboard</PageTitle>
-      <Row>
+      <CardArray>
         {authContext && authContext.access["bans-view"] && (
           <GuideCard slug="bans" name="Bans" icon={faBan}></GuideCard>
         )}
@@ -120,7 +119,7 @@ export function FCMenu() {
         {authContext && authContext.access["stats-view"] && (
           <GuideCard slug="stats" name="Statistics" icon={faChartLine}></GuideCard>
         )}
-      </Row>
+      </CardArray>
     </>
   );
 }

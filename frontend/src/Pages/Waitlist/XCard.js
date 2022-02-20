@@ -261,7 +261,7 @@ function SkillButton({ characterId, ship }) {
   );
 }
 
-function Shield({ color, letter, title }) {
+export function Shield({ color, letter, title }) {
   const theme = React.useContext(ThemeContext);
 
   return (
