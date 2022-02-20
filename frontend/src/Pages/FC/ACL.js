@@ -9,6 +9,8 @@ import { ToastContext, AuthContext } from "../../contexts";
 import { useLocation, useHistory } from "react-router-dom";
 import { Modal } from "../../Components/Modal";
 import styled from "styled-components";
+
+// Need to clean this up & move to buttons & merge with other one on search
 const CenteredButtons = styled.div`
   display: flex;
   justify-content: center;
