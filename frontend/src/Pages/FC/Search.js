@@ -8,6 +8,17 @@ import { Title } from "../../Components/Page";
 import { Modal } from "../../Components/Modal";
 import { Box } from "../../Components/Box";
 import { removeAcl } from "./ACL";
+import styled from "styled-components";
+
+// Need to clean this up & move to buttons & merge with other one on ACL
+const CenteredButtonsNoFix = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-right: 0.5em;
+  > * {
+    margin: 0.2em;
+  }
+`;
 
 async function addAcl(id, level) {
   return apiCall("/api/acl/add", { json: { id: parseInt(id), level } });
@@ -87,51 +98,68 @@ function AddACL({ who }) {
   const [level, setLevel] = React.useState("");
   const [modalOpen, setModalOpen] = React.useState(false);
   const [acl, refreshAcl] = useApi("/api/acl/list");
+  if (!acl) {
+    return null;
+  }
+  var current = "No level!";
+  const find = acl.acl.filter((entry) => entry.id === who.id)[0];
+  if (find) {
+    current = find.level;
+  }
+  console.log(current);
   return (
     <>
       {modalOpen ? (
         <Modal open={true} setOpen={setModalOpen}>
           <Box>
             <Title>{who.name}</Title>
-            <FindLevel id={who.id} acl={acl} />
+            <p>{current}</p>
             <br />
-            <p>
-              <label>
-                Level
+            {current === "logi-specialist" || current === "No level!" ? (
+              <>
+                <p>
+                  <label>
+                    Level
+                    <br />
+                  </label>
+                  <Select value={level} onChange={(evt) => setLevel(evt.target.value)}>
+                    <option></option>
+                    <option value="logi-specialist">logi-specialist</option>
+                    <option value="trainee">trainee</option>
+                    <option value="trainee-advanced">trainee-advanced</option>
+                    <option value="fc">fc</option>
+                    <option value="fc-trainer">fc-trainer</option>
+                    <option value="council">council</option>
+                  </Select>
+                </p>
                 <br />
-              </label>
-              <Select value={level} onChange={(evt) => setLevel(evt.target.value)}>
-                <option></option>
-                <option value="logi-specialist">logi-specialist</option>
-                <option value="trainee">trainee</option>
-                <option value="trainee-advanced">trainee-advanced</option>
-                <option value="fc">fc</option>
-                <option value="fc-trainer">fc-trainer</option>
-                <option value="council">council</option>
-              </Select>
-            </p>
-            <br />
-            <Button
-              variant={"success"}
-              onClick={(evt) => (
-                <>
-                  {level === ""
-                    ? toaster(toastContext, removeAcl(who.id).then(refreshAcl))
-                    : toaster(toastContext, addAcl(who.id, level).then(refreshAcl))}
-                </>
-              )}
-            >
-              Confirm
-            </Button>
+                <Button
+                  variant={"success"}
+                  onClick={(evt) => (
+                    <>
+                      {level === ""
+                        ? toaster(toastContext, removeAcl(who.id).then(refreshAcl))
+                        : toaster(toastContext, addAcl(who.id, level).then(refreshAcl))}
+                    </>
+                  )}
+                >
+                  Confirm
+                </Button>
+              </>
+            ) : (
+              <CenteredButtonsNoFix>
+                <Button
+                  variant="danger"
+                  onClick={(evt) => toaster(toastContext, removeAcl(who.id).then(refreshAcl))}
+                >
+                  Remove FC
+                </Button>
+              </CenteredButtonsNoFix>
+            )}
           </Box>
         </Modal>
       ) : null}
       <Button onClick={(evt) => setModalOpen(true)}>ACL</Button>
     </>
   );
-}
-
-function FindLevel({ id, acl }) {
-  const find = acl.acl.filter((entry) => entry.id === id)[0];
-  return <>{find ? <p>{find.level}</p> : <p>No level!</p>}</>;
 }
