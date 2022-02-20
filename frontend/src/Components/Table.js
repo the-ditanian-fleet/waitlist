@@ -18,7 +18,6 @@ export const TableBody = styled.tbody``;
 
 export const Row = styled.tr`
   border-bottom: solid 1px ${(props) => props.theme.colors.accent2};
-
   &:last-child {
     border-bottom: none;
   }
@@ -26,7 +25,7 @@ export const Row = styled.tr`
     background-color: ${(props) => props.theme.colors.accent1};
   }
   > :last-child {
-    margin-left: auto;
+    margin-left: 100px;
   }
 `;
 
@@ -34,6 +33,7 @@ export const CellHead = styled.th`
   text-align: left;
   padding: 0.5em;
   font-weight: 600;
+  width: 200px;
 `;
 
 export const Cell = styled.td`

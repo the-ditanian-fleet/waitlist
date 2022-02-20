@@ -2,10 +2,22 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { apiCall, toaster, useApi } from "../../api";
 import { Box } from "../../Components/Box";
-import { Button, Input, Select } from "../../Components/Form";
+import { Button, InputGroup, Buttons, Input } from "../../Components/Form";
 import { PageTitle, Title } from "../../Components/Page";
 import { CellHead, Table, TableHead, Row, TableBody, Cell } from "../../Components/Table";
 import { ToastContext, AuthContext } from "../../contexts";
+import { useLocation, useHistory } from "react-router-dom";
+import { Modal } from "../../Components/Modal";
+import styled from "styled-components";
+const CenteredButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-right: 0.5em;
+  > * {
+    margin: 0.2em;
+    width: 90px;
+  }
+`;
 
 export function ACLRoutes() {
   return (
@@ -17,16 +29,43 @@ export function ACLRoutes() {
   );
 }
 
-async function removeAcl(id) {
+export async function removeAcl(id) {
   return apiCall("/api/acl/remove", { json: { id } });
 }
 
-async function addAcl(id, level) {
-  return apiCall("/api/acl/add", { json: { id: parseInt(id), level } });
+function RemoveConfirm({ who, onAction }) {
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const toastContext = React.useContext(ToastContext);
+  return (
+    <>
+      {modalOpen ? (
+        <Modal open={true} setOpen={setModalOpen}>
+          <Box>
+            <Title>Remove {who.name}</Title>
+            <p>{who.level}</p>
+            <br />
+            <CenteredButtons>
+              <Button variant="secondary" onClick={(evt) => setModalOpen(false)}>
+                Cancel
+              </Button>
+              <Button
+                variant="danger"
+                onClick={(evt) => toaster(toastContext, removeAcl(who.id).then(onAction))}
+              >
+                Confirm
+              </Button>
+            </CenteredButtons>
+          </Box>
+        </Modal>
+      ) : null}
+      <Button variant="danger" onClick={(evt) => setModalOpen(true)}>
+        Remove
+      </Button>
+    </>
+  );
 }
 
 function ACLTable({ entries, onAction }) {
-  const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
 
   return (
@@ -34,7 +73,9 @@ function ACLTable({ entries, onAction }) {
       <TableHead>
         <Row>
           <CellHead>Name</CellHead>
+          <CellHead></CellHead>
           <CellHead>Level</CellHead>
+          <CellHead></CellHead>
           <CellHead>Actions</CellHead>
         </Row>
       </TableHead>
@@ -42,15 +83,12 @@ function ACLTable({ entries, onAction }) {
         {entries.map((admin) => (
           <Row key={admin.id}>
             <Cell>{admin.name}</Cell>
+            <Cell></Cell>
             <Cell>{admin.level}</Cell>
+            <Cell></Cell>
             <Cell>
               {authContext.access["access-manage"] && (
-                <Button
-                  variant="danger"
-                  onClick={(evt) => toaster(toastContext, removeAcl(admin.id).then(onAction))}
-                >
-                  Remove
-                </Button>
+                <RemoveConfirm who={admin} onAction={onAction} />
               )}
             </Cell>
           </Row>
@@ -62,71 +100,54 @@ function ACLTable({ entries, onAction }) {
 
 function ACLOverview() {
   const [acl, refreshAcl] = useApi("/api/acl/list");
-  const authContext = React.useContext(AuthContext);
+  const [find, setFind] = React.useState("");
 
+  const queryParams = new URLSearchParams(useLocation().search);
+  const history = useHistory();
+  var category = queryParams.get("Category") || "Logi";
+  const setCategory = (newCategory) => {
+    queryParams.set("Category", newCategory);
+    history.push({
+      search: queryParams.toString(),
+    });
+  };
   if (!acl) {
     return <em>Loading</em>;
   }
-
   return (
     <>
-      <PageTitle>Access control</PageTitle>
-
+      <PageTitle>Access control list</PageTitle>
+      {setCategory != null && (
+        <Buttons style={{ marginBottom: "1em" }}>
+          <InputGroup>
+            <Button active={category === "Logi"} onClick={(evt) => setCategory("Logi")}>
+              Logi
+            </Button>
+            <Button active={category === "FC"} onClick={(evt) => setCategory("FC")}>
+              FC
+            </Button>
+          </InputGroup>
+        </Buttons>
+      )}
       <Box>
-        <Title>Logi Specialist</Title>
-        <ACLTable
-          entries={acl.acl.filter((entry) => entry.level === "logi-specialist")}
-          onAction={refreshAcl}
-        />
-      </Box>
-
-      <Box>
-        <Title>FC</Title>
-        <ACLTable
-          entries={acl.acl.filter((entry) => entry.level !== "logi-specialist")}
-          onAction={refreshAcl}
-        />
-      </Box>
-
-      {authContext.access["access-manage"] && <AddACL onAction={refreshAcl} />}
-    </>
-  );
-}
-
-function AddACL({ onAction }) {
-  const toastContext = React.useContext(ToastContext);
-  const [id, setId] = React.useState("");
-  const [level, setLevel] = React.useState("");
-
-  return (
-    <>
-      <Title>Add ACL</Title>
-      <Box>
-        <p>
-          <label>
-            Character ID
-            <br />
-          </label>
-          <Input value={id} onChange={(evt) => setId(evt.target.value)} />
-        </p>
-        <p>
-          <label>
-            Level
-            <br />
-          </label>
-          <Select value={level} onChange={(evt) => setLevel(evt.target.value)}>
-            <option></option>
-            <option value="logi-specialist">logi-specialist</option>
-            <option value="trainee">trainee</option>
-            <option value="trainee-advanced">trainee-advanced</option>
-            <option value="fc">fc</option>
-            <option value="fc-trainer">fc-trainer</option>
-            <option value="council">council</option>
-          </Select>
-        </p>
-        <Button onClick={(evt) => toaster(toastContext, addAcl(id, level).then(onAction))}>
-          Confirm
-        </Button>
+        <Input value={find} onChange={(evt) => setFind(evt.target.value)} />
+        {category === "Logi" ? (
+          <ACLTable
+            entries={acl.acl.filter(
+              (entry) =>
+                entry.level === "logi-specialist" && entry.name.toLowerCase().startsWith(find)
+            )}
+            onAction={refreshAcl}
+          />
+        ) : category === "FC" ? (
+          <ACLTable
+            entries={acl.acl.filter(
+              (entry) =>
+                entry.level !== "logi-specialist" && entry.name.toLowerCase().startsWith(find)
+            )}
+            onAction={refreshAcl}
+          />
+        ) : null}
       </Box>
     </>
   );

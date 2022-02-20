@@ -141,11 +141,16 @@ function ShowPlan({ plan, mySkills }) {
 }
 
 const CardImages = styled.div`
-  margin-top: 1em;
+  border: solid 2px ${(props) => props.theme.colors["secondary"].color};
   line-height: 0;
+  padding: 0.1em;
+  justify-content: center;
+  border-radius: 5px;
+  max-width: fit-content;
   img {
-    max-width: 64px;
     margin: 1px;
+    border-radius: 3px;
+    max-width: 31px;
   }
 `;
 
@@ -162,7 +167,6 @@ function PlanList({ plans, mySkills }) {
               style={{ textDecoration: "inherit", color: "inherit" }}
             >
               <Card title={plan.source.name}>
-                <p>{plan.source.description}</p>
                 <CardImages>
                   {plan.ships.map((ship) => (
                     <img
@@ -173,6 +177,7 @@ function PlanList({ plans, mySkills }) {
                     />
                   ))}
                 </CardImages>
+                <p>{plan.source.description}</p>
               </Card>
             </NavLink>
           </CardMargin>

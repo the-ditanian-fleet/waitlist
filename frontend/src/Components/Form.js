@@ -129,7 +129,8 @@ export const Buttons = styled.div`
   flex-wrap: wrap;
 
   > * {
-    margin-bottom: 0.5em;
+    margin-bottom: ${(props) => (props.marginb ? props.marginb : "0.5em")};
     margin-right: 0.5em;
   }
+  } 
 `;

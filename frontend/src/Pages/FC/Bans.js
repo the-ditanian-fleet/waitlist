@@ -79,7 +79,10 @@ function BanEntry({ kind, id, name, expires_at, onAction, added_by }) {
       <Cell>{added_by && added_by.name}</Cell>
       {authContext.access["bans-manage"] && (
         <Cell>
-          <Button onClick={(evt) => toaster(toastContext, removeBan({ kind, id })).then(onAction)}>
+          <Button
+            variant={"danger"}
+            onClick={(evt) => toaster(toastContext, removeBan({ kind, id })).then(onAction)}
+          >
             Remove
           </Button>
         </Cell>
