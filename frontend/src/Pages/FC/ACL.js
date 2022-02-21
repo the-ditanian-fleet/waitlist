@@ -2,24 +2,12 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { apiCall, toaster, useApi } from "../../api";
 import { Box } from "../../Components/Box";
-import { Button, InputGroup, Buttons, Input } from "../../Components/Form";
+import { Button, InputGroup, Buttons, Input, CenteredButtons } from "../../Components/Form";
 import { PageTitle, Title } from "../../Components/Page";
 import { CellHead, Table, TableHead, Row, TableBody, Cell } from "../../Components/Table";
 import { ToastContext, AuthContext } from "../../contexts";
 import { useLocation, useHistory } from "react-router-dom";
 import { Modal } from "../../Components/Modal";
-import styled from "styled-components";
-
-// Need to clean this up & move to buttons & merge with other one on search
-const CenteredButtons = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-right: 0.5em;
-  > * {
-    margin: 0.2em;
-    width: 90px;
-  }
-`;
 
 export function ACLRoutes() {
   return (
@@ -46,7 +34,7 @@ function RemoveConfirm({ who, onAction }) {
             <Title>Remove {who.name}</Title>
             <p>{who.level}</p>
             <br />
-            <CenteredButtons>
+            <CenteredButtons size={"90px"}>
               <Button variant="secondary" onClick={(evt) => setModalOpen(false)}>
                 Cancel
               </Button>
