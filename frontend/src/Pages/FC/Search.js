@@ -96,7 +96,7 @@ function AddACL({ who }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [acl, refreshAcl] = useApi("/api/acl/list");
   if (!acl) {
-    return null;
+    return <Button>ACL</Button>;
   }
   var current = "No level!";
   const find = acl.acl.filter((entry) => entry.id === who.id)[0];
