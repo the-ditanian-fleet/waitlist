@@ -111,7 +111,7 @@ function AddACL({ who }) {
             <Title>{who.name}</Title>
             <p>{current}</p>
             <br />
-            {current === "logi-specialist" || current === "No level!" ? (
+            {current === "logi-specialist" || current === "No level" ? (
               <>
                 <p>
                   <label>
