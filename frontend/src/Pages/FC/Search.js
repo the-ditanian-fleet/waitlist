@@ -98,7 +98,7 @@ function AddACL({ who }) {
   if (!acl) {
     return <Button>ACL</Button>;
   }
-  var current = "No level!";
+  var current = "No level";
   const find = acl.acl.filter((entry) => entry.id === who.id)[0];
   if (find) {
     current = find.level;
