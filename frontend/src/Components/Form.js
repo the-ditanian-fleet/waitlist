@@ -134,3 +134,12 @@ export const Buttons = styled.div`
   }
   } 
 `;
+
+export const CenteredButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  > * {
+    width: ${(props) => (props.size ? props.size : "inherit")};
+    margin: 0.2em;
+  }
+`;

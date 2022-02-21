@@ -1,5 +1,13 @@
 import React from "react";
-import { Input, NavButton, Button, Select, InputGroup, Buttons } from "../../Components/Form";
+import {
+  Input,
+  NavButton,
+  Button,
+  Select,
+  InputGroup,
+  Buttons,
+  CenteredButtons,
+} from "../../Components/Form";
 import { Cell, Table, Row, TableHead, TableBody, CellHead } from "../../Components/Table";
 import { useApi, apiCall, toaster } from "../../api";
 import { AuthContext, ToastContext } from "../../contexts";
@@ -8,17 +16,6 @@ import { Title } from "../../Components/Page";
 import { Modal } from "../../Components/Modal";
 import { Box } from "../../Components/Box";
 import { removeAcl } from "./ACL";
-import styled from "styled-components";
-
-// Need to clean this up & move to buttons & merge with other one on ACL
-const CenteredButtonsNoFix = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-right: 0.5em;
-  > * {
-    margin: 0.2em;
-  }
-`;
 
 async function addAcl(id, level) {
   return apiCall("/api/acl/add", { json: { id: parseInt(id), level } });
@@ -99,14 +96,13 @@ function AddACL({ who }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [acl, refreshAcl] = useApi("/api/acl/list");
   if (!acl) {
-    return null;
+    return <Button>ACL</Button>;
   }
-  var current = "No level!";
+  var current = "No level";
   const find = acl.acl.filter((entry) => entry.id === who.id)[0];
   if (find) {
     current = find.level;
   }
-  console.log(current);
   return (
     <>
       {modalOpen ? (
@@ -115,7 +111,7 @@ function AddACL({ who }) {
             <Title>{who.name}</Title>
             <p>{current}</p>
             <br />
-            {current === "logi-specialist" || current === "No level!" ? (
+            {current === "logi-specialist" || current === "No level" ? (
               <>
                 <p>
                   <label>
@@ -147,14 +143,14 @@ function AddACL({ who }) {
                 </Button>
               </>
             ) : (
-              <CenteredButtonsNoFix>
+              <CenteredButtons>
                 <Button
                   variant="danger"
                   onClick={(evt) => toaster(toastContext, removeAcl(who.id).then(refreshAcl))}
                 >
                   Remove FC
                 </Button>
-              </CenteredButtonsNoFix>
+              </CenteredButtons>
             )}
           </Box>
         </Modal>

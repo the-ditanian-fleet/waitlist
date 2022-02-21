@@ -32,8 +32,6 @@ ModalDom.Content = styled.div`
     min-width: 300px;
     min-height: 200px;
     max-width: 1300px;
-    min-width: max-content;
-    margin: 0px 17px;
   }
 `;
 

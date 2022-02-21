@@ -59,7 +59,7 @@ FitCard.Content.Badges = styled.div`
 const NoteUI = styled.div`
   padding: 0.2em 0em;
   display: flex;
-  > tex {
+  > p {
     background-color: ${(props) => props.theme.colors[props.variant].color};
     color: ${(props) => props.theme.colors.text};
     border-radius: 5px;
@@ -175,15 +175,15 @@ function ShipDisplay({ fit, id, hybrid, note }) {
             </div>
             {note ? (
               <NoteUI variant={"warning"}>
-                <tex>{note}</tex>
+                <p>{note}</p>
               </NoteUI>
             ) : null}
             {hybrid ? (
               <NoteUI variant={"danger"}>
-                <tex>
-                  HYBRID FIT! This fit requires at least Amulet 1 - 5. See mailing list: <br />
-                  TDF-Implant1
-                </tex>
+                <p>
+                  HYBRID FIT! This fit requires at least Amulet 1 - 5. <br /> See mailing list:{" "}
+                  <b>TDF-Implant1</b>
+                </p>
               </NoteUI>
             ) : null}
           </Box>
