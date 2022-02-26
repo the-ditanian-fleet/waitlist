@@ -1,10 +1,8 @@
 import { useApi } from "../../api";
 
-//import { Badge } from "../../Components/Badge";
-
 import { InputGroup, Button, Buttons } from "../../Components/Form";
 
-import { Fitout } from "./FittingSortDisplay";
+import { Fitout, ImplantOut } from "./FittingSortDisplay";
 
 import { PageTitle } from "../../Components/Page";
 
@@ -34,7 +32,7 @@ function FitsDisplay({ tier, setTier = null }) {
     <>
       <PageTitle>HQ FITS</PageTitle>
       {setTier != null && (
-        <Buttons style={{ marginBottom: "1em" }}>
+        <Buttons style={{ marginBottom: "0.5em" }}>
           <InputGroup>
             <Button active={tier === "Starter"} onClick={(evt) => setTier("Starter")}>
               Starter
@@ -56,7 +54,7 @@ function FitsDisplay({ tier, setTier = null }) {
           </InputGroup>
         </Buttons>
       )}
-
+      <ImplantOut />
       {tier === "Starter" ? (
         <Fitout data={fitData} tier="Starter" />
       ) : tier === "Basic" ? (

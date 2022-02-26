@@ -36,6 +36,13 @@ export const CellHead = styled.th`
   width: 200px;
 `;
 
+export const SmallCellHead = styled.th`
+  text-align: left;
+  padding: 0.5em;
+  font-weight: 600;
+  width: 75px;
+`;
+
 export const Cell = styled.td`
   padding: 0.5em;
   color: ${(props) => props.theme.colors.text};
