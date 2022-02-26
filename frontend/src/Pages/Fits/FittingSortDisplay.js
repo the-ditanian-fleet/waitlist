@@ -224,7 +224,7 @@ function ImplantOut() {
   return (
     <>
       <DisplayDOM>
-        <ImplantButton name="Ascendancy" />
+        {/*<ImplantButton name="Ascendancy" />*/}
         <ImplantButton name="Hybrid" />
       </DisplayDOM>
     </>
