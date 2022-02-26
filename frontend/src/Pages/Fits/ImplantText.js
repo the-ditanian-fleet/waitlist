@@ -74,16 +74,16 @@ export function ImplantTable({ type }) {
             <Cell>
               <b>Slot 6</b>
             </Cell>
-            {type === "Ascendancy" ? (
+            {type === "Hybrid" ? (
+              <Cell>
+                <CopyImplantText toast={toastContext} what={"WS-618"} /> higher warp speed.
+              </Cell>
+            ) : (
               <Cell>
                 <CopyImplantText toast={toastContext} what={"WS-618"} /> higher warp speed or
                 <br />
                 <CopyImplantText toast={toastContext} what={"High-grade Ascendancy Omega"} /> if you
                 have too much isk.
-              </Cell>
-            ) : (
-              <Cell>
-                <CopyImplantText toast={toastContext} what={"WS-618"} /> higher warp speed.
               </Cell>
             )}
 
