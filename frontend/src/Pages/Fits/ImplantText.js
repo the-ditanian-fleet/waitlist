@@ -138,7 +138,7 @@ function HardWires({ toastContext }) {
         <Cell>
           <CopyImplantText toast={toastContext} what={"Ogdin's Eye"} /> or
           <br />
-          <CopyImplantText toast={toastContext} what={"MR-706"} /> better tracking
+          <CopyImplantText toast={toastContext} what={"MR-706"} /> better tracking.
         </Cell>
 
         <Cell>
@@ -151,7 +151,7 @@ function HardWires({ toastContext }) {
           <b>Slot 8</b>
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"EM-806"} /> more capacitor
+          <CopyImplantText toast={toastContext} what={"EM-806"} /> more capacitor.
         </Cell>
 
         <Cell>
@@ -180,18 +180,19 @@ function HardWires({ toastContext }) {
         <Cell>
           <b>Kronos/Vindicator:</b>
           <br />
-          <CopyImplantText toast={toastContext} what={"LH-1006"} /> higher weapon damage <br />
+          <CopyImplantText toast={toastContext} what={"LH-1006"} /> higher weapon damage. <br />
           <br />
           <b>Paladin/Nightmare:</b>
           <br />
-          <CopyImplantText toast={toastContext} what={"LE-1006"} /> higher weapon damage or <br />
+          <CopyImplantText toast={toastContext} what={"LE-1006"} /> or <br />
           <CopyImplantText toast={toastContext} what={"Pashan's Turret Handling Mindlink"} /> if you
-          have too much isk
+          have too much isk, higher weapon damage.
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"HG-1006"} /> higher RAW armor or
+          <CopyImplantText toast={toastContext} what={"HG-1006"} /> or
           <br />
-          <CopyImplantText toast={toastContext} what={"HG-1008"} /> if you have too much isk, for
+          <CopyImplantText toast={toastContext} what={"HG-1008"} /> if you have too much isk, higher
+          RAW armor for
           <b> logi only pilots.</b>
         </Cell>
       </Row>
