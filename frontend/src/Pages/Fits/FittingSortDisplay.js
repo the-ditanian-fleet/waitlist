@@ -137,7 +137,7 @@ function Fitout({ data, tier }) {
   if (tier === "Other") {
     return (
       <>
-        <div style={{ margin: "2.5em 0em" }}>
+        <div style={{ margin: "0.5em 0em" }}>
           <Title>Secondary Support Ships</Title>
           <p>These ships are never used as main characters in fleet.</p>
           <DisplayDOM>{dps}</DisplayDOM>
