@@ -148,7 +148,9 @@ function AddACL({ who, authContext }) {
         <Modal open={true} setOpen={setModalOpen}>
           <Box style={{ height: "220px" }}>
             <Title>{who.name}</Title>
-            <p><AclToRead role={current} /></p>
+            <p>
+              <AclToRead role={current} />
+            </p>
             <br />
             {!fcWindow ? (
               <>

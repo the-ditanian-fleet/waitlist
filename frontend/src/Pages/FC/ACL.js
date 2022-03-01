@@ -76,7 +76,9 @@ function ACLTable({ entries, onAction }) {
           <Row key={admin.id}>
             <Cell>{admin.name}</Cell>
             <Cell></Cell>
-            <Cell><AclToRead role={admin.level} /></Cell>
+            <Cell>
+              <AclToRead role={admin.level} />
+            </Cell>
             <Cell></Cell>
             <Cell>
               {authContext.access["access-manage"] && (
