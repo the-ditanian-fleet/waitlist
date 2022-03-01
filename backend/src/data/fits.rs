@@ -1,5 +1,5 @@
 use regex::Regex;
-use std::collections::{BTreeSet, BTreeMap};
+use std::collections::{BTreeMap, BTreeSet};
 
 use eve_data_core::{Fitting, TypeID};
 

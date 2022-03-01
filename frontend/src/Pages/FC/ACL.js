@@ -9,6 +9,8 @@ import { ToastContext, AuthContext } from "../../contexts";
 import { useLocation, useHistory } from "react-router-dom";
 import { Modal } from "../../Components/Modal";
 
+export const fcroles = ["trainee", "trainee-advanced", "fc", "fc-trainer", "council", "admin"];
+
 export function ACLRoutes() {
   return (
     <>
@@ -74,7 +76,7 @@ function ACLTable({ entries, onAction }) {
           <Row key={admin.id}>
             <Cell>{admin.name}</Cell>
             <Cell></Cell>
-            <Cell>{admin.level}</Cell>
+            <Cell>{<AclToRead role={admin.level} />}</Cell>
             <Cell></Cell>
             <Cell>
               {authContext.access["access-manage"] && (
@@ -94,7 +96,7 @@ function ACLOverview() {
 
   const queryParams = new URLSearchParams(useLocation().search);
   const history = useHistory();
-  var category = queryParams.get("Category") || "Logi";
+  var category = queryParams.get("Category") || "FC";
   const setCategory = (newCategory) => {
     queryParams.set("Category", newCategory);
     history.push({
@@ -104,15 +106,24 @@ function ACLOverview() {
   if (!acl) {
     return <em>Loading</em>;
   }
+
   return (
     <>
       <PageTitle>Access control list</PageTitle>
       {setCategory != null && (
         <Buttons style={{ marginBottom: "1em" }}>
           <InputGroup>
-            <Button active={category === "Logi"} onClick={(evt) => setCategory("Logi")}>
+            <Button active={category === "l"} onClick={(evt) => setCategory("l")}>
               Logi
             </Button>
+            <Button active={category === "b"} onClick={(evt) => setCategory("b")}>
+              Bastion
+            </Button>
+            <Button active={category === "w"} onClick={(evt) => setCategory("w")}>
+              Web
+            </Button>
+          </InputGroup>
+          <InputGroup>
             <Button active={category === "FC"} onClick={(evt) => setCategory("FC")}>
               FC
             </Button>
@@ -121,19 +132,21 @@ function ACLOverview() {
       )}
       <Box>
         <Input value={find} onChange={(evt) => setFind(evt.target.value)} />
-        {category === "Logi" ? (
+
+        {category !== "FC" ? (
           <ACLTable
             entries={acl.acl.filter(
               (entry) =>
-                entry.level === "logi-specialist" && entry.name.toLowerCase().startsWith(find)
+                entry.level.includes(category) &&
+                !fcroles.includes(entry.level) &&
+                entry.name.toLowerCase().startsWith(find)
             )}
             onAction={refreshAcl}
           />
         ) : category === "FC" ? (
           <ACLTable
             entries={acl.acl.filter(
-              (entry) =>
-                entry.level !== "logi-specialist" && entry.name.toLowerCase().startsWith(find)
+              (entry) => fcroles.includes(entry.level) && entry.name.toLowerCase().startsWith(find)
             )}
             onAction={refreshAcl}
           />
@@ -141,4 +154,21 @@ function ACLOverview() {
       </Box>
     </>
   );
+}
+
+export function AclToRead({ role }) {
+  if (!fcroles.includes(role) && role !== "No level") {
+    var word = "";
+    if (role.includes("l")) {
+      word += "Logi-";
+    }
+    if (role.includes("b")) {
+      word += "Bastion-";
+    }
+    if (role.includes("w")) {
+      word += "Web-";
+    }
+    word += "Specialist";
+    return word;
+  } else return role;
 }

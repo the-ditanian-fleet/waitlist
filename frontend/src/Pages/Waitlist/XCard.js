@@ -35,6 +35,8 @@ const tagBadges = {
   "STARTER-SKILLS": ["neutral", "S", "Starter skills"],
   "HQ-FC": ["blue", "H", "HQ FC"],
   LOGI: ["green", "L", "Logi Specialist"],
+  BASTION: ["purple", "B", "Bastion Specialist"],
+  WEB: ["cyan", "W", "Web Specialist"],
 };
 
 async function approveFit(id) {

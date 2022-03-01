@@ -163,15 +163,22 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
     let mut result = BTreeMap::new();
     result.insert("user".to_string(), BTreeSet::new());
 
+    // PILOT ROLES (combinations) L / B / W / LB / LBW / BW / LW
+    // MULTI ROLE TABLE WOULD REQUIRE A LOT OF CODE REWRITE
+
+    build_level(&mut result, "user", "l", vec!["waitlist-tag:LOGI"]);
+    build_level(&mut result, "user", "b", vec!["waitlist-tag:BASTION"]);
+    build_level(&mut result, "user", "w", vec!["waitlist-tag:WEB"]);
+    build_level(&mut result, "l", "lb", vec!["waitlist-tag:BASTION"]);
+    build_level(&mut result, "lb", "lbw", vec!["waitlist-tag:WEB"]);
+    build_level(&mut result, "b", "bw", vec!["waitlist-tag:WEB"]);
+    build_level(&mut result, "l", "lw", vec!["waitlist-tag:WEB"]);
+
+    // END OF PILOT ROLES
+
     build_level(
         &mut result,
-        "user",
-        "logi-specialist",
-        vec!["waitlist-tag:LOGI"],
-    );
-    build_level(
-        &mut result,
-        "logi-specialist",
+        "l",
         "trainee",
         vec![
             "fleet-configure",
@@ -204,7 +211,13 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
             "access-view",
             "waitlist-tag:HQ-FC",
             "access-manage",
-            "access-manage:logi-specialist",
+            "access-manage:l",
+            "access-manage:b",
+            "access-manage:w",
+            "access-manage:lb",
+            "access-manage:lbw",
+            "access-manage:bw",
+            "access-manage:lw",
             "notes-view",
             "notes-add",
         ],
