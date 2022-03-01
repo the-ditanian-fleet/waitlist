@@ -148,7 +148,7 @@ function AddACL({ who, authContext }) {
         <Modal open={true} setOpen={setModalOpen}>
           <Box style={{ height: "220px" }}>
             <Title>{who.name}</Title>
-            <p>{<AclToRead role={current} />}</p>
+            <p><AclToRead role={current} /></p>
             <br />
             {!fcWindow ? (
               <>
@@ -198,7 +198,19 @@ function AddACL({ who, authContext }) {
                   ) : null}
                 </CenteredButtons>
               </>
-            ) : !fcroles.includes(current) ? (
+            ) : fcroles.includes(current) ? (
+              <>
+                <br />
+                <CenteredButtons>
+                  <Button
+                    variant="danger"
+                    onClick={(evt) => toaster(toastContext, removeAcl(who.id).then(refreshAcl))}
+                  >
+                    Remove FC
+                  </Button>
+                </CenteredButtons>
+              </>
+            ) : (
               <>
                 <CenteredButtons>
                   <label>
@@ -226,18 +238,6 @@ function AddACL({ who, authContext }) {
                   </Button>
                   <Button onClick={(evt) => setFcWindow(false)} style={{ width: "103px" }}>
                     Back
-                  </Button>
-                </CenteredButtons>
-              </>
-            ) : (
-              <>
-                <br />
-                <CenteredButtons>
-                  <Button
-                    variant="danger"
-                    onClick={(evt) => toaster(toastContext, removeAcl(who.id).then(refreshAcl))}
-                  >
-                    Remove FC
                   </Button>
                 </CenteredButtons>
               </>
