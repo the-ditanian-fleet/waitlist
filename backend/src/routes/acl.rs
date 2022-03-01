@@ -42,21 +42,7 @@ async fn add_acl(
             input.id
         )));
     }
-    // Check if id is already in acl & you are allowed to retag
-    let the_acl = sqlx::query!("SELECT level FROM admins WHERE character_id=?", input.id)
-        .fetch_optional(app.get_db())
-        .await?;
-    if let Some(the_acl) = the_acl {
-        let require_access = format!("access-manage:{}", the_acl.level);
-        if !account.access.contains(&require_access)
-            && !account.access.contains("access-manage-all")
-        {
-            return Err(Madness::BadRequest(format!(
-                "Cannot revoke {}",
-                the_acl.level
-            )));
-        }
-    }
+
     // Alts shouldn't have ACLs, so unlink them
     sqlx::query!("DELETE FROM alt_character WHERE alt_id = ?", input.id)
         .execute(app.get_db())

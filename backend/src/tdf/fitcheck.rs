@@ -300,14 +300,6 @@ impl<'a> FitChecker<'a> {
             && self.fit.hull == type_id!("Nestor")
         {
             self.tags.insert("LOGI");
-        } else if self.pilot.access_keys.contains("waitlist-tag:WEB")
-            && self.fit.hull == type_id!("Vindicator")
-        {
-            self.tags.insert("WEB-SPECIALIST");
-        } else if self.pilot.access_keys.contains("waitlist-tag:BASTION")
-            && (self.fit.hull == type_id!("Paladin") || self.fit.hull == type_id!("Kronos"))
-        {
-            self.tags.insert("BASTION-SPECIALIST");
         }
     }
 
@@ -316,26 +308,11 @@ impl<'a> FitChecker<'a> {
             if self.tags.contains("ELITE-SKILLS") {
                 self.tags.remove("ELITE-FIT");
                 self.tags.remove("ELITE-SKILLS");
-                if self.tags.contains("BASTION-SPECIALIST") {
-                    self.tags.remove("BASTION-SPECIALIST");
-                    self.tags.insert("BASTION");
-                } else if self.tags.contains("WEB-SPECIALIST") {
-                    self.tags.remove("WEB-SPECIALIST");
-                    self.tags.insert("WEB");
-                } else {
-                    self.tags.insert("ELITE");
-                }
+                self.tags.insert("ELITE");
             } else if self.tags.contains("GOLD-SKILLS") {
                 self.tags.remove("ELITE-FIT");
                 self.tags.remove("GOLD-SKILLS");
                 self.tags.insert("ELITE-GOLD");
-                if self.tags.contains("BASTION-SPECIALIST") {
-                    self.tags.remove("BASTION-SPECIALIST");
-                    self.tags.insert("BASTION");
-                } else if self.tags.contains("WEB-SPECIALIST") {
-                    self.tags.remove("WEB-SPECIALIST");
-                    self.tags.insert("BASTION");
-                }
             }
         }
     }
