@@ -23,8 +23,8 @@ const FitCard = styled.div`
     cursor: pointer;
   }
   @media (max-width: 450px) {
-    width: 320px;
-    font-size: 0.7em;
+    width: ${(props) => (props.size ? props.size : "320px")};
+    font-size: 0.75em;
   }
 `;
 
@@ -61,7 +61,7 @@ FitCard.Content.Badges = styled.div`
     height: 1.3em;
   }
   @media (max-width: 450px) {
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
 `;
 
@@ -82,6 +82,9 @@ export const NoteUI = styled.div`
 const DisplayDOM = styled.div`
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 450px) {
+    justify-content: center;
+  }
 `;
 
 const ImplantB = styled.div`
@@ -234,7 +237,7 @@ function ShipDisplay({ fit, id, hybrid, note }) {
 function ImplantOut() {
   return (
     <>
-      <DisplayDOM>
+      <DisplayDOM style={{ justifyContent: "initial" }}>
         {/*<ImplantButton name="Ascendancy" />*/}
         <ImplantButton name="Hybrid" />
       </DisplayDOM>

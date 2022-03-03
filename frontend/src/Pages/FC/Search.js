@@ -97,7 +97,7 @@ export function Search() {
   );
 }
 
-function AddACL({ who, authContext }) {
+export function AddACL({ who, authContext }) {
   const toastContext = React.useContext(ToastContext);
   const [level, setLevel] = React.useState("trainee");
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -106,8 +106,8 @@ function AddACL({ who, authContext }) {
   const [checkedBastion, setcheckedBastion] = React.useState();
   const [checkedWeb, setcheckedWeb] = React.useState();
   const [acl, refreshAcl] = useApi("/api/acl/list");
-  if (acl) {
-    var current = "No level";
+  var current = "No level";
+  if (acl && who) {
     const find = acl.acl.filter((entry) => entry.id === who.id)[0];
     if (find) {
       current = find.level;
@@ -125,7 +125,7 @@ function AddACL({ who, authContext }) {
     }
   }, [current]);
 
-  if (!acl) {
+  if (!acl || !who) {
     return <Button>ACL</Button>;
   }
 

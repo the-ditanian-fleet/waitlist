@@ -17,6 +17,7 @@ import {
 import styled from "styled-components";
 import { InputGroup, NavButton } from "../../Components/Form";
 import { Row, Col } from "react-awesome-styled-grid";
+import { AddACL } from "../FC/Search";
 import _ from "lodash";
 
 const FilterButtons = styled.span`
@@ -74,14 +75,19 @@ export function Pilot() {
           />
         </div>
       </div>
-      <InputGroup>
-        {authContext.access["notes-add"] && (
-          <NavButton to={`/fc/notes/add?character_id=${characterId}`}>Write note</NavButton>
-        )}
-        {authContext.access["bans-manage"] && (
-          <NavButton to={`/fc/bans/add?kind=character&id=${characterId}`}>Ban</NavButton>
-        )}
-      </InputGroup>
+      {authContext.account_id !== characterId && (
+        <InputGroup>
+          {authContext.access["notes-add"] && (
+            <NavButton to={`/fc/notes/add?character_id=${characterId}`}>Write note</NavButton>
+          )}
+          {authContext.access["access-manage"] && (
+            <AddACL who={basicInfo} authContext={authContext} />
+          )}
+          {authContext.access["bans-manage"] && (
+            <NavButton to={`/fc/bans/add?kind=character&id=${characterId}`}>Ban</NavButton>
+          )}
+        </InputGroup>
+      )}
       <Row>
         <Col xs={4} md={6}>
           <Title>
