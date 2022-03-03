@@ -27,7 +27,7 @@ import { Box } from "../../Components/Box";
 import { Title } from "../../Components/Page";
 import { Button, InputGroup } from "../../Components/Form";
 
-const tagBadges = {
+export const tagBadges = {
   "WARPSPEED1-10": ["red", "W", "Warp Speed Implants"],
   "HYBRID1-10": ["red", "H", "Hybrid Implants"],
   "AMULET1-10": ["red", "A", "Amulet Implants"],

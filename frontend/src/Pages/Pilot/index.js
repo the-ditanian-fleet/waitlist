@@ -6,6 +6,7 @@ import { PilotHistory } from "./PilotHistory";
 import { useApi } from "../../api";
 import { ActivitySummary } from "./ActivitySummary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { tagBadges, Shield } from "../Waitlist/XCard";
 import {
   faClipboard,
   faGraduationCap,
@@ -16,6 +17,7 @@ import {
 import styled from "styled-components";
 import { InputGroup, NavButton } from "../../Components/Form";
 import { Row, Col } from "react-awesome-styled-grid";
+import _ from "lodash";
 
 const FilterButtons = styled.span`
   font-size: 0.75em;
@@ -26,6 +28,26 @@ const FilterButtons = styled.span`
     padding: 0 0.2em;
   }
 `;
+
+function PilotTags({ tags }) {
+  var tagImages = [];
+  _.forEach(tags, (tag) => {
+    if (tag in tagBadges) {
+      tagImages.push(
+        <div style={{ marginRight: "0.2em" }}>
+          <Shield
+            key={tag}
+            color={tagBadges[tag][0]}
+            letter={tagBadges[tag][1]}
+            title={tagBadges[tag][2]}
+            h="40px"
+          />
+        </div>
+      );
+    }
+  });
+  return <div style={{ display: "flex", marginBottom: "0.6em" }}>{tagImages}</div>;
+}
 
 export function Pilot() {
   const authContext = React.useContext(AuthContext);
@@ -40,11 +62,11 @@ export function Pilot() {
   const [notes] = useApi(
     authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
   );
-
   return (
     <>
-      <div style={{ display: "flex", alignItems: "flex-end" }}>
-        <PageTitle>{basicInfo && basicInfo.name}</PageTitle>
+      <div style={{ display: "flex", alignItems: "Center" }}>
+        <PageTitle style={{ marginRight: "0.2em" }}>{basicInfo && basicInfo.name}</PageTitle>
+        <PilotTags tags={basicInfo && basicInfo.tags} />
         <div style={{ marginLeft: "auto" }}>
           <img
             src={`https://images.evetech.net/characters/${characterId}/portrait?size=256`}

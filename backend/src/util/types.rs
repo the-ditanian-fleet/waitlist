@@ -18,3 +18,10 @@ pub struct WaitlistCategory {
     pub id: String,
     pub name: String,
 }
+
+#[derive(Serialize, Debug, Clone)]
+pub struct CharacterAndLevel {
+    pub id: i64,
+    pub name: String,
+    pub tags: Vec<&'static str>,
+}
