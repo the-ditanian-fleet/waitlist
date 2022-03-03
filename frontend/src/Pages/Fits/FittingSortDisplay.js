@@ -20,7 +20,12 @@ const FitCard = styled.div`
   }
   &:hover:not(:disabled):not(.static) {
     border-color: ${(props) => props.theme.colors.accent3};
-	cursor: pointer;
+    cursor: pointer;
+  }
+  @media (max-width: 450px) {
+    width: 320px;
+    font-size: 0.7em;
+  }
 `;
 
 FitCard.Content = styled.div`
@@ -55,6 +60,9 @@ FitCard.Content.Badges = styled.div`
   img {
     height: 1.3em;
   }
+  @media (max-width: 450px) {
+    font-size: 1.3em;
+  }
 `;
 
 export const NoteUI = styled.div`
@@ -83,6 +91,9 @@ const ImplantB = styled.div`
   width: fit-content;
   height: 24px;
   padding: 0.2em 0.2em 0em;
+  @media (max-width: 450px) {
+    font-size: 1.3em;
+  }
 `;
 
 function Fitout({ data, tier }) {
@@ -197,7 +208,7 @@ function ShipDisplay({ fit, id, hybrid, note }) {
         </Modal>
       ) : null}
       <Box>
-        <div style={{ margin: "0.5em" }}>
+        <div style={{ margin: "0.5em 0" }}>
           <FitCard variant={"secondary"}>
             <a onClick={(evt) => setModalOpen(true)}>
               <FitCard.Content>

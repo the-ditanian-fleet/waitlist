@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const CardMargin = styled.div`
-  padding: 0.4em 0.55em;
+  margin: 0.4em 0;
+  margin-right: 1em;
 `;
 const CardContainer = styled.div`
-  margin-bottom: 0.5em;
+  margin-bottom: 0.55em;
   background-color: ${(props) => props.theme.colors.accent1};
   filter: drop-shadow(0px 1px 1px ${(props) => props.theme.colors.shadow});
   border-radius: 5px;

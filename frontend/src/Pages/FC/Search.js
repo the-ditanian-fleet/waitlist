@@ -71,10 +71,6 @@ export function Search() {
                       <NavButton to={"/skills?character_id=" + character.id}>Skills</NavButton>
                       <NavButton to={"/pilot?character_id=" + character.id}>Information</NavButton>
                     </InputGroup>
-                  </Buttons>
-                </Cell>
-                <Cell>
-                  <Buttons marginb={"0em"}>
                     <InputGroup>
                       {authContext.access["bans-manage"] &&
                         authContext.account_id !== character.id && (
@@ -89,6 +85,7 @@ export function Search() {
                     </InputGroup>
                   </Buttons>
                 </Cell>
+                <Cell></Cell>
               </Row>
             ))}
           </TableBody>
