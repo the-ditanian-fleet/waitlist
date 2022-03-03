@@ -183,4 +183,27 @@ theme["Elite GOLD"] = _.merge({}, theme.light, {
   },
 });
 
+theme["Specialist"] = _.merge({}, theme.light, {
+  colors: {
+    background: "#fdf3f9",
+    accent1: "#fce4f2",
+    accent2: "#ffbcdf",
+    accent3: "#ec7fe3",
+    active: "#e11891",
+    outline: "hsla(306, 100%, 75%, 0.2)",
+    secondary: {
+      color: "#e486bd ",
+      text: "white",
+      accent: "#6e00b3",
+      disabled: "#31084a",
+    },
+    success: {
+      color: "#e11891",
+      text: "white",
+      accent: "#226d3c",
+      disabled: "#133e22",
+    },
+  },
+});
+
 export default theme;
