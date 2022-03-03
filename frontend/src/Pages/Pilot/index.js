@@ -34,9 +34,8 @@ function PilotTags({ tags }) {
   _.forEach(tags, (tag) => {
     if (tag in tagBadges) {
       tagImages.push(
-        <div style={{ marginRight: "0.2em" }}>
+        <div key={tag} style={{ marginRight: "0.2em" }}>
           <Shield
-            key={tag}
             color={tagBadges[tag][0]}
             letter={tagBadges[tag][1]}
             title={tagBadges[tag][2]}
