@@ -44,7 +44,13 @@ export function ThemeSelect({ theme, setTheme }) {
       <Button onClick={(evt) => setIsOpen(true)}>
         <FontAwesomeIcon
           fixedWidth
-          icon={theme === "dark" ? faMoon : theme === "Specialist" ? faKissWinkHeart : faSun}
+          icon={
+            ["dark", "AMOLED"].includes(theme)
+              ? faMoon
+              : theme === "Specialist"
+              ? faKissWinkHeart
+              : faSun
+          }
         />
       </Button>
     </>
