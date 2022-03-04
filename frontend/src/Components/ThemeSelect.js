@@ -3,7 +3,7 @@ import React from "react";
 import themes from "../App/theme";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faSun, faKissWinkHeart } from "@fortawesome/free-solid-svg-icons";
 import { Button, Radio } from "../Components/Form";
 import { Modal } from "../Components/Modal";
 import { Box } from "../Components/Box";
@@ -42,7 +42,10 @@ export function ThemeSelect({ theme, setTheme }) {
         </Box>
       </Modal>
       <Button onClick={(evt) => setIsOpen(true)}>
-        <FontAwesomeIcon fixedWidth icon={theme === "dark" ? faMoon : faSun} />
+        <FontAwesomeIcon
+          fixedWidth
+          icon={theme === "dark" ? faMoon : theme === "Specialist" ? faKissWinkHeart : faSun}
+        />
       </Button>
     </>
   );
