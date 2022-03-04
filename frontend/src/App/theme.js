@@ -185,24 +185,52 @@ theme["Elite GOLD"] = _.merge({}, theme.light, {
 
 theme["Specialist"] = _.merge({}, theme.light, {
   colors: {
+    text: "#666666",
     background: "#fdf3f9",
     accent1: "#fce4f2",
     accent2: "#ffbcdf",
-    accent3: "#ec7fe3",
+    accent3: "#d55f9d",
     active: "#e11891",
     outline: "hsla(306, 100%, 75%, 0.2)",
-    secondary: {
-      color: "#e486bd ",
+    primary: {
+      color: "#d36ab9",
       text: "white",
-      accent: "#6e00b3",
-      disabled: "#31084a",
+      accent: "#b64a9b",
+      disabled: "#e8e8e8",
+    },
+    secondary: {
+      color: "#f1abd6",
+      text: "white",
+      accent: "#e58ac2",
+      disabled: "#e8e8e8",
+    },
+    warning: {
+      color: "#ffeb9f",
+      text: "#898989",
+      accent: "#ffda47",
+      disabled: "#e8e8e8",
+    },
+    danger: {
+      color: "#ff889f",
+      text: "white",
+      accent: "#f35e7b",
+      disabled: "#f35e7b",
     },
     success: {
-      color: "#e11891",
+      color: "#d673af",
       text: "white",
-      accent: "#226d3c",
-      disabled: "#133e22",
+      accent: "#c15496",
+      disabled: "#e8e8e8",
     },
+    tdfShields: {
+      red: "#ff5676",
+      yellow: "#f2d56d",
+      green: "#50df4d",
+      blue: "#2e91d1",
+    },
+  },
+  logo: {
+    filter: "hue-rotate(-55deg) drop-shadow(1px 2px 0.5px #ff8fc9) contrast(90%)",
   },
 });
 
