@@ -148,6 +148,7 @@ const theme = {
 
 theme.AMOLED = _.merge({}, theme.dark, {
   colors: {
+    text: "#f0f0f0",
     background: "#000000",
   },
 });
@@ -172,7 +173,7 @@ theme.ninjaholic = _.merge({}, theme.dark, {
 theme["Midnight Blue"] = _.merge({}, theme.dark, {
   colors: {
     background: "#0a0a2c",
-    accent1: "#0e0e54",
+    accent1: "#1e1e40",
   },
 });
 
@@ -191,7 +192,18 @@ theme["Specialist"] = _.merge({}, theme.light, {
     accent2: "#ffbcdf",
     accent3: "#d55f9d",
     active: "#e11891",
+
     outline: "hsla(306, 100%, 75%, 0.2)",
+    modal: "hsla(0, 0%, 0%, 0.50)",
+    shadow: "hsla(315, 100%, 90%, 0.4)",
+
+    input: {
+      color: "transparent",
+      text: "#4a4a4a",
+      accent: "transparent",
+      disabled: "#757575",
+    },
+
     primary: {
       color: "#d36ab9",
       text: "white",
