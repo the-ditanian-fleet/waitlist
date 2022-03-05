@@ -1,16 +1,32 @@
 # Upgrading
 
+## Policy
+
 TDF has great affordable starter fits. We will help you get spacerich. We have an SRP to make sure you keep that ship. After you have fully upgraded to elite, spend the isk any way you want.
 
 We expect all pilots to upgrade their primary ship to Elite in a reasonable amount of time, which will involve upgrading the ship itself, but also your skills and implants. Until you are elite, you should expect to spend most of your earned money buying modules and skill injectors.
 
 We have hard upper bounds for the time you can spend in fleet while upgrading, but don’t treat these as targets. Upgrade as soon as you reasonably can, and you will stay well within the limits.
 
-**All pilots are required to be out of the Starter squad by 50 hours of fleet time and be in an advanced fit (or higher) by 100 hours. By 150 hours you must be elite. Bastion-fitted marauders have 250 hours.**
+TDF works with a tier system. Pilots can be categorized as starter, basic, elite and elite gold. Your current status is determined by fit and lowest skill tier.
 
-TDF works with a tier system. Pilots can be categorized as starter, basic, elite and elite gold. See upgrade guidance as per below:
+**All pilots are required to be out of the Starter squad by 50 hours of fleet time and be in an advanced fit (or higher) by 100 hours. By 200 hours you must be elite. Bastion-fitted marauders have 250 hours.**
 
-## Starter
+---
+
+|       Tier        | Maximum time |
+| :---------------: | :----------: |
+|      Starter      |     50h      |
+|     Advanced      |     100h     |
+|   Elite(Other)    |     100h     |
+| Elite(Vindicator) |     200h     |
+|  Elite(Bastion)   |     250h     |
+
+---
+
+## Upgrade guidance
+
+### Starter
 
 1. **Get a starter fit**, you will need level 2 armor compensation skills to be able to x-up, and you need to be able to online all the modules from the fit. We recommend the Vindi or Nightmare starters.
 
@@ -20,7 +36,7 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 3. If you are still in a Megathron get yourself a Vindi or Nightmare.
 4. Past 30 hours in fleet its important to show progression in your upgrading, either via ship, skills, or fit.
 
-## Basic
+### Basic
 
 **Upgrade to basic fits** as soon as you can.
 
@@ -37,7 +53,7 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 
 Once you have the basic fit ready to go, continue **training and injecting basic skills** which will help your capacitor stability and the ability to keep up with the fleet. At this point you are no longer starter and will be placed in a normal squad, congratulations!
 
-## Advanced
+### Advanced
 
 1. **Upgrade to the advanced fit.** Your skills will already be sufficient, so buy those new modules!
 
@@ -59,7 +75,7 @@ Once your set is complete you can upgrade to the \_HYBRID fits on the mailing li
 - All tank skills must be at basic level or higher (see skills page)
 - You must be able to online and use all modules/drones in the bastion fits so train/inject as appropriate.
 
-## Elite
+### Elite
 
 Now it's time to get the **elite fit**. You do not need to have every skill at elite level to fly the fit! Go buy those upgrades while still training/injecting the skills.
 
@@ -69,10 +85,10 @@ Now it's time to get the **elite fit**. You do not need to have every skill at e
 
 At this point we would like to **thank you** for upgrading, you can spend your isk as you see fit from this point on.
 
-## Elite gold
+### Elite gold
 
 Finally, once you have all skills to elite gold for your ship get your **elite gold** badge to show off your awesomeness. Just ask any FC who is not running the current fleet to check you meet the requirements.
 
-## Branch out
+### Branch out
 
 Once you're done upgrading, consider branching out to another ship. Maybe try logistics and work toward the L badge. If you are in a timezone with low pilot numbers consider training up another DPS alt and earn twice the payouts! Once you have your elite badge pilots are allowed to bring a doctrine fitted alt to fleet.

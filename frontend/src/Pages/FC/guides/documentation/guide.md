@@ -19,7 +19,7 @@ Full rules document can be found pinned on FC discord. Most important FC specifi
 Upgrade numbers (check their history to judge !)
 
 - 50 hours to get out of starter
-- 150 for elite vindi
+- 200 for elite vindicator
 - 250 for elite bastion
 
 1. Any pilot who is able to meet basic tank requirements and is able to fly a doctrine fit from one of the TDF FITS mailing lists should always be able to get into the fleet.

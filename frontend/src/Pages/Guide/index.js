@@ -116,14 +116,14 @@ export function GuideIndex() {
           What to do before joining your first fleet, how to join your first fleet, and how not to
           die during your first fleet.
         </GuideCard>
-        <GuideCard slug="/guide/dps" name="Anchoring" icon={faAnchor}>
+        <GuideCard slug="/guide/anchoring" name="Anchoring" icon={faAnchor}>
           Where should you park your ship?
         </GuideCard>
         <GuideCard slug="/guide/roles" name="Roles" icon={faUsers}>
           What is my purpose? Learn the roles here.
         </GuideCard>
         <GuideCard slug="/guide/upgrade" name="Upgrading" icon={faLevelUpAlt}>
-          TDF expects you to upgrade. What&apos;s the recommended way to do it?
+          TDF expects you to upgrade. What is the policy and the recommended way to do it?
         </GuideCard>
         {authContext && (
           <GuideCard slug="/skills/plans" name="Skill Plans" icon={faBook}>
