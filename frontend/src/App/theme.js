@@ -71,6 +71,7 @@ const theme = {
         yellow: "#d2bd00",
         purple: "#8b00c7",
         neutral: "#4b4b4b",
+        cyan: "#1eabaa",
         text: "#ffffff",
       },
     },
@@ -138,6 +139,7 @@ const theme = {
         yellow: "#968912",
         purple: "#69118e",
         neutral: "#777777",
+        cyan: "#1c9493",
         text: "#cccccc",
       },
     },
@@ -146,6 +148,7 @@ const theme = {
 
 theme.AMOLED = _.merge({}, theme.dark, {
   colors: {
+    text: "#f0f0f0",
     background: "#000000",
   },
 });
@@ -170,7 +173,7 @@ theme.ninjaholic = _.merge({}, theme.dark, {
 theme["Midnight Blue"] = _.merge({}, theme.dark, {
   colors: {
     background: "#0a0a2c",
-    accent1: "#0e0e54",
+    accent1: "#1e1e40",
   },
 });
 
@@ -178,6 +181,68 @@ theme["Elite GOLD"] = _.merge({}, theme.light, {
   logo: {
     filter:
       "invert(1) sepia(1) saturate(10000%) hue-rotate(-15deg) drop-shadow(1px 1px 0.5px #a67c00) contrast(90%)",
+  },
+});
+
+theme["Specialist"] = _.merge({}, theme.light, {
+  colors: {
+    text: "#666666",
+    background: "#fdf3f9",
+    accent1: "#fce4f2",
+    accent2: "#ffbcdf",
+    accent3: "#d55f9d",
+    active: "#e11891",
+
+    outline: "hsla(306, 100%, 75%, 0.2)",
+    modal: "hsla(0, 0%, 0%, 0.50)",
+    shadow: "hsla(315, 100%, 90%, 0.4)",
+
+    input: {
+      color: "transparent",
+      text: "#4a4a4a",
+      accent: "transparent",
+      disabled: "#757575",
+    },
+
+    primary: {
+      color: "#d36ab9",
+      text: "white",
+      accent: "#b64a9b",
+      disabled: "#e8e8e8",
+    },
+    secondary: {
+      color: "#f1abd6",
+      text: "white",
+      accent: "#e58ac2",
+      disabled: "#e8e8e8",
+    },
+    warning: {
+      color: "#ffeb9f",
+      text: "#898989",
+      accent: "#ffda47",
+      disabled: "#e8e8e8",
+    },
+    danger: {
+      color: "#ff889f",
+      text: "white",
+      accent: "#f35e7b",
+      disabled: "#f35e7b",
+    },
+    success: {
+      color: "#d673af",
+      text: "white",
+      accent: "#c15496",
+      disabled: "#e8e8e8",
+    },
+    tdfShields: {
+      red: "#ff5676",
+      yellow: "#f2d56d",
+      green: "#50df4d",
+      blue: "#2e91d1",
+    },
+  },
+  logo: {
+    filter: "hue-rotate(-55deg) drop-shadow(1px 2px 0.5px #ff8fc9) contrast(90%)",
   },
 });
 

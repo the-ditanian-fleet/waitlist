@@ -33,7 +33,14 @@ export const CellHead = styled.th`
   text-align: left;
   padding: 0.5em;
   font-weight: 600;
-  width: 200px;
+  width: 400px;
+`;
+
+export const SmallCellHead = styled.th`
+  text-align: left;
+  padding: 0.5em;
+  font-weight: 600;
+  width: 75px;
 `;
 
 export const Cell = styled.td`

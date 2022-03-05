@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
 export const CardMargin = styled.div`
-  padding: 0.4em 0.55em;
+  margin: 0.4em 0;
+  @media (max-width: 450px) {
+    width: 100%;
+  }
 `;
 const CardContainer = styled.div`
-  margin-bottom: 0.5em;
+  margin-bottom: 0.55em;
+  margin-right: 1em;
   background-color: ${(props) => props.theme.colors.accent1};
   filter: drop-shadow(0px 1px 1px ${(props) => props.theme.colors.shadow});
   border-radius: 5px;
@@ -13,6 +17,9 @@ const CardContainer = styled.div`
   width: ${(props) => (props.size ? props.size : "330px")};
   &:hover {
     border: solid 1px ${(props) => props.theme.colors.accent2};
+  }
+  @media (max-width: 450px) {
+    width: 100%;
   }
 `;
 const CardHeader = styled.h3`
