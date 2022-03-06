@@ -296,6 +296,8 @@ impl<'a> FitChecker<'a> {
     fn add_snowflake_tags(&mut self) {
         if self.pilot.access_keys.contains("waitlist-tag:HQ-FC") {
             self.tags.push("HQ-FC");
+        } else if self.pilot.access_keys.contains("waitlist-tag:TRAINEE") {
+            self.tags.push("TRAINEE");
         } else if self.pilot.access_keys.contains("waitlist-tag:LOGI")
             && self.fit.hull == type_id!("Nestor")
         {

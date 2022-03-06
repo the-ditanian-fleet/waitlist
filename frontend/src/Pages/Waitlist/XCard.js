@@ -37,6 +37,7 @@ export const tagBadges = {
   LOGI: ["green", "L", "Logi Specialist"],
   BASTION: ["purple", "B", "Bastion Specialist"],
   WEB: ["cyan", "W", "Web Specialist"],
+  TRAINEE: ["neutral", "T", "Training FC"],
 };
 
 async function approveFit(id) {
