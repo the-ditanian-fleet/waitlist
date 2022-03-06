@@ -328,6 +328,7 @@ impl<'a> FitChecker<'a> {
             } else if self.tags.contains(&"GOLD-SKILLS") {
                 self.tags
                     .retain(|&x| (x != "ELITE-FIT") && (x != "GOLD-SKILLS"));
+                self.tags.push("ELITE-GOLD");
                 if self.tags.contains(&"BASTION-SPECIALIST") {
                     self.tags.retain(|&x| x != "BASTION-SPECIALIST");
                     self.tags.push("BASTION");
@@ -335,7 +336,6 @@ impl<'a> FitChecker<'a> {
                     self.tags.retain(|&x| x != "WEB-SPECIALIST");
                     self.tags.push("WEB");
                 }
-                self.tags.push("ELITE-GOLD");
             }
         }
     }
