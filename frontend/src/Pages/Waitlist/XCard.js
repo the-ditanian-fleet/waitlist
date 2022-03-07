@@ -40,6 +40,19 @@ export const tagBadges = {
   TRAINEE: ["neutral", "T", "Training FC"],
 };
 
+const badgeOrder = [
+  "HQ-FC",
+  "TRAINEE",
+  "WEB",
+  "BASTION",
+  "LOGI",
+  "AMULET1-10",
+  "WARPSPEED1-10",
+  "HYBRID1-10",
+  "ELITE",
+  "ELITE-GOLD",
+];
+
 async function approveFit(id) {
   return await apiCall("/api/waitlist/approve", {
     json: { id: id },
@@ -302,10 +315,13 @@ export function XCard({ entry, fit, onAction }) {
   const toastContext = React.useContext(ToastContext);
   const is_alt = fit.is_alt;
   const accountName = entry.character ? entry.character.name : "Name hidden";
+  const tags = _.sortBy(fit.tags, function (item) {
+    return badgeOrder.indexOf(item);
+  });
   var isSelf = entry.character && entry.character.id === authContext.account_id;
   var tagText = [];
   var tagImages = [];
-  _.forEach(fit.tags || [], (tag) => {
+  tags.forEach((tag) => {
     if (tag === "ELITE-GOLD") {
       tagImages.push(<img key={tag} src={egoldBadge} alt={"Elite GOLD"} title={"Elite GOLD"} />);
     } else if (tag in tagBadges) {

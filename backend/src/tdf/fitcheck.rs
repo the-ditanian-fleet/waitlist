@@ -42,7 +42,7 @@ pub struct FitChecker<'a> {
     doctrine_fit: Option<&'static DoctrineFit>,
     pilot: &'a PilotData<'a>,
 
-    tags: Vec<&'static str>,
+    tags: BTreeSet<&'static str>,
     errors: Vec<String>,
     analysis: Option<PubAnalysis>,
 }
@@ -55,7 +55,7 @@ impl<'a> FitChecker<'a> {
             fit,
             doctrine_fit: None,
             pilot,
-            tags: Vec::new(),
+            tags: BTreeSet::new(),
             errors: Vec::new(),
             analysis: None,
         };
@@ -68,9 +68,9 @@ impl<'a> FitChecker<'a> {
         checker.check_logi_implants();
         checker.set_category();
         checker.add_snowflake_tags();
-        checker.merge_tags();
         checker.check_fit_implants()?;
         checker.add_implant_tag();
+        checker.merge_tags();
 
         checker.finish()
     }
@@ -103,11 +103,11 @@ impl<'a> FitChecker<'a> {
         };
 
         if skill_tier == "starter" {
-            self.tags.push("STARTER-SKILLS");
+            self.tags.insert("STARTER-SKILLS");
         } else if skill_tier == "gold" {
-            self.tags.push("GOLD-SKILLS");
+            self.tags.insert("GOLD-SKILLS");
         } else if skill_tier == "elite" {
-            self.tags.push("ELITE-SKILLS");
+            self.tags.insert("ELITE-SKILLS");
         }
 
         Ok(())
@@ -136,7 +136,7 @@ impl<'a> FitChecker<'a> {
         if (self.fit.hull == type_id!("Nestor") || self.fit.hull == type_id!("Guardian"))
             && !self.pilot.implants.contains(&type_id!("% EM-806"))
         {
-            self.tags.push("NO-EM-806");
+            self.tags.insert("NO-EM-806");
         }
     }
 
@@ -153,7 +153,7 @@ impl<'a> FitChecker<'a> {
             }
 
             if fit_ok && doctrine_fit.name.contains("ELITE") {
-                self.tags.push("ELITE-FIT");
+                self.tags.insert("ELITE-FIT");
             }
 
             self.analysis = Some(PubAnalysis {
@@ -230,7 +230,7 @@ impl<'a> FitChecker<'a> {
                 if !fit.name.contains("ELITE") {
                     self.approved = false;
                 }
-                if !self.tags.contains(&"ELITE-SKILLS") && !self.tags.contains(&"GOLD-SKILLS") {
+                if !self.tags.contains("ELITE-SKILLS") && !self.tags.contains("GOLD-SKILLS") {
                     self.approved = false;
                 }
             } else {
@@ -267,7 +267,7 @@ impl<'a> FitChecker<'a> {
 
             if !implants_ok {
                 self.approved = false;
-                self.tags.push("NO-IMPLANTS");
+                self.tags.insert("NO-IMPLANTS");
             }
         }
 
@@ -276,14 +276,14 @@ impl<'a> FitChecker<'a> {
 
     fn add_implant_tag(&mut self) {
         if let Some(set_tag) = implantmatch::detect_set(self.fit.hull, self.pilot.implants) {
-            self.tags.push(set_tag);
+            self.tags.insert(set_tag);
         }
     }
 
     fn set_category(&mut self) {
         let mut category =
             categories::categorize(self.fit).unwrap_or_else(|| "starter".to_string());
-        if self.tags.contains(&"STARTER-SKILLS") {
+        if self.tags.contains("STARTER-SKILLS") {
             if category == "logi" {
                 self.approved = false;
             } else {
@@ -295,48 +295,48 @@ impl<'a> FitChecker<'a> {
 
     fn add_snowflake_tags(&mut self) {
         if self.pilot.access_keys.contains("waitlist-tag:HQ-FC") {
-            self.tags.push("HQ-FC");
+            self.tags.insert("HQ-FC");
         } else if self.pilot.access_keys.contains("waitlist-tag:TRAINEE") {
-            self.tags.push("TRAINEE");
+            self.tags.insert("TRAINEE");
         } else if self.pilot.access_keys.contains("waitlist-tag:LOGI")
             && self.fit.hull == type_id!("Nestor")
         {
-            self.tags.push("LOGI");
+            self.tags.insert("LOGI");
         } else if self.pilot.access_keys.contains("waitlist-tag:WEB")
             && self.fit.hull == type_id!("Vindicator")
         {
-            self.tags.push("WEB-SPECIALIST");
+            self.tags.insert("WEB-SPECIALIST");
         } else if self.pilot.access_keys.contains("waitlist-tag:BASTION")
             && (self.fit.hull == type_id!("Paladin") || self.fit.hull == type_id!("Kronos"))
         {
-            self.tags.push("BASTION-SPECIALIST");
+            self.tags.insert("BASTION-SPECIALIST");
         }
     }
 
     fn merge_tags(&mut self) {
-        if self.tags.contains(&"ELITE-FIT") {
-            if self.tags.contains(&"ELITE-SKILLS") {
-                self.tags
-                    .retain(|&x| (x != "ELITE-FIT") && (x != "ELITE-SKILLS"));
-                if self.tags.contains(&"BASTION-SPECIALIST") {
-                    self.tags.retain(|&x| x != "BASTION-SPECIALIST");
-                    self.tags.push("BASTION");
-                } else if self.tags.contains(&"WEB-SPECIALIST") {
-                    self.tags.retain(|&x| x != "WEB-SPECIALIST");
-                    self.tags.push("WEB");
+        if self.tags.contains("ELITE-FIT") {
+            if self.tags.contains("ELITE-SKILLS") {
+                self.tags.remove("ELITE-FIT");
+                self.tags.remove("ELITE-SKILLS");
+                if self.tags.contains("BASTION-SPECIALIST") {
+                    self.tags.remove("BASTION-SPECIALIST");
+                    self.tags.insert("BASTION");
+                } else if self.tags.contains("WEB-SPECIALIST") {
+                    self.tags.remove("WEB-SPECIALIST");
+                    self.tags.insert("WEB");
                 } else {
-                    self.tags.push("ELITE");
+                    self.tags.insert("ELITE");
                 }
-            } else if self.tags.contains(&"GOLD-SKILLS") {
-                self.tags
-                    .retain(|&x| (x != "ELITE-FIT") && (x != "GOLD-SKILLS"));
-                self.tags.push("ELITE-GOLD");
-                if self.tags.contains(&"BASTION-SPECIALIST") {
-                    self.tags.retain(|&x| x != "BASTION-SPECIALIST");
-                    self.tags.push("BASTION");
-                } else if self.tags.contains(&"WEB-SPECIALIST") {
-                    self.tags.retain(|&x| x != "WEB-SPECIALIST");
-                    self.tags.push("WEB");
+            } else if self.tags.contains("GOLD-SKILLS") {
+                self.tags.remove("ELITE-FIT");
+                self.tags.remove("GOLD-SKILLS");
+                self.tags.insert("ELITE-GOLD");
+                if self.tags.contains("BASTION-SPECIALIST") {
+                    self.tags.remove("BASTION-SPECIALIST");
+                    self.tags.insert("BASTION");
+                } else if self.tags.contains("WEB-SPECIALIST") {
+                    self.tags.remove("WEB-SPECIALIST");
+                    self.tags.insert("WEB");
                 }
             }
         }
@@ -345,7 +345,7 @@ impl<'a> FitChecker<'a> {
     fn finish(self) -> Result<Output, FitError> {
         Ok(Output {
             approved: self.approved,
-            tags: self.tags,
+            tags: self.tags.into_iter().collect(),
             errors: self.errors,
             category: self.category.expect("Category not assigned"),
             analysis: self.analysis,
