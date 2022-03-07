@@ -296,6 +296,8 @@ impl<'a> FitChecker<'a> {
     fn add_snowflake_tags(&mut self) {
         if self.pilot.access_keys.contains("waitlist-tag:HQ-FC") {
             self.tags.push("HQ-FC");
+        } else if self.pilot.access_keys.contains("waitlist-tag:TRAINEE") {
+            self.tags.push("TRAINEE");
         } else if self.pilot.access_keys.contains("waitlist-tag:LOGI")
             && self.fit.hull == type_id!("Nestor")
         {
@@ -328,6 +330,7 @@ impl<'a> FitChecker<'a> {
             } else if self.tags.contains(&"GOLD-SKILLS") {
                 self.tags
                     .retain(|&x| (x != "ELITE-FIT") && (x != "GOLD-SKILLS"));
+                self.tags.push("ELITE-GOLD");
                 if self.tags.contains(&"BASTION-SPECIALIST") {
                     self.tags.retain(|&x| x != "BASTION-SPECIALIST");
                     self.tags.push("BASTION");
@@ -335,7 +338,6 @@ impl<'a> FitChecker<'a> {
                     self.tags.retain(|&x| x != "WEB-SPECIALIST");
                     self.tags.push("WEB");
                 }
-                self.tags.push("ELITE-GOLD");
             }
         }
     }

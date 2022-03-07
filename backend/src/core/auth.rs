@@ -186,6 +186,7 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
             "fleet-view",
             "pilot-view",
             "waitlist-view",
+            "waitlist-tag:TRAINEE",
         ],
     );
     build_level(

@@ -34,6 +34,8 @@ async fn pilot_info(
         }
         if keys.contains("waitlist-tag:HQ-FC") {
             tags.push("HQ-FC");
+        } else if keys.contains("waitlist-tag:TRAINEE") {
+            tags.push("TRAINEE");
         } else if keys.contains("waitlist-tag:LOGI") {
             tags.push("LOGI");
         }
