@@ -40,6 +40,19 @@ export const tagBadges = {
   TRAINEE: ["neutral", "T", "Training FC"],
 };
 
+const badgeOrder = [
+  "HQ-FC",
+  "TRAINEE",
+  "WEB",
+  "BASTION",
+  "LOGI",
+  "AMULET1-10",
+  "WARPSPEED1-10",
+  "HYBRID1-10",
+  "ELITE",
+  "ELITE-GOLD",
+];
+
 async function approveFit(id) {
   return await apiCall("/api/waitlist/approve", {
     json: { id: id },
@@ -69,13 +82,6 @@ async function openWindow(target_id, character_id) {
     json: { target_id, character_id },
   });
 }
-
-const SvgContainer = styled.div`
-  & svg {
-    height: ${(props) => props.height};
-    filter: drop-shadow(0px 1px 1px ${(props) => props.theme.colors.shadow});
-  }
-`;
 
 const XCardDOM = styled.div`
   border: solid 2px ${(props) => props.theme.colors[props.variant].color};
@@ -275,29 +281,31 @@ export function Shield({ color, letter, title, h = "1.2em" }) {
   const theme = React.useContext(ThemeContext);
   return (
     <span title={title}>
-      <SvgContainer height={h}>
-        <svg viewBox="0 0 26.5 27.8" xmlns="http://www.w3.org/2000/svg">
-          <g>
-            <path
-              style={{ fill: theme.colors.tdfShields[color] }}
-              d="m 13.229167,0 c 0,0 6.085417,0.79375 13.229167,3.96875 0,0 -0.79375,10.054167 -3.961217,15.955009 -2.275956,4.239997 -6.622116,7.857491 -9.26795,7.857491 M 13.229167,0 C 13.229167,0 7.14375,0.79375 0,3.96875 c 0,0 0.79375,10.054167 3.9612174,15.955009 2.2759552,4.239997 6.6221156,7.857491 9.2679496,7.857491"
-            />
-            <text
-              style={{
-                fontSize: "1.3em",
-                fontWeight: "700",
-                textAnchor: "middle",
-                fill: theme.colors.tdfShields.text,
-                textRendering: "geometricPrecision",
-              }}
-              x="13.25"
-              y="20.5"
-            >
-              {letter}
-            </text>
-          </g>
-        </svg>
-      </SvgContainer>
+      <svg
+        style={{ height: h, filter: `drop-shadow(0px 1px 1px ${theme.colors.shadow})` }}
+        viewBox="0 0 26.5 27.8"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g>
+          <path
+            style={{ fill: theme.colors.tdfShields[color] }}
+            d="m 13.229167,0 c 0,0 6.085417,0.79375 13.229167,3.96875 0,0 -0.79375,10.054167 -3.961217,15.955009 -2.275956,4.239997 -6.622116,7.857491 -9.26795,7.857491 M 13.229167,0 C 13.229167,0 7.14375,0.79375 0,3.96875 c 0,0 0.79375,10.054167 3.9612174,15.955009 2.2759552,4.239997 6.6221156,7.857491 9.2679496,7.857491"
+          />
+          <text
+            style={{
+              fontSize: "1.3em",
+              fontWeight: "700",
+              textAnchor: "middle",
+              fill: theme.colors.tdfShields.text,
+              textRendering: "geometricPrecision",
+            }}
+            x="13.25"
+            y="20.5"
+          >
+            {letter}
+          </text>
+        </g>
+      </svg>
     </span>
   );
 }
@@ -307,10 +315,13 @@ export function XCard({ entry, fit, onAction }) {
   const toastContext = React.useContext(ToastContext);
   const is_alt = fit.is_alt;
   const accountName = entry.character ? entry.character.name : "Name hidden";
+  const tags = _.sortBy(fit.tags, function (item) {
+    return badgeOrder.indexOf(item);
+  });
   var isSelf = entry.character && entry.character.id === authContext.account_id;
   var tagText = [];
   var tagImages = [];
-  _.forEach(fit.tags || [], (tag) => {
+  tags.forEach((tag) => {
     if (tag === "ELITE-GOLD") {
       tagImages.push(<img key={tag} src={egoldBadge} alt={"Elite GOLD"} title={"Elite GOLD"} />);
     } else if (tag in tagBadges) {

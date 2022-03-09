@@ -10,7 +10,7 @@ We have hard upper bounds for the time you can spend in fleet while upgrading, b
 
 TDF works with a tier system. Pilots can be categorized as starter, basic, elite and elite gold. Your current status is determined by fit and lowest skill tier.
 
-**All pilots are required to be out of the Starter squad by 50 hours of fleet time and be in an advanced fit (or higher) by 100 hours. By 200 hours you must be elite. Bastion-fitted marauders have 250 hours.**
+**The required upgrade hours are set out in the table below:**
 
 ---
 
@@ -18,7 +18,7 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 | :---------------: | :----------: |
 |      Starter      |     50h      |
 |     Advanced      |     100h     |
-|   Elite(Other)    |     100h     |
+|    Elite(Logi)    |     150h     |
 | Elite(Vindicator) |     200h     |
 |  Elite(Bastion)   |     250h     |
 

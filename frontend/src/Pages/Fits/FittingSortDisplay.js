@@ -258,7 +258,7 @@ function ImplantButton({ name }) {
           <Box>
             <DisplayDOM>
               <Title>{name} &nbsp;</Title>
-              <Shield color="red" letter={letter} h="30px" />
+              <Shield color="red" letter={letter} h="33px" />
             </DisplayDOM>
             <br />
             <ImplantTable type={name} />

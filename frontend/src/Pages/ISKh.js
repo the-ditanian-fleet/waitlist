@@ -133,7 +133,7 @@ function parseWallet(input) {
     }
 
     value = value.replace(/[.,]\d{2} /, " "); // cents
-    value = value.replaceAll(/[.,]/g, "");
+    value = value.replace(/\D/g, "");
     value = Math.round(parseFloat(value));
 
     const [date, time] = datetime.split(/ /);
