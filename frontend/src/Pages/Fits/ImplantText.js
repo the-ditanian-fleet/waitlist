@@ -1,5 +1,5 @@
 import { Content } from "../../Components/Page";
-import { NoteUI } from "./FittingSortDisplay";
+import { Note } from "../../Components/NoteBox";
 import { ToastContext } from "../../contexts";
 import { toaster } from "../../api";
 import styled from "styled-components";
@@ -43,13 +43,11 @@ export function ImplantTable({ type }) {
   }
   return (
     <Content>
-      <NoteUI variant={"danger"} width={"fit-content"}>
-        {type === "Hybrid" ? (
-          <p>Hybrid tagged fits require at least Amulet 1 - 5 to be flown. </p>
-        ) : (
-          <p>Can be used on all non-implant specific fits.</p>
-        )}
-      </NoteUI>
+      <Note variant={"warning"}>
+        {type === "Hybrid"
+          ? "Hybrid tagged fits require at least Amulet 1 - 5 to be flown."
+          : "Can be used on all non-implant specific fits."}
+      </Note>
       <Table fullWidth>
         <TableHead>
           <Row>
