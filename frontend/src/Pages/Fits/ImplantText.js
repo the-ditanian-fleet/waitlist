@@ -70,19 +70,17 @@ export function ImplantTable({ type }) {
             <Cell>
               <b>Slot 6</b>
             </Cell>
+            <Cell>
+              <CopyImplantText toast={toastContext} what={"WS-618"} /> higher warp speed.
+            </Cell>
             {type === "Hybrid" ? (
-              <Cell>
-                <CopyImplantText toast={toastContext} what={"WS-618"} /> higher warp speed.
-              </Cell>
+              <Cell></Cell>
             ) : (
               <Cell>
-                <CopyImplantText toast={toastContext} what={"WS-618"} /> higher warp speed or
-                <br />
                 <CopyImplantText toast={toastContext} what={"High-grade Ascendancy Omega"} /> if you
-                have too much isk.
+                have too much isk, even higher warp speed.
               </Cell>
             )}
-            <Cell></Cell>
           </Row>
 
           <HardWires toastContext={toastContext} />
@@ -134,12 +132,11 @@ function HardWires({ toastContext }) {
           <b>Slot 7</b>
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"Ogdin's Eye"} /> or
-          <br />
-          <CopyImplantText toast={toastContext} what={"MR-706"} /> better tracking.
+          <CopyImplantText toast={toastContext} what={"Ogdin's Eye"} /> better tracking.
         </Cell>
 
         <Cell>
+          <CopyImplantText toast={toastContext} what={"MR-706"} /> equal to Ogdin&apos;s. <br />
           <CopyImplantText toast={toastContext} what={"RA-706"} /> reps will use less cap, for
           <b> logi only pilots.</b>
         </Cell>
@@ -168,7 +165,7 @@ function HardWires({ toastContext }) {
 
         <Cell>
           <CopyImplantText toast={toastContext} what={"Pashan's Turret Customization Mindlink"} />{" "}
-          if you have too much isk.
+          if you have too much isk, higher rate of fire.
         </Cell>
       </Row>
       <Row>
@@ -178,20 +175,24 @@ function HardWires({ toastContext }) {
         <Cell>
           <b>Kronos/Vindicator:</b>
           <br />
-          <CopyImplantText toast={toastContext} what={"LH-1006"} /> higher weapon damage. <br />
+          <CopyImplantText toast={toastContext} what={"LH-1006"} /> higher hybrid weapon damage.{" "}
+          <br />
           <br />
           <b>Paladin/Nightmare:</b>
           <br />
-          <CopyImplantText toast={toastContext} what={"LE-1006"} /> or <br />
-          <CopyImplantText toast={toastContext} what={"Pashan's Turret Handling Mindlink"} /> if you
-          have too much isk, higher weapon damage.
+          <CopyImplantText toast={toastContext} what={"LE-1006"} /> higher energy weapon damage.
         </Cell>
         <Cell>
           <CopyImplantText toast={toastContext} what={"HG-1006"} /> or
           <br />
           <CopyImplantText toast={toastContext} what={"HG-1008"} /> if you have too much isk, higher
           RAW armor for
-          <b> logi only pilots.</b>
+          <b> logi only pilots.</b> <br />
+          <br />
+          <b>Paladin/Nightmare:</b>
+          <br />
+          <CopyImplantText toast={toastContext} what={"Pashan's Turret Handling Mindlink"} /> if you
+          have too much isk, higher weapon damage.
         </Cell>
       </Row>
     </>
