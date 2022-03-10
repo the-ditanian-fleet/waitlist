@@ -277,6 +277,9 @@ impl<'a> FitChecker<'a> {
     fn add_implant_tag(&mut self) {
         if let Some(set_tag) = implantmatch::detect_set(self.fit.hull, self.pilot.implants) {
             self.tags.insert(set_tag);
+            if implantmatch::detect_slot10(self.fit.hull, self.pilot.implants).is_none() {
+                self.tags.insert("NO-SLOT10");
+            }
         }
     }
 
@@ -314,7 +317,11 @@ impl<'a> FitChecker<'a> {
     }
 
     fn merge_tags(&mut self) {
-        if self.tags.contains("ELITE-FIT") {
+        if self.tags.contains("ELITE-FIT")
+            && ["WARPSPEED1-10", "HYBRID1-10", "AMULET1-10"]
+                .iter()
+                .any(|e| self.tags.contains(e))
+        {
             if self.tags.contains("ELITE-SKILLS") {
                 self.tags.remove("ELITE-FIT");
                 self.tags.remove("ELITE-SKILLS");
