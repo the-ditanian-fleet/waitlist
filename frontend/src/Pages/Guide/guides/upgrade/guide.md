@@ -10,13 +10,13 @@ We have hard upper bounds for the time you can spend in fleet while upgrading, b
 
 TDF works with a tier system. Pilots can be categorized as starter, basic, elite and elite gold. Your current status is determined by fit and lowest skill tier.
 
-**The required upgrade hours are set out in the table below:**
+**The maximum upgrade time to reach each tier is set out in the table below:**
 
 ---
 
 |       Tier        | Maximum time |
 | :---------------: | :----------: |
-|      Starter      |     50h      |
+|       Basic       |     50h      |
 |     Advanced      |     100h     |
 |    Elite(Logi)    |     150h     |
 | Elite(Vindicator) |     200h     |
