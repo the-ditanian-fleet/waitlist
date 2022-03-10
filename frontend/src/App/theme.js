@@ -150,6 +150,7 @@ theme.AMOLED = _.merge({}, theme.dark, {
   colors: {
     text: "#f0f0f0",
     background: "#000000",
+    modal: "hsla(65, 0%, 11%, 0.7)",
   },
 });
 
