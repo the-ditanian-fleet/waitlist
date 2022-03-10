@@ -8,6 +8,7 @@ import { Waitlist } from "../Pages/Waitlist";
 import { Xup } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
 import { Home } from "../Pages/Home";
+import { Legal } from "../Pages/Legal";
 import { Fits } from "../Pages/Fits";
 import { Guide, GuideIndex } from "../Pages/Guide";
 
@@ -21,6 +22,9 @@ export function Routes() {
     <>
       <Route exact path="/">
         <Home />
+      </Route>
+      <Route exact path="/legal">
+        <Legal />
       </Route>
       <Route exact path="/guide">
         <GuideIndex />

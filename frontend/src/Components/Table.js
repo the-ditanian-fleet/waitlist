@@ -18,6 +18,7 @@ export const TableBody = styled.tbody``;
 
 export const Row = styled.tr`
   border-bottom: solid 1px ${(props) => props.theme.colors.accent2};
+  background-color: ${(props) => props.theme.colors.background};
   &:last-child {
     border-bottom: none;
   }

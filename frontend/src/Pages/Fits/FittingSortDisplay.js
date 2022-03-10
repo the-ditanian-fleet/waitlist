@@ -6,6 +6,7 @@ import { Box } from "../../Components/Box";
 import React from "react";
 import { Modal } from "../../Components/Modal";
 import { Title } from "../../Components/Page";
+import { Note } from "../../Components/NoteBox";
 import { Shield } from "../Waitlist/XCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
@@ -33,7 +34,7 @@ FitCard.Content = styled.div`
   align-items: center;
   background-color: ${(props) => props.theme.colors.background};
   color: ${(props) => props.theme.colors.text};
-  border-radius: 5px;
+  border-radius: 3px;
   img {
     border-radius: 3px 0px 0px 3px;
     margin-right: 0.5em;
@@ -65,20 +66,6 @@ FitCard.Content.Badges = styled.div`
   }
 `;
 
-export const NoteUI = styled.div`
-  padding: 0.2em 0em;
-  display: flex;
-  > p {
-    background-color: ${(props) => props.theme.colors[props.variant].color};
-    color: ${(props) => props.theme.colors.text};
-    border-radius: 5px;
-    width: ${(props) => (props.width ? props.width : "100%")};
-    max-width: 500px;
-    filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
-    padding: 0.1em 0.5em;
-  }
-`;
-
 const DisplayDOM = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -105,6 +92,9 @@ function Fitout({ data, tier }) {
   var logiid = [];
   var notes = {};
   var fitnote;
+  const ships = _.sortBy(data.fittingdata, function (item) {
+    return item.name.indexOf("HYBRID");
+  });
   _.forEach(data.rules, (ship) => {
     logiid.push(ship);
   });
@@ -112,35 +102,35 @@ function Fitout({ data, tier }) {
     notes[note.name] = note.description;
   });
 
-  _.forEach(data.fittingdata, function (value, key) {
+  ships.forEach((ship) => {
     if (
-      (tier === "Other" && value.name.split("_").length === 2) ||
-      (value.name.toLowerCase().indexOf(tier.toLowerCase()) !== -1 && value.dna && value.name)
+      (tier === "Other" && ship.name.split("_").length === 2) ||
+      (ship.name.toLowerCase().indexOf(tier.toLowerCase()) !== -1 && ship.dna && ship.name)
     ) {
-      const id = value.dna.split(":", 1)[0];
-      if (value.name in notes) {
-        fitnote = notes[value.name];
+      const id = ship.dna.split(":", 1)[0];
+      if (ship.name in notes) {
+        fitnote = notes[ship.name];
       } else {
         fitnote = null;
       }
       if (logiid.includes(parseInt(id))) {
         logi.push(
-          <div key={key}>
+          <div key={ship.name}>
             <ShipDisplay
-              fit={value}
+              fit={ship}
               id={id}
-              hybrid={value.name.indexOf("HYBRID") !== -1}
+              hybrid={ship.name.indexOf("HYBRID") !== -1}
               note={fitnote}
             />
           </div>
         );
       } else {
         dps.push(
-          <div key={key}>
+          <div key={ship.name}>
             <ShipDisplay
-              fit={value}
+              fit={ship}
               id={id}
-              hybrid={value.name.indexOf("HYBRID") !== -1}
+              hybrid={ship.name.indexOf("HYBRID") !== -1}
               note={fitnote}
             />
           </div>
@@ -194,18 +184,14 @@ function ShipDisplay({ fit, id, hybrid, note }) {
                 <DNADisplay dna={fit.dna} />
               </div>
             </div>
-            {note ? (
-              <NoteUI variant={"warning"}>
-                <p>{note}</p>
-              </NoteUI>
-            ) : null}
+            {note ? <Note variant={"secondary"}>{note}</Note> : null}
             {hybrid ? (
-              <NoteUI variant={"danger"}>
+              <Note variant={"danger"}>
                 <p>
                   HYBRID FIT! This fit requires at least Amulet 1 - 5. <br /> See mailing list:{" "}
                   <b>TDF-Implant1</b>
                 </p>
-              </NoteUI>
+              </Note>
             ) : null}
           </Box>
         </Modal>
@@ -238,7 +224,7 @@ function ImplantOut() {
   return (
     <>
       <DisplayDOM style={{ justifyContent: "initial" }}>
-        {/*<ImplantButton name="Ascendancy" />*/}
+        <ImplantButton name="Ascendancy" />
         <ImplantButton name="Hybrid" />
       </DisplayDOM>
     </>

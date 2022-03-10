@@ -103,7 +103,7 @@ const theme = {
         disabled: "#133e22",
       },
       warning: {
-        color: "#ad8b00",
+        color: "#977c0b",
         text: "white",
         accent: "#b89300",
         disabled: "#574500",
@@ -150,6 +150,7 @@ theme.AMOLED = _.merge({}, theme.dark, {
   colors: {
     text: "#f0f0f0",
     background: "#000000",
+    modal: "hsla(65, 0%, 11%, 0.7)",
   },
 });
 
@@ -218,7 +219,7 @@ theme["Specialist"] = _.merge({}, theme.light, {
     },
     warning: {
       color: "#ffeb9f",
-      text: "#898989",
+      text: "#363636",
       accent: "#ffda47",
       disabled: "#e8e8e8",
     },

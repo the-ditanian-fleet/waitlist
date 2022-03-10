@@ -2,6 +2,9 @@ import { useApi } from "../api";
 import { Badge } from "./Badge";
 import { InputGroup, Button, Buttons } from "./Form";
 import { Col, Row } from "react-awesome-styled-grid";
+import { Note } from "./NoteBox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 import styled from "styled-components";
 import _ from "lodash";
@@ -32,6 +35,10 @@ SkillDom.Table.Row = styled.div`
   > :last-child {
     margin-left: auto;
   }
+`;
+
+const SkillHeader = styled.div`
+  height: 36px;
 `;
 
 const categoryOrder = [
@@ -202,18 +209,18 @@ export function SkillDisplay({ characterId, ship, setShip = null, filterMin = fa
         </Buttons>
       )}
 
-      {ship === "Nestor" || ship === "Guardian" || ship === "Oneiros" ? (
-        <div style={{ marginBottom: "1em" }}>
-          Legend: <Badge variant="danger">Required</Badge> <Badge variant="warning">Basic</Badge>{" "}
-          <Badge variant="secondary">Elite</Badge> <Badge variant="success">Elite GOLD</Badge>
-        </div>
-      ) : (
-        <div style={{ marginBottom: "1em" }}>
-          Legend: <Badge variant="danger">Starter</Badge> <Badge variant="warning">Basic</Badge>{" "}
-          <Badge variant="secondary">Elite</Badge> <Badge variant="success">Elite GOLD</Badge>
-        </div>
-      )}
-
+      <div style={{ marginBottom: "1em" }}>
+        Legend: <Badge variant="danger">Starter</Badge> <Badge variant="warning">Basic</Badge>{" "}
+        <Badge variant="secondary">Elite</Badge> <Badge variant="success">Elite GOLD</Badge>
+      </div>
+      <SkillHeader>
+        {ship === "Nestor" || ship === "Guardian" || ship === "Oneiros" ? (
+          <Note variant={"secondary"} width={"fit-content"} display={"inline"}>
+            <FontAwesomeIcon icon={faExclamationCircle} /> Basic tier skills are required for
+            logistics.
+          </Note>
+        ) : null}
+      </SkillHeader>
       {skills ? (
         <SkillList mySkills={skills} shipName={ship} filterMin={filterMin} />
       ) : (
