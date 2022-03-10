@@ -184,7 +184,7 @@ function ShipDisplay({ fit, id, hybrid, note }) {
                 <DNADisplay dna={fit.dna} />
               </div>
             </div>
-            {note ? <Note variant={"warning"}>{note}</Note> : null}
+            {note ? <Note variant={"secondary"}>{note}</Note> : null}
             {hybrid ? (
               <Note variant={"danger"}>
                 <p>

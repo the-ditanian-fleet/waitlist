@@ -43,7 +43,7 @@ export function ImplantTable({ type }) {
   }
   return (
     <Content>
-      <Note variant={"warning"}>
+      <Note variant={"secondary"}>
         {type === "Hybrid"
           ? "Hybrid tagged fits require at least Amulet 1 - 5 to be flown."
           : "Required for Elite badge on non implant specific ships."}
@@ -71,14 +71,14 @@ export function ImplantTable({ type }) {
               <b>Slot 6</b>
             </Cell>
             <Cell>
-              <CopyImplantText toast={toastContext} what={"WS-618"} /> higher warp speed.
+              <CopyImplantText toast={toastContext} what={"WS-618"} /> increased warp speed.
             </Cell>
             {type === "Hybrid" ? (
               <Cell></Cell>
             ) : (
               <Cell>
                 <CopyImplantText toast={toastContext} what={"High-grade Ascendancy Omega"} /> if you
-                have too much isk, even higher warp speed.
+                have too much isk, increased warp speed.
               </Cell>
             )}
           </Row>
@@ -132,7 +132,7 @@ function HardWires({ toastContext }) {
           <b>Slot 7</b>
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"Ogdin's Eye"} /> better tracking.
+          <CopyImplantText toast={toastContext} what={"Ogdin's Eye"} /> increased tracking.
         </Cell>
 
         <Cell>
@@ -146,11 +146,11 @@ function HardWires({ toastContext }) {
           <b>Slot 8</b>
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"EM-806"} /> more capacitor.
+          <CopyImplantText toast={toastContext} what={"EM-806"} /> increased capacitor.
         </Cell>
 
         <Cell>
-          <CopyImplantText toast={toastContext} what={"MR-807"} /> higher webbing range, for
+          <CopyImplantText toast={toastContext} what={"MR-807"} /> longer webbing range, for
           <b> vindicator only pilots.</b>
         </Cell>
       </Row>
@@ -160,12 +160,12 @@ function HardWires({ toastContext }) {
           <b>Slot 9</b>
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"RF-906"} /> higher rate of fire.
+          <CopyImplantText toast={toastContext} what={"RF-906"} /> faster rate of fire.
         </Cell>
 
         <Cell>
           <CopyImplantText toast={toastContext} what={"Pashan's Turret Customization Mindlink"} />{" "}
-          if you have too much isk, higher rate of fire.
+          if you have too much isk, faster rate of fire.
         </Cell>
       </Row>
       <Row>
@@ -175,24 +175,24 @@ function HardWires({ toastContext }) {
         <Cell>
           <b>Kronos/Vindicator:</b>
           <br />
-          <CopyImplantText toast={toastContext} what={"LH-1006"} /> higher hybrid weapon damage.{" "}
+          <CopyImplantText toast={toastContext} what={"LH-1006"} /> increased hybrid weapon damage.{" "}
           <br />
           <br />
           <b>Paladin/Nightmare:</b>
           <br />
-          <CopyImplantText toast={toastContext} what={"LE-1006"} /> higher energy weapon damage.
+          <CopyImplantText toast={toastContext} what={"LE-1006"} /> increased energy weapon damage.
         </Cell>
         <Cell>
           <CopyImplantText toast={toastContext} what={"HG-1006"} /> or
           <br />
-          <CopyImplantText toast={toastContext} what={"HG-1008"} /> if you have too much isk, higher
-          RAW armor for
+          <CopyImplantText toast={toastContext} what={"HG-1008"} /> if you have too much isk,
+          increased RAW armor HP for
           <b> logi only pilots.</b> <br />
           <br />
           <b>Paladin/Nightmare:</b>
           <br />
           <CopyImplantText toast={toastContext} what={"Pashan's Turret Handling Mindlink"} /> if you
-          have too much isk, higher weapon damage.
+          have too much isk, increased weapon damage.
         </Cell>
       </Row>
     </>
