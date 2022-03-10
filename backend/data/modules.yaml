@@ -51,9 +51,6 @@ alternatives:
   - - Ogre II
   - - "'Augmented' Ogre"
 
-- - - Large Explosive Armor Reinforcer I
-  - - Large Explosive Armor Reinforcer II
-
 from_meta: # Automagically determine alternatives
 - base: Sensor Booster II
 - base: Tracking Computer II
@@ -132,6 +129,8 @@ identification: # Modules/groups we use to look at to figure out what we're flyi
 - Damage Control II
 - 1600mm Steel Plates II
 - Multispectrum Energized Membrane II
+- Large Explosive Armor Reinforcer I
+- Large Explosive Armor Reinforcer II
 - Large EM Armor Reinforcer I
 - Large Thermal Armor Reinforcer I
 - Large Kinetic Armor Reinforcer I
@@ -142,3 +141,4 @@ identification: # Modules/groups we use to look at to figure out what we're flyi
 - Large Remote Repair Augmentor II
 - Medium Remote Repair Augmentor II
 - Medium Capacitor Control Circuit II
+- Large Hybrid Locus Coordinator II

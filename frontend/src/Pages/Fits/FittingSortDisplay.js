@@ -92,6 +92,9 @@ function Fitout({ data, tier }) {
   var logiid = [];
   var notes = {};
   var fitnote;
+  const ships = _.sortBy(data.fittingdata, function (item) {
+    return item.name.indexOf("HYBRID");
+  });
   _.forEach(data.rules, (ship) => {
     logiid.push(ship);
   });
@@ -99,35 +102,35 @@ function Fitout({ data, tier }) {
     notes[note.name] = note.description;
   });
 
-  _.forEach(data.fittingdata, function (value, key) {
+  ships.forEach((ship) => {
     if (
-      (tier === "Other" && value.name.split("_").length === 2) ||
-      (value.name.toLowerCase().indexOf(tier.toLowerCase()) !== -1 && value.dna && value.name)
+      (tier === "Other" && ship.name.split("_").length === 2) ||
+      (ship.name.toLowerCase().indexOf(tier.toLowerCase()) !== -1 && ship.dna && ship.name)
     ) {
-      const id = value.dna.split(":", 1)[0];
-      if (value.name in notes) {
-        fitnote = notes[value.name];
+      const id = ship.dna.split(":", 1)[0];
+      if (ship.name in notes) {
+        fitnote = notes[ship.name];
       } else {
         fitnote = null;
       }
       if (logiid.includes(parseInt(id))) {
         logi.push(
-          <div key={key}>
+          <div key={ship.name}>
             <ShipDisplay
-              fit={value}
+              fit={ship}
               id={id}
-              hybrid={value.name.indexOf("HYBRID") !== -1}
+              hybrid={ship.name.indexOf("HYBRID") !== -1}
               note={fitnote}
             />
           </div>
         );
       } else {
         dps.push(
-          <div key={key}>
+          <div key={ship.name}>
             <ShipDisplay
-              fit={value}
+              fit={ship}
               id={id}
-              hybrid={value.name.indexOf("HYBRID") !== -1}
+              hybrid={ship.name.indexOf("HYBRID") !== -1}
               note={fitnote}
             />
           </div>

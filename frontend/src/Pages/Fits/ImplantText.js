@@ -46,7 +46,7 @@ export function ImplantTable({ type }) {
       <Note variant={"warning"}>
         {type === "Hybrid"
           ? "Hybrid tagged fits require at least Amulet 1 - 5 to be flown."
-          : "Can be used on all non-implant specific fits."}
+          : "Required for Elite badge on non implant specific ships."}
       </Note>
       <Table fullWidth>
         <TableHead>
