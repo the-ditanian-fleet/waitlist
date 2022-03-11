@@ -15,9 +15,9 @@ export const Badge = styled.span`
 `;
 
 export const tagBadges = {
-  "WARPSPEED1-10": ["red", "W", "Warp Speed Implants"],
-  "HYBRID1-10": ["red", "H", "Hybrid Implants"],
-  "AMULET1-10": ["red", "A", "Amulet Implants"],
+  WARPSPEED: ["red", "W", "Warp Speed Implants"],
+  HYBRID: ["red", "H", "Hybrid Implants"],
+  AMULET: ["red", "A", "Amulet Implants"],
   ELITE: ["yellow", "E", "Elite"],
   "STARTER-SKILLS": ["neutral", "S", "Starter skills"],
   "HQ-FC": ["blue", "H", "HQ FC"],

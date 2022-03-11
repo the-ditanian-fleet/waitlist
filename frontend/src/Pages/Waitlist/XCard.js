@@ -33,9 +33,9 @@ const badgeOrder = [
   "WEB",
   "BASTION",
   "LOGI",
-  "AMULET1-10",
-  "WARPSPEED1-10",
-  "HYBRID1-10",
+  "AMULET",
+  "WARPSPEED",
+  "HYBRID",
   "ELITE",
   "ELITE-GOLD",
 ];

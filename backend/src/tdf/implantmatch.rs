@@ -1,9 +1,9 @@
 use eve_data_core::TypeID;
 
-fn detect_base_set(implants: &[TypeID]) -> Option<&'static str> {
+pub fn detect_base_set(implants: &[TypeID]) -> Option<&'static str> {
     let set_implants = [
         (
-            "AMULET1-10",
+            "AMULET",
             [
                 type_id!("High-grade Amulet Alpha"),
                 type_id!("High-grade Amulet Beta"),
@@ -14,7 +14,7 @@ fn detect_base_set(implants: &[TypeID]) -> Option<&'static str> {
             ],
         ),
         (
-            "HYBRID1-10",
+            "HYBRID",
             [
                 type_id!("High-grade Amulet Alpha"),
                 type_id!("High-grade Amulet Beta"),
@@ -25,7 +25,7 @@ fn detect_base_set(implants: &[TypeID]) -> Option<&'static str> {
             ],
         ),
         (
-            "WARPSPEED1-10",
+            "WARPSPEED",
             [
                 type_id!("High-grade Ascendancy Alpha"),
                 type_id!("High-grade Ascendancy Beta"),
@@ -36,7 +36,7 @@ fn detect_base_set(implants: &[TypeID]) -> Option<&'static str> {
             ],
         ),
         (
-            "SAVIOR1-10",
+            "SAVIOR",
             [
                 type_id!("High-grade Savior Alpha"),
                 type_id!("High-grade Savior Beta"),
@@ -47,7 +47,7 @@ fn detect_base_set(implants: &[TypeID]) -> Option<&'static str> {
             ],
         ),
         (
-            "WARPSPEED1-10",
+            "WARPSPEED",
             [
                 type_id!("High-grade Ascendancy Alpha"),
                 type_id!("High-grade Ascendancy Beta"),
@@ -120,7 +120,7 @@ pub fn detect_slot10(hull: TypeID, implants: &[TypeID]) -> Option<()> {
         } else {
             None
         }
-    // disabled, logi's don't need slot 10 for an implant tag
+    // disabled, logi's don't need slot 10 for an implant tag for now
     }
     /*else if hull == type_id!("Nestor")
         || hull == type_id!("Oneiros")
