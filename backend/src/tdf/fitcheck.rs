@@ -276,12 +276,15 @@ impl<'a> FitChecker<'a> {
             // Implant badge will show if you have 1-9
             if let Some(set_tag) = implantmatch::detect_set(self.fit.hull, self.pilot.implants) {
                 // all non tagged fits are ascendancy (warpspeed)
+                // logi cruisers are an expection, they can fly whatever they want
                 if set_tag == "SAVIOR" {
                     self.tags.insert("SAVIOR");
                 } else if doctrine_fit.name.contains(set_tag)
                     || (set_tag == "WARPSPEED"
                         && !(doctrine_fit.name.contains("AMULET")
                             || doctrine_fit.name.contains("HYBRID")))
+                    || self.fit.hull == type_id!("Oneiros")
+                    || self.fit.hull == type_id!("Guardian")
                 {
                     self.tags.insert(set_tag);
                     // give warning if you have all but slot 10 or wrong slot for that ship
