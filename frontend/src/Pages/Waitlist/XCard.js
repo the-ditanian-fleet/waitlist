@@ -1,7 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import { ToastContext, AuthContext } from "../../contexts";
-import { apiCall, errorToaster } from "../../api";
+import { apiCall, useApi, errorToaster } from "../../api";
 import { NavLink } from "react-router-dom";
 import { TimeDisplay } from "./TimeDisplay.js";
 import { Badge, Shield, tagBadges } from "../../Components/Badge";
@@ -15,7 +15,6 @@ import {
   faStream,
   faPlus,
   faExclamationTriangle,
-  faInfoCircle,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
@@ -264,6 +263,48 @@ function SkillButton({ characterId, ship }) {
   );
 }
 
+function NoteButton({ number, h = "1.2em" }) {
+  const theme = React.useContext(ThemeContext);
+  console.log(number);
+  return (
+    <span style={{ verticalAlign: "middle" }}>
+      <svg style={{ height: h }} viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <circle
+            style={{ verticalAlign: "middle", fill: theme.colors.text }}
+            cy="25"
+            cx="25"
+            r="24"
+          />
+          <text
+            style={{
+              fontSize: "2.6em",
+              fontWeight: "600",
+              textAnchor: "middle",
+              fill: theme.colors.accent1,
+              textRendering: "geometricPrecision",
+            }}
+            x="26"
+            y="38.5"
+          >
+            {number}
+          </text>
+        </g>
+      </svg>
+    </span>
+  );
+}
+
+function NotesAmount({ characterId, authContext }) {
+  const [notes] = useApi(
+    authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
+  );
+  if (!notes) return <NoteButton number={0} title={"Pilot Information"} />;
+  var amount = Object.keys(notes.notes).length;
+  amount = amount > 9 ? "9+" : amount.toString();
+  return <NoteButton number={amount} h={"1em"} />;
+}
+
 export function XCard({ entry, fit, onAction }) {
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
@@ -359,7 +400,7 @@ export function XCard({ entry, fit, onAction }) {
         )}
         {authContext.access["pilot-view"] && (
           <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
-            <FontAwesomeIcon icon={faInfoCircle} />
+            <NotesAmount characterId={fit.character.id} authContext={authContext} />
           </NavLink>
         )}
         {_.isFinite(fit.hours_in_fleet) ? (
