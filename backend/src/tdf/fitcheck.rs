@@ -241,36 +241,32 @@ impl<'a> FitChecker<'a> {
 
     fn check_fit_implants(&mut self) {
         if let Some(doctrine_fit) = self.doctrine_fit {
-            let mut implants_nok = "";
-            if doctrine_fit.name.contains("ASCENDANCY") {
-                if let Some(set_tag) = implantmatch::detect_base_set(self.pilot.implants) {
-                    if set_tag != "WARPSPEED" {
+            if let Some(set_tag) = implantmatch::detect_base_set(self.pilot.implants) {
+                if set_tag != "SAVIOR" {
+                    let mut implants_nok = "";
+                    if doctrine_fit.name.contains("ASCENDANCY") && set_tag != "WARPSPEED" {
                         implants_nok = "Ascendancy";
-                    }
-                }
-            } else if doctrine_fit.name.contains("HYBRID") {
-                let implants = [
-                    type_id!("High-grade Amulet Alpha"),
-                    type_id!("High-grade Amulet Beta"),
-                    type_id!("High-grade Amulet Delta"),
-                    type_id!("High-grade Amulet Epsilon"),
-                    type_id!("High-grade Amulet Gamma"),
-                ];
-                for implant in implants {
-                    if !self.pilot.implants.contains(&implant) {
-                        implants_nok = "Hybrid"
-                    }
-                }
-            } else if doctrine_fit.name.contains("AMULET") {
-                if let Some(set_tag) = implantmatch::detect_base_set(self.pilot.implants) {
-                    if set_tag != "AMULET" {
+                    } else if doctrine_fit.name.contains("HYBRID") {
+                        let implants = [
+                            type_id!("High-grade Amulet Alpha"),
+                            type_id!("High-grade Amulet Beta"),
+                            type_id!("High-grade Amulet Delta"),
+                            type_id!("High-grade Amulet Epsilon"),
+                            type_id!("High-grade Amulet Gamma"),
+                        ];
+                        for implant in implants {
+                            if !self.pilot.implants.contains(&implant) {
+                                implants_nok = "Hybrid";
+                            }
+                        }
+                    } else if doctrine_fit.name.contains("AMULET") && set_tag != "AMULET" {
                         implants_nok = "Amulet";
                     }
+                    if implants_nok != "" {
+                        self.errors
+                            .push(format!("Missing implants to fly {} fit", implants_nok));
+                    }
                 }
-            }
-            if implants_nok != "" {
-                self.errors
-                    .push(format!("Missing implants to fly {} fit", implants_nok));
             }
         }
     }
