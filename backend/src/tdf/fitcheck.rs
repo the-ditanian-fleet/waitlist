@@ -246,7 +246,7 @@ impl<'a> FitChecker<'a> {
                     let mut implants_nok = "";
                     if doctrine_fit.name.contains("ASCENDANCY") && set_tag != "WARPSPEED" {
                         implants_nok = "Ascendancy";
-                    } else if doctrine_fit.name.contains("HYBRID") {
+                    } else if doctrine_fit.name.contains("HYBRID") && set_tag != "AMULET" {
                         let implants = [
                             type_id!("High-grade Amulet Alpha"),
                             type_id!("High-grade Amulet Beta"),
@@ -273,19 +273,22 @@ impl<'a> FitChecker<'a> {
 
     fn add_implant_tag(&mut self) {
         if let Some(doctrine_fit) = self.doctrine_fit {
+            // Implant badge will show if you have 1-9
             if let Some(set_tag) = implantmatch::detect_set(self.fit.hull, self.pilot.implants) {
                 // all non tagged fits are ascendancy (warpspeed)
-                if doctrine_fit.name.contains(set_tag)
+                if set_tag == "SAVIOR" {
+                    self.tags.insert("SAVIOR");
+                } else if doctrine_fit.name.contains(set_tag)
                     || (set_tag == "WARPSPEED"
                         && !(doctrine_fit.name.contains("AMULET")
                             || doctrine_fit.name.contains("HYBRID")))
                 {
                     self.tags.insert(set_tag);
+                    // give warning if you have all but slot 10 or wrong slot for that ship
+                    if implantmatch::detect_slot10(self.fit.hull, self.pilot.implants).is_none() {
+                        self.tags.insert("NO-SLOT10");
+                    }
                 }
-            }
-
-            if implantmatch::detect_slot10(self.fit.hull, self.pilot.implants).is_none() {
-                self.tags.insert("NO-SLOT10");
             }
         }
     }

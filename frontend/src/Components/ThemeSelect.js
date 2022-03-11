@@ -25,8 +25,8 @@ export function ThemeSelect({ theme, setTheme }) {
             <div key={themeName}>
               <>
                 {themeName === "Specialist" &&
-                authContext &&
-                Object.keys(authContext.access).length === 0 ? null : (
+                (!authContext ||
+                  (authContext && Object.keys(authContext.access).length === 0)) ? null : (
                   <label>
                     <Radio
                       value={themeName}
