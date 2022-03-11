@@ -246,7 +246,7 @@ impl<'a> FitChecker<'a> {
                     let mut implants_nok = "";
                     if doctrine_fit.name.contains("ASCENDANCY") && set_tag != "WARPSPEED" {
                         implants_nok = "Ascendancy";
-                    } else if doctrine_fit.name.contains("HYBRID") {
+                    } else if doctrine_fit.name.contains("HYBRID") && set_tag != "AMULET" {
                         let implants = [
                             type_id!("High-grade Amulet Alpha"),
                             type_id!("High-grade Amulet Beta"),
