@@ -7,7 +7,7 @@ import React from "react";
 import { Modal } from "../../Components/Modal";
 import { Title } from "../../Components/Page";
 import { Note } from "../../Components/NoteBox";
-import { Shield } from "../Waitlist/XCard";
+import { Shield } from "../../Components/Badge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
