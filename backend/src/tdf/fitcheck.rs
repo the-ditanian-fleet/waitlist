@@ -68,7 +68,7 @@ impl<'a> FitChecker<'a> {
         checker.check_logi_implants();
         checker.set_category();
         checker.add_snowflake_tags();
-        checker.check_fit_implants()?;
+        checker.check_fit_implants();
         checker.add_implant_tag();
         checker.merge_tags();
 
@@ -239,10 +239,16 @@ impl<'a> FitChecker<'a> {
         }
     }
 
-    fn check_fit_implants(&mut self) -> Result<(), FitError> {
+    fn check_fit_implants(&mut self) {
         if let Some(doctrine_fit) = self.doctrine_fit {
-            let mut implants_ok = true;
-            if doctrine_fit.name.contains("HYBRID") || doctrine_fit.name.contains("AMULET") {
+            let mut implants_nok = "";
+            if doctrine_fit.name.contains("ASCENDANCY") {
+                if let Some(set_tag) = implantmatch::detect_base_set(self.pilot.implants) {
+                    if set_tag != "WARPSPEED" {
+                        implants_nok = "Ascendancy";
+                    }
+                }
+            } else if doctrine_fit.name.contains("HYBRID") {
                 let implants = [
                     type_id!("High-grade Amulet Alpha"),
                     type_id!("High-grade Amulet Beta"),
@@ -252,31 +258,36 @@ impl<'a> FitChecker<'a> {
                 ];
                 for implant in implants {
                     if !self.pilot.implants.contains(&implant) {
-                        implants_ok = false;
+                        implants_nok = "Hybrid"
+                    }
+                }
+            } else if doctrine_fit.name.contains("AMULET") {
+                if let Some(set_tag) = implantmatch::detect_base_set(self.pilot.implants) {
+                    if set_tag != "AMULET" {
+                        implants_nok = "Amulet";
                     }
                 }
             }
-            if doctrine_fit.name.contains("AMULET")
-                && !self
-                    .pilot
-                    .implants
-                    .contains(&type_id!("High-grade Amulet Omega"))
-            {
-                implants_ok = false;
-            }
-
-            if !implants_ok {
-                self.approved = false;
-                self.tags.insert("NO-IMPLANTS");
+            if implants_nok != "" {
+                self.errors
+                    .push(format!("Missing implants to fly {} fit", implants_nok));
             }
         }
-
-        Ok(())
     }
 
     fn add_implant_tag(&mut self) {
-        if let Some(set_tag) = implantmatch::detect_set(self.fit.hull, self.pilot.implants) {
-            self.tags.insert(set_tag);
+        if let Some(doctrine_fit) = self.doctrine_fit {
+            if let Some(set_tag) = implantmatch::detect_set(self.fit.hull, self.pilot.implants) {
+                // all non tagged fits are ascendancy (warpspeed)
+                if doctrine_fit.name.contains(set_tag)
+                    || (set_tag == "WARPSPEED"
+                        && !(doctrine_fit.name.contains("AMULET")
+                            || doctrine_fit.name.contains("HYBRID")))
+                {
+                    self.tags.insert(set_tag);
+                }
+            }
+
             if implantmatch::detect_slot10(self.fit.hull, self.pilot.implants).is_none() {
                 self.tags.insert("NO-SLOT10");
             }
@@ -318,7 +329,7 @@ impl<'a> FitChecker<'a> {
 
     fn merge_tags(&mut self) {
         if self.tags.contains("ELITE-FIT")
-            && ["WARPSPEED1-10", "HYBRID1-10", "AMULET1-10"]
+            && ["WARPSPEED", "HYBRID", "AMULET"]
                 .iter()
                 .any(|e| self.tags.contains(e))
         {

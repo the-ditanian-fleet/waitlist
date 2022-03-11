@@ -6,7 +6,7 @@ import { PilotHistory } from "./PilotHistory";
 import { useApi } from "../../api";
 import { ActivitySummary } from "./ActivitySummary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { tagBadges, Shield } from "../Waitlist/XCard";
+import { Shield, tagBadges } from "../../Components/Badge";
 import {
   faClipboard,
   faGraduationCap,

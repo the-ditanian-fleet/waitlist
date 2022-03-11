@@ -1,10 +1,10 @@
 import React from "react";
 import styled, { ThemeContext } from "styled-components";
 import { ToastContext, AuthContext } from "../../contexts";
-import { apiCall, errorToaster } from "../../api";
+import { apiCall, useApi, errorToaster } from "../../api";
 import { NavLink } from "react-router-dom";
 import { TimeDisplay } from "./TimeDisplay.js";
-import { Badge } from "../../Components/Badge";
+import { Badge, Shield, tagBadges } from "../../Components/Badge";
 import { Modal } from "../../Components/Modal";
 import { FitDisplay } from "../../Components/FitDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +15,6 @@ import {
   faStream,
   faPlus,
   faExclamationTriangle,
-  faInfoCircle,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
@@ -27,28 +26,15 @@ import { Box } from "../../Components/Box";
 import { Title } from "../../Components/Page";
 import { Button, InputGroup } from "../../Components/Form";
 
-export const tagBadges = {
-  "WARPSPEED1-10": ["red", "W", "Warp Speed Implants"],
-  "HYBRID1-10": ["red", "H", "Hybrid Implants"],
-  "AMULET1-10": ["red", "A", "Amulet Implants"],
-  ELITE: ["yellow", "E", "Elite"],
-  "STARTER-SKILLS": ["neutral", "S", "Starter skills"],
-  "HQ-FC": ["blue", "H", "HQ FC"],
-  LOGI: ["green", "L", "Logi Specialist"],
-  BASTION: ["purple", "B", "Bastion Specialist"],
-  WEB: ["cyan", "W", "Web Specialist"],
-  TRAINEE: ["neutral", "T", "Training FC"],
-};
-
 const badgeOrder = [
   "HQ-FC",
   "TRAINEE",
   "WEB",
   "BASTION",
   "LOGI",
-  "AMULET1-10",
-  "WARPSPEED1-10",
-  "HYBRID1-10",
+  "AMULET",
+  "WARPSPEED",
+  "HYBRID",
   "ELITE",
   "ELITE-GOLD",
 ];
@@ -277,37 +263,46 @@ function SkillButton({ characterId, ship }) {
   );
 }
 
-export function Shield({ color, letter, title, h = "1.2em" }) {
+function NoteButton({ number, h = "1.2em" }) {
   const theme = React.useContext(ThemeContext);
+  console.log(number);
   return (
-    <span title={title}>
-      <svg
-        style={{ height: h, filter: `drop-shadow(0px 1px 1px ${theme.colors.shadow})` }}
-        viewBox="0 0 26.5 27.8"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+    <span style={{ verticalAlign: "middle" }}>
+      <svg style={{ height: h }} viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
         <g>
-          <path
-            style={{ fill: theme.colors.tdfShields[color] }}
-            d="m 13.229167,0 c 0,0 6.085417,0.79375 13.229167,3.96875 0,0 -0.79375,10.054167 -3.961217,15.955009 -2.275956,4.239997 -6.622116,7.857491 -9.26795,7.857491 M 13.229167,0 C 13.229167,0 7.14375,0.79375 0,3.96875 c 0,0 0.79375,10.054167 3.9612174,15.955009 2.2759552,4.239997 6.6221156,7.857491 9.2679496,7.857491"
+          <circle
+            style={{ verticalAlign: "middle", fill: theme.colors.text }}
+            cy="25"
+            cx="25"
+            r="24"
           />
           <text
             style={{
-              fontSize: "1.3em",
-              fontWeight: "700",
+              fontSize: "2.6em",
+              fontWeight: "600",
               textAnchor: "middle",
-              fill: theme.colors.tdfShields.text,
+              fill: theme.colors.accent1,
               textRendering: "geometricPrecision",
             }}
-            x="13.25"
-            y="20.5"
+            x="26"
+            y="38.5"
           >
-            {letter}
+            {number}
           </text>
         </g>
       </svg>
     </span>
   );
+}
+
+function NotesAmount({ characterId, authContext }) {
+  const [notes] = useApi(
+    authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
+  );
+  if (!notes) return <NoteButton number={0} title={"Pilot Information"} />;
+  var amount = Object.keys(notes.notes).length;
+  amount = amount > 9 ? "9+" : amount.toString();
+  return <NoteButton number={amount} h={"1em"} />;
 }
 
 export function XCard({ entry, fit, onAction }) {
@@ -405,7 +400,7 @@ export function XCard({ entry, fit, onAction }) {
         )}
         {authContext.access["pilot-view"] && (
           <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
-            <FontAwesomeIcon icon={faInfoCircle} />
+            <NotesAmount characterId={fit.character.id} authContext={authContext} />
           </NavLink>
         )}
         {_.isFinite(fit.hours_in_fleet) ? (
