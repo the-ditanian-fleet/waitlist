@@ -102,7 +102,7 @@ plans:
     tier: min
   - type: fit
     hull: Kronos
-    fit: TDF_KRONOS_ELITE_HYBRID_BASTION
+    fit: TDF_KRONOS_ELITE_HYBRID
   - type: skills
     from: Kronos
     tier: elite
@@ -137,20 +137,15 @@ plans:
     tier: min
   - type: fit
     hull: Paladin
-    fit: TDF_PALLY_ELITE_HYBRID_BASTION
+    fit: TDF_PALLY_ELITE_HYBRID
   - type: skills
     from: Paladin
     tier: elite
 
 - name: TDF_PALADIN_ELITE v2
   description: >
-    PALLY_BASIC > PALLY_ADVANCED > PALLY_ELITE: This skill plan will train you from basic Paladin through to the elite Paladin fit.
+    PALLY_ADVANCED > PALLY_ELITE: This skill plan will train you from advanced Paladin through to the elite Paladin fit.
   plan:
-  - type: tank
-    from: min
-  - type: fit
-    hull: Paladin
-    fit: TDF_PALLY_BASIC
   - type: skills
     from: Paladin
     tier: min
@@ -164,7 +159,7 @@ plans:
     level: 4
   - type: fit
     hull: Paladin
-    fit: TDF_PALLY_ELITE_HYBRID_BASTION
+    fit: TDF_PALLY_ELITE_HYBRID
   - type: skills
     from: Paladin
     tier: elite
@@ -186,7 +181,7 @@ plans:
   plan:
   - type: fit
     hull: Kronos
-    fit: TDF_KRONOS_ELITE_HYBRID_BASTION
+    fit: TDF_KRONOS_ELITE_HYBRID
   - type: skills
     from: Kronos
     tier: elite
@@ -197,7 +192,7 @@ plans:
   plan:
   - type: fit
     hull: Paladin
-    fit: TDF_PALLY_ELITE_HYBRID_BASTION
+    fit: TDF_PALLY_ELITE_HYBRID
   - type: skills
     from: Paladin
     tier: elite
@@ -281,7 +276,7 @@ plans:
     tier: min
   - type: fit
     hull: Nestor
-    fit: TDF_NESTOR_HQ_6REP_ELITE_HYBRID
+    fit: TDF_NESTOR_HQ_ELITE_HYBRID
   - type: skills
     from: Nestor
     tier: elite
@@ -325,13 +320,13 @@ plans:
     fit: TDF_VINDI_ELITE_HYBRID
   - type: fit
     hull: Kronos
-    fit: TDF_KRONOS_ELITE_HYBRID_BASTION
+    fit: TDF_KRONOS_ELITE_HYBRID
   - type: fit
     hull: Paladin
-    fit: TDF_PALLY_ELITE_HYBRID_BASTION
+    fit: TDF_PALLY_ELITE_HYBRID
   - type: fit
     hull: Nightmare
-    fit: TDF_NM_ADVANCED_HYBRID
+    fit: TDF_NM_ADVANCED
   - type: fit
     hull: Oneiros
     fit: TDF_ONI_HQ_ELITE
@@ -340,7 +335,7 @@ plans:
     fit: TDF_GUARD_HQ_ELITE
   - type: fit
     hull: Nestor
-    fit: TDF_NESTOR_HQ_6REP_ELITE_HYBRID
+    fit: TDF_NESTOR_HQ_ELITE_HYBRID
 
   - type: skills
     from: Vindicator

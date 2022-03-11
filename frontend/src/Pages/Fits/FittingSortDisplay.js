@@ -51,7 +51,7 @@ FitCard.Content.Badges = styled.div`
     margin-left: 0.1em;
   }
   > *:last-child {
-    margin-left: 0.4em;
+    margin-left: 0.25em;
     margin-right: 0.5em;
   }
   > span {
@@ -63,6 +63,10 @@ FitCard.Content.Badges = styled.div`
   }
   @media (max-width: 450px) {
     font-size: 1.2em;
+    > *:last-child {
+      margin-left: 0.1em;
+      margin-right: 0.4em;
+    }
   }
 `;
 
@@ -116,23 +120,13 @@ function Fitout({ data, tier }) {
       if (logiid.includes(parseInt(id))) {
         logi.push(
           <div key={ship.name}>
-            <ShipDisplay
-              fit={ship}
-              id={id}
-              hybrid={ship.name.indexOf("HYBRID") !== -1}
-              note={fitnote}
-            />
+            <ShipDisplay fit={ship} id={id} note={fitnote} />
           </div>
         );
       } else {
         dps.push(
           <div key={ship.name}>
-            <ShipDisplay
-              fit={ship}
-              id={id}
-              hybrid={ship.name.indexOf("HYBRID") !== -1}
-              note={fitnote}
-            />
+            <ShipDisplay fit={ship} id={id} note={fitnote} />
           </div>
         );
       }
@@ -172,7 +166,7 @@ function Fitout({ data, tier }) {
   }
 }
 
-function ShipDisplay({ fit, id, hybrid, note }) {
+function ShipDisplay({ fit, id, note }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   return (
     <>
@@ -181,15 +175,22 @@ function ShipDisplay({ fit, id, hybrid, note }) {
           <Box>
             <div style={{ display: "flex" }}>
               <div style={{ margin: "0 0.5em" }}>
-                <DNADisplay dna={fit.dna} />
+                <DNADisplay dna={fit.dna} name={fit.name} />
               </div>
             </div>
             {note ? <Note variant={"secondary"}>{note}</Note> : null}
-            {hybrid ? (
+            {fit.name.indexOf("HYBRID") !== -1 ? (
               <Note variant={"danger"}>
                 <p>
-                  HYBRID FIT! This fit requires at least Amulet 1 - 5. <br /> See mailing list:{" "}
-                  <b>TDF-Implant1</b>
+                  HYBRID FIT! This fit requires at least Amulet 1 - 5. <br /> See implants above or
+                  mailing list: <b>TDF-Implant1</b>
+                </p>
+              </Note>
+            ) : fit.name.indexOf("ASCENDANCY") !== -1 ? (
+              <Note variant={"danger"}>
+                <p>
+                  ASCENDANCY FIT! This fit requires at least Ascendancy 1 - 5 & WS-618. <br /> See
+                  implants above or mailing list: <b>TDF-Implant1</b>
                 </p>
               </Note>
             ) : null}
@@ -209,7 +210,11 @@ function ShipDisplay({ fit, id, hybrid, note }) {
                 {fit.name}
                 <FitCard.Content.Badges>
                   {note ? <FontAwesomeIcon icon={faExclamationCircle} /> : null}
-                  {hybrid ? <Shield color="red" letter="H" title="Hybrid Implants" /> : null}
+                  {fit.name.indexOf("HYBRID") !== -1 ? (
+                    <Shield color="red" letter="H" title="Hybrid Implants" />
+                  ) : fit.name.indexOf("ASCENDANCY") !== -1 ? (
+                    <Shield color="red" letter="W" title="Ascendancy Implants" />
+                  ) : null}
                 </FitCard.Content.Badges>
               </FitCard.Content>
             </a>
