@@ -105,4 +105,4 @@ Just ask in fleet chat or over Teamspeak.
 
 ## Keep reading
 
-[Anchoring guide](/guide/dps)
+[Anchoring guide](/guide/anchoring)

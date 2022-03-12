@@ -295,7 +295,7 @@ function NoteButton({ number }) {
   );
 }
 
-function NotesAmount({ characterId, authContext }) {
+function PilotInformation({ characterId, authContext }) {
   const [notes] = useApi(
     authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
   );
@@ -400,7 +400,7 @@ export function XCard({ entry, fit, onAction }) {
         )}
         {authContext.access["pilot-view"] && (
           <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
-            <NotesAmount characterId={fit.character.id} authContext={authContext} />
+            <PilotInformation characterId={fit.character.id} authContext={authContext} />
           </NavLink>
         )}
         {_.isFinite(fit.hours_in_fleet) ? (
