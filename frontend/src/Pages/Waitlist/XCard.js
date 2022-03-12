@@ -265,7 +265,6 @@ function SkillButton({ characterId, ship }) {
 
 function NoteButton({ number }) {
   const theme = React.useContext(ThemeContext);
-  console.log(number);
   return (
     <span style={{ verticalAlign: "middle" }}>
       <svg style={{ height: "1em" }} viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
