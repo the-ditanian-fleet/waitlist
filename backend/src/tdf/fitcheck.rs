@@ -330,10 +330,11 @@ impl<'a> FitChecker<'a> {
     }
 
     fn merge_tags(&mut self) {
-        if self.tags.contains("ELITE-FIT")
+        if (self.tags.contains("ELITE-FIT")
             && ["WARPSPEED", "HYBRID", "AMULET"]
                 .iter()
-                .any(|e| self.tags.contains(e))
+                .any(|e| self.tags.contains(e)))
+            || self.tags.contains("SAVIOR")
         {
             if self.tags.contains("ELITE-SKILLS") {
                 self.tags.remove("ELITE-FIT");
