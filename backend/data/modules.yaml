@@ -2,6 +2,12 @@
 alternatives:
 # Module alternatives specified as a three-level nested list, of modulegroup, tiers,
 # and then modules in that tier.
+# first item needs - - -, will be the modulegroup "title" & first subgroup
+# item with - - starts a tier subgroup (can be empty/only itself)
+# item with - is part of above tier subgroup
+# if item in fit it will allow modules from same subgroup or subgroups lower in the list
+# subgroups above will flag as downgrade
+
 - - - Agency 'Pyrolancea' DB3 Dose I
   - - Agency 'Pyrolancea' DB5 Dose II
   - - Agency 'Pyrolancea' DB7 Dose III
@@ -26,6 +32,30 @@ alternatives:
   - - Large Remote Armor Repairer II
   - - "'Peace' Large Remote Armor Repairer"
 
+- - - Tachyon Modulated Energy Beam I
+    - True Sansha Mega Pulse Laser
+    - Imperial Navy Mega Pulse Laser
+    - Dark Blood Mega Pulse Laser
+    - Ammatar Navy Mega Pulse Laser
+    - "'Halberd' Mega Pulse Laser I"
+  - - Mega Pulse Laser II
+  - - "Brokara's Modified Mega Pulse Laser"
+  - - "Tairei's Modified Mega Pulse Laser"
+  - - "Ahremen's Modified Mega Pulse Laser"
+  - - "Vizan's Modified Mega Pulse Laser"
+
+- - - Large Inductive Compact Remote Capacitor Transmitter 
+  - - "'Chivalry' Large Remote Capacitor Transmitter"
+    - Imperial Navy Large Remote Capacitor Transmitter
+
+- - - Modal Mega Neutron Particle Accelerator I
+    - Federation Navy Neutron Blaster Cannon
+    - Shadow Serpentis Neutron Blaster Cannon
+    - "'Underhand' Neutron Blaster Cannon I"
+  - - Neutron Blaster Cannon II
+  - - "Tuvan's Modified Neutron Blaster Cannon"
+  - - "Cormack's Modified Neutron Blaster Cannon"
+
 - - - Blood Xray L
     - Sanshas Xray L
   - - Imperial Navy Xray L
@@ -42,27 +72,31 @@ alternatives:
 - - - Federation Navy Hobgoblin
   - - Hobgoblin II
   - - "'Augmented' Hobgoblin"
+    - Light Mutated Drone
 
 - - - Federation Navy Hammerhead
   - - Hammerhead II
   - - "'Augmented' Hammerhead"
+    - Medium Mutated Drone
 
 - - - Federation Navy Ogre
   - - Ogre II
   - - "'Augmented' Ogre"
+    - Heavy Mutated Drone
 
-from_meta: # Automagically determine alternatives
+from_meta: 
+# Automagically determine alternatives
+# Base is the lowest allowed meta level alternative module
+# If modulegroup is found in the fit & it's equal or higher to the meta level of the standard fit it is allowed
+# You have to manually add it's abyssal variant as shown below
 - base: Sensor Booster II
 - base: Tracking Computer II
-- base: Large Inductive Compact Remote Capacitor Transmitter
 - base: Supratidal Entropic Disintegrator II
 - base: Imperial Navy Drone Damage Amplifier
-- base: Modal Mega Neutron Particle Accelerator I
 - base: Remote Tracking Computer II
 - base: Dark Blood Capacitor Power Relay
 - base: Imperial Navy Cap Recharger
 - base: True Sansha Power Diagnostic System
-
 - base: Core X-Type 500MN Microwarpdrive
   abyssal: 500MN Abyssal Microwarpdrive
 - base: Gistum A-Type 10MN Afterburner

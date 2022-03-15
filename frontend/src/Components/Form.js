@@ -49,6 +49,17 @@ export const Button = styled.button.attrs((props) => ({
   cursor: pointer;
 `;
 
+export const MobileButton = styled.button.attrs((props) => ({
+  className: `${props.active ? "active" : ""} ${props.static ? "static" : ""}`,
+}))`
+  ${inputStyle}
+  height: 2.5em;
+  cursor: pointer;
+  @media (min-width: 480px) {
+    display: none;
+  }
+`;
+
 export const AButton = styled.a.attrs((props) => ({
   className: `${props.active ? "active" : ""} ${props.static ? "static" : ""}`,
 }))`
