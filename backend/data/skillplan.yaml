@@ -1,8 +1,8 @@
 plans:
 
-- name: TDF_VINDI_BASIC
+- name: VINDICATOR BASIC PATH
   description: >
-    MEGA > VINDI_STARTER > VINDI_BASIC: This skill plan will train you from starter Megathron in to the basic Vindi fit, this will get you out of starter queue.
+    This skill plan will train you from starter Megathron in to the basic Vindi fit, this will get you out of starter queue.
   plan:
   - type: tank
     from: starter
@@ -21,9 +21,9 @@ plans:
     from: Vindicator
     tier: min
 
-- name: TDF_NIGHTMARE_BASIC
+- name: NIGHTMARE BASIC PATH
   description: >
-    MEGA > NM_STARTER > NM_BASIC: This skill plan will train you from starter Megathron in to the basic Nightmare fit, this will get you out of starter queue.
+    This skill plan will train you from starter Megathron in to the basic Nightmare fit, this will get you out of starter queue.
   plan:
   - type: tank
     from: starter
@@ -42,9 +42,9 @@ plans:
     from: Nightmare
     tier: min
 
-- name: TDF_VINDI_ELITE
+- name: VINDICATOR ELITE PATH
   description: >
-    MEGA > VINDI_STARTER > VINDI_BASIC > VINDI_ADVANCED > VINDI_ELITE: This skill plan will train you from starter Megathron through to the elite Vindi fit.
+    This skill plan will train you from starter Megathron through to the elite Vindi fits.
   plan:
   - type: tank
     from: starter
@@ -62,19 +62,25 @@ plans:
   - type: skills
     from: Vindicator
     tier: min
+  - type: fit
+    hull: Vindicator
+    fit: TDF_VINDI_ADVANCED
   - type: skill
     from: Cybernetics
-    level: 4
+    level: 5
   - type: fit
     hull: Vindicator
     fit: TDF_VINDI_ELITE_HYBRID
+  - type: fit
+    hull: Vindicator
+    fit: TDF_VINDI_ELITE
   - type: skills
     from: Vindicator
     tier: elite
 
-- name: TDF_KRONOS_ELITE
+- name: KRONOS ELITE PATH
   description: >
-    MEGA > VINDI_BASIC > VINDI_ADVANCED > KRONOS_ELITE: This skill plan will train you from starter Megathron through to the elite Kronos fit.
+    This skill plan will train you from starter Megathron through to the Vindicator and finally onto elite Kronos fits.
   plan:
   - type: tank
     from: starter
@@ -92,24 +98,25 @@ plans:
   - type: skills
     from: Vindicator
     tier: min
-  - type: tank
-    from: bastion
-  - type: skill
-    from: Cybernetics
-    level: 4
   - type: skills
     from: Kronos
     tier: min
   - type: fit
     hull: Kronos
-    fit: TDF_KRONOS_ELITE_HYBRID
+    fit: TDF_KRONOS_ADVANCED
+  - type: skill
+    from: Cybernetics
+    level: 5
+  - type: fit
+    hull: Kronos
+    fit: TDF_KRONOS_ELITE
   - type: skills
     from: Kronos
     tier: elite
 
-- name: TDF_PALADIN_ELITE
+- name: PALADIN ELITE PATH
   description: >
-    MEGA > NM_STARTER > NM_BASIC > NM_ADVANCED > PALLY_ELITE: This skill plan will train you from starter Megathron through to the elite Paladin fit.
+    This skill plan will train you from starter Megathron through to the Nightmare and finally onto the elite Paladin fits.
   plan:
   - type: tank
     from: starter
@@ -127,77 +134,118 @@ plans:
   - type: skills
     from: Nightmare
     tier: min
-  - type: tank
-    from: bastion
-  - type: skill
-    from: Cybernetics
-    level: 4
-  - type: skills
-    from: Paladin
-    tier: min
-  - type: fit
-    hull: Paladin
-    fit: TDF_PALLY_ELITE_HYBRID
-  - type: skills
-    from: Paladin
-    tier: elite
-
-- name: TDF_PALADIN_ELITE v2
-  description: >
-    PALLY_ADVANCED > PALLY_ELITE: This skill plan will train you from advanced Paladin through to the elite Paladin fit.
-  plan:
   - type: skills
     from: Paladin
     tier: min
   - type: fit
     hull: Paladin
     fit: TDF_PALLY_ADVANCED
-  - type: tank
-    from: bastion
   - type: skill
     from: Cybernetics
-    level: 4
+    level: 5
   - type: fit
     hull: Paladin
-    fit: TDF_PALLY_ELITE_HYBRID
+    fit: TDF_PALLY_ELITE
   - type: skills
     from: Paladin
     tier: elite
 
+- name: PALADIN ONLY PATH 
+  description: >
+    This skill plan will train you from advanced Paladin through to the elite Paladin fits.
+  plan:
+  - type: tank
+    from: min
+  - type: skills
+    from: Paladin
+    tier: min
+  - type: fit
+    hull: Paladin
+    fit: TDF_PALLY_ADVANCED
+  - type: skill
+    from: Cybernetics
+    level: 5
+  - type: fit
+    hull: Paladin
+    fit: TDF_PALLY_ELITE
+  - type: skills
+    from: Paladin
+    tier: elite
+
+- name: KRONOS ONLY PATH 
+  description: >
+    This skill plan will train you from advanced Kronos through to the elite Kronos fits.
+  plan:
+  - type: tank
+    from: min
+  - type: skills
+    from: Kronos
+    tier: min
+  - type: fit
+    hull: Kronos
+    fit: TDF_KRONOS_ADVANCED
+  - type: skill
+    from: Cybernetics
+    level: 5
+  - type: fit
+    hull: Kronos
+    fit: TDF_KRONOS_ELITE
+  - type: skills
+    from: Kronos
+    tier: elite
+
 - name: VINDICATOR ELITE
   description: >
-    Elite skills Vindi plan, simple.
+    This skill plan only trains the requirements for elite Vindicator fits.
   plan:
+  - type: tank
+    from: min
+  - type: skill
+    from: Cybernetics
+    level: 5
   - type: fit
     hull: Vindicator
     fit: TDF_VINDI_ELITE_HYBRID
+  - type: fit
+    hull: Vindicator
+    fit: TDF_VINDI_ELITE
   - type: skills
     from: Vindicator
     tier: elite
 
 - name: KRONOS ELITE
   description: >
-    Elite skills Kronos plan, simple.
+    This skill plan only trains the requirements for elite Kronos fits.
   plan:
+  - type: tank
+    from: min
+  - type: skill
+    from: Cybernetics
+    level: 5
   - type: fit
     hull: Kronos
-    fit: TDF_KRONOS_ELITE_HYBRID
+    fit: TDF_KRONOS_ELITE
   - type: skills
     from: Kronos
     tier: elite
 
 - name: PALADIN ELITE
   description: >
-    Elite skills Paladin plan, simple.
+    This skill plan only trains the requirements for elite Paladin fits.
   plan:
+  - type: tank
+    from: min
+  - type: skill
+    from: Cybernetics
+    level: 5
   - type: fit
     hull: Paladin
-    fit: TDF_PALLY_ELITE_HYBRID
+    fit: TDF_PALLY_ELITE
   - type: skills
     from: Paladin
     tier: elite
 
-- name: TDF_ONEIROS_STARTER
+- name: ONEIROS STARTER
   description: >
     This skill plan trains you into the ONEIROS_AFFORDABLE fit. Use this to get started in Oni.
   plan:
@@ -210,9 +258,9 @@ plans:
     hull: Oneiros
     fit: TDF_ONI_HQ_STARTER_AFFORDABLE
 
-- name: TDF_ONEIROS_ELITE
+- name: ONEIROS ELITE PATH
   description: >
-    This skill plan trains you into elite Oneiros.
+    This skill plan trains you from starter through to elite Oneiros.
   plan:
   - type: tank
     from: min
@@ -235,12 +283,15 @@ plans:
     from: Oneiros
     tier: elite
 
-- name: TDF_GUARDIAN_BASIC
+- name: GUARDIAN BASIC
   description: >
     This skill plan trains you into the GUARDIAN_BASIC fit. Use this to get started in Guardian.
   plan:
   - type: tank
     from: min
+  - type: skill
+    from: Cybernetics
+    level: 5
   - type: skills
     from: Guardian
     tier: min
@@ -248,15 +299,21 @@ plans:
     hull: Guardian
     fit: TDF_GUARD_HQ_BASIC
 
-- name: TDF_GUARDIAN_ELITE
+- name: GUARDIAN ELITE PATH
   description: >
-    This skill plan trains you into elite Guardian.
+    This skill plan trains you from basic through to elite Guardian.
   plan:
   - type: tank
     from: min
+  - type: skill
+    from: Cybernetics
+    level: 5
   - type: skills
     from: Guardian
     tier: min
+  - type: fit
+    hull: Guardian
+    fit: TDF_GUARD_HQ_BASIC
   - type: fit
     hull: Guardian
     fit: TDF_GUARD_HQ_ADVANCED
@@ -267,24 +324,37 @@ plans:
     from: Guardian
     tier: elite
 
-- name: TDF_NESTOR
+- name: NESTOR ELITE
   description: >
     This skill plan trains you into elite Nestor.
   plan:
+  - type: tank
+    from: min
+  - type: skill
+    from: Cybernetics
+    level: 5
   - type: skills
     from: Nestor
     tier: min
   - type: fit
     hull: Nestor
     fit: TDF_NESTOR_HQ_ELITE_HYBRID
+  - type: fit
+    hull: Nestor
+    fit: TDF_NESTOR_HQ_ELITE_ASCENDANCY
   - type: skills
     from: Nestor
     tier: elite
 
-- name: TDF_EOS
+- name: EOS ELITE
   description: >
     TDF's primary booster. Elite level skills.
   plan:
+  - type: tank
+    from: min
+  - type: skill
+    from: Cybernetics
+    level: 5
   - type: skills
     from: Eos
     tier: min
@@ -295,10 +365,15 @@ plans:
     from: Eos
     tier: elite
 
-- name: TDF_DAMNATION
+- name: DAMNATION ELITE
   description: >
     TDF's secondary booster. Elite level skills.
   plan:
+  - type: tank
+    from: min
+  - type: skill
+    from: Cybernetics
+    level: 5
   - type: skills
     from: Damnation
     tier: min
@@ -309,21 +384,27 @@ plans:
     from: Damnation
     tier: elite
 
-- name: TDF_EVERYTHING
+- name: EVERYTHING GOLD
   description: >
     Train the entire TDF doctrine, including boosters! Not really a serious skill plan. Trains everything to Elite Gold level.
   plan:
   - type: tank
     from: min
+  - type: skill
+    from: Cybernetics
+    level: 5
   - type: fit
     hull: Vindicator
     fit: TDF_VINDI_ELITE_HYBRID
   - type: fit
+    hull: Vindicator
+    fit: TDF_VINDI_ELITE
+  - type: fit
     hull: Kronos
-    fit: TDF_KRONOS_ELITE_HYBRID
+    fit: TDF_KRONOS_ELITE
   - type: fit
     hull: Paladin
-    fit: TDF_PALLY_ELITE_HYBRID
+    fit: TDF_PALLY_ELITE
   - type: fit
     hull: Nightmare
     fit: TDF_NM_ADVANCED
@@ -336,28 +417,9 @@ plans:
   - type: fit
     hull: Nestor
     fit: TDF_NESTOR_HQ_ELITE_HYBRID
-
-  - type: skills
-    from: Vindicator
-    tier: elite
-  - type: skills
-    from: Kronos
-    tier: elite
-  - type: skills
-    from: Paladin
-    tier: elite
-  - type: skills
-    from: Nightmare
-    tier: elite
-  - type: skills
-    from: Oneiros
-    tier: elite
-  - type: skills
-    from: Guardian
-    tier: elite
-  - type: skills
-    from: Nestor
-    tier: elite
+  - type: fit
+    hull: Nestor
+    fit: TDF_NESTOR_HQ_ELITE_ASCENDANCY
 
   - type: skills
     from: Vindicator
