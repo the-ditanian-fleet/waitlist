@@ -54,7 +54,7 @@ Fleet anchors are the positions you need to move to, make sure to have them open
 
 **Logi:** Cruisers will orbit a Nestor in the site to help speed tank.
 
-**CQC & Snipers:** You will need to move your ship manually into position using Q to fly around. Open tactical camera with tactical overlay enabled. Hold Q which will draw a line to where you want to go. The first click will set the horizontal plane and the second will set the vertical plane. You can double click quickly to set a simple horizontal plane align. Make sure to check out the [Anchoring guide](/guide/dps)!
+**CQC & Snipers:** You will need to move your ship manually into position using Q to fly around. Open tactical camera with tactical overlay enabled. Hold Q which will draw a line to where you want to go. The first click will set the horizontal plane and the second will set the vertical plane. You can double click quickly to set a simple horizontal plane align. Make sure to check out the [Anchoring guide](/guide/anchoring)!
 
 If you choose to anchor on someone use the Keep at range function to keep you from bumping them. You want to be close so set this to 5000m, but if you are bumping the anchor because you cannot stop in time then increase the distance. You can right click people in your watchlist to keep them at range.
 
@@ -105,4 +105,4 @@ Just ask in fleet chat or over Teamspeak.
 
 ## Keep reading
 
-[Anchoring guide](/guide/dps)
+[Anchoring guide](/guide/anchoring)
