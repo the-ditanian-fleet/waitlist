@@ -46,7 +46,7 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 - Damage Control Units
 - Multispectrum Coatings
 - Burst Aerator Rigs
-- Resistance Rigs (Thermal, EM, Kinetic, Explosive)
+- Rigs (Thermal, EM, Kinetic, Explosive, Trimark, etc.)
 
 3. Train Starter coloured skills starting with warp drive operation, gunnery skills, MJD etc, leaving drones until last.
 4. Train and get T2 guns and the remainder of the basic fit modules starting with the Core X-Type MWD (this will help greatly with your cap stability) then Magnetic Field Stabilizers & Heat Sinks etc.
@@ -57,16 +57,16 @@ Once you have the basic fit ready to go, continue **training and injecting basic
 
 1. **Upgrade to the advanced fit.** Your skills will already be sufficient, so buy those new modules!
 
-2. **Get your Hybrid set implants**. See TDF-IMPLANT1 mailing list in game for reference. You will need cybernetics 5 trained for the hard wires. The recommended purchase order for the set is:
+2. **Get your mplant set**. See TDF-IMPLANT1 mailing list in game for reference. You will need cybernetics 5 trained for the hard wires. The recommended purchase order for the set is:
 
 - Slot 10 (6% damage Alpha) make sure you get the implant that corresponds to your gun type!
 - Slot 9 (6% damage ROF)
 - Slot 8 (6% capacitor capacity)
 - Slot 7 (6% tracking) Remember to buy the Ogdin's Eye as its usually cheaper on market than the MR-706 from concord LP store.
 - Slot 6 (6% warpspeed)
-- Slots 1-5 (Amulets increase your overall Armor HP and also have stat bonus)
+- Slots 1-5 Amulets OR Ascendancy
 
-Once your set is complete you can upgrade to the \_HYBRID fits on the mailing list, which adds a lot of damage!
+_(You can choose either Hybrid or Warp speed set, both are acceptable, however you must have slots 1-5 Amulets to fly the \_HYBRID fits)_
 
 3. **Train bastion requirements** if you are going for bastion fits.
 
@@ -77,7 +77,7 @@ Once your set is complete you can upgrade to the \_HYBRID fits on the mailing li
 
 ### Elite
 
-Now it's time to get the **elite fit**. You do not need to have every skill at elite level to fly the fit! Go buy those upgrades while still training/injecting the skills.
+Now it's time to get the **elite fit**. You do not need to have every skill at elite level to fly the fit & for the Ascendancy Elite fits you do not need the full implant set to fly the fit, but you will need the implants to get your elite tags. Go buy those upgrades while still training/injecting the skills.
 
 - This is a good time to get **abyssal modules**. [mutaplasmid.space](https://mutaplasmid.space/) is a good website for finding contracts, but remember abyssals must be "better than faction". See the badges section for [Bastion Badge](/guide/badges) requirements for abyssals should you wish to obtain it.
 
