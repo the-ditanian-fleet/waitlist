@@ -196,7 +196,7 @@ plans:
 
 - name: VINDICATOR ELITE
   description: >
-    This skill plan only trains the requirements for elite Vindicator fits.
+    This skill plan trains the requirements to allow you to fly any elite Vindicator fit.
   plan:
   - type: tank
     from: min
@@ -215,7 +215,7 @@ plans:
 
 - name: KRONOS ELITE
   description: >
-    This skill plan only trains the requirements for elite Kronos fits.
+    This skill plan trains the requirements to allow you to fly any elite Kronos fit.
   plan:
   - type: tank
     from: min
@@ -231,7 +231,7 @@ plans:
 
 - name: PALADIN ELITE
   description: >
-    This skill plan only trains the requirements for elite Paladin fits.
+    This skill plan trains the requirements to allow you to fly any elite Paladin fit.
   plan:
   - type: tank
     from: min
@@ -247,7 +247,7 @@ plans:
 
 - name: ONEIROS STARTER
   description: >
-    This skill plan trains you into the ONEIROS_AFFORDABLE fit. Use this to get started in Oni.
+    This skill plan trains you into the Oneiros affordable fit. Use this to get started in Oni.
   plan:
   - type: tank
     from: min
@@ -285,7 +285,7 @@ plans:
 
 - name: GUARDIAN BASIC
   description: >
-    This skill plan trains you into the GUARDIAN_BASIC fit. Use this to get started in Guardian.
+    This skill plan trains you into the Guardian basic fit. Use this to get started in Guardian.
   plan:
   - type: tank
     from: min
