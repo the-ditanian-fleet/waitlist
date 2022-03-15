@@ -23,7 +23,7 @@ Bastion is for experienced incursion runners only. This means to use it you MUST
 
 Please see the Anchoring Guide for specifics on Bastion postioning and usage.
 
-[Anchoring Guide](/guide/dps)
+[Anchoring Guide](/guide/anchoring)
 
 ## Additional tips
 
