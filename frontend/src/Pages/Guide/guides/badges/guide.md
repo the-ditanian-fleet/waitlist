@@ -21,14 +21,14 @@ Elite badge pre-requisites plus all skills to elite gold for the applicable ship
 ### Bastion Specialist
 
 Requirements to get bastion specialist badge are:
-Elite badge pre-requisites for a Bastion-capable ship plus abyssal damage modules with a minimum of 29% DPS Bonus, Marauders skill to 5, and an abyssal plate with minimum 6k raw armor HP for single plate fits & 12k combined HP on dual plate fits.
+Elite badge pre-requisites for a Bastion-capable ship plus abyssal damage modules with a minimum of 29% DPS Bonus, Marauders skill to 5, an abyssal plate with minimum 6k RAW armor HP for single plate fits, & 12k RAW combined HP on dual plate fits.
 
 ![](bastion.png)
 
 ### Web Specialist
 
 Requirements to get web specialist badge are:
-Elite badge pre-requisites for a Vindicator plus abyssal webifiers with minimum of 16km base range & 62% base strength bonus plus Gallente BS skill to 5.
+Elite badge pre-requisites for a Vindicator plus abyssal webifiers with minimum of 16km base range & 62% base strength bonus, plus Gallente BS skill to 5.
 
 ![](wv.png)
 
@@ -101,12 +101,12 @@ Pilot has Hybrid implant set (Amulet 1-5 Hardwires 6-10), only visible on X-UP p
 
 ### Amulet Implant Set
 
-Pilot has Amulet implant set including relevant hardwires, only visible on X-UP page.
+Pilot has Full Amulet implant set (Amulet 1-6 Hardwires 7-10), only visible on X-UP page.
 
 ![](a.png)
 
 ### Warpspeed Implant Set
 
-Pilot has Ascendancy implant set including relevant hardwires, only visible on X-UP page.
+Pilot has Warp Speed implant set (Ascendancy 1-5 Hardwires 6-10), only visible on X-UP page.
 
 ![](w.png)
