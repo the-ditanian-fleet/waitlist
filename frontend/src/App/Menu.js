@@ -58,6 +58,8 @@ NavBar.End = styled.div`
   align-items: center;
 `;
 NavBar.Main = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   @media (max-width: 480px) {
     display: none;
   }
