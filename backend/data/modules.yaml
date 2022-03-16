@@ -44,10 +44,6 @@ alternatives:
   - - "Ahremen's Modified Mega Pulse Laser"
   - - "Vizan's Modified Mega Pulse Laser"
 
-- - - Large Inductive Compact Remote Capacitor Transmitter 
-  - - "'Chivalry' Large Remote Capacitor Transmitter"
-    - Imperial Navy Large Remote Capacitor Transmitter
-
 - - - Modal Mega Neutron Particle Accelerator I
     - Federation Navy Neutron Blaster Cannon
     - Shadow Serpentis Neutron Blaster Cannon
@@ -96,6 +92,7 @@ from_meta:
 - base: Remote Tracking Computer II
 - base: Dark Blood Capacitor Power Relay
 - base: Imperial Navy Cap Recharger
+- base: Large Inductive Compact Remote Capacitor Transmitter
 - base: True Sansha Power Diagnostic System
 - base: Core X-Type 500MN Microwarpdrive
   abyssal: 500MN Abyssal Microwarpdrive
