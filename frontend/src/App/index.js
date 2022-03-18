@@ -42,7 +42,11 @@ export default class App extends React.Component {
       toasts: [],
       events: null,
       eventErrors: 0,
-      theme: (window.localStorage && window.localStorage.getItem("theme")) || "light",
+      theme:
+        (window.localStorage &&
+          window.localStorage.getItem("theme") in theme &&
+          window.localStorage.getItem("theme")) ||
+        "light",
     };
   }
 

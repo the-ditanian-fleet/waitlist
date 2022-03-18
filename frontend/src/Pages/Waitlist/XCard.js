@@ -263,12 +263,11 @@ function SkillButton({ characterId, ship }) {
   );
 }
 
-function NoteButton({ number, h = "1.2em" }) {
+function NoteButton({ number }) {
   const theme = React.useContext(ThemeContext);
-  console.log(number);
   return (
     <span style={{ verticalAlign: "middle" }}>
-      <svg style={{ height: h }} viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+      <svg style={{ height: "1em" }} viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
         <g>
           <circle
             style={{ verticalAlign: "middle", fill: theme.colors.text }}
@@ -284,8 +283,8 @@ function NoteButton({ number, h = "1.2em" }) {
               fill: theme.colors.accent1,
               textRendering: "geometricPrecision",
             }}
-            x="26"
-            y="38.5"
+            x="25"
+            y="38"
           >
             {number}
           </text>
@@ -295,14 +294,14 @@ function NoteButton({ number, h = "1.2em" }) {
   );
 }
 
-function NotesAmount({ characterId, authContext }) {
+function PilotInformation({ characterId, authContext }) {
   const [notes] = useApi(
     authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
   );
   if (!notes) return <NoteButton number={0} title={"Pilot Information"} />;
   var amount = Object.keys(notes.notes).length;
   amount = amount > 9 ? "9+" : amount.toString();
-  return <NoteButton number={amount} h={"1em"} />;
+  return <NoteButton number={amount} />;
 }
 
 export function XCard({ entry, fit, onAction }) {
@@ -400,7 +399,7 @@ export function XCard({ entry, fit, onAction }) {
         )}
         {authContext.access["pilot-view"] && (
           <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
-            <NotesAmount characterId={fit.character.id} authContext={authContext} />
+            <PilotInformation characterId={fit.character.id} authContext={authContext} />
           </NavLink>
         )}
         {_.isFinite(fit.hours_in_fleet) ? (

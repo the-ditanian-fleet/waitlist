@@ -7,6 +7,7 @@ import { EventNotifier } from "../Components/Event";
 import { ThemeSelect } from "../Components/ThemeSelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+import { NavLinks, MobileNav } from "./Navigation";
 
 const NavBar = styled.div`
   display: flex;
@@ -14,6 +15,9 @@ const NavBar = styled.div`
   align-items: center;
   padding: 1em;
   margin-bottom: 1em;
+  @media (max-width: 480px) {
+    padding: 0.2em;
+  }
 `;
 
 NavBar.LogoLink = styled(NavLink).attrs((props) => ({
@@ -53,6 +57,13 @@ NavBar.End = styled.div`
   flex-wrap: wrap;
   align-items: center;
 `;
+NavBar.Main = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  @media (max-width: 480px) {
+    display: none;
+  }
+`;
 
 export function Menu({ onChangeCharacter, theme, setTheme }) {
   return (
@@ -63,62 +74,31 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
             <NavBar.Logo src={logoImage} alt="The Ditanian Fleet" />
           </NavBar.LogoLink>
           <NavBar.Menu>
-            {whoami && (
-              <>
-                <NavBar.Link exact to="/waitlist">
-                  Waitlist
-                </NavBar.Link>
-                <NavBar.Link exact to="/skills">
-                  Skills
-                </NavBar.Link>
-                <NavBar.Link exact to="/pilot">
-                  Pilot
-                </NavBar.Link>
-              </>
-            )}
-            <NavBar.Link exact to="/guide">
-              Guides
-            </NavBar.Link>
-            <NavBar.Link exact to="/fits">
-              Fits
-            </NavBar.Link>
-            <NavBar.Link exact to="/isk-h/calc">
-              ISK/h calc
-            </NavBar.Link>
-            {whoami && whoami.access["fleet-view"] && (
-              <NavBar.Link exact to="/fc/fleet">
-                Fleet
-              </NavBar.Link>
-            )}
-            {whoami && whoami.access["fleet-view"] && (
-              <NavBar.Link exact to="/fc">
-                FC
-              </NavBar.Link>
-            )}
-            {whoami && whoami.access["search"] && (
-              <NavBar.Link exact to="/fc/search">
-                Search
-              </NavBar.Link>
-            )}
+            <NavBar.Main>
+              <NavLinks whoami={whoami} />
+            </NavBar.Main>
             <NavBar.End>
               {whoami && (
-                <InputGroup style={{ marginRight: "2em" }}>
-                  <Select
-                    value={whoami.current.id}
-                    onChange={(evt) =>
-                      onChangeCharacter && onChangeCharacter(parseInt(evt.target.value))
-                    }
-                  >
-                    {whoami.characters.map((character) => (
-                      <option key={character.id} value={character.id}>
-                        {character.name}
-                      </option>
-                    ))}
-                  </Select>
-                  <NavButton exact to="/auth/start/alt">
-                    +
-                  </NavButton>
-                </InputGroup>
+                <>
+                  <InputGroup style={{ marginRight: "2em" }}>
+                    <MobileNav whoami={whoami} />
+                    <Select
+                      value={whoami.current.id}
+                      onChange={(evt) =>
+                        onChangeCharacter && onChangeCharacter(parseInt(evt.target.value))
+                      }
+                    >
+                      {whoami.characters.map((character) => (
+                        <option key={character.id} value={character.id}>
+                          {character.name}
+                        </option>
+                      ))}
+                    </Select>
+                    <NavButton exact to="/auth/start/alt">
+                      +
+                    </NavButton>
+                  </InputGroup>
+                </>
               )}
               <InputGroup>
                 <AButton title="Discord" href="https://discord.gg/YTysdbb">

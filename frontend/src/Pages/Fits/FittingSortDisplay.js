@@ -23,7 +23,7 @@ const FitCard = styled.div`
     border-color: ${(props) => props.theme.colors.accent3};
     cursor: pointer;
   }
-  @media (max-width: 450px) {
+  @media (max-width: 480px) {
     width: ${(props) => (props.size ? props.size : "320px")};
     font-size: 0.75em;
   }
@@ -61,7 +61,7 @@ FitCard.Content.Badges = styled.div`
   img {
     height: 1.3em;
   }
-  @media (max-width: 450px) {
+  @media (max-width: 480px) {
     font-size: 1.2em;
     > *:last-child {
       margin-left: 0.1em;
@@ -73,7 +73,7 @@ FitCard.Content.Badges = styled.div`
 const DisplayDOM = styled.div`
   display: flex;
   flex-wrap: wrap;
-  @media (max-width: 450px) {
+  @media (max-width: 480px) {
     justify-content: center;
   }
 `;
@@ -85,7 +85,7 @@ const ImplantB = styled.div`
   width: fit-content;
   height: 24px;
   padding: 0.2em 0.2em 0em;
-  @media (max-width: 450px) {
+  @media (max-width: 480px) {
     font-size: 1.3em;
   }
 `;

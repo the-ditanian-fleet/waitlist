@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CardMargin = styled.div`
   margin: 0.4em 0;
-  @media (max-width: 450px) {
+  @media (max-width: 480px) {
     width: 100%;
   }
 `;
@@ -18,7 +18,7 @@ const CardContainer = styled.div`
   &:hover {
     border: solid 1px ${(props) => props.theme.colors.accent2};
   }
-  @media (max-width: 450px) {
+  @media (max-width: 480px) {
     width: 100%;
   }
 `;
