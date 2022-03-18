@@ -12,3 +12,14 @@ export const Note = styled.div`
   padding: 0.1em 0.5em 0.2em;
   vertical-align: middle;
 `;
+
+export const BorderedBox = styled.div`
+  border-radius: 5px;
+  border: solid 1px ${(props) => props.theme.colors.accent2};
+  padding: 0.4em;
+  margin: 0.4em 0;
+  > h2 {
+    font-size: initial;
+    font-weight: initial;
+  }
+`;

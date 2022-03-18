@@ -141,7 +141,8 @@ export function GuideIndex() {
           What are all these badges I see?
         </GuideCard>
         <GuideCard slug="/guide/tips" name="General tips" icon={faInfo}>
-          Contains advice on item variants, implants, remaps, accelerators, abyssals and usefull links.
+          Contains advice on item variants, implants, remaps, accelerators, abyssals and usefull
+          links.
         </GuideCard>
         <GuideCard slug="/guide/scouting" name="Scouting guide" icon={faBinoculars}>
           Scouts give the FC information on what&apos;s happening elsewhere. Learn how to perform
