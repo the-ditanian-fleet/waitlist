@@ -139,7 +139,7 @@ Upon landing after the first gate, turn left and start burning to the out-gate, 
 
 In the second room you will burn straight ahead to the next out-gate using the same Q command.
 
-Once you land in the third room you will want to immediately burn forward a bit and then establish your obit of 7500km on your chosen Nestor. Nestors will burn directly to their anchor spot which is approx 15km left of the battletower. Deploy your DPS drones.
+Once you land in the third room you will want to immediately burn forward a bit and then establish your obit of 7500m on your chosen Nestor. Nestors will burn directly to their anchor spot which is approx 15km left of the battletower. Deploy your DPS drones.
 
 #### Nation Rebirth Facility (NRF)
 
