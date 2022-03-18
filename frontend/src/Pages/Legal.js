@@ -19,7 +19,7 @@ export function Legal() {
       <p>
         The source code for t-d-f.one is available under the MIT license. The source code and full
         text for this license can be found{" "}
-        <a href="https://github.com/the-ditanian-fleet/waitlist/blob/main/">here</a>.
+        <a href="https://github.com/the-ditanian-fleet/waitlist/">here</a>.
       </p>
     </Content>
   );
