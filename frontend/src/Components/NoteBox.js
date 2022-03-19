@@ -19,8 +19,4 @@ export const BorderedBox = styled.div`
   border: solid 1px ${(props) => props.theme.colors.accent2};
   padding: 0.4em;
   margin: 0.4em 0;
-  > h2 {
-    font-size: initial;
-    font-weight: initial;
-  }
 `;
