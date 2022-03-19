@@ -155,7 +155,6 @@ function FleetMembers() {
       if (bad.includes(member.ship.name)) cats["Mega/Night"]++;
     });
   }
-  console.log(cats);
   return (
     <>
       <br />
