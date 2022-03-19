@@ -5,7 +5,12 @@ import { Button, Buttons, InputGroup, NavButton, Select } from "../../Components
 import { Content, Title } from "../../Components/Page";
 import { apiCall, errorToaster, toaster, useApi } from "../../api";
 import { Cell, CellHead, Row, Table, TableBody, TableHead } from "../../Components/Table";
+import { BorderedBox } from "../../Components/NoteBox";
 import _ from "lodash";
+
+const marauders = ["Paladin", "Kronos"];
+const logi = ["Nestor", "Guardian", "Oneiros"];
+const bad = ["Megathron", "Nightmare"];
 
 async function setWaitlistOpen(waitlistId, isOpen) {
   return await apiCall("/api/waitlist/set_open", {
@@ -122,7 +127,6 @@ function FleetMembers() {
   const authContext = React.useContext(AuthContext);
   const [fleetMembers, setFleetMembers] = React.useState(null);
   const characterId = authContext.current.id;
-
   React.useEffect(() => {
     setFleetMembers(null);
     apiCall("/api/fleet/members?character_id=" + characterId, {})
@@ -133,18 +137,34 @@ function FleetMembers() {
   if (!fleetMembers) {
     return null;
   }
+  var cats = {
+    Marauder: 0,
+    Logi: 0,
+    Vindicator: 0,
+    "Mega/Night": 0,
+  };
 
   var summary = {};
   if (fleetMembers) {
     fleetMembers.members.forEach((member) => {
       if (!summary[member.ship.name]) summary[member.ship.name] = 0;
       summary[member.ship.name]++;
+      if (marauders.includes(member.ship.name)) cats["Marauder"]++;
+      if (logi.includes(member.ship.name)) cats["Logi"]++;
+      if ("Vindicator" === member.ship.name) cats["Vindicator"]++;
+      if (bad.includes(member.ship.name)) cats["Mega/Night"]++;
     });
   }
-
   return (
     <>
+      <br />
       <Title>Fleet composition</Title>
+      <InputGroup>
+        <BorderedBox>Marauders: {cats["Marauder"]} </BorderedBox>
+        <BorderedBox>Logistics: {cats["Logi"]} </BorderedBox>
+        <BorderedBox>Vindicators: {cats["Vindicator"]} </BorderedBox>
+        <BorderedBox>Megathron/Nightmare: {cats["Mega/Night"]} </BorderedBox>
+      </InputGroup>
       <Table>
         <TableHead>
           <Row>
@@ -161,6 +181,7 @@ function FleetMembers() {
           ))}
         </TableBody>
       </Table>
+      <br />
       <Title>Members</Title>
       <Table fullWidth>
         <TableBody>

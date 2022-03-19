@@ -25,16 +25,16 @@ export const Row = styled.tr`
   &:nth-child(odd) {
     background-color: ${(props) => props.theme.colors.accent1};
   }
-  > :last-child {
-    margin-left: 100px;
-  }
 `;
 
 export const CellHead = styled.th`
   text-align: left;
   padding: 0.5em;
   font-weight: 600;
-  width: 400px;
+  width: 100px;
+  @media (min-width: 480px) {
+    width: ${(props) => (props.larger ? "400px" : "100px")};
+  }
 `;
 
 export const SmallCellHead = styled.th`

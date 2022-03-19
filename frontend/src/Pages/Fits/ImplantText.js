@@ -52,8 +52,8 @@ export function ImplantTable({ type }) {
         <TableHead>
           <Row>
             <SmallCellHead></SmallCellHead>
-            <CellHead>DEFAULT</CellHead>
-            <CellHead>ALTERNATIVE (not required)</CellHead>
+            <CellHead larger={true}>DEFAULT</CellHead>
+            <CellHead larger={true}>ALTERNATIVE (not required)</CellHead>
           </Row>
         </TableHead>
         <TableBody>
@@ -90,9 +90,9 @@ export function ImplantTable({ type }) {
   );
 }
 
-function ImplantAllRow({ key, toast, slot, implant }) {
+function ImplantAllRow({ toast, slot, implant }) {
   return (
-    <Row key={key}>
+    <Row>
       <Cell>
         <b>Slot {slot}</b>
       </Cell>

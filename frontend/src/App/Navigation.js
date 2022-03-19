@@ -1,12 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { Modal } from "../Components/Modal";
-import { Box } from "../Components/Box";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { MobileButton } from "../Components/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Links = styled(NavLink).attrs((props) => ({
   activeClassName: "active",
@@ -24,7 +22,7 @@ const Links = styled(NavLink).attrs((props) => ({
   }
   @media (max-width: 480px) {
     &.active {
-      background-color: ${(props) => props.theme.colors.accent1};
+      background-color: ${(props) => props.theme.colors.accent2};
       border-radius: 4px;
     }
   }
@@ -32,31 +30,51 @@ const Links = styled(NavLink).attrs((props) => ({
 
 const MobileButtonDOM = styled.div`
   * {
-    display: flex;
+    display: ${(props) => (props.open ? "flex" : "none")};
     flex-wrap: wrap;
     flex-direction: column;
   }
 `;
 
-export function MobileNav({ whoami }) {
-  const [isOpen, setIsOpen] = React.useState(false);
+const Content = styled.div`
+  padding: 0.3em;
+  width: ${(props) => (props.open ? "100%" : "0")};
+  transition-delay: 2s;
+  opacity: ${(props) => (props.open ? "1" : "0")};
+  height: ${(props) => (props.open ? "100%" : "0")};
+  transition: all 0.3s;
+  background-color: ${(props) => props.theme.colors.accent1};
+  border-radius: 5px;
+`;
+
+export function MobileNav({ isOpen, whoami }) {
+  return (
+    <>
+      <Content open={isOpen}>
+        <MobileButtonDOM open={isOpen}>
+          <NavLinks whoami={whoami} />
+        </MobileButtonDOM>
+      </Content>
+    </>
+  );
+}
+
+export function MobileNavButton({ isOpen, setIsOpen }) {
   const location = useLocation();
   React.useEffect(() => {
     setIsOpen(false);
-  }, [location]);
-
+  }, [location, setIsOpen]);
   return (
     <>
-      <Modal open={isOpen} setOpen={setIsOpen}>
-        <Box>
-          <MobileButtonDOM>
-            <NavLinks whoami={whoami} />
-          </MobileButtonDOM>
-        </Box>
-      </Modal>
-      <MobileButton onClick={(evt) => setIsOpen(true)}>
-        <FontAwesomeIcon icon={faBars} />
-      </MobileButton>
+      {isOpen ? (
+        <MobileButton onClick={(evt) => setIsOpen(false)}>
+          <FontAwesomeIcon icon={faTimes} />
+        </MobileButton>
+      ) : (
+        <MobileButton onClick={(evt) => setIsOpen(true)}>
+          <FontAwesomeIcon icon={faBars} />
+        </MobileButton>
+      )}
     </>
   );
 }

@@ -246,7 +246,7 @@ function ImplantButton({ name }) {
     <>
       {modalOpen ? (
         <Modal open={true} setOpen={setModalOpen}>
-          <Box>
+          <Box style={{ width: "max-content" }}>
             <DisplayDOM>
               <Title>{name} &nbsp;</Title>
               <Shield color="red" letter={letter} h="33px" />
