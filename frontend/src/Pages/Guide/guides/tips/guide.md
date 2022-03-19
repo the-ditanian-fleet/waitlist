@@ -33,13 +33,13 @@ TDF do not recommend using Neural Remapping if you have zero bonus neural remaps
 
 The only way to get a truly optimal remap is to use an optimiser with your characters overall attributes and exact skill queue entered into it. [EveMon](https://github.com/peterhaneve/evemon/releases/) has this function, use at your own risk.
 
-![](remapatt.PNG)
+![](remapatt.png)
 
 ## Cerebral Accelerators
 
 Cerebral accelerators can also be used to increase your attributes, reducing training times even further. Training Biology to level 5 doubles the length of time these (and all other) boosters are active, this includes your drugs contained in your fittings. Accelerators are optional and a much more sensible choice vs injectors when you have 80 Million SP or more. There are several different types of accelerators and the CCP events often drop limited time ones so make good use of them.
 
-![](cereacc.png) ![](cereaccexp.PNG)
+![](cereacc.png) ![](cereaccexp.png)
 
 ## Implants
 
@@ -63,7 +63,7 @@ You will need to purchase implant sets to obtain your Elite badge within TDF, yo
 
 The booster slot 10 mindlinks can also be purchased from LP stores, however it requires two trips to different LP stores. You can purchase the Tech II mindlinks from CONCORD, bear in mind you will need both the Armor & Skirmish, or Armor & Information Tech II variants to convert to one Faction mindlink.
 
-![](mindlink.PNG)
+![](mindlink.png)
 
 Once you have the Tech II base implants take them to the LP store which sells the type of mindlink implant you wish to obtain and convert them into either the Federation Navy Command Mindlink or the Imperial Navy Command Mindlink. This should cost you alot less than buying the implant directly from market.
 
@@ -75,7 +75,7 @@ _"Please note, abyssal modules should **ALWAYS** be better than faction for thei
 
 - Damage modules, when purchasing these you should in general care more about the "Damage modifier" vs "ROF", with the implants and Bastion module, your stacking penalties for ROF are high, so in general a module with a higher modifier will give you more DPS. As with all abyssal modules, you should simulate your fit with it to see if it gives you an increase over the previous module you had installed and to check your fitting is ok.
 
-![](abyssaldmgmod.PNG) ![](abyssaldmgmodbad.PNG)
+![](abyssaldmgmod.png) ![](abyssaldmgmodbad.png)
 
 - Plates, in general with plates there is only two stats you really need to care about, the HP increase, and the CPU, powergrid is unlikely to cause you issues on most battleships, and the mass addition is usually so minimal it doesnt even add a tick on to your align time. Additional mass can however make it take longer to warp when your MWD is on and you are "drifting" so use your judgement and wallet to decide what is most important to you.
 
@@ -83,7 +83,7 @@ _"Please note, abyssal modules should **ALWAYS** be better than faction for thei
 
 - Microwarpdrives, when it comes to your MWD, speed is key, we all want to go faster, but it shouldnt come at the cost of fitting or capacitor use either. A good increase in speed can be the difference in those contests where we are on the limit, so try to upgrade your MWD last and find one that fits in with your other abyssal modules in regards to fitting, if you have plenty of fitting left you can afford to let the CPU drop. But your priority should be: Speed > CPU > Activation cost > Sig radius.
 
-![](abyssalMWD.PNG)
+![](abyssalMWD.png)
 
 ## Usefull Links
 
