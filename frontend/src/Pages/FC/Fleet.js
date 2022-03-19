@@ -158,12 +158,13 @@ function FleetMembers() {
   console.log(cats);
   return (
     <>
+      <br />
       <Title>Fleet composition</Title>
       <InputGroup>
         <BorderedBox>Marauders: {cats["Marauder"]} </BorderedBox>
         <BorderedBox>Logistics: {cats["Logi"]} </BorderedBox>
         <BorderedBox>Vindicators: {cats["Vindicator"]} </BorderedBox>
-        <BorderedBox>Mega/Night: {cats["Mega/Night"]} </BorderedBox>
+        <BorderedBox>Megathron/Nightmare: {cats["Mega/Night"]} </BorderedBox>
       </InputGroup>
       <Table>
         <TableHead>
@@ -181,6 +182,7 @@ function FleetMembers() {
           ))}
         </TableBody>
       </Table>
+      <br />
       <Title>Members</Title>
       <Table fullWidth>
         <TableBody>

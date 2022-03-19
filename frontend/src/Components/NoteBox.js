@@ -14,6 +14,7 @@ export const Note = styled.div`
 `;
 
 export const BorderedBox = styled.div`
+  background-color: ${(props) => props.theme.colors.accent1};
   border-radius: 5px;
   border: solid 1px ${(props) => props.theme.colors.accent2};
   padding: 0.4em;

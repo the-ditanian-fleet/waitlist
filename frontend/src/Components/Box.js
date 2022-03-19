@@ -5,6 +5,6 @@ export const Box = styled.div`
   padding: 1.5em;
   border-radius: 5px;
   @media (max-width: 480px) {
-    padding: 0.3em;
+    padding: 0.5em;
   }
 `;

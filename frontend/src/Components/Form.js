@@ -54,6 +54,9 @@ export const MobileButton = styled.button.attrs((props) => ({
 }))`
   ${inputStyle}
   height: 2.5em;
+  width: 3.35em;
+  background-color: unset;
+
   cursor: pointer;
   @media (min-width: 480px) {
     display: none;

@@ -1,3 +1,4 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts";
 import logoImage from "./logo.png";
@@ -7,7 +8,7 @@ import { EventNotifier } from "../Components/Event";
 import { ThemeSelect } from "../Components/ThemeSelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
-import { NavLinks, MobileNav } from "./Navigation";
+import { NavLinks, MobileNavButton, MobileNav } from "./Navigation";
 
 const NavBar = styled.div`
   display: flex;
@@ -17,6 +18,7 @@ const NavBar = styled.div`
   margin-bottom: 1em;
   @media (max-width: 480px) {
     padding: 0.2em;
+    justify-content: space-between;
   }
 `;
 
@@ -26,10 +28,16 @@ NavBar.LogoLink = styled(NavLink).attrs((props) => ({
   margin-right: 2em;
   flex-grow: 0;
   line-height: 0;
+  @media (max-width: 480px) {
+    margin-right: unset;
+  }
 `;
 NavBar.Logo = styled.img`
   width: 150px;
   filter: ${(props) => props.theme.logo.filter};
+  @media (max-width: 480px) {
+    margin-left: 0.5em;
+  }
 `;
 NavBar.Menu = styled.div`
   display: flex;
@@ -66,13 +74,16 @@ NavBar.Main = styled.div`
 `;
 
 export function Menu({ onChangeCharacter, theme, setTheme }) {
+  const [isOpenMobileView, setOpenMobileView] = React.useState(false);
   return (
     <AuthContext.Consumer>
       {(whoami) => (
         <NavBar>
+          <MobileNavButton isOpen={isOpenMobileView} setIsOpen={setOpenMobileView} />
           <NavBar.LogoLink to="/">
             <NavBar.Logo src={logoImage} alt="The Ditanian Fleet" />
           </NavBar.LogoLink>
+
           <NavBar.Menu>
             <NavBar.Main>
               <NavLinks whoami={whoami} />
@@ -81,7 +92,6 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
               {whoami && (
                 <>
                   <InputGroup style={{ marginRight: "2em" }}>
-                    <MobileNav whoami={whoami} />
                     <Select
                       value={whoami.current.id}
                       onChange={(evt) =>
@@ -117,6 +127,7 @@ export function Menu({ onChangeCharacter, theme, setTheme }) {
                 )}
               </InputGroup>
             </NavBar.End>
+            <MobileNav isOpen={isOpenMobileView} whoami={whoami} />
           </NavBar.Menu>
         </NavBar>
       )}
