@@ -32,7 +32,7 @@ export const CellHead = styled.th`
   padding: 0.5em;
   font-weight: 600;
   width: 100px;
-  @media (min-width: 480px) {
+  @media (min-width: 481px) {
     width: ${(props) => (props.larger ? "400px" : "100px")};
   }
 `;

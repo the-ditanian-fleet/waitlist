@@ -58,7 +58,7 @@ export const MobileButton = styled.button.attrs((props) => ({
   background-color: unset;
 
   cursor: pointer;
-  @media (min-width: 480px) {
+  @media (min-width: 481px) {
     display: none;
   }
 `;
