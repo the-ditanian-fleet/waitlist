@@ -66,6 +66,7 @@ function ACLTable({ entries, onAction }) {
         <Row>
           <CellHead>Name</CellHead>
           <CellHead></CellHead>
+          <CellHead></CellHead>
           <CellHead>Level</CellHead>
           <CellHead></CellHead>
           <CellHead></CellHead>
@@ -76,6 +77,7 @@ function ACLTable({ entries, onAction }) {
         {entries.map((admin) => (
           <Row key={admin.id}>
             <Cell>{admin.name}</Cell>
+            <Cell></Cell>
             <Cell></Cell>
             <Cell>
               <AclToRead role={admin.level} />
