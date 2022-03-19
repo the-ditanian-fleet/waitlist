@@ -68,6 +68,7 @@ function ACLTable({ entries, onAction }) {
           <CellHead></CellHead>
           <CellHead>Level</CellHead>
           <CellHead></CellHead>
+          <CellHead></CellHead>
           <CellHead>Actions</CellHead>
         </Row>
       </TableHead>
@@ -79,6 +80,7 @@ function ACLTable({ entries, onAction }) {
             <Cell>
               <AclToRead role={admin.level} />
             </Cell>
+            <Cell></Cell>
             <Cell></Cell>
             <Cell>
               {authContext.access["access-manage"] && (
