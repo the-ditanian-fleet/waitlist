@@ -34,7 +34,9 @@ function RemoveConfirm({ who, onAction }) {
         <Modal open={true} setOpen={setModalOpen}>
           <Box>
             <Title>Remove {who.name}</Title>
-            <p>{who.level}</p>
+            <p>
+              <AclToRead role={who.level} />
+            </p>
             <br />
             <CenteredButtons size={"90px"}>
               <Button variant="secondary" onClick={(evt) => setModalOpen(false)}>
