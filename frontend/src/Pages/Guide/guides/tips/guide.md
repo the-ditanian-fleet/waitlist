@@ -77,7 +77,7 @@ _"Please note, each abyssal module must be a **FACTION ROLE AND HAVE BETTER THAN
 
 Abyssal modules are created using different tiers of mutaplasmid; decayed, gravid and unstable. Each tier will have increased statistic ranges you can roll for each module and increase with cost based on this. The picture below shows each tier going from lowest to highest.
 
-![](mutaplasmids.PNG)
+![](mutaplasmidstiers.png)
 
 - Damage modules, when purchasing these you should prioritise the "damage modifier" vs "rate of fire". Due to the implants and bastion module your stacking penalties for rate of fire are high, so a module with a higher damage modifier compared to rate of fire will give you more DPS. However you should not ignore rate of fire as any increase in overall DPS will be an improvement. As with all abyssal modules, you should simulate your fit with any potential abyssals to see if you gain an increase over the previous module, and to check your fitting is ok. Base faction modules give 25.8% DPS, so make sure your abyssal is higher than this or it will be rejected. You can use the [abyssal apraisals](https://mutaplasmid.space/appraisal/) to check your modules DPS%.
 
