@@ -91,7 +91,7 @@ Abyssal modules are created using different tiers of mutaplasmid; decayed, gravi
 
 ![](abyssalweb.png)
 
-- Microwarpdrives, when it comes to your MWD speed is key. We all want to go faster, but it shouldnt come at the cost of fitting or capacitor use. An increase in speed can be the difference in those contests where we are on the limit. Try to upgrade your MWD last and find one that fits in with your other abyssal modules in regards to fitting. If you have plenty of fitting left you can afford to go with the CPU drop, but your priority should be speed > CPU > activation cost > signature radius.
+- Microwarpdrives, when it comes to your MWD speed is key. We all want to go faster, but it shouldnt come at the cost of fitting or capacitor use. An increase in speed can be the difference in those contests where we are on the limit. Try to upgrade your MWD last and find one that fits in with your other abyssal modules in regards to fitting. If you have plenty of fitting left you can afford to go with the CPU drop, but your priority should be speed > CPU > activation cost > signature radius. Webs should be 62%
 
 ![](abyssalMWD.png)
 
