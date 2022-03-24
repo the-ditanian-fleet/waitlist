@@ -34,7 +34,9 @@ function RemoveConfirm({ who, onAction }) {
         <Modal open={true} setOpen={setModalOpen}>
           <Box>
             <Title>Remove {who.name}</Title>
-            <p>{who.level}</p>
+            <p>
+              <AclToRead role={who.level} />
+            </p>
             <br />
             <CenteredButtons size={"90px"}>
               <Button variant="secondary" onClick={(evt) => setModalOpen(false)}>
@@ -66,7 +68,9 @@ function ACLTable({ entries, onAction }) {
         <Row>
           <CellHead>Name</CellHead>
           <CellHead></CellHead>
+          <CellHead></CellHead>
           <CellHead>Level</CellHead>
+          <CellHead></CellHead>
           <CellHead></CellHead>
           <CellHead>Actions</CellHead>
         </Row>
@@ -76,9 +80,11 @@ function ACLTable({ entries, onAction }) {
           <Row key={admin.id}>
             <Cell>{admin.name}</Cell>
             <Cell></Cell>
+            <Cell></Cell>
             <Cell>
               <AclToRead role={admin.level} />
             </Cell>
+            <Cell></Cell>
             <Cell></Cell>
             <Cell>
               {authContext.access["access-manage"] && (
