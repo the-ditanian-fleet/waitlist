@@ -7,7 +7,8 @@ import { Modal } from "../Modal";
 import { Button } from "../Form";
 import { Box } from "../Box";
 
-import soundFile from "./bell-ringing-04.mp3";
+//import soundFile from "./bell-ringing-04.mp3";
+import aprilFile2 from "./aprilp1.mp3";
 const storageKey = "EventNotifierSettings";
 
 function handleMessage(event) {
@@ -102,7 +103,7 @@ export function EventNotifier() {
             OK
           </Button>
           <audio ref={playerRef} loop>
-            <source src={soundFile} type="audio/mp3" />
+            <source src={aprilFile2} type="audio/mp3" />
           </audio>
         </Box>
       </Modal>
