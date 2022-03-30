@@ -28,7 +28,7 @@ Pilot error is NOT COVERED under SRP. If you Bastion by mistake at the wrong tim
 
 ![](moduletooltips.png)
 
-- Temporary auto cycle - During TPPH's and NRF's we now allow pilots to "CTRL+Left click" their Bastion modules to maximise bastion time, this method of bastioning is a temporary auto-cycle and doesnt require the pilot to enable auto-cycle thus keeping your SRP intact. You will stay in bastion until you manually de-cycle, however the next time you click bastion normally it will still automatically de-cycle. Care should still be taken not to Bastion when you are our of position, see the [Anchoring Guide](/guide/anchoring) for specifics on positioning.
+- Temporary Auto-Cycle - During TPPH's and NRF's we now allow pilots to "CTRL+Left click" their Bastion modules to maximise bastion time, this method of bastioning is a temporary auto-cycle and doesnt require the pilot to enable auto-cycle thus keeping your SRP intact. You will stay in bastion until you manually de-cycle, however the next time you click bastion normally it will still automatically de-cycle. Care should still be taken not to Bastion when you are our of position, see the [Anchoring Guide](/guide/anchoring) for specifics on positioning.
 
 ![](autorepeatoff.png)
 
