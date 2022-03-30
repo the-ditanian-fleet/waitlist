@@ -32,7 +32,7 @@ Pilot error is NOT COVERED under SRP. If you Bastion by mistake at the wrong tim
 
 ![](autorepeatoff.png)
 
-- Kronos - As a Kronos pilot we encourage our pilots to bastion as much as possible to maximise their DPS and to help consolidate aggro. During TCRC's **IF YOU HOLD BASTION SPECIALIST BADGE** you should be pressing the bastion button until a switch occurs onto you. If your are in a normal elite fit please listen carefully for switches and bastion two cycles between them. You should still take care not to over bastion with aggro.
+- Kronos - As a Kronos pilot we encourage our pilots to bastion as much as possible to maximise their DPS and to help consolidate aggro. During TCRC's **IF YOU HOLD BASTION SPECIALIST BADGE** you should be pressing the bastion button until a switch occurs onto you. Switches occur every minute and bastion cycles are 30 seconds, so you can safely get two bastion cycles in between switches in any Kronos fit. Learning to watch lasers can make this process much easier. You should still take care not to over bastion with aggro.
 
 - Paladin - As a Paladin pilot bastion is treated with more care due to the Paladins lower tank. Your DPS is lower than with Kronos but during TCRC's you should be listening for switches and bastioning between them to ensure you do not over bastion. Switches occur every minute and bastion cycles are 30 seconds, so you can safely get two bastion cycles in between switches. Learning to watch lasers can make this process much easier. Paladins are encouraged to bastion as much as possible during TPPH's and NRF's, but as always make sure you are not out of position when you do!
 
