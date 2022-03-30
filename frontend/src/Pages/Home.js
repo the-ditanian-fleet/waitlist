@@ -26,6 +26,8 @@ export function Home() {
           <NavLink to="/guide/xup">first fleet guide</NavLink> etc, also join the in-game chat
           channel <em>TDF-Official</em>, where you will find the mailing lists for fits and other
           usual information in the MOTD (message of the day), we look forward to flying with you!
+          Disclaimer, TDF will never recruit or give loans to new players, any such activity is not
+          endorsed by TDF and should be met with skepticism!
         </p>
         <h3>Why Fly TDF?</h3>
         <ul>
