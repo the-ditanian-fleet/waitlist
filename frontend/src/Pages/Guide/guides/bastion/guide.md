@@ -8,18 +8,19 @@ Pilot error is NOT COVERED under SRP. If you Bastion by mistake at the wrong tim
 
 ## To use bastion we recommend pilots to learn the following:
 
--  Know how aggro switches work in incursions. (Switches occur every minute after the intial wave spawn)
--  Know all the incursion site anchoring positions. Use the [Anchoring Guide](/guide/anchoring) for specifics.
--  Know how logistics work. (Nestors have limited rep ranges, and armor reps apply at the end of their cycle unlike shield reps)
--  Know the different Sansha rats. [Sansha NPCs](https://eve-incursions.de/rats) is a great resource. 
--  Be able to communicate with the FC.
+- Know how aggro switches work in incursions. (Switches occur every minute after the intial wave spawn)
+- Know all the incursion site anchoring positions. Use the [Anchoring Guide](/guide/anchoring) for specifics.
+- Know how logistics work. (Nestors have limited rep ranges, and armor reps apply at the end of their cycle unlike shield reps)
+- Know the different Sansha rats. [Sansha NPCs](https://eve-incursions.de/rats) is a great resource.
+- Be able to communicate with the FC.
 
 ## General rules/requirements if you want SRP
 
 1.  **Auto repeat is off at all times.** (You are actively encouraged to use "CTRL+Left click" during TPPH & NRF)
 2.  **Bastion in lowest module row, NO SHORTCUT!**
 3.  All tank skills must be at basic level for your chosen ship or higher (check [skills page](/skills))
-4.  When using the micro jump drive if you jump in a bad direction, this is classed as pilot error and WILL NOT be covered under SRP. (Being bumped by another fleet member is counted as pilot error and also not covered under SRP).
+4.  It is upto the active FC to decide if a pilot should be recommended for SRP should a loss occur due to over bastioning.
+5.  When using the micro jump drive if you jump in a bad direction, this is classed as pilot error and **WILL NOT** be covered under SRP. (Being bumped by another fleet member is counted as pilot error and also not covered under SRP).
 
 ## Using Bastion
 
@@ -31,9 +32,9 @@ Pilot error is NOT COVERED under SRP. If you Bastion by mistake at the wrong tim
 
 ![](autorepeatoff.png)
 
-- Kronos - As a Kronos pilot we encourage our pilots to bastion as much as possible to maximise their DPS and to help consolidate aggro. During TCRC's and with the new plate meta Kronos have extended tank and should be pressing the bastion button until a switch occurs onto them. You should still take care not to over bastion with aggro, but until you have it we highly encourage pilots to keep pressing it.
+- Kronos - As a Kronos pilot we encourage our pilots to bastion as much as possible to maximise their DPS and to help consolidate aggro. During TCRC's **IF YOU HOLD BASTION SPECIALIST BADGE** you should be pressing the bastion button until a switch occurs onto you. If your are in a normal elite fit please listen carefully for switches and bastion two cycles between them. You should still take care not to over bastion with aggro.
 
-- Paladin - As a Paladin pilot bastion is treated with more care due to the Paladins lower tank, your DPS is not on par with Kronos so during TCRC's you should be listening for switches and bastioning between them to ensure you do not over bastion. Switches occur every minute and bastion cycles are 30 seconds, so you can safely get two bastion cycles in between switches. Learning to watch lasers can make this process much easier. Paladins are encouraged to bastion as much as possible during TPPH's and NRF's, but as always make sure you are not out of position when you do!
+- Paladin - As a Paladin pilot bastion is treated with more care due to the Paladins lower tank. Your DPS is lower than with Kronos but during TCRC's you should be listening for switches and bastioning between them to ensure you do not over bastion. Switches occur every minute and bastion cycles are 30 seconds, so you can safely get two bastion cycles in between switches. Learning to watch lasers can make this process much easier. Paladins are encouraged to bastion as much as possible during TPPH's and NRF's, but as always make sure you are not out of position when you do!
 
 ## Additional tips
 
