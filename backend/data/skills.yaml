@@ -129,6 +129,9 @@ requirements:
     Armor Rigging:
       min: 3
       elite: 4
+    Astronautics Rigging:
+      min: 3
+      elite: 4
     Mechanics:
       min: 4
       elite: 5
