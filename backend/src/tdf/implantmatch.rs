@@ -72,7 +72,10 @@ pub fn detect_base_set(implants: &[TypeID]) -> Option<&'static str> {
 fn detect_slot7(hull: TypeID, implants: &[TypeID]) -> Option<()> {
     if implants.contains(&type_id!("Ogdin's Eye Coordination Enhancer"))
         || implants.contains(&type_id!("% MR-706"))
-        || (hull == type_id!("Nestor") && implants.contains(&type_id!("% RA-706")))
+        || ((hull == type_id!("Nestor")
+            || hull == type_id!("Oneiros")
+            || hull == type_id!("Guardian"))
+            && implants.contains(&type_id!("% RA-706")))
     {
         Some(())
     } else {

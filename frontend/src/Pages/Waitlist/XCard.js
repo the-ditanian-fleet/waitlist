@@ -366,9 +366,11 @@ export function XCard({ entry, fit, onAction }) {
         <ShipDisplay fit={fit} onAction={onAction} />
       </XCardDOM.Content>
       <XCardDOM.Content>
+	  <div style={{ FlexWrap: "wrap" }}>
         {tagText.map((tag) => (
           <Badge key={tag}>{tag}</Badge>
         ))}
+		</div>
       </XCardDOM.Content>
       {fit.review_comment ? (
         <XCardDOM.Content>
