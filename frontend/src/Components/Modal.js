@@ -29,7 +29,7 @@ ModalDom.Content = styled.div`
   max-height: 100%;
   overflow-y: auto;
   > ${Box} {
-    min-width: 200px;
+    min-width: 300px;
     min-height: 200px;
     max-width: 1300px;
   }

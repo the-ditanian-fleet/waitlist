@@ -81,7 +81,9 @@ DOM.Hull.Image = styled.img`
   }
 `;
 DOM.Hull.Name = styled.span`
-  word-wrap: anywhere;
+  @media (max-width: 480px) {
+    overflow-wrap: anywhere;
+  }
 `;
 DOM.Hull.Copy = styled.div`
   margin-left: auto;
