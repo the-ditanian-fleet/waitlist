@@ -12,8 +12,6 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 
 **The maximum upgrade time to reach each tier is set out in the table below:**
 
----
-
 |       Tier        | Maximum time |
 | :---------------: | :----------: |
 |       Basic       |     50h      |
@@ -21,8 +19,6 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 |    Elite(Logi)    |     150h     |
 | Elite(Vindicator) |     200h     |
 |  Elite(Bastion)   |     250h     |
-
----
 
 ## Upgrade guidance
 

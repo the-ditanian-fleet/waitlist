@@ -67,11 +67,7 @@ function ACLTable({ entries, onAction }) {
       <TableHead>
         <Row>
           <CellHead>Name</CellHead>
-          <CellHead></CellHead>
-          <CellHead></CellHead>
           <CellHead>Level</CellHead>
-          <CellHead></CellHead>
-          <CellHead></CellHead>
           <CellHead>Actions</CellHead>
         </Row>
       </TableHead>
@@ -79,13 +75,9 @@ function ACLTable({ entries, onAction }) {
         {entries.map((admin) => (
           <Row key={admin.id}>
             <Cell>{admin.name}</Cell>
-            <Cell></Cell>
-            <Cell></Cell>
             <Cell>
               <AclToRead role={admin.level} />
             </Cell>
-            <Cell></Cell>
-            <Cell></Cell>
             <Cell>
               {authContext.access["access-manage"] && (
                 <RemoveConfirm who={admin} onAction={onAction} />

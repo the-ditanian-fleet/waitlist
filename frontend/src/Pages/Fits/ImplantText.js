@@ -52,8 +52,8 @@ export function ImplantTable({ type }) {
         <TableHead>
           <Row>
             <SmallCellHead></SmallCellHead>
-            <CellHead larger={true}>DEFAULT</CellHead>
-            <CellHead larger={true}>ALTERNATIVE (not required)</CellHead>
+            <CellHead>DEFAULT</CellHead>
+            <CellHead>ALTERNATIVE (not required)</CellHead>
           </Row>
         </TableHead>
         <TableBody>

@@ -68,13 +68,21 @@ DOM.Hull = styled.div`
   font-size: 1.2em;
   font-weight: 600;
   margin-bottom: 0.5em;
+  @media (max-width: 480px) {
+    font-size: 1em;
+  }
 `;
 DOM.Hull.Image = styled.img`
   height: 2em;
   width: 2em;
   margin-right: 2em;
+  @media (max-width: 480px) {
+    margin-right: 0.5em;
+  }
 `;
-DOM.Hull.Name = styled.span``;
+DOM.Hull.Name = styled.span`
+  word-wrap: anywhere;
+`;
 DOM.Hull.Copy = styled.div`
   margin-left: auto;
   margin-right: 2em;

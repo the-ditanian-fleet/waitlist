@@ -247,10 +247,10 @@ function ImplantButton({ name }) {
       {modalOpen ? (
         <Modal open={true} setOpen={setModalOpen}>
           <Box style={{ width: "max-content" }}>
-            <DisplayDOM>
+            <div style={{ display: "flex" }}>
               <Title>{name} &nbsp;</Title>
               <Shield color="red" letter={letter} h="33px" />
-            </DisplayDOM>
+            </div>
             <br />
             <ImplantTable type={name} />
           </Box>

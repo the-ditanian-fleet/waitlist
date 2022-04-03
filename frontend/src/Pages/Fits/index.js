@@ -25,7 +25,7 @@ export function Fits() {
 function FitsDisplay({ tier, setTier = null }) {
   const [fitData] = useApi(`/api/fittings`);
   if (fitData === null) {
-    return <em>Loading fits.</em>;
+    return <em>Loading fits...</em>;
   }
 
   return (

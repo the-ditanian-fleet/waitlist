@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Table = styled.table`
+  table-layout: fixed;
   ${(props) => props.fullWidth && "width: 100%;"}
   ${(props) =>
     props.edgeLine &&
@@ -31,10 +32,6 @@ export const CellHead = styled.th`
   text-align: left;
   padding: 0.5em;
   font-weight: 600;
-  width: 100px;
-  @media (min-width: 481px) {
-    width: ${(props) => (props.larger ? "400px" : "100px")};
-  }
 `;
 
 export const SmallCellHead = styled.th`

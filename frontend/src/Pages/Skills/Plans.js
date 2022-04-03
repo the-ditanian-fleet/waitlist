@@ -18,6 +18,21 @@ import { NavLink } from "react-router-dom";
 
 export function Plans() {
   const authContext = React.useContext(AuthContext);
+  if (!authContext) {
+    return (
+      <Content>
+        <p>Login Required!</p>
+        <p>
+          This page will show copyable skill plan tables comparing to your current skills with
+          checkmarks next to already completed skills.
+        </p>
+      </Content>
+    );
+  }
+  return <PlanDisplay authContext={authContext} />;
+}
+
+function PlanDisplay({ authContext }) {
   const [{ plan }] = useQuery();
 
   const [plans] = useApi("/api/skills/plans");
