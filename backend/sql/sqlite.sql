@@ -111,12 +111,6 @@ CREATE TABLE `character_note` (
   CONSTRAINT `character_note_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `character` (`id`)
 );
 
-CREATE TABLE `texts` (
-  `id` INTEGER PRIMARY KEY NOT NULL,
-  `logged_at` bigint NOT NULL,
-  `note` text NOT NULL
-);
-
 /* Temporary things */
 
 CREATE TABLE `fleet` (
