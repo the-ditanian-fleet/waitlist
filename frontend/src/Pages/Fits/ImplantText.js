@@ -160,12 +160,12 @@ function HardWires({ toastContext }) {
           <b>Slot 9</b>
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"RF-906"} /> faster rate of fire.
+          <CopyImplantText toast={toastContext} what={"RF-906"} /> increased rate of fire.
         </Cell>
 
         <Cell>
           <CopyImplantText toast={toastContext} what={"Pashan's Turret Customization Mindlink"} />{" "}
-          if you have too much isk, faster rate of fire.
+          if you have too much isk, increased rate of fire.
         </Cell>
       </Row>
       <Row>
