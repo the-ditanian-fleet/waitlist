@@ -191,7 +191,7 @@ export function AddACL({ who, authContext }) {
                     Confirm
                   </Button>
                   {authContext.access["access-manage:trainee"] ? (
-                    <Button onClick={(evt) => setFcWindow(true)} style={{ width: "103px" }}>
+                    <Button onClick={(evt) => setFcWindow(true)} style={{ width: "110px" }}>
                       Assign FC
                     </Button>
                   ) : null}
@@ -235,7 +235,7 @@ export function AddACL({ who, authContext }) {
                   >
                     Confirm
                   </Button>
-                  <Button onClick={(evt) => setFcWindow(false)} style={{ width: "103px" }}>
+                  <Button onClick={(evt) => setFcWindow(false)} style={{ width: "110px" }}>
                     Back
                   </Button>
                 </CenteredButtons>

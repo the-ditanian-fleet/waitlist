@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import { AuthContext } from "../contexts";
 
 import { SkillRoutes } from "../Pages/Skills";
+import { Plans } from "../Pages/Skills/Plans";
 import { Waitlist } from "../Pages/Waitlist";
 import { Xup } from "../Pages/Xup";
 import { Pilot } from "../Pages/Pilot";
@@ -41,6 +42,9 @@ export function Routes() {
       <Route exact path="/fits">
         <Fits />
       </Route>
+      <Route exact path="/skills/plans">
+        <Plans />
+      </Route>
       {authContext && (
         <>
           <Route exact path="/xup">
@@ -54,6 +58,7 @@ export function Routes() {
           </Route>
 
           <FCRoutes />
+
           <SkillRoutes />
         </>
       )}

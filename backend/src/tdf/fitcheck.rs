@@ -65,12 +65,12 @@ impl<'a> FitChecker<'a> {
         checker.check_fit();
         checker.check_fit_reqs();
         checker.check_fit_implants_reqs();
-        checker.check_time_in_fleet();
         checker.check_logi_implants();
         checker.set_category();
         checker.add_snowflake_tags();
         checker.add_implant_tag();
         checker.merge_tags();
+        checker.check_time_in_fleet();
 
         checker.finish()
     }
@@ -225,17 +225,20 @@ impl<'a> FitChecker<'a> {
     }
 
     fn check_time_in_fleet(&mut self) {
-        if self.pilot.time_in_fleet > (150 * 3600) {
-            if let Some(fit) = self.doctrine_fit {
-                if !fit.name.contains("ELITE") {
-                    self.approved = false;
-                }
-                if !self.tags.contains("ELITE-SKILLS") && !self.tags.contains("GOLD-SKILLS") {
-                    self.approved = false;
-                }
-            } else {
+        let pilot_elite = self.tags.contains("ELITE")
+            || self.tags.contains("ELITE-GOLD")
+            || self.tags.contains("WEB")
+            || self.tags.contains("BASTION");
+        if self.fit.hull == type_id!("Vindicator") {
+            if self.pilot.time_in_fleet > (200 * 3600) && !pilot_elite {
                 self.approved = false;
             }
+        } else if self.fit.hull == type_id!("Paladin") || self.fit.hull == type_id!("Kronos") {
+            if self.pilot.time_in_fleet > (250 * 3600) && !pilot_elite {
+                self.approved = false;
+            }
+        } else if self.pilot.time_in_fleet > (150 * 3600) && !pilot_elite {
+            self.approved = false;
         }
     }
 
@@ -278,6 +281,7 @@ impl<'a> FitChecker<'a> {
             if let Some(set_tag) = implantmatch::detect_set(self.fit.hull, self.pilot.implants) {
                 // all non tagged fits are ascendancy (warpspeed)
                 // logi cruisers are an expection, they can fly whatever they want
+                // full amulet is still elite on hybrid fit
                 if set_tag == "SAVIOR" {
                     self.tags.insert("SAVIOR");
                 } else if doctrine_fit.name.contains(set_tag)
@@ -286,11 +290,15 @@ impl<'a> FitChecker<'a> {
                             || doctrine_fit.name.contains("HYBRID")))
                     || self.fit.hull == type_id!("Oneiros")
                     || self.fit.hull == type_id!("Guardian")
+                    || (set_tag == "AMULET" && doctrine_fit.name.contains("HYBRID"))
                 {
                     self.tags.insert(set_tag);
                     // give warning if you have all but slot 10 or wrong slot for that ship
                     if implantmatch::detect_slot10(self.fit.hull, self.pilot.implants).is_none() {
                         self.tags.insert("NO-SLOT10");
+                    }
+                    if set_tag == "AMULET" && doctrine_fit.name.contains("HYBRID") {
+                        self.tags.insert("SLOW");
                     }
                 }
             }
