@@ -4,6 +4,8 @@ import { Buffer } from "buffer";
 import { Textarea, NavButton } from "../Components/Form";
 import { Table, TableHead, TableBody, Row, Cell, CellHead } from "../Components/Table";
 import { PageTitle } from "../Components/Page";
+import { Copyable } from "../Components/Copy";
+import { ToastContext } from "../contexts";
 import { useLocation } from "react-router";
 import { formatDatetime, formatDuration } from "../Util/time";
 import { formatNumber } from "../Util/number";
@@ -302,7 +304,12 @@ const ResultDOM = styled.div`
       border-top: solid 1px ${props.theme.colors.accent3};
       font-size: 0.8em;
       margin-top: 1em;
-      margin-bottom: 0.5em;
+      margin-bottom: 0.3em;
+	  padding-top: 0.3em;
+	  &:hover:not(:disabled):not(.static) {
+		color: ${props.theme.colors.accent4};
+		cursor: pointer;
+	  }
     }
     a {
       color: ${props.theme.colors.text};
@@ -312,6 +319,7 @@ const ResultDOM = styled.div`
 `;
 
 function ResultDisplay({ dataStr }) {
+  const toastContext = React.useContext(ToastContext);
   if (!dataStr) {
     return null;
   }
@@ -346,8 +354,12 @@ function ResultDisplay({ dataStr }) {
         <p>
           {formatDatetime(new Date(decoded.startTime * 1000))} ++ {formatDuration(duration)}
         </p>
-        <p>
-          <a href={url}>{url}</a>
+        <p
+          onClick={(evt) => {
+            Copyable(toastContext, url);
+          }}
+        >
+          {url}
         </p>
       </ResultDOM>
     </>

@@ -1,7 +1,7 @@
 import { Content } from "../../Components/Page";
-import { Note } from "../../Components/NoteBox";
+import { InfoNote } from "../../Components/NoteBox";
+import { Copyable } from "../../Components/Copy";
 import { ToastContext } from "../../contexts";
-import { toaster } from "../../api";
 import styled from "styled-components";
 import React from "react";
 import {
@@ -43,11 +43,14 @@ export function ImplantTable({ type }) {
   }
   return (
     <Content>
-      <Note variant={"secondary"}>
-        {type === "Hybrid"
-          ? "Hybrid tagged fits require at least Amulet 1 - 5 to be flown."
-          : "Required for Elite badge on non implant specific ships."}
-      </Note>
+      <InfoNote
+        message={
+          type === "Hybrid"
+            ? "Hybrid tagged fits require at least Amulet 1 - 5 to be flown."
+            : "Required for Elite badge on non implant specific ships."
+        }
+      />
+
       <Table fullWidth>
         <TableHead>
           <Row>
@@ -71,13 +74,13 @@ export function ImplantTable({ type }) {
               <b>Slot 6</b>
             </Cell>
             <Cell>
-              <CopyImplantText toast={toastContext} what={"WS-618"} /> increased warp speed.
+              <CopyImplantText toast={toastContext} item={"WS-618"} /> increased warp speed.
             </Cell>
             {type === "Hybrid" ? (
               <Cell></Cell>
             ) : (
               <Cell>
-                <CopyImplantText toast={toastContext} what={"High-grade Ascendancy Omega"} /> if you
+                <CopyImplantText toast={toastContext} item={"High-grade Ascendancy Omega"} /> if you
                 have too much isk, increased warp speed.
               </Cell>
             )}
@@ -97,7 +100,7 @@ function ImplantAllRow({ toast, slot, implant }) {
         <b>Slot {slot}</b>
       </Cell>
       <Cell>
-        <CopyImplantText toast={toast} what={implant} />
+        <CopyImplantText toast={toast} item={implant} />
       </Cell>
 
       <Cell></Cell>
@@ -105,22 +108,15 @@ function ImplantAllRow({ toast, slot, implant }) {
   );
 }
 
-function CopyImplantText({ toast, what }) {
+function CopyImplantText({ toast, item }) {
   return (
     <Yellow
       onClick={(evt) => {
-        CopyImplant(toast, what);
+        Copyable(toast, item);
       }}
     >
-      {what}
+      {item}
     </Yellow>
-  );
-}
-
-function CopyImplant(toast, what) {
-  toaster(
-    toast,
-    navigator.clipboard.writeText(what).then((success) => "Copied to clipboard")
   );
 }
 
@@ -132,12 +128,12 @@ function HardWires({ toastContext }) {
           <b>Slot 7</b>
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"Ogdin's Eye"} /> increased tracking.
+          <CopyImplantText toast={toastContext} item={"Ogdin's Eye"} /> increased tracking.
         </Cell>
 
         <Cell>
-          <CopyImplantText toast={toastContext} what={"MR-706"} /> equal to Ogdin&apos;s. <br />
-          <CopyImplantText toast={toastContext} what={"RA-706"} /> reps will use less cap, for
+          <CopyImplantText toast={toastContext} item={"MR-706"} /> equal to Ogdin&apos;s. <br />
+          <CopyImplantText toast={toastContext} item={"RA-706"} /> reps will use less cap, for
           <b> logi only pilots.</b>
         </Cell>
       </Row>
@@ -146,11 +142,11 @@ function HardWires({ toastContext }) {
           <b>Slot 8</b>
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"EM-806"} /> increased capacitor.
+          <CopyImplantText toast={toastContext} item={"EM-806"} /> increased capacitor.
         </Cell>
 
         <Cell>
-          <CopyImplantText toast={toastContext} what={"MR-807"} /> longer webbing range, for
+          <CopyImplantText toast={toastContext} item={"MR-807"} /> longer webbing range, for
           <b> vindicator only pilots.</b>
         </Cell>
       </Row>
@@ -160,11 +156,11 @@ function HardWires({ toastContext }) {
           <b>Slot 9</b>
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"RF-906"} /> increased rate of fire.
+          <CopyImplantText toast={toastContext} item={"RF-906"} /> increased rate of fire.
         </Cell>
 
         <Cell>
-          <CopyImplantText toast={toastContext} what={"Pashan's Turret Customization Mindlink"} />{" "}
+          <CopyImplantText toast={toastContext} item={"Pashan's Turret Customization Mindlink"} />{" "}
           if you have too much isk, increased rate of fire.
         </Cell>
       </Row>
@@ -175,23 +171,23 @@ function HardWires({ toastContext }) {
         <Cell>
           <b>Kronos/Vindicator:</b>
           <br />
-          <CopyImplantText toast={toastContext} what={"LH-1006"} /> increased hybrid weapon damage.{" "}
+          <CopyImplantText toast={toastContext} item={"LH-1006"} /> increased hybrid weapon damage.{" "}
           <br />
           <br />
           <b>Paladin/Nightmare:</b>
           <br />
-          <CopyImplantText toast={toastContext} what={"LE-1006"} /> increased energy weapon damage.
+          <CopyImplantText toast={toastContext} item={"LE-1006"} /> increased energy weapon damage.
         </Cell>
         <Cell>
-          <CopyImplantText toast={toastContext} what={"HG-1006"} /> or
+          <CopyImplantText toast={toastContext} item={"HG-1006"} /> or
           <br />
-          <CopyImplantText toast={toastContext} what={"HG-1008"} /> if you have too much isk,
+          <CopyImplantText toast={toastContext} item={"HG-1008"} /> if you have too much isk,
           increased RAW armor HP for
           <b> logi only pilots.</b> <br />
           <br />
           <b>Paladin/Nightmare:</b>
           <br />
-          <CopyImplantText toast={toastContext} what={"Pashan's Turret Handling Mindlink"} /> if you
+          <CopyImplantText toast={toastContext} item={"Pashan's Turret Handling Mindlink"} /> if you
           have too much isk, increased weapon damage.
         </Cell>
       </Row>

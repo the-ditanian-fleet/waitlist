@@ -112,7 +112,7 @@ XCardDOM.Head.Badges = styled.div`
 `;
 XCardDOM.Content = styled.div`
   display: flex;
-  align-items: center;
+
   background-color: ${(props) => props.theme.colors.background};
   color: ${(props) => props.theme.colors.text};
   img {
@@ -120,7 +120,16 @@ XCardDOM.Content = styled.div`
     align-self: flex-start;
   }
   a {
+    align-items: center;
+    display: flex;
     cursor: pointer;
+    width: 100%;
+  }
+`;
+
+XCardDOM.FooterGroup = styled.div`
+  > *:last-child {
+    border-radius: 0 0 4px 4px;
   }
 `;
 XCardDOM.Footer = styled.div`
@@ -204,14 +213,14 @@ function ShipDisplay({ fit, onAction }) {
         ) : null}
         <a onClick={(evt) => setModalOpen(true)}>
           <img
-            style={{ height: "40px" }}
+            style={{ height: "44px" }}
             src={`https://images.evetech.net/types/${fit.hull.id}/icon?size=64`}
             alt={fit.hull.name}
           />
-        </a>
-        <a style={{ flexShrink: 1 }} onClick={(evt) => setModalOpen(true)}>
-          {namePrefix}
-          {fit.hull.name}
+          <span style={{ flexShrink: 1 }}>
+            {namePrefix}
+            {fit.hull.name}
+          </span>
         </a>
       </>
     );
@@ -219,7 +228,7 @@ function ShipDisplay({ fit, onAction }) {
     return (
       <>
         <img
-          style={{ height: "40px" }}
+          style={{ height: "44px" }}
           src={`https://images.evetech.net/types/${fit.hull.id}/icon?size=64`}
           alt={fit.hull.name}
         />
@@ -233,7 +242,7 @@ function ShipDisplay({ fit, onAction }) {
     return (
       <>
         <img
-          style={{ height: "40px" }}
+          style={{ height: "44px" }}
           src={`https://images.evetech.net/types/28606/icon?size=64`}
           alt=""
         />
@@ -377,75 +386,77 @@ export function XCard({ entry, fit, onAction }) {
           <XCardDOM.ReviewComment>{fit.review_comment}</XCardDOM.ReviewComment>
         </XCardDOM.Content>
       ) : null}
-      <XCardDOM.Footer>
-        {entry.can_remove ? (
-          <a
-            title="Remove x-up"
-            onClick={(evt) => errorToaster(toastContext, removeFit(fit.id)).then(onAction)}
-          >
-            <FontAwesomeIcon icon={faTrashAlt} />
-          </a>
-        ) : null}
-        {authContext.access["waitlist-view"] && (
-          <a
-            title="Open in-game profile"
-            onClick={(evt) =>
-              errorToaster(toastContext, openWindow(fit.character.id, authContext.current.id))
-            }
-          >
-            <FontAwesomeIcon icon={faExternalLinkAlt} />
-          </a>
-        )}
-        {authContext.access["skill-view"] && (
-          <SkillButton characterId={fit.character.id} ship={fit.hull.name} />
-        )}
-        {authContext.access["pilot-view"] && (
-          <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
-            <PilotInformation characterId={fit.character.id} authContext={authContext} />
-          </NavLink>
-        )}
-        {_.isFinite(fit.hours_in_fleet) ? (
-          <span title="Hours in fleet">{fit.hours_in_fleet}h</span>
-        ) : null}
-        {authContext.access["waitlist-manage"] && (
-          <a
-            title="Reject"
-            onClick={(evt) => {
-              var rejectionReason = prompt(
-                "Why is the fit being rejected? (Will be displayed to pilot)"
-              );
-              if (rejectionReason) {
-                errorToaster(toastContext, rejectFit(fit.id, rejectionReason)).then(onAction);
+      <XCardDOM.FooterGroup>
+        <XCardDOM.Footer>
+          {entry.can_remove ? (
+            <a
+              title="Remove x-up"
+              onClick={(evt) => errorToaster(toastContext, removeFit(fit.id)).then(onAction)}
+            >
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </a>
+          ) : null}
+          {authContext.access["waitlist-view"] && (
+            <a
+              title="Open in-game profile"
+              onClick={(evt) =>
+                errorToaster(toastContext, openWindow(fit.character.id, authContext.current.id))
               }
-            }}
-          >
-            <FontAwesomeIcon icon={faTimes} />
-          </a>
+            >
+              <FontAwesomeIcon icon={faExternalLinkAlt} />
+            </a>
+          )}
+          {authContext.access["skill-view"] && (
+            <SkillButton characterId={fit.character.id} ship={fit.hull.name} />
+          )}
+          {authContext.access["pilot-view"] && (
+            <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
+              <PilotInformation characterId={fit.character.id} authContext={authContext} />
+            </NavLink>
+          )}
+          {_.isFinite(fit.hours_in_fleet) ? (
+            <span title="Hours in fleet">{fit.hours_in_fleet}h</span>
+          ) : null}
+          {authContext.access["waitlist-manage"] && (
+            <a
+              title="Reject"
+              onClick={(evt) => {
+                var rejectionReason = prompt(
+                  "Why is the fit being rejected? (Will be displayed to pilot)"
+                );
+                if (rejectionReason) {
+                  errorToaster(toastContext, rejectFit(fit.id, rejectionReason)).then(onAction);
+                }
+              }}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </a>
+          )}
+          {authContext.access["fleet-invite"] && fit.approved && (
+            <a
+              title="Invite"
+              onClick={(evt) =>
+                errorToaster(toastContext, invite(fit.id, authContext.current.id)).then(onAction)
+              }
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </a>
+          )}
+          {authContext.access["waitlist-manage"] && !fit.approved && (
+            <a
+              title="Approve"
+              onClick={(evt) => errorToaster(toastContext, approveFit(fit.id)).then(onAction)}
+            >
+              <FontAwesomeIcon icon={faCheck} />
+            </a>
+          )}
+        </XCardDOM.Footer>
+        {!is_alt && _.isFinite(fit.hours_in_fleet) && fit.hours_in_fleet < 1 && (
+          <XCardDOM.Footer>
+            <span>NEWBRO</span>
+          </XCardDOM.Footer>
         )}
-        {authContext.access["fleet-invite"] && fit.approved && (
-          <a
-            title="Invite"
-            onClick={(evt) =>
-              errorToaster(toastContext, invite(fit.id, authContext.current.id)).then(onAction)
-            }
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </a>
-        )}
-        {authContext.access["waitlist-manage"] && !fit.approved && (
-          <a
-            title="Approve"
-            onClick={(evt) => errorToaster(toastContext, approveFit(fit.id)).then(onAction)}
-          >
-            <FontAwesomeIcon icon={faCheck} />
-          </a>
-        )}
-      </XCardDOM.Footer>
-      <XCardDOM.Footer>
-        {!is_alt && _.isFinite(fit.hours_in_fleet) && fit.hours_in_fleet < 1 ? (
-          <span>NEWBRO</span>
-        ) : null}
-      </XCardDOM.Footer>
+      </XCardDOM.FooterGroup>
     </XCardDOM>
   );
 }
