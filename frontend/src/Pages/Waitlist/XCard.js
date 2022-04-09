@@ -114,6 +114,7 @@ XCardDOM.Content = styled.div`
   display: flex;
 
   background-color: ${(props) => props.theme.colors.background};
+  align-items: center;
   color: ${(props) => props.theme.colors.text};
   img {
     margin-right: 0.5em;
