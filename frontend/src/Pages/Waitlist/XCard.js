@@ -129,7 +129,7 @@ XCardDOM.Content = styled.div`
 
 XCardDOM.FooterGroup = styled.div`
   > *:last-child {
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 4px 4px;
   }
 `;
 XCardDOM.Footer = styled.div`
