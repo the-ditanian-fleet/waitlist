@@ -2,9 +2,7 @@ import { useApi } from "../api";
 import { Badge } from "./Badge";
 import { InputGroup, Button, Buttons } from "./Form";
 import { Col, Row } from "react-awesome-styled-grid";
-import { Note } from "./NoteBox";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { InfoNote } from "./NoteBox";
 
 import styled from "styled-components";
 import _ from "lodash";
@@ -215,10 +213,7 @@ export function SkillDisplay({ characterId, ship, setShip = null, filterMin = fa
       </div>
       <SkillHeader>
         {ship === "Nestor" || ship === "Guardian" || ship === "Oneiros" ? (
-          <Note variant={"secondary"} width={"fit-content"} display={"inline"}>
-            <FontAwesomeIcon icon={faExclamationCircle} /> Basic tier skills are required for
-            logistics.
-          </Note>
+          <InfoNote message={"Basic tier skills are required for logistics."} />
         ) : null}
       </SkillHeader>
       {skills ? (

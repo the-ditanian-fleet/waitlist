@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 export const Note = styled.div`
   margin: 0 0 0.5em;
@@ -20,3 +22,11 @@ export const BorderedBox = styled.div`
   padding: 0.4em;
   margin: 0.4em 0;
 `;
+
+export function InfoNote({ message }) {
+  return (
+    <Note variant={"secondary"} width={"fit-content"} display={"block"}>
+      <FontAwesomeIcon icon={faExclamationCircle} /> {message}
+    </Note>
+  );
+}
