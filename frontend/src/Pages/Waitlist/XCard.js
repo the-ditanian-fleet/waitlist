@@ -199,7 +199,7 @@ function ShipDisplay({ fit, onAction }) {
               )}
 
               <FitDisplay fit={fit} />
-              {fit.tags.includes("STARTER-SKILLS") ? (
+              {fit.tags.includes("STARTER") ? (
                 <>
                   <Title>Starter skills</Title>
                   <SkillDisplay
