@@ -151,7 +151,12 @@ impl<'a> FitChecker<'a> {
             if !(diff.cargo_missing.is_empty() && fit_ok) {
                 self.approved = false;
             }
-
+            if doctrine_fit.name.contains("STARTER") {
+                self.tags.insert("STARTER-FIT");
+            }
+            if doctrine_fit.name.contains("NOGANK") {
+                self.tags.insert("NO-GANK");
+            }
             if fit_ok && doctrine_fit.name.contains("ELITE") {
                 self.tags.insert("ELITE-FIT");
             }
@@ -314,6 +319,8 @@ impl<'a> FitChecker<'a> {
             } else {
                 category = "starter".to_string();
             }
+        } else if self.tags.contains("STARTER-FIT") && category != "logi" {
+            category = "starter".to_string();
         }
         self.category = Some(category);
     }
@@ -339,36 +346,44 @@ impl<'a> FitChecker<'a> {
     }
 
     fn merge_tags(&mut self) {
-        if (self.tags.contains("ELITE-FIT")
-            && ["WARPSPEED", "HYBRID", "AMULET"]
+        if self.tags.contains("ELITE-FIT") {
+            if ["WARPSPEED", "HYBRID", "AMULET"]
                 .iter()
-                .any(|e| self.tags.contains(e)))
-            || self.tags.contains("SAVIOR")
-        {
-            if self.tags.contains("ELITE-SKILLS") {
-                self.tags.remove("ELITE-FIT");
-                self.tags.remove("ELITE-SKILLS");
-                if self.tags.contains("BASTION-SPECIALIST") {
-                    self.tags.remove("BASTION-SPECIALIST");
-                    self.tags.insert("BASTION");
-                } else if self.tags.contains("WEB-SPECIALIST") {
-                    self.tags.remove("WEB-SPECIALIST");
-                    self.tags.insert("WEB");
-                } else {
-                    self.tags.insert("ELITE");
+                .any(|e| self.tags.contains(e))
+                || self.tags.contains("SAVIOR")
+            {
+                if self.tags.contains("ELITE-SKILLS") {
+                    self.tags.remove("ELITE-FIT");
+                    self.tags.remove("ELITE-SKILLS");
+                    if self.tags.contains("BASTION-SPECIALIST") {
+                        self.tags.remove("BASTION-SPECIALIST");
+                        self.tags.insert("BASTION");
+                    } else if self.tags.contains("WEB-SPECIALIST") {
+                        self.tags.remove("WEB-SPECIALIST");
+                        self.tags.insert("WEB");
+                    } else {
+                        self.tags.insert("ELITE");
+                    }
+                } else if self.tags.contains("GOLD-SKILLS") {
+                    self.tags.remove("ELITE-FIT");
+                    self.tags.remove("GOLD-SKILLS");
+                    self.tags.insert("ELITE-GOLD");
+                    if self.tags.contains("BASTION-SPECIALIST") {
+                        self.tags.remove("BASTION-SPECIALIST");
+                        self.tags.insert("BASTION");
+                    } else if self.tags.contains("WEB-SPECIALIST") {
+                        self.tags.remove("WEB-SPECIALIST");
+                        self.tags.insert("WEB");
+                    }
                 }
-            } else if self.tags.contains("GOLD-SKILLS") {
+            } else if self.tags.contains("NO-GANK") {
+                // ANTIGANK fleet clutter cleanup
                 self.tags.remove("ELITE-FIT");
-                self.tags.remove("GOLD-SKILLS");
-                self.tags.insert("ELITE-GOLD");
-                if self.tags.contains("BASTION-SPECIALIST") {
-                    self.tags.remove("BASTION-SPECIALIST");
-                    self.tags.insert("BASTION");
-                } else if self.tags.contains("WEB-SPECIALIST") {
-                    self.tags.remove("WEB-SPECIALIST");
-                    self.tags.insert("WEB");
-                }
             }
+        } else if self.tags.contains("STARTER-SKILLS") || self.tags.contains("STARTER-FIT") {
+            self.tags.remove("STARTER-FIT");
+            self.tags.remove("STARTER-SKILLS");
+            self.tags.insert("STARTER");
         }
     }
 
