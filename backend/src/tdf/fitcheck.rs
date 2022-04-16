@@ -313,14 +313,12 @@ impl<'a> FitChecker<'a> {
     fn set_category(&mut self) {
         let mut category =
             categories::categorize(self.fit).unwrap_or_else(|| "starter".to_string());
-        if self.tags.contains("STARTER-SKILLS") {
+        if self.tags.contains("STARTER-SKILLS") || self.tags.contains("STARTER-FIT") {
             if category == "logi" {
                 self.approved = false;
             } else {
                 category = "starter".to_string();
             }
-        } else if self.tags.contains("STARTER-FIT") && category != "logi" {
-            category = "starter".to_string();
         }
         self.category = Some(category);
     }
