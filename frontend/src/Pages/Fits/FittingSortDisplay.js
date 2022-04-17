@@ -96,15 +96,9 @@ function Fitout({ data, tier }) {
   var logiid = [];
   var notes = {};
   var fitnote;
-  var ships;
-  if (tier === "Nogank") {
-    ships = data.fittingdata;
-  } else {
-    ships = _.sortBy(data.fittingdata, function (item) {
-      return item.name.indexOf("HYBRID");
-    });
-  }
-
+  const ships = _.sortBy(data.fittingdata, function (item) {
+    return item.name.indexOf("HYBRID");
+  });
   _.forEach(data.rules, (ship) => {
     logiid.push(ship);
   });
@@ -114,31 +108,27 @@ function Fitout({ data, tier }) {
 
   ships.forEach((ship) => {
     if (
-      ship.dna &&
-      ship.name &&
-      ((tier === "Other" && ship.name.split("_").length === 2) ||
-        ship.name.toLowerCase().indexOf(tier.toLowerCase()) !== -1)
+      (tier === "Other" && ship.name.split("_").length === 2) ||
+      (ship.name.toLowerCase().indexOf(tier.toLowerCase()) !== -1 && ship.dna && ship.name)
     ) {
-      if (!(tier !== "Nogank" && ship.name.toLowerCase().indexOf("nogank") !== -1)) {
-        const id = ship.dna.split(":", 1)[0];
-        if (ship.name in notes) {
-          fitnote = notes[ship.name];
-        } else {
-          fitnote = null;
-        }
-        if (logiid.includes(parseInt(id))) {
-          logi.push(
-            <div key={ship.name}>
-              <ShipDisplay fit={ship} id={id} note={fitnote} />
-            </div>
-          );
-        } else {
-          dps.push(
-            <div key={ship.name}>
-              <ShipDisplay fit={ship} id={id} note={fitnote} />
-            </div>
-          );
-        }
+      const id = ship.dna.split(":", 1)[0];
+      if (ship.name in notes) {
+        fitnote = notes[ship.name];
+      } else {
+        fitnote = null;
+      }
+      if (logiid.includes(parseInt(id))) {
+        logi.push(
+          <div key={ship.name}>
+            <ShipDisplay fit={ship} id={id} note={fitnote} />
+          </div>
+        );
+      } else {
+        dps.push(
+          <div key={ship.name}>
+            <ShipDisplay fit={ship} id={id} note={fitnote} />
+          </div>
+        );
       }
     }
   });
@@ -157,12 +147,7 @@ function Fitout({ data, tier }) {
       <>
         <div style={{ margin: "0.5em 0em" }}>
           <Title>DPS</Title>
-          {tier === "Nogank" ? (
-            <p>
-              These fits are to be used in situations with active gankers. TDF-Official MOTD will
-              notify you if these fits are to be used.
-            </p>
-          ) : tier === "Starter" ? (
+          {tier === "Starter" ? (
             <p>
               These are the only ships you can fly with all <b>Armor Compensation</b> skills at
               level 2, all others require at least 4.
