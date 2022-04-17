@@ -156,6 +156,7 @@ impl<'a> FitChecker<'a> {
             }
             if doctrine_fit.name.contains("NOGANK") {
                 self.tags.insert("NO-GANK");
+				self.approved = false;
             }
             if fit_ok && doctrine_fit.name.contains("ELITE") {
                 self.tags.insert("ELITE-FIT");

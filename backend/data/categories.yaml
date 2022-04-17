@@ -20,38 +20,6 @@ rules:
     category: logi
   - item: Nestor
     category: logi
-  # Starter tank
-  - item: Multispectrum Energized Membrane II
-    meta: le
-    category: starter
-  - item: Centum C-Type Explosive Energized Membrane
-    meta: le
-    category: starter
-  - item: Corpum C-Type Explosive Energized Membrane
-    meta: le
-    category: starter
-  # Fleet annoyances
-  - item: Core X-Type 500MN Microwarpdrive
-    meta: lt
-    category: starter
-  # Starter damage mods
-  - item: Magnetic Field Stabilizer II
-    meta: le
-    category: starter
-  - item: Stasis Webifier II
-    meta: le
-    category: starter
-  - item: Modal Mega Neutron Particle Accelerator I
-    category: starter
-  - item: Tachyon Modulated Energy Beam I
-    category: starter
-  - item: Drone Link Augmentor I
-    category: starter
-  - item: Heat Sink II
-    meta: le
-    category: starter
-  - item: Mega Modulated Pulse Energy Beam I
-    category: starter
   # Bastion
   - item: Bastion Module I
     category: bastion
