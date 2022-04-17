@@ -4,8 +4,6 @@ use crate::{data::yamlhelper, util::types::WaitlistCategory};
 
 use eve_data_core::{Fitting, TypeDB, TypeError, TypeID};
 
-use super::variations;
-
 struct CategoryData {
     categories: Vec<WaitlistCategory>,
     squadcategories: Vec<WaitlistCategory>,
@@ -20,7 +18,6 @@ fn build_category_data() -> Result<CategoryData, TypeError> {
     #[derive(Deserialize)]
     struct CategoryRule {
         item: String,
-        meta: Option<String>,
         category: String,
     }
 
@@ -34,28 +31,10 @@ fn build_category_data() -> Result<CategoryData, TypeError> {
 
     let rules = {
         let mut rules = Vec::new();
-        let variator = variations::get();
 
         for rule in file.rules {
             let item = TypeDB::id_of(&rule.item)?;
-            if let Some(meta_cmp) = rule.meta {
-                for variation in variator.get(item).unwrap() {
-                    if !match meta_cmp.as_str() {
-                        "gt" => variation.meta_diff > 0,
-                        "lt" => variation.meta_diff < 0,
-                        "ge" => variation.meta_diff >= 0,
-                        "le" => variation.meta_diff <= 0,
-                        "any" => true,
-                        _ => panic!("Misunderstood meta_cmp '{}'", meta_cmp),
-                    } {
-                        continue;
-                    }
-
-                    rules.push((variation.to, rule.category.clone()));
-                }
-            } else {
-                rules.push((item, rule.category));
-            }
+            rules.push((item, rule.category));
         }
 
         rules
@@ -84,7 +63,7 @@ pub fn rules() -> &'static Vec<(TypeID, String)> {
 
 pub fn categorize(fit: &Fitting) -> Option<String> {
     for (type_id, category) in &CATEGORY_DATA.rules {
-        if fit.hull == *type_id {
+        if fit.hull == *type_id || fit.modules.contains_key(type_id) {
             return Some(category.clone());
         }
     }
