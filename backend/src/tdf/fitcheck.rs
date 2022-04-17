@@ -141,8 +141,14 @@ impl<'a> FitChecker<'a> {
     }
 
     fn check_fit(&mut self) {
-        if let Some((doctrine_fit, diff)) = fitmatch::find_fit(self.fit) {
+        if let Some((doctrine_fit, mut diff)) = fitmatch::find_fit(self.fit) {
             self.doctrine_fit = Some(doctrine_fit);
+
+            if doctrine_fit.name.contains("NOGANK") {
+                // For NOGANK, we consider all upgraded mods actually downgrades, since price is an issue
+                diff.module_downgraded.append(&mut diff.module_upgraded);
+                self.tags.insert("NO-GANK");
+            }
 
             let fit_ok = diff.module_downgraded.is_empty()
                 && diff.module_extra.is_empty()
@@ -153,10 +159,6 @@ impl<'a> FitChecker<'a> {
             }
             if doctrine_fit.name.contains("STARTER") {
                 self.tags.insert("STARTER-FIT");
-            }
-            if doctrine_fit.name.contains("NOGANK") {
-                self.tags.insert("NO-GANK");
-				self.approved = false;
             }
             if fit_ok && doctrine_fit.name.contains("ELITE") {
                 self.tags.insert("ELITE-FIT");
