@@ -19,7 +19,7 @@ export const tagBadges = {
   HYBRID: ["red", "H", "Hybrid Implants"],
   AMULET: ["red", "A", "Amulet Implants"],
   ELITE: ["yellow", "E", "Elite"],
-  STARTER: ["neutral", "S", "Starter pilot"],
+  "STARTER-SKILLS": ["neutral", "S", "Starter skills"],
   "HQ-FC": ["blue", "H", "HQ FC"],
   LOGI: ["green", "L", "Logi Specialist"],
   BASTION: ["purple", "B", "Bastion Specialist"],

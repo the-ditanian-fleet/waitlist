@@ -84,7 +84,7 @@ pub fn rules() -> &'static Vec<(TypeID, String)> {
 
 pub fn categorize(fit: &Fitting) -> Option<String> {
     for (type_id, category) in &CATEGORY_DATA.rules {
-        if fit.hull == *type_id {
+        if fit.hull == *type_id || fit.modules.contains_key(type_id) {
             return Some(category.clone());
         }
     }
