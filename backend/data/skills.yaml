@@ -126,12 +126,6 @@ requirements:
     Hull Upgrades:
       min: 5
       elite: 5
-    Armor Rigging:
-      min: 3
-      elite: 4
-    Astronautics Rigging:
-      min: 3
-      elite: 4
     Mechanics:
       min: 4
       elite: 5
@@ -349,10 +343,19 @@ requirements:
       min: 3
     Energy Grid Upgrades:
       min: 2
+      
+  _rigging: &rigging
+    # Rigging skills: any ship with rigs that can be improved with rigging skills
+    Armor Rigging:
+      min: 3
+      Elite:  4
+    Astronautics Rigging:
+      min: 3
+      Elite: 4
 
   # Start of per-ship skills
   Nightmare:
-    <<: [ *generic, *gunnery, *sideeffects ]
+    <<: [ *generic, *gunnery, *sideeffects, *rigging ]
     Amarr Battleship:
       min: 3
       elite: 4
@@ -393,7 +396,7 @@ requirements:
       min: 2
 
   Paladin:
-    <<: [ *generic, *gunnery, *sideeffects ]
+    <<: [ *generic, *gunnery, *sideeffects, *rigging ]
     Large Energy Turret:
       min: 5
     Large Pulse Laser Specialization:
@@ -441,7 +444,7 @@ requirements:
       min: 5
 
   Kronos:
-    <<: [ *generic, *gunnery, *sideeffects ]
+    <<: [ *generic, *gunnery, *sideeffects, *rigging ]
     Large Hybrid Turret:
       min: 5
     Large Blaster Specialization:
@@ -483,7 +486,7 @@ requirements:
       min: 5
 
   Vindicator:
-    <<: [ *generic, *gunnery, *sideeffects ]
+    <<: [ *generic, *gunnery, *sideeffects, *rigging ]
     Large Hybrid Turret:
       min: 5
     Large Blaster Specialization:
@@ -509,7 +512,7 @@ requirements:
       elite: 4
 
   Megathron:
-    <<: [ *generic, *gunnery, *sideeffects ]
+    <<: [ *generic, *gunnery, *sideeffects, *rigging ]
     Gallente Battleship:
       min: 3
     Large Hybrid Turret:
@@ -578,7 +581,7 @@ requirements:
       min: 5
 
   Nestor:
-    <<: [ *logistics ]
+    <<: [ *logistics, *rigging ]
     EM Armor Compensation:
       min: 5
     Explosive Armor Compensation:
@@ -660,8 +663,6 @@ requirements:
       elite: 4
     Long Distance Jamming:
       elite: 4
-    Armor Rigging:
-      gold: 0
 
   Damnation:
     <<: *generic
@@ -699,5 +700,3 @@ requirements:
       elite: 4
     Long Distance Jamming:
       elite: 4
-    Armor Rigging:
-      gold: 0
