@@ -261,8 +261,6 @@ requirements:
     Hull Upgrades:
       min: 5
       elite: 5
-    Armor Rigging:
-      elite: 4
     Mechanics:
       min: 4
       elite: 5
