@@ -179,7 +179,7 @@ impl<'a> FitChecker<'a> {
     fn check_fit_reqs(&mut self) {
         let comp_reqs = match self.doctrine_fit {
             Some(fit) => {
-                if fit.name.contains("STARTER") {
+                if fit.name.contains("STARTER") || fit.name.contains("NM_BASIC") {
                     2
                 } else {
                     4
