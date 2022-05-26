@@ -33,25 +33,14 @@ const CategoryHeadingDOM = styled.div`
   }
 `;
 
-const CatHeadingSmall = styled(CategoryHeadingDOM)`
-  border-radius: 5px;
-  border: solid 1px ${(props) => props.theme.colors.accent2};
-  padding: 0em 0.2em;
-  > h2 {
-    font-size: initial;
-    font-weight: initial;
-  }
-`;
-
 function CategoryHeading({ name, fleetComposition }) {
   if (!(fleetComposition && fleetComposition.members)) {
     return (
       <>
-        {name === "Alts" ? null : (
-          <CategoryHeadingDOM>
-            <h2>{name}</h2>
-          </CategoryHeadingDOM>
-        )}
+        <CategoryHeadingDOM>
+          <h2>{name}</h2>
+        </CategoryHeadingDOM>
+
       </>
     );
   }
@@ -60,9 +49,7 @@ function CategoryHeading({ name, fleetComposition }) {
     fleetComposition.members,
     (member) => member.wl_category === name
   );
-  if (name === "Alts" && categoryMembers.length === 0) {
-    return null;
-  }
+
   var shipInfo = {};
   var shipCounts = {};
   _.forEach(categoryMembers, (member) => {
@@ -74,15 +61,10 @@ function CategoryHeading({ name, fleetComposition }) {
   shipCountsArr.sort((a, b) => a[0] - b[0]);
   return (
     <>
-      {name === "Alts" ? (
-        <CatHeadingSmall>
-          <HeadingStyle name={name} shipCountsArr={shipCountsArr} />
-        </CatHeadingSmall>
-      ) : (
-        <CategoryHeadingDOM>
-          <HeadingStyle name={name} shipCountsArr={shipCountsArr} />
-        </CategoryHeadingDOM>
-      )}
+      <CategoryHeadingDOM>
+        <HeadingStyle name={name} shipCountsArr={shipCountsArr} />
+      </CategoryHeadingDOM>
+
     </>
   );
 }

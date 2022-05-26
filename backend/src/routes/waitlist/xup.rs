@@ -262,10 +262,14 @@ async fn xup_multi(
             .map(|f| serde_json::to_string(&f).unwrap());
 
         // Add the fit to the waitlist
+        let mut category = fit_checked.category;
+        if is_alt {
+            category = "alt".to_string();
+        }
         sqlx::query!("
             INSERT INTO waitlist_entry_fit (character_id, entry_id, fit_id, category, approved, tags, implant_set_id, fit_analysis, cached_time_in_fleet, is_alt)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ", character_id, entry_id, fit_id, fit_checked.category, fit_checked.approved, tags, implant_set_id, fit_analysis, this_pilot_data.time_in_fleet, is_alt)
+        ", character_id, entry_id, fit_id, category, fit_checked.approved, tags, implant_set_id, fit_analysis, this_pilot_data.time_in_fleet, is_alt)
         .execute(&mut tx).await?;
 
         // Log the x'up

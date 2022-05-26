@@ -40,11 +40,9 @@ fn build_category_data() -> Result<CategoryData, TypeError> {
         rules
     };
     // removes alts from waitlist page categories
-    let mut cat = file.categories.to_vec();
-    cat.retain(|x| x.id != "alt");
     Ok(CategoryData {
         categories: cat,
-        squadcategories: file.categories,
+        squadcategories: file.categories.to_vec(),
         rules,
     })
 }
