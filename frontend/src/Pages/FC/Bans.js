@@ -78,7 +78,7 @@ function BanEntry({ kind, id, name, expires_at, onAction, added_by, reason }) {
       <Cell>{name}</Cell>
       <Cell>{expires_at ? formatDatetime(new Date(expires_at * 1000)) : null}</Cell>
       <Cell>{added_by && added_by.name}</Cell>
-      <Cell>{reason}</Cell>
+      <Cell style={{overflowWrap: 'break-word'}}>{reason}</Cell>
       {authContext.access["bans-manage"] && (
         <Cell>
           <Button
@@ -151,7 +151,7 @@ function AddBan() {
                 Ban Reason
                 <br />
             </label>
-            <Input value={banReason} onChange={(evt) => setBanReason(evt.target.value)} />
+            <Input type="text" maxLength={254} value={banReason} onChange={(evt) => setBanReason(evt.target.value)} />
         </p>
         <Button variant="danger" onClick={(evt) => doBan()}>
             Ban
