@@ -49,6 +49,7 @@ function BanList() {
             <CellHead>Name</CellHead>
             <CellHead>Expiry</CellHead>
             <CellHead>Added by</CellHead>
+            <CellHead>Reason</CellHead>
             {authContext.access["bans-manage"] && <CellHead>Actions</CellHead>}
           </Row>
         </TableHead>
@@ -62,7 +63,7 @@ function BanList() {
   );
 }
 
-function BanEntry({ kind, id, name, expires_at, onAction, added_by }) {
+function BanEntry({ kind, id, name, expires_at, onAction, added_by, reason }) {
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
 
@@ -77,6 +78,7 @@ function BanEntry({ kind, id, name, expires_at, onAction, added_by }) {
       <Cell>{name}</Cell>
       <Cell>{expires_at ? formatDatetime(new Date(expires_at * 1000)) : null}</Cell>
       <Cell>{added_by && added_by.name}</Cell>
+      <Cell style={{overflowWrap: 'break-word'}}>{reason}</Cell>
       {authContext.access["bans-manage"] && (
         <Cell>
           <Button
@@ -96,6 +98,7 @@ function AddBan() {
   const queryParams = new URLSearchParams(useLocation().search);
   const [kind, setKind] = React.useState(queryParams.get("kind") || "character");
   const [banID, setBanID] = React.useState(queryParams.get("id") || "");
+  const [banReason, setBanReason] = React.useState(queryParams.get("reason") || "");
   const [duration, setDuration] = React.useState("");
   const history = useHistory();
 
@@ -107,6 +110,7 @@ function AddBan() {
           kind,
           id: parseInt(banID),
           duration: parseFloat(duration),
+            reason: banReason
         },
       }).then((success) => {
         history.push({ pathname: "/fc/bans" });
@@ -140,10 +144,17 @@ function AddBan() {
           Duration in minutes (0 for permanent)
           <br />
         </label>
-        <Input type="number" value={duration} onChange={(evt) => setDuration(evt.target.value)} />
+          <Input type="number" value={duration} onChange={(evt) => setDuration(evt.target.value)} />
       </p>
-      <Button variant="danger" onClick={(evt) => doBan()}>
-        Ban
+        <p>
+            <label>
+                Ban Reason
+                <br />
+            </label>
+            <Input type="text" maxLength={254} value={banReason} onChange={(evt) => setBanReason(evt.target.value)} />
+        </p>
+        <Button variant="danger" onClick={(evt) => doBan()}>
+            Ban
       </Button>
     </>
   );

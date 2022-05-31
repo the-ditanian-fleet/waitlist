@@ -13,6 +13,7 @@ struct AddBanRequest {
     kind: String,
     id: i64,
     duration: Option<i64>,
+    reason: String,
 }
 
 #[post("/api/bans/add", data = "<input>")]
@@ -41,11 +42,12 @@ async fn add_ban(
     };
 
     sqlx::query!(
-        "REPLACE INTO ban (kind, id, expires_at, added_by) VALUES (?, ?, ?, ?)",
+        "REPLACE INTO ban (kind, id, expires_at, added_by, reason) VALUES (?, ?, ?, ?, ?)",
         input.kind,
         input.id,
         expiry,
-        account.id
+        account.id,
+        input.reason
     )
     .execute(app.get_db())
     .await?;
@@ -85,6 +87,7 @@ struct BanListResponseEntry {
     expires_at: Option<i64>,
     name: Option<String>,
     added_by: Option<Character>,
+    reason: Option<String>
 }
 
 #[derive(Debug, Serialize)]
@@ -106,7 +109,7 @@ async fn list_bans(
         .await?;
 
     let rows =
-        sqlx::query!("SELECT id, kind, expires_at, added_by FROM ban ORDER BY kind ASC, id ASC")
+        sqlx::query!("SELECT id, kind, expires_at, added_by, reason FROM ban ORDER BY kind ASC, id ASC")
             .fetch_all(app.get_db())
             .await?;
 
@@ -139,6 +142,7 @@ async fn list_bans(
                 expires_at: ban.expires_at.map(|ts| ts.timestamp()),
                 name,
                 added_by,
+                reason: ban.reason
             }
         })
         .collect();
