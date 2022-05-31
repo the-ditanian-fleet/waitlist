@@ -13,7 +13,7 @@ struct CategoryResponse {
 #[get("/api/categories")]
 fn categories(_account: AuthenticatedAccount) -> Json<CategoryResponse> {
     Json(CategoryResponse {
-        categories: data::categories::squadcategories(),
+        categories: data::categories::categories(),
     })
 }
 

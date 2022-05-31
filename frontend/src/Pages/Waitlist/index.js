@@ -11,6 +11,8 @@ import {
   NotepadWaitlist,
   CategoryHeading,
 } from "./displaymodes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faColumns } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 import { useQuery } from "../../Util/query";
 
@@ -117,6 +119,11 @@ export function Waitlist() {
   const authContext = React.useContext(AuthContext);
   const toastContext = React.useContext(ToastContext);
   const [query, setQuery] = useQuery();
+  const [altCol, setAltCol] = React.useState(
+    window.localStorage && window.localStorage.getItem("AltColumn")
+      ? window.localStorage.getItem("AltColumn") === "true"
+      : false
+  );
   const waitlistId = parseInt(query.wl);
   const [waitlistData, refreshWaitlist] = useWaitlist(waitlistId);
   const fleetComposition = useFleetComposition();
@@ -125,7 +132,6 @@ export function Waitlist() {
   const setDisplayMode = (newMode) => {
     setQuery("mode", newMode);
   };
-
   React.useEffect(() => {
     // Redirect to wl=1 if we don't have one
     if (!waitlistId) {
@@ -137,12 +143,19 @@ export function Waitlist() {
   if (!waitlistId) {
     return null; // Should be redirecting
   }
+
   if (waitlistData === null) {
     return <em>Loading waitlist information.</em>;
   }
   if (!waitlistData.open) {
     return <em>The waitlist is currently closed.</em>;
   }
+  const handleChange = () => {
+    setAltCol(!altCol);
+    if (window.localStorage) {
+      window.localStorage.setItem("AltColumn", !altCol);
+    }
+  };
 
   var myEntry = _.find(
     waitlistData.waitlist,
@@ -186,7 +199,14 @@ export function Waitlist() {
             </Button>
           )}
         </InputGroup>
-        <CategoryHeading name="Alts" fleetComposition={fleetComposition} />
+        {displayMode === "columns" && (
+          <Button onClick={handleChange}>
+            <FontAwesomeIcon icon={faColumns} />
+          </Button>
+        )}
+        {!altCol && (
+          <CategoryHeading name="Alts" fleetComposition={fleetComposition} altCol={altCol} />
+        )}
       </Buttons>
 
       {displayMode === "columns" ? (
@@ -194,6 +214,7 @@ export function Waitlist() {
           waitlist={waitlistData}
           onAction={refreshWaitlist}
           fleetComposition={fleetComposition}
+          altCol={altCol}
         />
       ) : displayMode === "compact" ? (
         <CompactWaitlist waitlist={waitlistData} onAction={refreshWaitlist} />
