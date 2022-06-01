@@ -235,7 +235,7 @@ function MatrixWaitlist({ waitlist, onAction, fleetComposition }) {
         {waitlist.waitlist.map((entry) => {
           var byCategory = categories.map((cat) => []);
           _.forEach(entry.fits, (fit) => {
-            byCategory[categoryIndex[fit.category]].push(
+            byCategory[categoryIndex[fit.is_alt ? "Alts" : fit.category]].push(
               <div key={fit.id}>
                 <XCard fit={fit} entry={entry} onAction={onAction} />
               </div>
@@ -275,7 +275,7 @@ function RowWaitlist({ waitlist, onAction, fleetComposition }) {
   });
   _.forEach(waitlist.waitlist, (entry) => {
     _.forEach(entry.fits, (fit) => {
-      const categoryI = categoryIndex[fit.category];
+      const categoryI = categoryIndex[fit.is_alt ? "Alts" : fit.category];
       categories[categoryI][1].push(
         <div key={fit.id}>
           <XCard key={fit.id} entry={entry} fit={fit} onAction={onAction} />
