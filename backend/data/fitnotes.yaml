@@ -33,6 +33,7 @@ notes:
       Implant Required: EM-806. You are required to be approved logi (Logistics Specialist) to fly this ship.
   - name: TDF_NESTOR_HQ_ELITE_HYBRID
     description: >
+<<<<<<< HEAD
       Implant Required: EM-806. You are required to be approved logi (Logistics Specialist) to fly this ship.
   - name: TDF_KRONOS_ELITE
     description: >
@@ -43,3 +44,4 @@ notes:
   - name: TDF_VINDI_ELITE
     description: >
       Requires warp speed implant set to be eligible for elite badge
+

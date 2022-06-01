@@ -147,10 +147,12 @@ function HardWires({ toastContext }) {
 
         <Cell>
           <CopyImplantText toast={toastContext} item={"MR-807"} /> longer webbing range, for
-          <b> vindicator only pilots.</b>
+          <b> vindicator only pilots.</b> <br />
+          <CopyImplantText toast={toastContext} item={"Zor's Custom Navigation Hyper-Link"} />{" "}
+          increased MWD speed for
+          <b> DPS only pilots.</b>
         </Cell>
       </Row>
-
       <Row>
         <Cell>
           <b>Slot 9</b>
