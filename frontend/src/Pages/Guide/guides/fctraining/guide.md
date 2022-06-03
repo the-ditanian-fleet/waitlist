@@ -32,7 +32,7 @@ To officially join the training program you need an **L tag** and a fully skille
 
 In this first stage you will learn how to voice fleet, tag and do waitlist invites/motd updates. You will be expected to learn and know every role and anchor position.
 
-Progressing to the next stage requires passing **VAN FLEET** (yes seriously), It's a backseat with an FC Trainer, you will do invites trough the in game waitlist channel, so make sure you know all the fits.
+Progressing to the next stage requires passing **VAN FLEET** (yes seriously), It's a backseat with an FC Trainer, you will do invites trough the in game waitlist channel, while running a normal fleet. Make sure you know all the fits!
 
 ### Advanced Trainee
 
