@@ -1,5 +1,9 @@
 # Training help
 
+**Please read:**
+
+[Training stages and tagging order](/guide/fctraining)
+
 ## Things you need acces to
 
 - Waitlist
