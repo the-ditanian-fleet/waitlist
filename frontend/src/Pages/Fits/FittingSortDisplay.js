@@ -11,8 +11,6 @@ import { Shield } from "../../Components/Badge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
-
-
 const FitCard = styled.div`
   border: solid 2px ${(props) => props.theme.colors[props.variant].color};
   border-radius: 5px;
@@ -148,7 +146,7 @@ function Fitout({ data, tier }) {
     return (
       <>
         <div style={{ margin: "0.5em 0em" }}>
-		 <br />
+          <br />
           <Title>Secondary Support Ships</Title>
           <p>These ships are never used as main characters in fleet.</p>
           <DisplayDOM>{dps}</DisplayDOM>
@@ -159,7 +157,7 @@ function Fitout({ data, tier }) {
     return (
       <>
         <div style={{ margin: "0.5em 0em" }}>
-		{tier in notes ? <p>{notes[tier]}</p> : <br />} 
+          {tier in notes ? <p>{notes[tier]}</p> : <br />}
           <Title>DPS</Title>
           <DisplayDOM>{dps}</DisplayDOM>
           <br />

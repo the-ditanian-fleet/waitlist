@@ -1,12 +1,12 @@
 public_tags:
-- STARTER
-- ELITE
-- ELITE-GOLD
-- AMULET
-- HYBRID
-- WARPSPEED
-- HQ-FC
-- TRAINEE
-- LOGI
-- BASTION
-- WEB
+  - STARTER
+  - ELITE
+  - ELITE-GOLD
+  - AMULET
+  - HYBRID
+  - WARPSPEED
+  - HQ-FC
+  - TRAINEE
+  - LOGI
+  - BASTION
+  - WEB
