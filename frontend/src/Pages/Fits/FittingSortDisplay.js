@@ -10,6 +10,7 @@ import { Note } from "../../Components/NoteBox";
 import { Shield } from "../../Components/Badge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { Markdown } from "../../Components/Markdown";
 
 const FitCard = styled.div`
   border: solid 2px ${(props) => props.theme.colors[props.variant].color};
@@ -145,10 +146,11 @@ function Fitout({ data, tier }) {
   if (tier === "Other") {
     return (
       <>
-        <div style={{ margin: "0.5em 0em" }}>
-          <br />
+        <div>
+          <div style={{ padding: "1em 0", height: "3em" }}>
+            <p>These ships are never used as main characters in fleet.</p>
+          </div>
           <Title>Secondary Support Ships</Title>
-          <p>These ships are never used as main characters in fleet.</p>
           <DisplayDOM>{dps}</DisplayDOM>
         </div>
       </>
@@ -156,13 +158,14 @@ function Fitout({ data, tier }) {
   } else {
     return (
       <>
-        <div style={{ margin: "0.5em 0em" }}>
-          {tier in notes ? <p>{notes[tier]}</p> : <br />}
+        <div>
+          <div style={{ padding: "1em 0", height: "3em" }}>
+            {tier in notes ? <Markdown>{notes[tier]}</Markdown> : <br />}
+          </div>
           <Title>DPS</Title>
           <DisplayDOM>{dps}</DisplayDOM>
           <br />
           <Title>LOGISTICS</Title>
-
           <DisplayDOM>{logi}</DisplayDOM>
         </div>
       </>

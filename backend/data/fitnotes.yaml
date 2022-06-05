@@ -1,28 +1,45 @@
 notes:
-  - name: TDF_MEGA_STARTER
+  # Tier message
+
+  - name: Starter
     description: >
-        Replace Tracking Computer II with the Micro Jump drive when able.
+      These **DPS** ships are the only ones you can fly with all **Armor Compensation** skills at level 2, all others require at least 4. Replace Tracking Computer II with the Micro Jump drive when able.
+  - name: Nogank
+    description: >
+      These fits are to be used in situations with active gankers. TDF-Official MOTD will notify you if these fits are to be used.
+
+  # Ship specific notes
+
   - name: TDF_ONI_HQ_STARTER_LOGI4
     description: >
-        Required Skill Exception: Sensor Linking 3, Logistics Cruiser 4 
+      Required Skill Exception: Sensor Linking 3, Logistics Cruiser 4
   - name: TDF_GUARD_HQ_BASIC
     description: >
-        Implant Required: EM-806
+      Implant Required: EM-806
   - name: TDF_GUARD_HQ_ADVANCED
     description: >
-        Implant Required: EM-806
+      Implant Required: EM-806
   - name: TDF_GUARD_HQ_ELITE
     description: >
-        Implant Required: EM-806
+      Implant Required: EM-806
   - name: TDF_DAMNATION
     description: >
-        This ship has very high EHP, it used as a meatshield (tank).
+      This ship has very high EHP, it used as a meatshield (tank).
   - name: TDF_EOS
     description: >
-        Typically used by the active FC as primary booster with no starter level skills. Can be used as a meatshield/secondary booster by anyone while you are working on becoming trainee FC.
+      Typically used by the active FC as primary booster with no starter level skills. Can be used as a meatshield/secondary booster by anyone while you are working on becoming trainee FC.
   - name: TDF_NESTOR_HQ_ELITE_ASCENDANCY
     description: >
-        Implant Required: EM-806. You are required to be approved logi (Logistics Specialist) to fly this ship.
+      Implant Required: EM-806. You are required to be approved logi (Logistics Specialist) to fly this ship.
   - name: TDF_NESTOR_HQ_ELITE_HYBRID
     description: >
-        Implant Required: EM-806. You are required to be approved logi (Logistics Specialist) to fly this ship.
+      Implant Required: EM-806. You are required to be approved logi (Logistics Specialist) to fly this ship.
+  - name: TDF_KRONOS_ELITE
+    description: >
+      Requires warp speed implant set to be eligible for elite badge
+  - name: TDF_PALLY_ELITE
+    description: >
+      Requires warp speed implant set to be eligible for elite badge
+  - name: TDF_VINDI_ELITE
+    description: >
+      Requires warp speed implant set to be eligible for elite badge
