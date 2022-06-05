@@ -147,7 +147,7 @@ function Fitout({ data, tier }) {
     return (
       <>
         <div>
-          <div style={{ padding: "1em 0", height: "3em" }}>
+          <div style={{ padding: "1em 0 0.4em" }}>
             <p>These ships are never used as main characters in fleet.</p>
           </div>
           <Title>Secondary Support Ships</Title>
@@ -159,7 +159,7 @@ function Fitout({ data, tier }) {
     return (
       <>
         <div>
-          <div style={{ padding: "1em 0", height: "3em" }}>
+          <div style={{ padding: "1em 0 0.4em" }}>
             {tier in notes ? <Markdown>{notes[tier]}</Markdown> : <br />}
           </div>
           <Title>DPS</Title>
