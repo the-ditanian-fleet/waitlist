@@ -78,7 +78,7 @@ function BanEntry({ kind, id, name, expires_at, onAction, added_by, reason }) {
       <Cell>{name}</Cell>
       <Cell>{expires_at ? formatDatetime(new Date(expires_at * 1000)) : null}</Cell>
       <Cell>{added_by && added_by.name}</Cell>
-      <Cell style={{overflowWrap: 'break-word'}}>{reason}</Cell>
+      <Cell style={{ overflowWrap: "break-word" }}>{reason}</Cell>
       {authContext.access["bans-manage"] && (
         <Cell>
           <Button
@@ -110,7 +110,7 @@ function AddBan() {
           kind,
           id: parseInt(banID),
           duration: parseFloat(duration),
-            reason: banReason
+          reason: banReason,
         },
       }).then((success) => {
         history.push({ pathname: "/fc/bans" });
@@ -144,17 +144,22 @@ function AddBan() {
           Duration in minutes (0 for permanent)
           <br />
         </label>
-          <Input type="number" value={duration} onChange={(evt) => setDuration(evt.target.value)} />
+        <Input type="number" value={duration} onChange={(evt) => setDuration(evt.target.value)} />
       </p>
-        <p>
-            <label>
-                Ban Reason
-                <br />
-            </label>
-            <Input type="text" maxLength={254} value={banReason} onChange={(evt) => setBanReason(evt.target.value)} />
-        </p>
-        <Button variant="danger" onClick={(evt) => doBan()}>
-            Ban
+      <p>
+        <label>
+          Ban Reason
+          <br />
+        </label>
+        <Input
+          type="text"
+          maxLength={254}
+          value={banReason}
+          onChange={(evt) => setBanReason(evt.target.value)}
+        />
+      </p>
+      <Button variant="danger" onClick={(evt) => doBan()}>
+        Ban
       </Button>
     </>
   );
