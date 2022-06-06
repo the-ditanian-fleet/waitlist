@@ -38,7 +38,7 @@ const MobileButtonDOM = styled.div`
 
 const Content = styled.div`
   padding: 0.3em;
-  width: ${(props) => (props.open ? "100%" : "0")};
+  width: 100%;
   transition-delay: 2s;
   opacity: ${(props) => (props.open ? "1" : "0")};
   height: ${(props) => (props.open ? "100%" : "0")};

@@ -304,14 +304,25 @@ function NoteButton({ number }) {
   );
 }
 
-function PilotInformation({ characterId, authContext }) {
+function PilotInformation({ characterId, authContext, id }) {
   const [notes] = useApi(
     authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
   );
-  if (!notes) return <NoteButton number={0} title={"Pilot Information"} />;
+  if (!notes)
+    return (
+      <NavLink to={"/pilot?character_id=" + id}>
+        <NoteButton number={0} />
+      </NavLink>
+    );
   var amount = Object.keys(notes.notes).length;
+  var msg = "Pilot information";
   amount = amount > 9 ? "9+" : amount.toString();
-  return <NoteButton number={amount} />;
+  if (amount > 0) msg += "\nLast Note:\n" + notes.notes[amount - 1].note;
+  return (
+    <NavLink title={msg} to={"/pilot?character_id=" + id}>
+      <NoteButton number={amount} />
+    </NavLink>
+  );
 }
 
 export function XCard({ entry, fit, onAction }) {
@@ -411,9 +422,11 @@ export function XCard({ entry, fit, onAction }) {
             <SkillButton characterId={fit.character.id} ship={fit.hull.name} />
           )}
           {authContext.access["pilot-view"] && (
-            <NavLink title="Pilot information" to={"/pilot?character_id=" + fit.character.id}>
-              <PilotInformation characterId={fit.character.id} authContext={authContext} />
-            </NavLink>
+            <PilotInformation
+              characterId={fit.character.id}
+              authContext={authContext}
+              id={fit.character.id}
+            />
           )}
           {_.isFinite(fit.hours_in_fleet) ? (
             <span title="Hours in fleet">{fit.hours_in_fleet}h</span>

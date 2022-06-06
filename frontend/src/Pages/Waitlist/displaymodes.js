@@ -43,11 +43,11 @@ const CatHeadingSmall = styled(CategoryHeadingDOM)`
   }
 `;
 
-function CategoryHeading({ name, fleetComposition }) {
+function CategoryHeading({ name, fleetComposition, altCol = true }) {
   if (!(fleetComposition && fleetComposition.members)) {
     return (
       <>
-        {name === "Alts" ? null : (
+        {!altCol && name === "Alts" ? null : (
           <CategoryHeadingDOM>
             <h2>{name}</h2>
           </CategoryHeadingDOM>
@@ -60,9 +60,10 @@ function CategoryHeading({ name, fleetComposition }) {
     fleetComposition.members,
     (member) => member.wl_category === name
   );
-  if (name === "Alts" && categoryMembers.length === 0) {
+  if (!altCol && name === "Alts" && categoryMembers.length === 0) {
     return null;
   }
+
   var shipInfo = {};
   var shipCounts = {};
   _.forEach(categoryMembers, (member) => {
@@ -74,7 +75,7 @@ function CategoryHeading({ name, fleetComposition }) {
   shipCountsArr.sort((a, b) => a[0] - b[0]);
   return (
     <>
-      {name === "Alts" ? (
+      {!altCol && name === "Alts" ? (
         <CatHeadingSmall>
           <HeadingStyle name={name} shipCountsArr={shipCountsArr} />
         </CatHeadingSmall>
@@ -116,16 +117,18 @@ ColumnWaitlistDOM.Category = styled.div`
   }
 `;
 
-function ColumnWaitlist({ waitlist, onAction, fleetComposition }) {
+function ColumnWaitlist({ waitlist, onAction, fleetComposition, altCol }) {
   var categories = [];
   var categoryIndex = {};
   _.forEach(waitlist.categories, (category, i) => {
-    categories.push([category, []]);
-    categoryIndex[category] = i;
+    if (!(category === "Alts" && !altCol)) {
+      categories.push([category, []]);
+      categoryIndex[category] = i;
+    }
   });
   _.forEach(waitlist.waitlist, (entry) => {
     _.forEach(entry.fits, (fit) => {
-      const categoryI = categoryIndex[fit.category];
+      const categoryI = categoryIndex[altCol && fit.is_alt ? "Alts" : fit.category];
       categories[categoryI][1].push(
         <div key={fit.id}>
           <XCard entry={entry} fit={fit} onAction={onAction} />
@@ -232,7 +235,7 @@ function MatrixWaitlist({ waitlist, onAction, fleetComposition }) {
         {waitlist.waitlist.map((entry) => {
           var byCategory = categories.map((cat) => []);
           _.forEach(entry.fits, (fit) => {
-            byCategory[categoryIndex[fit.category]].push(
+            byCategory[categoryIndex[fit.is_alt ? "Alts" : fit.category]].push(
               <div key={fit.id}>
                 <XCard fit={fit} entry={entry} onAction={onAction} />
               </div>
@@ -272,7 +275,7 @@ function RowWaitlist({ waitlist, onAction, fleetComposition }) {
   });
   _.forEach(waitlist.waitlist, (entry) => {
     _.forEach(entry.fits, (fit) => {
-      const categoryI = categoryIndex[fit.category];
+      const categoryI = categoryIndex[fit.is_alt ? "Alts" : fit.category];
       categories[categoryI][1].push(
         <div key={fit.id}>
           <XCard key={fit.id} entry={entry} fit={fit} onAction={onAction} />

@@ -10,6 +10,7 @@ import { Note } from "../../Components/NoteBox";
 import { Shield } from "../../Components/Badge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { Markdown } from "../../Components/Markdown";
 
 const FitCard = styled.div`
   border: solid 2px ${(props) => props.theme.colors[props.variant].color};
@@ -145,9 +146,11 @@ function Fitout({ data, tier }) {
   if (tier === "Other") {
     return (
       <>
-        <div style={{ margin: "0.5em 0em" }}>
+        <div>
+          <div style={{ padding: "1em 0 0.4em" }}>
+            <p>These ships are never used as main characters in fleet.</p>
+          </div>
           <Title>Secondary Support Ships</Title>
-          <p>These ships are never used as main characters in fleet.</p>
           <DisplayDOM>{dps}</DisplayDOM>
         </div>
       </>
@@ -155,25 +158,14 @@ function Fitout({ data, tier }) {
   } else {
     return (
       <>
-        <div style={{ margin: "0.5em 0em" }}>
+        <div>
+          <div style={{ padding: "1em 0 0.4em" }}>
+            {tier in notes ? <Markdown>{notes[tier]}</Markdown> : <br />}
+          </div>
           <Title>DPS</Title>
-          {tier === "Nogank" ? (
-            <p>
-              These fits are to be used in situations with active gankers. TDF-Official MOTD will
-              notify you if these fits are to be used.
-            </p>
-          ) : tier === "Starter" ? (
-            <p>
-              These are the only ships you can fly with all <b>Armor Compensation</b> skills at
-              level 2, all others require at least 4.
-            </p>
-          ) : (
-            <br />
-          )}
           <DisplayDOM>{dps}</DisplayDOM>
           <br />
           <Title>LOGISTICS</Title>
-          <br />
           <DisplayDOM>{logi}</DisplayDOM>
         </div>
       </>
