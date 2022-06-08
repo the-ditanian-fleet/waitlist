@@ -64,7 +64,7 @@ export function Pilot() {
   );
   return (
     <>
-      <div style={{ display: "flex", alignItems: "Center" }}>
+      <div style={{ display: "flex", alignItems: "Center", flexWrap: "wrap" }}>
         <PageTitle style={{ marginRight: "0.2em" }}>{basicInfo && basicInfo.name}</PageTitle>
         <PilotTags tags={basicInfo && basicInfo.tags} />
         <div style={{ marginLeft: "auto" }}>

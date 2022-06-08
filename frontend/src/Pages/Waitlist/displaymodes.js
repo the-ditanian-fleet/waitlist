@@ -106,6 +106,10 @@ function HeadingStyle({ name, shipCountsArr }) {
 
 const ColumnWaitlistDOM = styled.div`
   display: flex;
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    width: 100%;
+  }
 `;
 ColumnWaitlistDOM.Category = styled.div`
   flex-grow: 1;
@@ -114,6 +118,10 @@ ColumnWaitlistDOM.Category = styled.div`
 
   > div {
     margin-bottom: 1.5em;
+  }
+  @media (max-width: 480px) {
+    width: 100%;
+    flex-basis: unset;
   }
 `;
 

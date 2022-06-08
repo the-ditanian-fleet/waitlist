@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Box } from "../../Components/Box";
-import { DNADisplay } from "../../Components/FitDisplay";
+import { FitDisplay } from "../../Components/FitDisplay";
 import { Modal } from "../../Components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClipboard, faGraduationCap, faPen, faPlane } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +29,10 @@ const EntryDOM = styled.div`
 EntryDOM.Time = styled.div`
   flex: 0 0 200px;
   padding: 0.5em;
+  @media (max-width: 480px) {
+    width: 40%;
+    flex: unset;
+  }
 `;
 EntryDOM.Icon = styled.div`
   flex: 0 0 auto;
@@ -52,14 +56,10 @@ function Entry({ time, icon, children }) {
 export function FleetEntry({ logged_at, hull, time_in_fleet }) {
   return (
     <Entry time={logged_at} icon={faPlane}>
-      <span style={{ display: "inline-block", width: "300px" }}>{hull.name}</span>
+      <span style={{ display: "inline-block", minWidth: "40%" }}>{hull.name}</span>
       <span>{formatDuration(time_in_fleet)}</span>
     </Entry>
   );
-}
-
-function implantsToFit(implants) {
-  return "670:" + implants.map((implant) => `${implant};1`).join(":") + "::";
 }
 
 export function FitEntry({ logged_at, hull, dna, implants }) {
@@ -70,8 +70,7 @@ export function FitEntry({ logged_at, hull, dna, implants }) {
       {showModal && (
         <Modal open={true} setOpen={setShowModal}>
           <Box style={{ display: "flex" }}>
-            <DNADisplay dna={dna} />
-            {implants && implants.length ? <DNADisplay dna={implantsToFit(implants)} /> : null}
+            <FitDisplay fit={{ dna: dna, implants: implants, fit_analysis: { name: hull.name } }} />
           </Box>
         </Modal>
       )}
@@ -85,7 +84,7 @@ export function SkillEntry({ logged_at, name, old_level, new_level }) {
 
   return (
     <Entry time={logged_at} icon={faGraduationCap}>
-      <span style={{ display: "inline-block", width: "300px" }}>{name}</span>
+      <span style={{ display: "inline-block", minWidth: "40%", marginRight: "0em" }}>{name}</span>
       <Badge variant={variant}>
         {old_level} -&gt; {new_level}
       </Badge>

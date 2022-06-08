@@ -61,6 +61,13 @@ function useModuleInfo(ids) {
   return result || {};
 }
 
+const FitBlock = styled.div`
+  display: flex;
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+  }
+`;
+
 const DOM = {};
 DOM.Hull = styled.div`
   display: flex;
@@ -132,8 +139,15 @@ DOM.Line.Image = styled.img`
 `;
 DOM.Line.Count = styled.span`
   min-width: 1em;
+  @media (max-width: 480px) {
+    font-size: 0.7em;
+  }
 `;
-DOM.Line.ModuleName = styled.span``;
+DOM.Line.ModuleName = styled.span`
+  @media (max-width: 480px) {
+    font-size: 0.8em;
+  }
+`;
 
 function parseDna(dna) {
   const [hull, ...modules] = dna.split(/:/);
@@ -378,7 +392,7 @@ export function ImplantDisplay({ implants, ...props }) {
 
 export function FitDisplay({ fit }) {
   return (
-    <div style={{ display: "flex" }}>
+    <FitBlock>
       <div style={{ margin: "0 0.5em" }}>
         <DNADisplay dna={fit.dna} analysis={fit.fit_analysis || {}} />
       </div>
@@ -387,6 +401,6 @@ export function FitDisplay({ fit }) {
           <ImplantDisplay implants={fit.implants} />
         </div>
       ) : null}
-    </div>
+    </FitBlock>
   );
 }

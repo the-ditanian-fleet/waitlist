@@ -87,6 +87,10 @@ export const Content = styled.div`
 export const PageTitle = styled.h1`
   font-size: 3em;
   margin-bottom: 0.5em;
+
+  @media (max-width: 480px) {
+    font-size: 2em;
+  }
 `;
 
 export const Title = styled.h2`
