@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Box } from "../../Components/Box";
-import { DNADisplay } from "../../Components/FitDisplay";
+import { FitDisplay } from "../../Components/FitDisplay";
 import { Modal } from "../../Components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClipboard, faGraduationCap, faPen, faPlane } from "@fortawesome/free-solid-svg-icons";
@@ -62,10 +62,6 @@ export function FleetEntry({ logged_at, hull, time_in_fleet }) {
   );
 }
 
-function implantsToFit(implants) {
-  return "670:" + implants.map((implant) => `${implant};1`).join(":") + "::";
-}
-
 export function FitEntry({ logged_at, hull, dna, implants }) {
   const [showModal, setShowModal] = React.useState(false);
 
@@ -74,8 +70,7 @@ export function FitEntry({ logged_at, hull, dna, implants }) {
       {showModal && (
         <Modal open={true} setOpen={setShowModal}>
           <Box style={{ display: "flex" }}>
-            <DNADisplay dna={dna} />
-            {implants && implants.length ? <DNADisplay dna={implantsToFit(implants)} /> : null}
+            <FitDisplay fit={{ dna: dna, implants: implants, fit_analysis: { name: hull.name } }} />
           </Box>
         </Modal>
       )}
