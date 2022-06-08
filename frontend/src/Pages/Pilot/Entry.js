@@ -41,9 +41,6 @@ EntryDOM.Icon = styled.div`
 EntryDOM.Content = styled.div`
   flex: 1;
   padding: 0.5em;
-  @media (max-width: 480px) {
-    width: 40%;
-  }
 `;
 
 function Entry({ time, icon, children }) {
