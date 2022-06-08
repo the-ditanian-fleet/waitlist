@@ -41,6 +41,9 @@ EntryDOM.Icon = styled.div`
 EntryDOM.Content = styled.div`
   flex: 1;
   padding: 0.5em;
+  @media (max-width: 480px) {
+    width: 40%;
+  }
 `;
 
 function Entry({ time, icon, children }) {
@@ -56,7 +59,7 @@ function Entry({ time, icon, children }) {
 export function FleetEntry({ logged_at, hull, time_in_fleet }) {
   return (
     <Entry time={logged_at} icon={faPlane}>
-      <span style={{ display: "inline-block", minWidth: "40%" }}>{hull.name}</span>
+      <span style={{ display: "inline-block", marginRight: "0.5em" }}>{hull.name}</span>
       <span>{formatDuration(time_in_fleet)}</span>
     </Entry>
   );
@@ -84,7 +87,7 @@ export function SkillEntry({ logged_at, name, old_level, new_level }) {
 
   return (
     <Entry time={logged_at} icon={faGraduationCap}>
-      <span style={{ display: "inline-block", minWidth: "40%", marginRight: "0em" }}>{name}</span>
+      <span style={{ display: "inline-block" }}>{name}</span>
       <Badge variant={variant}>
         {old_level} -&gt; {new_level}
       </Badge>
