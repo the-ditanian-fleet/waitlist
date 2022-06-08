@@ -154,6 +154,13 @@ theme.AMOLED = _.merge({}, theme.dark, {
   },
 });
 
+theme["Midnight Blue"] = _.merge({}, theme.dark, {
+  colors: {
+    background: "#0a0a2c",
+    accent1: "#1e1e40",
+  },
+});
+
 theme.ninjaholic = _.merge({}, theme.dark, {
   colors: {
     background: "#290052",
@@ -168,20 +175,6 @@ theme.ninjaholic = _.merge({}, theme.dark, {
       accent: "#6e00b3",
       disabled: "#31084a",
     },
-  },
-});
-
-theme["Midnight Blue"] = _.merge({}, theme.dark, {
-  colors: {
-    background: "#0a0a2c",
-    accent1: "#1e1e40",
-  },
-});
-
-theme["Elite GOLD"] = _.merge({}, theme.light, {
-  logo: {
-    filter:
-      "invert(1) sepia(1) saturate(10000%) hue-rotate(-15deg) drop-shadow(1px 1px 0.5px #a67c00) contrast(90%)",
   },
 });
 
