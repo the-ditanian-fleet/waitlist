@@ -240,4 +240,38 @@ theme["Specialist"] = _.merge({}, theme.light, {
   },
 });
 
+theme["Chocolate"] = _.merge({}, theme.dark, {
+  colors: {
+    background: "#30292c",
+    active: "#FF357C",
+    shadow: "hsla(339, 100%, 60%, 0.1)",
+    outline: "hsla(339, 100%, 60%, 0.2)",
+    secondary: {
+      color: "#AE3F69",
+      text: "white",
+      accent: "#bc577d",
+      disabled: "#e8e8e8",
+    },
+    success: {
+      color: "#1f6538",
+      text: "white",
+      accent: "#226d3c",
+      disabled: "#133e22",
+    },
+
+    danger: {
+      color: "#711818",
+      text: "white",
+      accent: "#6f1628",
+      disabled: "#330a12",
+    },
+    accent1: "#4f3d44",
+    accent2: "#5b4453",
+    accent3: "#d98aa8",
+  },
+  logo: {
+    filter: "invert(1) drop-shadow(1px 2px 0.5px #80173E)",
+  },
+});
+
 export default theme;
