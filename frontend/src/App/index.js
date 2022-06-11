@@ -25,10 +25,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${(props) => props.theme.font.family};
     line-height: 1.5;
     font-weight: 400;
-	  ${(props) =>
-      props.chocolate &&
-      `
-	&:before {
+	${(props) =>
+    props.theme.sticker &&
+    `
+	  &:before {
 	   content:'';
 	   pointer-events:none;
 	   position:fixed;
@@ -39,7 +39,7 @@ const GlobalStyle = createGlobalStyle`
 	   background-repeat: no-repeat;
 	   opacity:1;
 	   background-size: 18%;
-       background-image: url('https://raw.githubusercontent.com/doki-theme/doki-theme-github/master/assets/stickers/nekoPara/chocola/dark/chocola_dark.png');
+       background-image: url(${props.theme.sticker});
     }
   `}
   }
@@ -102,7 +102,7 @@ export default class App extends React.Component {
     return (
       <React.StrictMode>
         <ThemeProvider theme={theme[this.state.theme]}>
-          <GlobalStyle chocolate={this.state.theme === "Chocolate"} />
+          <GlobalStyle />
           <ToastContext.Provider value={this.addToast}>
             <EventContext.Provider value={this.state.events}>
               <AuthContext.Provider value={this.state.auth}>

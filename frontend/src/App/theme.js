@@ -244,7 +244,7 @@ theme["Chocolate"] = _.merge({}, theme.dark, {
   colors: {
     background: "#30292c",
     active: "#FF357C",
-    shadow: "hsla(339, 100%, 60%, 0.1)",
+    shadow: "hsla(0, 0%, 0%, 0.2)",
     outline: "hsla(339, 100%, 60%, 0.2)",
     secondary: {
       color: "#AE3F69",
@@ -272,6 +272,8 @@ theme["Chocolate"] = _.merge({}, theme.dark, {
   logo: {
     filter: "invert(1) drop-shadow(1px 2px 0.5px #80173E)",
   },
+  sticker:
+    "https://raw.githubusercontent.com/doki-theme/doki-theme-github/master/assets/stickers/nekoPara/chocola/dark/chocola_dark.png",
 });
 
 export default theme;
