@@ -254,6 +254,7 @@ theme["Chocola"] = _.merge({}, theme.Dark, {
     active: "#FF357C",
     shadow: "hsla(0, 0%, 0%, 0.2)",
     outline: "hsla(339, 100%, 60%, 0.2)",
+	
     secondary: {
       color: "#AE3F69",
       text: "white",
@@ -275,7 +276,7 @@ theme["Chocola"] = _.merge({}, theme.Dark, {
     },
     accent1: "#4f3d44",
     accent2: "#5b4453",
-    accent3: "#d98aa8",
+    accent3: "#d15886",
   },
   logo: {
     filter: "invert(1) drop-shadow(1px 2px 0.5px #80173E)",
