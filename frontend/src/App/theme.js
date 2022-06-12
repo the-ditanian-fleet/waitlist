@@ -254,7 +254,7 @@ theme["Chocola"] = _.merge({}, theme.Dark, {
     active: "#FF357C",
     shadow: "hsla(0, 0%, 0%, 0.2)",
     outline: "hsla(339, 100%, 60%, 0.2)",
-	
+
     secondary: {
       color: "#AE3F69",
       text: "white",
