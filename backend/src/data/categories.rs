@@ -38,7 +38,6 @@ fn build_category_data() -> Result<CategoryData, TypeError> {
 
         rules
     };
-    // removes alts from waitlist page categories
     Ok(CategoryData {
         categories: file.categories,
         rules,

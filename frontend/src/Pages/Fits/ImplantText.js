@@ -1,8 +1,8 @@
 import { Content } from "../../Components/Page";
 import { InfoNote } from "../../Components/NoteBox";
+import { Highlight } from "../../Components/Form";
 import { Copyable } from "../../Components/Copy";
 import { ToastContext } from "../../contexts";
-import styled from "styled-components";
 import React from "react";
 import {
   CellHead,
@@ -13,13 +13,6 @@ import {
   TableBody,
   Cell,
 } from "../../Components/Table";
-
-const Yellow = styled.b`
-  color:  #fc9936;
-  &:hover:not(:disabled):not(.static) {
-	cursor: pointer;
-	color:  #ffad5c;
-`;
 
 export function ImplantTable({ type }) {
   const toastContext = React.useContext(ToastContext);
@@ -110,13 +103,13 @@ function ImplantAllRow({ toast, slot, implant }) {
 
 function CopyImplantText({ toast, item }) {
   return (
-    <Yellow
+    <Highlight
       onClick={(evt) => {
         Copyable(toast, item);
       }}
     >
       {item}
-    </Yellow>
+    </Highlight>
   );
 }
 

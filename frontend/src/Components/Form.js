@@ -157,3 +157,10 @@ export const CenteredButtons = styled.div`
     margin: 0.2em;
   }
 `;
+
+export const Highlight = styled.b`
+  color: ${(props) => props.theme.colors.highlight.text};
+  &:hover:not(:disabled):not(.static) {
+	cursor: pointer;
+	color:  ${(props) => props.theme.colors.highlight.active};
+`;

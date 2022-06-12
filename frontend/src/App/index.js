@@ -25,6 +25,23 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${(props) => props.theme.font.family};
     line-height: 1.5;
     font-weight: 400;
+	${(props) =>
+    props.theme.sticker &&
+    `
+	  &:before {
+	   content:'';
+	   pointer-events:none;
+	   position:fixed;
+	   z-index:9001;
+	   width:100%;
+	   height:100%;
+	   background-position:100% 100%;
+	   background-repeat: no-repeat;
+	   opacity:1;
+	   background-size: 18%;
+       background-image: url(${props.theme.sticker});
+    }
+  `}
   }
   em, i {
     font-style: italic;
@@ -46,7 +63,7 @@ export default class App extends React.Component {
         (window.localStorage &&
           window.localStorage.getItem("theme") in theme &&
           window.localStorage.getItem("theme")) ||
-        "light",
+        "Light",
     };
   }
 

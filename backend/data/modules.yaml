@@ -40,15 +40,16 @@ alternatives:
       - "'Halberd' Mega Pulse Laser I"
     - - Mega Pulse Laser II
     - - "Brokara's Modified Mega Pulse Laser"
-    - - "Tairei's Modified Mega Pulse Laser"
+      - "Tairei's Modified Mega Pulse Laser"
     - - "Ahremen's Modified Mega Pulse Laser"
-    - - "Vizan's Modified Mega Pulse Laser"
+      - "Vizan's Modified Mega Pulse Laser"
 
   - - - Modal Mega Neutron Particle Accelerator I
       - Federation Navy Neutron Blaster Cannon
       - Shadow Serpentis Neutron Blaster Cannon
       - "'Underhand' Neutron Blaster Cannon I"
     - - Neutron Blaster Cannon II
+    - - "Cormack's Modified Ion Blaster Cannon"
     - - "Tuvan's Modified Neutron Blaster Cannon"
     - - "Cormack's Modified Neutron Blaster Cannon"
 

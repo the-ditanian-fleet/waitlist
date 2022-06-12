@@ -11,7 +11,7 @@ const globals = {
 };
 
 const theme = {
-  light: _.merge({}, globals, {
+  Light: _.merge({}, globals, {
     colors: {
       background: "#ffffff",
       text: "#4a4a4a",
@@ -58,6 +58,10 @@ const theme = {
         accent: "#dbdbdb",
         disabled: "#cccccc",
       },
+      highlight: {
+        text: "#fc9936",
+        active: "#ffad5c",
+      },
 
       accent1: "#fafafa",
       accent2: "#dbdbdb",
@@ -76,7 +80,7 @@ const theme = {
       },
     },
   }),
-  dark: _.merge({}, globals, {
+  Dark: _.merge({}, globals, {
     logo: {
       filter: "invert(1)",
     },
@@ -126,6 +130,10 @@ const theme = {
         accent: "#454545",
         disabled: "#202020",
       },
+      highlight: {
+        text: "#fc9936",
+        active: "#ffad5c",
+      },
 
       accent1: "#2e2e2e",
       accent2: "#454545",
@@ -146,7 +154,7 @@ const theme = {
   }),
 };
 
-theme.AMOLED = _.merge({}, theme.dark, {
+theme.AMOLED = _.merge({}, theme.Dark, {
   colors: {
     text: "#f0f0f0",
     background: "#000000",
@@ -154,14 +162,14 @@ theme.AMOLED = _.merge({}, theme.dark, {
   },
 });
 
-theme["Midnight Blue"] = _.merge({}, theme.dark, {
+theme["Midnight Blue"] = _.merge({}, theme.Dark, {
   colors: {
     background: "#0a0a2c",
     accent1: "#1e1e40",
   },
 });
 
-theme.ninjaholic = _.merge({}, theme.dark, {
+theme.Ninjaholic = _.merge({}, theme.Dark, {
   colors: {
     background: "#290052",
     accent1: "#380070",
@@ -178,7 +186,7 @@ theme.ninjaholic = _.merge({}, theme.dark, {
   },
 });
 
-theme["Specialist"] = _.merge({}, theme.light, {
+theme["Specialist"] = _.merge({}, theme.Light, {
   colors: {
     text: "#666666",
     background: "#fdf3f9",
@@ -238,6 +246,43 @@ theme["Specialist"] = _.merge({}, theme.light, {
   logo: {
     filter: "hue-rotate(-55deg) drop-shadow(1px 2px 0.5px #ff8fc9) contrast(90%)",
   },
+});
+
+theme["Chocola"] = _.merge({}, theme.Dark, {
+  colors: {
+    background: "#30292c",
+    active: "#FF357C",
+    shadow: "hsla(0, 0%, 0%, 0.2)",
+    outline: "hsla(339, 100%, 60%, 0.2)",
+
+    secondary: {
+      color: "#AE3F69",
+      text: "white",
+      accent: "#bc577d",
+      disabled: "#e8e8e8",
+    },
+    success: {
+      color: "#1f6538",
+      text: "white",
+      accent: "#226d3c",
+      disabled: "#133e22",
+    },
+
+    danger: {
+      color: "#711818",
+      text: "white",
+      accent: "#6f1628",
+      disabled: "#330a12",
+    },
+    accent1: "#4f3d44",
+    accent2: "#5b4453",
+    accent3: "#d15886",
+  },
+  logo: {
+    filter: "invert(1) drop-shadow(1px 2px 0.5px #80173E)",
+  },
+  sticker:
+    "https://raw.githubusercontent.com/doki-theme/doki-theme-github/master/assets/stickers/nekoPara/chocola/dark/chocola_dark.png",
 });
 
 export default theme;
