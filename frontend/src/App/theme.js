@@ -16,6 +16,7 @@ const theme = {
       background: "#ffffff",
       text: "#4a4a4a",
       active: "#000000",
+      lumFactor: 1,
 
       outline: "hsla(213, 100%, 40%, 0.2)",
       modal: "hsla(0, 0%, 0%, 0.80)",
