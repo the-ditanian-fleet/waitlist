@@ -11,12 +11,11 @@ const globals = {
 };
 
 const theme = {
-  light: _.merge({}, globals, {
+  Light: _.merge({}, globals, {
     colors: {
       background: "#ffffff",
       text: "#4a4a4a",
       active: "#000000",
-      lumFactor: 1,
 
       outline: "hsla(213, 100%, 40%, 0.2)",
       modal: "hsla(0, 0%, 0%, 0.80)",
@@ -58,6 +57,10 @@ const theme = {
         accent: "#dbdbdb",
         disabled: "#cccccc",
       },
+      highlight: {
+        text: "#fc9936",
+        active: "#ffad5c",
+      },
 
       accent1: "#fafafa",
       accent2: "#dbdbdb",
@@ -76,7 +79,7 @@ const theme = {
       },
     },
   }),
-  dark: _.merge({}, globals, {
+  Dark: _.merge({}, globals, {
     logo: {
       filter: "invert(1)",
     },
@@ -126,6 +129,10 @@ const theme = {
         accent: "#454545",
         disabled: "#202020",
       },
+      highlight: {
+        text: "#fc9936",
+        active: "#ffad5c",
+      },
 
       accent1: "#2e2e2e",
       accent2: "#454545",
@@ -146,7 +153,7 @@ const theme = {
   }),
 };
 
-theme.AMOLED = _.merge({}, theme.dark, {
+theme.AMOLED = _.merge({}, theme.Dark, {
   colors: {
     text: "#f0f0f0",
     background: "#000000",
@@ -154,14 +161,14 @@ theme.AMOLED = _.merge({}, theme.dark, {
   },
 });
 
-theme["Midnight Blue"] = _.merge({}, theme.dark, {
+theme["Midnight Blue"] = _.merge({}, theme.Dark, {
   colors: {
     background: "#0a0a2c",
     accent1: "#1e1e40",
   },
 });
 
-theme.ninjaholic = _.merge({}, theme.dark, {
+theme.Ninjaholic = _.merge({}, theme.Dark, {
   colors: {
     background: "#290052",
     accent1: "#380070",
@@ -178,7 +185,7 @@ theme.ninjaholic = _.merge({}, theme.dark, {
   },
 });
 
-theme["Specialist"] = _.merge({}, theme.light, {
+theme["Specialist"] = _.merge({}, theme.Light, {
   colors: {
     text: "#666666",
     background: "#fdf3f9",
@@ -240,7 +247,7 @@ theme["Specialist"] = _.merge({}, theme.light, {
   },
 });
 
-theme["Chocolate"] = _.merge({}, theme.dark, {
+theme["Chocola"] = _.merge({}, theme.Dark, {
   colors: {
     background: "#30292c",
     active: "#FF357C",

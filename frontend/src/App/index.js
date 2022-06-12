@@ -63,7 +63,7 @@ export default class App extends React.Component {
         (window.localStorage &&
           window.localStorage.getItem("theme") in theme &&
           window.localStorage.getItem("theme")) ||
-        "light",
+        "Light",
     };
   }
 
