@@ -1,3 +1,7 @@
+# Below categories can be added with no limit (other than the page looking wierd)
+# Ships are assigned to a category using below listed rules
+# Alts have specific code, they are moved to the alt squad visually (or not, just a tag) in frontend. Their invite (from what the ship is) is overriden in invite.rs line 47.
+
 categories:
   - id: logi
     name: Logistics
