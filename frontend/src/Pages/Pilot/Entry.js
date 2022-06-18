@@ -86,7 +86,7 @@ export function SkillEntry({ logged_at, name, old_level, new_level }) {
 
   return (
     <Entry time={logged_at} icon={faGraduationCap}>
-      <span style={{ display: "inline-block", minWidth: "40%" }}>{name}</span>
+      <span style={{ display: "inline-block", minWidth: "40%", marginRight: "0.5em" }}>{name}</span>
       <Badge variant={variant}>
         {old_level} -&gt; {new_level}
       </Badge>
