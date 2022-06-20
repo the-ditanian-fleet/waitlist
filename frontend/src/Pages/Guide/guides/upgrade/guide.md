@@ -4,27 +4,27 @@
 
 TDF has great affordable starter fits. We will help you get spacerich. We have an SRP to make sure you keep that ship. After you have fully upgraded to elite, spend the isk any way you want.
 
-We expect all pilots to upgrade their primary ship to Elite in a reasonable amount of time, which will involve upgrading the ship itself, but also your skills and implants. Until you are elite, you should expect to spend most of your earned money buying modules and skill injectors.
+**We expect all pilots to upgrade their primary ship to Elite in a reasonable amount of time, which will involve upgrading the ship itself, but also your skills and implants. Until you are elite, you should expect to spend most of your earned money buying modules and skill injectors.**
 
-We have hard upper bounds for the time you can spend in fleet while upgrading, but don’t treat these as targets. Upgrade as soon as you reasonably can, and you will stay well within the limits.
+We have limits for the time you can spend in fleet while upgrading, but don’t treat these as targets. Upgrade as soon as you reasonably can, and you will stay well within the limits.
 
 TDF works with a tier system. Pilots can be categorized as starter, basic, elite and elite gold. Your current status is determined by fit and lowest skill tier.
 
-**The maximum upgrade time to reach each tier is set out in the table below:**
+**You must reach the tier by the time limit set out in the table below:**
 
-|       Tier        | Maximum time |
-| :---------------: | :----------: |
-|       Basic       |     50h      |
-|     Advanced      |     100h     |
-|    Elite(Logi)    |     150h     |
-| Elite(Vindicator) |     200h     |
-|  Elite(Bastion)   |     250h     |
+|       Tier        | Time Limit |
+| :---------------: | :--------: |
+|       Basic       |    50h     |
+|     Advanced      |    100h    |
+|    Elite(Logi)    |    150h    |
+| Elite(Vindicator) |    200h    |
+|  Elite(Bastion)   |    250h    |
 
 ## Upgrade guidance
 
 ### Starter
 
-1. **Get a starter fit**, you will need level 2 armor compensation skills to be able to x-up, and you need to be able to online all the modules from the fit. We recommend the Vindi or Nightmare starters.
+1. **Get a [starter fits](/fits?Tier=Starter)**, you will need level 2 armor compensation skills to be able to x-up, and you need to be able to online all the modules from the fit. We recommend the Vindi or Nightmare starters.
 
 (If you are Alpha status and cannot use the MJD in the cargo this is fine, we understand pilots will need time to Omega their accounts) If you're low on ISK, you can start by getting the **Megathron**. If you do, it's important that you focus on upgrading to another ship as soon as possible.
 
@@ -34,26 +34,27 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 
 ### Basic
 
-**Upgrade to basic fits** as soon as you can.
+**Upgrade to [basic fits](/fits?Tier=Basic)** as soon as you can.
 
 1. Train/inject armor compensation skills to level 4.
-2. **Tank and rig change to basic fit or better** (do this upgrade all at once!) All rigs and tank modules must be changed to match the basic fit or you will not be allowed to join fleet. These modules include:
+2. **Tank and rig change to basic fit or better** (do this upgrade all at once!) All rigs and tank modules must be changed to match the basic fit or you will not be allowed to join fleet, **DO NOT TRY TO MIX AND MATCH**. These modules include:
 
 - Damage Control Units
 - Multispectrum Coatings
+- Multispectrum Energized Membranes
 - Burst Aerator Rigs
 - Rigs (Thermal, EM, Kinetic, Explosive, Trimark, etc.)
 
-3. Train Starter coloured skills starting with warp drive operation, gunnery skills, MJD etc, leaving drones until last.
+3. Train the red Starter coloured skills starting with warp drive operation, gunnery skills, micro jump drive operation etc, leaving drone skills until last.
 4. Train and get T2 guns and the remainder of the basic fit modules starting with the Core X-Type MWD (this will help greatly with your cap stability) then Magnetic Field Stabilizers & Heat Sinks etc.
 
 Once you have the basic fit ready to go, continue **training and injecting basic skills** which will help your capacitor stability and the ability to keep up with the fleet. At this point you are no longer starter and will be placed in a normal squad, congratulations!
 
 ### Advanced
 
-1. **Upgrade to the advanced fit.** Your skills will already be sufficient, so buy those new modules!
+1. **Upgrade to [advanced fits](/fits?Tier=Advanced)**. Your skills will already be sufficient, so buy those new modules!
 
-2. **Get your implant set**. See TDF-IMPLANT1 mailing list in game or see [Fittings page](https://t-d-f.one/fits). You will need cybernetics 5 trained for the hard wires. The recommended purchase order for the set is:
+2. **Get your implant set**. See TDF-IMPLANT1 mailing list in game or see [Fittings page](/fits). You will need cybernetics 5 trained to be able to plugin the hard wires. The recommended purchase order for the set is:
 
 - Slot 10 (6% damage Alpha) make sure you get the implant that corresponds to your gun type!
 - Slot 9 (6% damage ROF)
@@ -67,24 +68,25 @@ _(You can choose either Hybrid or Warp speed set, both are acceptable, however y
 3. **Train bastion requirements** if you are going for bastion fits.
 
 - Choose between Kronos/Paladin.
-- Train Weapon Upgrades 5, Adv Weapon Upgrades 5 & Energy Grid Upgrades 5.
+- Train Weapon Upgrades 4, Adv Weapon Upgrades 5 & Energy Grid Upgrades 5.
 - All tank skills must be at basic level or higher (see skills page)
 - You must be able to online and use all modules/drones in the bastion fits so train/inject as appropriate.
 
 ### Elite
 
-Now it's time to get the **elite fit**. You do not need to have every skill at elite level to fly the fit & for the Ascendancy Elite fits you do not need the full implant set to fly the fit, but you will need the implants to get your elite tags. Go buy those upgrades while still training/injecting the skills.
+1. **Upgrade to [elite fits](/fits?Tier=Elite)**. You do not need to have every skill at elite level to fly the fit & for the Ascendancy Elite fits you do not need the full implant set to fly the fit. You will however need the implants to get your elite tags. Go buy those upgrades while still training/injecting the skills.
 
-- This is a good time to get **abyssal modules**. [mutaplasmid.space](https://mutaplasmid.space/) is a good website for finding contracts, but remember abyssals must be "better than faction". See the badges section for [Bastion Badge](/guide/badges) requirements for abyssals should you wish to obtain it.
+2. Finish by getting all the **elite skills**. The order is up to you, but we recommend getting the skills that give the biggest damage increase first, and of course maximize your survivability by upgrading the tank skills.
 
-- Finish by getting all the **elite skills**. The order is up to you, but we recommend getting the skills that give the biggest damage increase first, and of course maximize your survivability by upgrading the tank skills.
+3. This is a good time to get **abyssal modules**. [mutaplasmid.space](https://mutaplasmid.space/) is a good website for finding contracts, but remember abyssals must be "better than faction". See the badges section for [Bastion Badge](/guide/badges) requirements for abyssals should you wish to obtain it. The [General tips](/guide/tips) guide gives advice on what to look for when purchasing abyssals.
 
-At this point we would like to **thank you** for upgrading, you can spend your isk as you see fit from this point on.
+**At this point we would like to thank you for upgrading, you can spend your isk as you see fit from this point on.**
+_Dont forget to ask an FC to scan you for your elite badge so that you are eligible to join elite fleets and reap the rewards of your hard work!_
 
 ### Elite gold
 
-Finally, once you have all skills to elite gold for your ship get your **elite gold** badge to show off your awesomeness. Just ask any FC who is not running the current fleet to check you meet the requirements.
+1. Finally, once you have all skills to elite gold for your ship get your **elite gold** badge to show off your awesomeness. Just ask any FC who is not running the current fleet to check you meet the requirements. This is just a skill check on the site.
 
 ### Branch out
 
-Once you're done upgrading, consider branching out to another ship. Maybe try logistics and work toward the L badge. If you are in a timezone with low pilot numbers consider training up another DPS alt and earn twice the payouts! Once you have your elite badge pilots are allowed to bring a doctrine fitted alt to fleet.
+Once you're done upgrading, consider branching out to another ship. Maybe try logistics and work toward the Logistics specialist badge. If you are in a timezone with low pilot numbers consider training up another DPS alt and earn twice the payouts! Once you have your elite badge pilots are allowed to bring a doctrine fitted alt to fleet with an Advanced fit or better. **Alts are also expected to be upgraded and are held to the same standards as your main.**
