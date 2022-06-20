@@ -52,7 +52,7 @@ Drag their name from anywhere to the watchlist window.
 
 Fleet anchors are the positions you need to move to. The [Anchoring guide](/guide/anchoring) helps you to understand where to be at all times. Make sure to have it open or have read it thoroughly when first joining fleet! If this is your first time, anchoring on a pilot with the same ship type is tolerated if you are confused on where to go, but make sure you use keep at range function. We highly recommend you to keep refering back to the guide after fleet as it will make more sense afterwards.
 
-To learn to anchor yourself, open the tactical camera with tactical overlay enabled. 
+To learn to anchor yourself, open the tactical camera with tactical overlay enabled.
 
 ![](tacticaloverlay.png)
 
@@ -62,7 +62,7 @@ Then **hold Q** which will draw a line from your ship to where you want to go. T
 
 **Logi:** Cruisers will orbit a Nestor a **7.5km** in the site to help speed tank. Nestors have specific anchor points in all sites and must use the Q align function to anchor correctly.
 
-**CQC & Snipers:** You will need to move your ship manually into position using Q align function to fly around. 
+**CQC & Snipers:** You will need to move your ship manually into position using Q align function to fly around.
 
 If you choose to anchor on someone use the Keep at range function to keep you from bumping them. You want to be close so set this to 5000m, but if you are bumping the anchor because you cannot stop in time then increase the distance. You can right click people in your watchlist to keep them at range.
 

@@ -46,13 +46,13 @@ Pick a fit you would like to fly. If you need help just ask in the TDF-Official 
 
 The general tank requirements when we run sites are as follows
 
-- Vanguards (VG) you need 9850 armor HP + 55% omni resists.  
+- Vanguards (VG) you need 9850 armor HP + 55% omni resists.
 
 - Assaults (AS) you need 17k armor HP + 65% omni resists.
- 
+
 - **Headquarters (HQ) you need 17k armor HP + 65% omni resists.**
 
- You still need to fly the correct doctrine fits however. You are allowed to use module variants meta4+ for anything but the following: **Tank modules, this includes rigs**. Upgrading modules is fine in almost all situations.
+You still need to fly the correct doctrine fits however. You are allowed to use module variants meta4+ for anything but the following: **Tank modules, this includes rigs**. Upgrading modules is fine in almost all situations.
 
 ## Ship Settings
 
