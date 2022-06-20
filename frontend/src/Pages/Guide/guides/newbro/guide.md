@@ -52,11 +52,11 @@ The general tank requirements when we run sites are as follows
  
 - **Headquarters (HQ) you need 17k armor HP + 65% omni resists.**
 
- You still need to fly the correct doctrine fits however. You are allowed to use module variants meta4+ for anything but the following: **Tank modules, this includes rigs**.
+ You still need to fly the correct doctrine fits however. You are allowed to use module variants meta4+ for anything but the following: **Tank modules, this includes rigs**. Upgrading modules is fine in almost all situations.
 
 ## Ship Settings
 
-**Safety Green:** Now you have your fitting you’re nearly there and ready to join fleet. First things first, you need to make sure your safety is set to green. You can see this by undocking your ship. Once in space make sure you have a green button just to the top left of the Main HUD.
+**Safety Green:** Now you have your fitting you’re nearly ready to join fleet. First things first, you need to make sure your safety is set to green. You can see this by undocking your ship. Once in space make sure you have a green button just to the top left of the Main HUD.
 
 ![](safetysetgreen.png)
 
@@ -74,17 +74,17 @@ The general tank requirements when we run sites are as follows
 
 ![](retargetnduel.png)
 
-**Overview Settings:** Fleet uses tagging to focus fire from all pilots onto a single enemy. Your overview should have at a minimum the tag column enabled. To see the overview window you must be in space. Click the hamburger top left in the overview window and open the overview settings. In the column tab enable the tag column in the overview. The tab presets tab is used to add or remove item groups from showing in your overview.
+**Overview Settings:** Fleet uses tagging to focus fire from all pilots onto a single enemy. Your overview should have at a minimum the tag column enabled. To see the overview window you must be in space. Click the hamburger in the top left of the overview window and open the overview settings. In the column tab enable the tag column in the overview. The presets tab is used to add or remove object groups showing in your overview.
 
 ![](overview.png)
 
-**Broadcast Settings:** Last thing to do now is setup your broadcasts.
+**Broadcast Settings:** The last thing to do is setup your broadcasts.
 
-You need to open the fleet window and then click form fleet. Then clicking the chevrons bottom right will pop up the broadcast buttons. Make sure there’s a cross in the bottom right hand corner, which indicates that you broadcast to everyone in fleet.
+Open the fleet window and then click form fleet. Then clicking the chevrons bottom right will pop up the broadcast buttons. Make sure there’s a cross in the bottom right hand corner with arrows pointing in all four directions, this indicates that you will broadcast to everyone in fleet.
 
 Next click the hamburger menu and go to broadcast settings. From here choose some colours for your broadcasts so you can easily differentiate them. If you are not logi the most important broadcasts for you to see are "Align To" and "Warp To."
 
-Finally; select the history tab in the fleet window and select "Broadcast History" from the drop down. Any broadcasts to the fleet will appear in this window.
+Last but not least, select the history tab in the fleet window and select "Broadcast History" from the Filters drop down list. This setting will only display broadcasts from the fleet and ignores any loot/member history.
 
 ![](broadcasts.png)
 
@@ -92,9 +92,9 @@ Finally; select the history tab in the fleet window and select "Broadcast Histor
 
 ![](presets.png)
 
-## Faction Warfare / War Decs / Killrights
+## Faction Warfare / War Decs / Killrights / EDENCOM & Triglavian standings
 
-Looking at your Character sheet Interactions tab then the Kill rights section, double check you have no kill rights against you. Having a killright available to you is perfectly fine. Then open your corporation window and make sure your corporation is not enrolled in factional warfare or has an active War Dec. If you have any of the above you will be asked to fix them before joining the fleet.
+Looking at your Character sheet Interactions tab then the Kill rights section, double check you have no kill rights against you. Having a killright available to you is perfectly fine. Then open your corporation window and make sure your corporation is not enrolled in factional warfare or has an active War Dec. You also need to fix your EDENCOM & or Triglavian standings if the incursion HQ is within one of the mentioned factions systems. If you have any of the above you will be asked to fix them before joining the fleet.
 
 ![](war.png)
 

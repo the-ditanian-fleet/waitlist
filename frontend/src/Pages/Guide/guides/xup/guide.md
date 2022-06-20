@@ -2,7 +2,7 @@
 
 ## Joining a TDF fleet
 
-When the MOTD states that fleet is running, x-up on the [TDF WAITLIST](/waitlist?wl=1) (requires login) with your ship fitting, Join voice comms; [Teamspeak 3](https://www.teamspeak.com/en/) (server details are in **TDF-Official** MOTD in game) make sure you are no more than 2 jumps out when you x-up and wait for fleet invite. If you are more than 2 jumps out you will be dropped from the fleet!
+When the MOTD states that fleet is running you can x-up on the [TDF WAITLIST](/waitlist?wl=1) (requires login) with your ship fitting. Please join voice comms; [Teamspeak 3](https://www.teamspeak.com/en/) (server details are in **TDF-Official** MOTD in game) while you are waiting for your invite. Make sure you are no more than 2 jumps out when you x-up and wait for fleet invite. If you are more than 2 jumps out you will be dropped from the fleet and go to the back of the queue.
 
 ## Using the Waitlist
 
@@ -14,7 +14,7 @@ Sign in on the waitlist with your eve account, login is done through CCP, thus w
 
 ![](pendingapproval.png)
 
-**Skills:** TDF will give out badges based on your progress. The **basic skills** are the skills required to get out of the starter squad which is limited to 4 - 5 people in fleet. See the **Badges** section to know more about TDF's badges and progress system.
+**Skills:** TDF will give out badges based on your progress. The **basic skills** are the skills required to get out of the starter squad which is limited to 4 - 5 people in fleet. See the [Badges Guide](/guide/badges) section to know more about TDF's badges and progress system.
 
 ## Entering Grid
 
@@ -23,9 +23,9 @@ Sign in on the waitlist with your eve account, login is done through CCP, thus w
 When you ask for gate status **do not say any colors**. There might be someone else waiting at a gate. If all they hear is "green" you might owe them a new ship.
 
 **RED** = Do not use any acceleration gates. Align and wait 10 seconds and ask for the status again.  
-**GREEN** = Take the gate once you are sure you are at the correct site by warping to FC and you have **natural phenomenon**.
+**GREEN** = Take the gate once you are sure you are at the correct site by warping to FC and checking for **natural phenomenon**.
 
-If you are unsure; **ALWAYS** warp to the FC, if you at the correct site you will not move, if you at the wrong site you will warp to the correct one.
+If you are unsure **ALWAYS** warp to the FC, if you at the correct site you will not move, if you at the wrong site you will warp to the correct one.
 
 ![](gettofleet.png)
 
@@ -50,11 +50,19 @@ Drag their name from anywhere to the watchlist window.
 
 ## Anchors
 
-Fleet anchors are the positions you need to move to, make sure to have them open and ready when first joining fleet! If this is your first time, anchoring on a pilot with the same ship type is tolerated if you are confused on where to go, but make sure you use keep at range function.
+Fleet anchors are the positions you need to move to. The [Anchoring guide](/guide/anchoring) helps you to understand where to be at all times. Make sure to have it open or have read it thoroughly when first joining fleet! If this is your first time, anchoring on a pilot with the same ship type is tolerated if you are confused on where to go, but make sure you use keep at range function. We highly recommend you to keep refering back to the guide after fleet as it will make more sense afterwards.
 
-**Logi:** Cruisers will orbit a Nestor in the site to help speed tank.
+To learn to anchor yourself, open the tactical camera with tactical overlay enabled. 
 
-**CQC & Snipers:** You will need to move your ship manually into position using Q to fly around. Open tactical camera with tactical overlay enabled. Hold Q which will draw a line to where you want to go. The first click will set the horizontal plane and the second will set the vertical plane. You can double click quickly to set a simple horizontal plane align. Make sure to check out the [Anchoring guide](/guide/anchoring)!
+![](tacticaloverlay.png)
+
+Then **hold Q** which will draw a line from your ship to where you want to go. The first click will set the horizontal plane and the second will set the vertical plane. You can double click quickly to set a simple horizontal plane align. the Q align function will help you to anchor without the need to follow another pilot.
+
+![](Qalign.png)
+
+**Logi:** Cruisers will orbit a Nestor a **7.5km** in the site to help speed tank. Nestors have specific anchor points in all sites and must use the Q align function to anchor correctly.
+
+**CQC & Snipers:** You will need to move your ship manually into position using Q align function to fly around. 
 
 If you choose to anchor on someone use the Keep at range function to keep you from bumping them. You want to be close so set this to 5000m, but if you are bumping the anchor because you cannot stop in time then increase the distance. You can right click people in your watchlist to keep them at range.
 
@@ -75,29 +83,35 @@ Should you be assigned a role while in fleet use the [Roles guide](/guide/roles)
 
 ## Tags
 
-At minimum your overview should have an extra column displaying tags so the fleet can focus fire, or to indicate if a target is X for don't shoot. **CQC use numbers, Snipers use letters, and if a target is tagged X you must not shoot it.** Some roles shoot targets in a different order, but normally you shoot the targets in the order given by the tags.
+At minimum your overview should have an extra column displaying tags so the fleet can focus fire, or to indicate if a target is X for don't shoot.
+
+- **CQC shoot numbers 1-9**
+- **Snipers shoot letters A-I**
+- **X is a safety tag**
+
+**If a target is tagged X you must not shoot it unless the FC explicitly says otherwise**. Some roles shoot targets in a different order, but unless you have a role you shoot the targets in the order given by the FC's tags as given in the example below.
 
 ![](tagcolumn.png)
 
 ## Danger Close
 
-Before the Sansha shoot you they must first lock onto you. This is indicated by flashing yellow boxes around their icon in the overview. **If you are yellow boxed you should immediately broadcast for armor** using the button at the bottom of the fleet window. Once these indicators turn red, they are already trying to kill you. Being late to broadcast can void your SRP.
+Before the Sansha shoot you they must first lock onto you. This is indicated by flashing yellow boxes around their icon in the overview. **If you are yellow boxed you should immediately broadcast for armor** using the button at the bottom of the fleet window. Once these indicators turn red, they are already trying to kill you. **Being late to broadcast can void your SRP so pay attention!**
 
 ![](caneveryonejuststopgettingshot.png)
 
 ## Disconnected
 
-If you are disconnected you must not log back into the game. Depending on the site you may warp back into the site out of range of logi, or in some cases in a site when fleet has already exited. Join Teamspeak first and ask FC if you can log back in. Only if you get the ok then you can log back into eve. Once you are back in the game, open the **TDF-Official** channel and type "X DC \[your ship type\]" so the FC can reinvite you to the fleet in the correct squad.
+**If you are disconnected you must not log back into the game**. Depending on the site you may warp back into the site out of range of logi, or in some cases in a site when fleet has already exited. Join Teamspeak first and ask FC if you can log back in. Only if you get the ok then you can log back into eve. Once you are back in the game, open the **TDF-Official** channel and type "X DC \[your ship type\]" so the FC can reinvite you to the fleet in the correct squad.
 
 ## The Big Three
 
 New players are going to make mistakes. TDF won't crucify you for it. But you might get yourself killed if you're not careful. The three most common mistakes for new pilots are the following: -
 
-**Taking gate too early.** You're not Leeroy Jenkins, you're not taking the site on by yourself so you don't need to be the first one in. Some sites even have delayed entry where a solo ship may take the gate up to 30 seconds before everyone else. He's fitted for it, you are not. This also happens sometimes on TCRC _exit._ People hear the TCRC warp out and think it is the warp in for the next site. It's better if you are late than early.
+**Taking gate too early.** You're not Leeroy Jenkins, you're not taking the site on by yourself so you don't need to be the first one in. Some sites even have delayed entry where a solo ship may take the gate up to 30 seconds before everyone else. He's fitted for it, you are not. This also happens sometimes on TCRC _exit._ People hear the TCRC warp out and think it is the warp in for the next site. It's better if you are late than early and if in doubt, **ASK THE FC**.
 
-**Taking wrong gate.** Always have your fleet window open to broadcast history. You may get more than one warp to command, be ready to warp to the newest. If you hear over comms to bounce, this means all gates are RED and the fleet is warping to a new site. If you are ever unsure, warp to FC from the fleet window. No matter how many times you do this, you will only get phenomenon if you are at the correct site. You can even do this when using gates inside of sites.
+**Taking wrong gate.** Always have your fleet window open to broadcast history. You may get more than one warp to command, be ready to warp to the newest. If you hear over comms to bounce, this means all gates are RED and the fleet is warping to a new site. If you are ever unsure, warp to FC from the fleet window. No matter how many times you do this, you will only get phenomenon if you are at the correct site. You can even do this when inside of sites if there is more than one gate to use.
 
-**Being in the wrong place.** Your ship is probably pretty, but turn on tactical overlay and zoom out. If your ship is all alone, it's in the wrong place. It's also in the wrong place if there are lots of red dots and no purple ones. If that's the case, warp out immediately, or you're going to die.
+**Being in the wrong place.** Your ship is probably pretty, but turn on tactical overlay and zoom out. If your ship is all alone, it's in the wrong place. It's also in the wrong place if there are lots of red dots and no purple ones. If that's the case, warp out immediately, or you're going to die. As with all other situations, **warp to the FC** and check for phenomenon.
 
 ## Still not sure?
 
