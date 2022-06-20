@@ -17,28 +17,31 @@ Any cruiser pilot can train to become a trusted Logi pilot, see requirements sec
 ## Terminology
 
 - Reps - These are the remote repair modules for sending repairs to other ships.
-- Links - Remote Tracking Computers or Remote Sensor Boosters provided by logi pilots to increase tracking/locking speeds of targeting dps pilots.
+- Links - Remote Tracking Computers or Remote Sensor Boosters provided by logi pilots to increase tracking/locking speeds of targeted DPS pilots.
 - Cap - Remote Capacitor Transmitter used to give capacitor to pilots who need it.
 
 ## Upgrade Policy
 
-Upgrading for logi is expected much the same as DPS, the hour limits are as follows:
+Upgrading for logi is expected much the same as DPS, the time limits are as follows:
 
-- Basic fit & skills by 50 hours fleet time
-- Advanced fit by 100 hours fleet time
-- Elite fit & skills by 150 hours fleet time
+|      Tier      | Time Limit |
+| :------------: | :--------: |
+|     Basic      |    50h     |
+|    Advanced    |    100h    |
+| Elite(Cruiser) |    150h    |
+| Elite(Nestor ) |    200h    |
 
-These hours apply to both cruiser and Nestor. L badge is the elite badge equivalent for logi, pilots wishing to only fly cruiser are not expected to get Nestor and L badge, you can stay in a cruiser if you wish to, but be aware DPS will be prioritised over you if the logi numbers are fulfilled, should we have a surplus of cruisers in fleet it will be last in first out in favor of DPS ships as well.
+Logistics Specialist badge is the elite badge equivalent for logi, pilots wishing to only fly cruiser are not expected to get a Nestor and L badge, you can stay in a cruiser if you wish to, but be aware DPS will be prioritised over you if the logi numbers are fulfilled, should we have a surplus of cruisers in fleet it will be last in first out in favor of DPS ships as well.
 
 ## Requirements
 
 - The EM-806 Implant is required for all Nestors & Guardians.
 
-- **Basic skills are a minimum** You can not have any starter level skills for logi ships. Skill requirements are listed in the in game logi mailing list.
+- **Basic skills are a minimum** You can not have any starter level skills for logi ships. Skill requirements are listed in the in game logi mailing list & can be found on your [skills page](/skills).
 
 _Exception: TDF_ONI_HQ_STARTER_LOGI4 (Sensor Linking 3, Logistics Cruiser 4 Allowed)_
 
-To obtain Logi Specialist badge you will need 3 signoffs from different FCs, and a minimum 20 hours in cruiser logi (we recommend 50 depending on pilot skill level). You also must have your skills for Nestor to elite before you can attain L badge. But you are permitted to fly TN (training nestor) while these skills are training.
+To obtain Logi Specialist badge you will need three +1's from different FCs, and a minimum 20 hours in cruiser logi (we recommend 50 depending on pilot skill level). You also must have your skills for Nestor to elite before you can attain L badge. But you are permitted to fly TN (training nestor) while these skills are training.
 
 While flying Training Nestor you will be tested on Logi mechanics, requirements and your ability to see who has aggro via lasers and scram notifications.
 
@@ -48,7 +51,7 @@ To get started simply get yourself the Nestor fit, x-up with the fit on waitlist
 
 ### Watchlist
 
-The watchlist is a useful tool for keeping track of certain members of your fleet. For e.g., other logi, fc, anchors, boosters, aggro magnets.
+The watchlist is a useful tool for keeping track of certain members of your fleet. For example, other logi, fc, anchors, boosters, aggro magnets.
 
 Colour coding your watchlist is advised so you can see who is who at a glance. You can also lock targets quickly by ctrl+clicking on them in your watchlist, or see if they are taking damage.
 
@@ -64,9 +67,9 @@ Always have your fleet window open on the ‘broadcast history’ setting. This 
 
 The broadcast buttons we use are:
 
-- Armor: Used when a ship is red boxed by all/the majority of the sansha
-- Shield: Used when a ship is yellow/red boxed by frigates or troll in a TCRC
-- Cap: Used when a ship requires capacitor
+- Armor: Used when a ship is yellow boxed by all/the majority of the sansha
+- Shield: Used when a ship is yellow boxed by frigates or troll in a TCRC
+- Capacitor: Used when a ship requires capacitor
 - Align/Warp to: Used by the FC to let the fleet know where to align to/warp to next.
 - Broadcast target: Used mostly by FC/Logi to signify a pilot needs to be locked up/repped
 - Spotted enemy: Used by Logi to let the FC know they are ready for the next site
@@ -75,17 +78,17 @@ You should colour code these different broadcasts to make them easier to see. Cl
 
 ![](broadcasts.png)
 
-All armor/shield broadcasts should be locked up!
+**All armor/shield broadcasts should be locked up!**
 
 As a logi you should always try to follow lasers to see who is currently taking damage in the case of a tired/distracted/new pilot who may not broadcast on time. In these cases you may use the ‘Broadcast target’ feature to broadcast this person for the other logi to lock up.
 
 ## Logi Guideance
 
-Upon entering a site, cruiser logi should immediately burn forward in all sites; if you immediately orbit a nestor you will most likely go backwards off the beacon, leaving you behind the rest of the fleet. Once the Nestors are close to their anchors, establish an orbit of 7500m on your Nestor of choice. You can do this by holding W and clicking on a Nestor in your watchlist. Orbit with your prop mod on always.
+Upon entering a site, cruiser logi should immediately burn forward in all sites; if you immediately orbit a nestor you will most likely go backwards off the beacon, leaving you behind the rest of the fleet. Once the Nestors are close to their anchors, establish an orbit of **7.5km** on your Nestor of choice. You can do this by holding W and clicking on a Nestor in your watchlist. Orbit with your prop mod on always.
 
 Nestors should burn directly to their anchors by using the Q align command in space.
 
-Watch for broadcasts. When a shield/armor broadcast is received you should immediately lock them up and **dump all of your reps onto them** (for armor, for shield usually 1 rep is enough if needed at all). Once the target is stable, cruiser logi quickly decycle down to 1 rep to leave the rest available for the next broadcast. Nestors will dump 6 reps and decycle to 3 as needed but 3 is the MINIMUM for Nestors. _Remember armor reps land at the end of the rep cycle_.
+Watch for broadcasts. When a shield/armor broadcast is received you should immediately lock them up and **dump all of your reps onto them** (for armor, for shield usually 1 rep is enough if needed at all). Once the target is stable and at full armor, cruiser logi quickly decycle down to 1 rep to leave the rest available for the next broadcast. Nestors will dump 6 reps and decycle to 3 as needed but **3 is the MINIMUM for Nestors**. _Remember armor reps land at the end of the rep cycle_.
 
 Once the aggro has been established and your target is stable you can continue on to do other tasks such as: repping and assigning your drones, checking your orbit etc, lock up DDD/HHH for remote tracking links.
 
@@ -97,7 +100,7 @@ In an emergency, such as a late broadcast, you might find that as you lock the t
 
 ### Nestor
 
-On your watchlist it is important to have all other Logi pilots, the boosters, the FC, as well as any known aggro magnets. It is recommended to always keep your other Nestor pilots locked up as well as pre-locking any aggro magnets if needed.
+On your watchlist it is important to have **all other Logi pilots**, the boosters, the FC, as well as any known aggro magnets. It is recommended to always keep your other Nestor pilots locked up as well as pre-locking any aggro magnets if needed.
 
 Nestors bring both DPS and Logi drones and it is important to learn when to use what drones. E.g. in a contest you will always drop your DPS drones, but in other sites like a TCRC, you may want to launch Armor bots to handle troll aggro. As always listen to the FC and do as they instruct.
 
@@ -109,21 +112,21 @@ In both AS and HQ sites the method of reps and cap is the same.
 
 Nestors are the highest priority for cap, with boosters/cruiser logi being next. If any of these broadcasts for cap, immediately cancel any current rep/cap cycle and put cap/rep on the broadcast. Cap the person until cap is no longer needed.
 
-When in fleet, you’ll find some pilots will require cap more often than others; you can add these to your watchlist to keep them topped up in times of calm. If there are no cap broadcasts, give cap to Starter pilots.
+When in fleet, you’ll find some pilots will require cap more often than others. You should add these to your watchlist to keep them topped up in times of calm. If there are no cap broadcasts, give cap to Starter pilots.
 
-For cap broadcasts: Run continuously while an Outuni is on grid, switching your cap transfer if the outuni switches target. For all other broadcasts, give 3 cycles of cap unless the person states they require more.
+For cap broadcasts run continuously while an Outuni is on grid, switching your cap transfer if the outuni switches target. For all other broadcasts, give 3 cycles of cap unless the person states they require more.
 
 Dont forget to deploy your drones!
 
 ### Oneiros
 
-When flying an Oni, one of the most important things to remember is that your speed is your tank! Always orbit with your afterburner on.
+When flying an oni, one of the most important things to remember is that your speed is your tank! Always orbit a Nestor with your afterburner on.
 
-Your special role in the fleet is to provide remote tracking links to the DDD/HHH. If there is more than one Oni in fleet, work together with your fellow oni to decide who will link which drone bunny. Add the DDD/HHHs to your watchlist for faster locking on entering sites.
+Your special role in the fleet is to provide remote tracking links to the DDD/HHH. If there is more than one oni in fleet, work together with your fellow oni to decide who will link which drone bunny. Add the DDD/HHHs to your watchlist for faster locking on entering sites.
 
 All links go to DDD in a TCRC.
 
-Generally speaking, most DDD's will want 2 tracking/1 opti link, while HHH's should get 1 opti each. DDD/HHHs will be listed in the fleet MOTD.
+Generally speaking, most DDD's will want 2 tracking/1 optimal link, while HHH's should get 1 optimal each. DDD/HHHs will be listed in the fleet MOTD.
 
 ## Sites
 
