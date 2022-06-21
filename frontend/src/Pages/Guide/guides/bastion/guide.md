@@ -24,13 +24,15 @@ Pilot error is NOT COVERED under SRP. If you Bastion by mistake at the wrong tim
 
 ## Using Bastion
 
+- Turning auto-repeat off - To disable auto repeat for your bastion module you all you need do is right click the module and click "Set Auto-Repeat Off", this will keep your bastion module from cycling again automatically. Its important to note if you repackage your bastion module when travelling it will reset this mode so you may need to set it again for each new focus.
+
+![](autorepeatoff.png)
+
 - Enabling Module Tooltips - Enabling module tooltips will make it so you can see your bastion timers, this is important so that you can give logi a countdown to your cycle ending. This gives logi time to decycle ready for you to come out of bastion and apply their reps.
 
 ![](moduletooltips.png)
 
-- Temporary Auto-Cycle - During TPPH's and NRF's we now allow pilots to "CTRL+Left click" their Bastion modules to maximise bastion time, this method of bastioning is a temporary auto-cycle and doesnt require the pilot to enable auto-cycle thus keeping your SRP intact. You will stay in bastion until you manually de-cycle, however the next time you click bastion normally it will still automatically de-cycle. Care should still be taken not to Bastion when you are our of position, see the [Anchoring Guide](/guide/anchoring) for specifics on positioning.
-
-![](autorepeatoff.png)
+- Temporary Auto-Cycle - During TPPH's and NRF's we now allow pilots to "CTRL+Left click" their Bastion modules to maximise bastion time, this method of bastioning is a temporary auto-cycle and doesnt require the pilot to enable auto-cycle thus keeping your SRP intact. You will stay in bastion until you manually de-cycle, however the next time you click bastion normally it will still automatically de-cycle. Care should still be taken not to Bastion when you are out of position. See the [Anchoring Guide](/guide/anchoring) for specifics on positioning.
 
 - Kronos - As a Kronos pilot we encourage our pilots to bastion as much as possible to maximise their DPS and to help consolidate aggro. During TCRC's **IF YOU HOLD BASTION SPECIALIST BADGE** you should be pressing the bastion button until a switch occurs onto you. Switches occur every minute and bastion cycles are 30 seconds, so you can safely get two bastion cycles in between switches in any Kronos fit. Learning to watch lasers can make this process much easier. You should still take care not to over bastion with aggro.
 
