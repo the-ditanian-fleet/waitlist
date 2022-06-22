@@ -11,15 +11,13 @@
 
 ## Rules
 
-- ALL
-  1. Must have a backseat PRIOR to starting the fleet.
+- All Sites
+  1. Must have a backseat PRIOR to starting the fleet appropriate to level of site.
   1. Required to only allow pilots who meet SRP standards for TDF’s fleets.
-  1. Are required to run with multiple FCs.
   1. Are required to do the introduction speech on every fleet they run.
-  1. Are required to hound their backseats if they do not provide a report
-  1. No backseat report means the fleet never happened!
-  1. Must have a fully trained booster alt
-  1. Must demonstrate the ability to contest other fleets
+  1. Are required to hound their backseats if they do not provide a report. (No backseat report means the fleet never happened!)
+  1. Must have a fully trained booster alt.
+  1. Must demonstrate the ability to contest other fleets.
 - VG
   1. Follow battleship targets when shooting, CQC/Sniper Tags in order etc.
   1. Must have 2 (Two) logi in total.
@@ -31,14 +29,14 @@
   1. May be the anchor (but must be flying a Battleship).
   1. Must have 4 logistics, with two Nestors.
   1. Must have at least 1 Max booster (Armor/Skirmish)
-  1. Cannot fly if the influence is above 75%.
+  1. Cannot fly if the influence is below 75%.
   1. Should be responsible for initial fleet form-up when possible. (FC able to update TDF-O) unless a trainer states otherwise.
 - HQ
   1. Must have 6 logi for TCRC & NRF, 5 for TPPH
   1. Must be flying 1 Battleship and 1 fully skilled booster (Primary Armor/Skirmish).
   1. Must have 2 backseats / 1 FC trainer/ 1 council to run the Kundalini for the first time even if fully tagged HQ FC.
   1. Cannot fly if the influence is below 75% blue bar.
-  1. Should be responsible for initial fleet form-up when possible. (FC able to update TDF-O) unless a trainer states otherwise
+  1. Should be responsible for initial fleet form-up when possible. (FC able to update TDF-O) unless a trainer states otherwise.
 
 ## Fleet Start Safety Speech
 
@@ -50,7 +48,7 @@ No **KILL RIGHTS**
 No **Faction Warfare**
 (This is an EDENCOM system, if you are red with EDENCOM, please do not fly here, as there can be roaming fleets that will kill you)
 
-Make sure Arrows at the bottom of the fleet window are pointing all 4 directions.
+Make sure arrows at the bottom of the fleet window are pointing in all four directions.
 During fleet. When you become yellow boxed by NPCs, Broadcast for armor.
 
 All Drones must be set to passive and focus fire and assigned to appropriate drone bunnies unless specified otherwise.
@@ -61,7 +59,7 @@ However FC voice has higher priority than tags, you must listen to and follow FC
 
 To join fleet, Warp to FC twice, if you get the error message natural phenomena, ask for gate status.
 
-Last but not least, we strongly recommend that you pay 15 mil to the ship replacement program AKA SRP (details in fleet MOTD), covers your ship up to 7 bil value from DT to DT for FC and LOGI errors only.
+Last but not least, we strongly recommend that you pay 15 mil to the ship replacement program AKA SRP (details in fleet MOTD). It covers your ship up to 7 bil value from pay in until DT for FC and LOGI errors only.
 
 Any questions?
 
