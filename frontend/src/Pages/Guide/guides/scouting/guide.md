@@ -1,8 +1,8 @@
 # Scouting guide
 
-An important fleet role is the _Scout_, which an FC can do themselves or delegate. Your job as a scout is to give the FC awareness of the other fleets in system, and to preload the TCRC sites so we can run them faster.
+An important fleet role is the **Scout**, which an FC can do themselves or delegate. Your job as a scout is to give the FC awareness of the other fleets in system, and to preload the TCRC sites so we can run them faster.
 
-Scouting is done from a second omega account (alt) in a ship that's optimized for (warp) speed. A good and cheap place to start is the Atron Scout at the bottom of this guide which can be trained in about 15 minutes on a fresh character. A more expensive but even faster option is the Astero. However, please understand that losing scout ships is common, especially early on. Once you have been scouting for a while you will likely discover your own scout ship preference, which could involve interceptors or even a Pacifier.
+Scouting is done from a second omega account (alt) in a ship that's optimized for (warp) speed. A good and cheap place to start is the Atron Scout at the bottom of this guide. It can be trained in about 15 minutes on a fresh character. A more expensive but even faster option is the Astero. However, please understand that losing scout ships is common, especially early on. Once you have been scouting for a while you will likely discover your own scout ship preference, which could involve interceptors or even a Pacifier.
 
 Scouting is a fairly advanced role that requires multiboxing, so don't try this before you have mastered flying your primary ship.
 
@@ -20,9 +20,7 @@ When the fleet starts a new site the FC will tag the site **A**. Sometimes they 
 
 Sometimes a fleet will bounce, leaving a tagged site without a fleet in it. It is the scout's job to recognize the situation, and find out which site they bounced from. To tag a site that another fleet bounced from, use **B**, but leave the A tag to differentiate sites that we bounced from ourselves.
 
-The **C** tag is sometimes used to indicate a site is clear, but you can also use numeric tags to make it easier to refer to the actual sites without having to broadcast them.
-
-Put an X tag on the Kundalini Manifest, so FCs don't accidentally end the focus. The same goes for other anomalies and sites that appear on the overview and aren't related to incursions.
+Put a J tag on the Kundalini Manifest, so FCs don't accidentally end the focus. The same goes for other anomalies and sites that appear on the overview and aren't related to incursions.
 
 ### Most favorable site
 
@@ -40,9 +38,9 @@ Periodically uploading the PVP tab of the D-Scan to a site like [dscan.info](htt
 
 The TCRC site is special in that it takes about half a minute for all Sansha rats to spawn. If a fleet goes in before everything has spawned then the aggression will be split, making the site less safe and creating more work for the logi.
 
-Loading a TCRC starts the moment a player shows up on the _grid_, which you can do by taking the gate. Once you land in the site, you can choose to either cloak up (if you land within 2000m of the beacon you may need the microwarpdrive to quickly burn away), or warp away.
+Loading a TCRC starts the moment a player shows up on the _grid_, which you can do by taking the gate. Once you land in the site, you can choose to either cloak up (if you land within 2000m of the beacon you may need to use the Q align function to move away from the beacon, do not ever use your MWD as it will blow your sig and the frigates will lock you much faster preventing you from cloaking.), or warp away.
 
-If you do cloak, make sure to either warp off before the _meatshield_ goes in, or after the entire fleet has landed. If your timing is wrong, the aggro can go to the scout instead of the meatshield, with potentially deadly results for both your scout and members of the fleet.
+If you do cloak, make sure to either warp off before the _meatshield_ goes in, or after the entire fleet has landed and aggro is established on the meatshield. If your timing is wrong, the aggro can go to the scout instead of the meatshield, with potentially deadly results for both your scout and members of the fleet.
 
 The FC will appreciate it if you tag the two _Schmaeels_ close to the MTAC factory (or Romi), and the only _Auga_ that spawns. Those two _Schmaeels_ in particular will respawn, so we do not want to shoot them until the site is done.
 
