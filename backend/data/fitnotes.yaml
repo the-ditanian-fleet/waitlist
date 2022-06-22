@@ -1,3 +1,6 @@
+# Tiers and individual fits can have notes MarkDown can be used.
+# To add a note give the exact name of the fit, for a tier give the name as seen on the page url
+
 notes:
   # Tier message
 
