@@ -2,17 +2,17 @@
 
 ## Requirements
 
-TDF uses a progress system for pilots, Starter, Basic, Elite & Elite Gold are the different tiers you can achieve on your ship specific skills. You can see your current skill tiers for each ship on the [Skill Page](/skills). The target level displayed for each skill is what is required to reach the next tier, while the actual level is displayed on the left.
+TDF uses a progress system for pilots, Starter, Basic, Elite & Elite Gold are the different tiers you can achieve on your ship specific skills. You can see your current skill tiers for each ship on the [Skill Page](/skills). The actual level of your skill is displayed on the left, while the next tier level is displayed on the right.
 
 Due to our [upgrade policy](/guide/upgrade), we highly recommend pilots to create an incursion alt when first joining TDF.
 
 ### DPS
 
-To get started in TDF all you need is to be able to **fully online your ship**, and have the **four armor compensation skills at level 2** for starter fits, 4+ for any other fits. The **basic skills** are the skills you should focus on when you start flying. As long as you still have skills at the starter level and are using a starter fit you will be placed in the starter squad, which is limited to 4 - 5 in fleet.
+To get started in TDF all you need is to be able to **online ALL modules on your ship**, and have the **four armor compensation skills at level 2 for starter fits & 4+ for everything else**. The **basic skills** are the skills you should focus on when you start flying. As long as you still have skills at the starter level and are using a starter fit you will be placed in the starter squad, which is limited to 4 - 5 in fleet. Upgrading is highly encouraged.
 
 ### LOGI
 
-To fly logi with TDF you will need **required tier skills as a minimum**, you also need to be able to **fully online all modules on your ship**. Any red skills must be trained before you can fly with the exception of the logi4 onieros fit below:
+To fly logi with TDF you will need **basic tier skills as a minimum**, you also need to be able to **fully online all modules on your ship**. Any red skills must be trained before you can fly with the exception of the logi4 onieros fit below:
 
 - Exception: **TDF_ONI_HQ_STARTER_LOGI4** (Sensor Linking 3, Logistics Cruiser 4 Allowed)
 
@@ -30,22 +30,33 @@ Message Of The Day (MOTD) is where you will find the most up to date information
 
 ![](reloadmotd.png)
 
-## Fitting Mailing Lists
+## Fittings
 
-In order to continue flying our current doctrine please join our fitting mailing lists. To join the mailing lists open up your evemail and then at the bottom left click add mailing list. In the box that opens type the name of the mailing list then click join. The most common sites TDF fly are Headquarters (HQ). Mailing lists are found in **TDF-Official** MOTD.
+To find out our current doctrine please join our fitting mailing lists or use the [Fits Page](/fits). The fittings on the fit page will sometimes have icons on them, these denote exceptions or requirements specific to that fit, you can find the details by clicking the fit and reading the note at the bottom.
+
+![](fitnotes.png)
+
+To join the mailing lists open up your evemail and then at the bottom left click add mailing list. In the box that opens type the name of the mailing list then click join. The most common sites TDF fly are Headquarters (HQ). Mailing lists are found in **TDF-Official** MOTD.
 
 ![](mailinglisthq.png)
 
-The mailing lists have a selection of fits which allow for any budget or skill level and they are all covered by the TDF Ship Replacement Program (SRP). All fittings have their minimum skill requirements in the mailing list. Basic and above require level 4 armor comps while starters only need level 2.
+The mailing lists have a selection of fits which allow for any budget or skill level and they are all covered by the TDF Ship Replacement Program (SRP). All fittings have their minimum skill requirements in the mailing list. **Basic and above require level 4 armor comps while starters only need level 2**.
 
 Pick a fit you would like to fly. If you need help just ask in the TDF-Official channel or in Discord for any advice getting set up.
 
-The general rule of thumb when we run Vanguards (VG) you need 9850 armor HP + 55% resists.  
-For Assaults (AS) & Headquarters (HQ) you need 17k armor hp + 65% omni resists. You still need to fly the correct mailing list fits however. You are allowed to use module variants meta4+. **Tank module downgrades or different fits are not accepted.**
+The general tank requirements when we run sites are as follows
+
+- Vanguards (VG) you need 9850 armor HP + 55% omni resists.
+
+- Assaults (AS) you need 17k armor HP + 65% omni resists.
+
+- **Headquarters (HQ) you need 17k armor HP + 65% omni resists.**
+
+You still need to fly the correct doctrine fits however. You are allowed to use module variants meta4+ for anything but the following: **Tank modules, this includes rigs**. Upgrading modules is fine in almost all situations except on the nogank doctrine fits.
 
 ## Ship Settings
 
-**Safety Green:** Now you have your fitting you’re nearly there and ready to join fleet. First things first, you need to make sure your safety is set to green. You can see this buy undocking your ship. Once in space make sure you have a green button just to the top left of the Main HUD.
+**Safety Green:** Now you have your fitting you’re nearly ready to join fleet. First things first, you need to make sure your safety is set to green. You can see this by undocking your ship. Once in space make sure you have a green button just to the top left of the Main HUD.
 
 ![](safetysetgreen.png)
 
@@ -63,17 +74,17 @@ For Assaults (AS) & Headquarters (HQ) you need 17k armor hp + 65% omni resists. 
 
 ![](retargetnduel.png)
 
-**Overview Settings:** Fleet uses tagging to focus fire from all pilots onto a single enemy. Your overview should have at a minimum the tag column enabled. To see the overview window you must be in space. Click the hamburger top left in the overview window and open the overview settings. In the column tab enable the tag column in the overview. The tab presets tab is used to add or remove item groups from showing in your overview.
+**Overview Settings:** Fleet uses tagging to focus fire from all pilots onto a single enemy. Your overview should have at a minimum the tag column enabled. To see the overview window you must be in space. Click the hamburger in the top left of the overview window and open the overview settings. In the column tab enable the tag column in the overview. The presets tab is used to add or remove object groups showing in your overview.
 
 ![](overview.png)
 
-**Broadcast Settings:** Last thing to do now is setup your broadcasts.
+**Broadcast Settings:** The last thing to do is setup your broadcasts.
 
-You need to open the fleet window and then click form fleet. Then clicking the chevrons bottom right will pop up the broadcast buttons. Make sure there’s a cross in the bottom right hand corner, which indicates that you broadcast to everyone in fleet.
+Open the fleet window and then click form fleet. Then clicking the chevrons bottom right will pop up the broadcast buttons. Make sure there’s a cross in the bottom right hand corner with arrows pointing in all four directions, this indicates that you will broadcast to everyone in fleet.
 
 Next click the hamburger menu and go to broadcast settings. From here choose some colours for your broadcasts so you can easily differentiate them. If you are not logi the most important broadcasts for you to see are "Align To" and "Warp To."
 
-Finally; select the history tab in the fleet window and select "Broadcast History" from the drop down. Any broadcasts to the fleet will appear in this window.
+Last but not least, select the history tab in the fleet window and select "Broadcast History" from the Filters drop down list. This setting will only display broadcasts from the fleet and ignores any loot/member history.
 
 ![](broadcasts.png)
 
@@ -81,9 +92,9 @@ Finally; select the history tab in the fleet window and select "Broadcast Histor
 
 ![](presets.png)
 
-## Faction Warfare / War Decs / Killrights
+## Faction Warfare / War Decs / Killrights / EDENCOM & Triglavian standings
 
-Looking at your Character sheet Interactions tab then the Kill rights section, double check you have no kill rights against you. Having a killright available to you is perfectly fine. Then open your corporation window and make sure your corporation is not enrolled in factional warfare or has an active War Dec. If you have any of the above you will be asked to fix them before joining the fleet.
+Looking at your Character sheet Interactions tab then the Kill rights section, double check you have no kill rights against you. Having a killright available to you is perfectly fine. Then open your corporation window and make sure your corporation is not enrolled in factional warfare or has an active War Dec. You also need to fix your EDENCOM & or Triglavian standings if the incursion HQ is within one of the mentioned factions systems. If you have any of the above you will be asked to fix them before joining the fleet.
 
 ![](war.png)
 

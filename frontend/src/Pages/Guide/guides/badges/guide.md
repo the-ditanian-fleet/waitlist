@@ -10,30 +10,6 @@ Badge assignment on teamspeak and on the website (for specialist badges) can be 
 
 ---
 
-### Hybrid Implant Set
-
-Pilot has Hybrid implant set (Amulet 1-5 Hardwires 6-10), **only visible on X-UP page**.
-
-![](h.png)
-
----
-
-### Amulet Implant Set
-
-Pilot has Full Amulet implant set (Amulet 1-6 Hardwires 7-10), **only visible on X-UP page**.
-
-![](a.png)
-
----
-
-### Warpspeed Implant Set
-
-Pilot has Warp Speed implant set (Ascendancy 1-5 Hardwires 6-10), **only visible on X-UP page**.
-
-![](w.png)
-
----
-
 ### Elite Badge
 
 Requirements to get elite badge are:
@@ -72,9 +48,33 @@ Elite badge pre-requisites for a Vindicator plus abyssal webifiers with minimum 
 
 ### Logistics Specialist
 
-Permitted to fly Nestor Logistics. Requires all Nestor skills to elite plus "training" for the use of Nestor, of which 3 Full HQ FC sign offs are required.
+Permitted to fly Nestor Logistics. Requires all Nestor skills to elite plus "training" for the use of Nestor, of which 3 Full HQ FC +1's are required.
 
 ![](l.png)
+
+---
+
+### Hybrid Implant Set
+
+Pilot has Hybrid implant set (Amulet 1-5 Hardwires 6-10), **only visible on X-UP page**.
+
+![](h.png)
+
+---
+
+### Amulet Implant Set
+
+Pilot has Full Amulet implant set (Amulet 1-6 Hardwires 7-10), **only visible on X-UP page**.
+
+![](a.png)
+
+---
+
+### Warpspeed Implant Set
+
+Pilot has Warp Speed implant set (Ascendancy 1-5 Hardwires 6-10), **only visible on X-UP page**.
+
+![](w.png)
 
 ---
 
@@ -84,7 +84,7 @@ Permitted to fly Nestor Logistics. Requires all Nestor skills to elite plus "tra
 
 ### Council Member
 
-Member of the TDF council, which makes decisions that impact the community.
+Member of the TDF council, which makes decisions that impact the community. Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault and Vanguard sites with SRP cover. Can promote Full FC's to FC Trainer and Trainee FC's to full HQ/AS/VG tags and conduct van/bus fleets for trainee FC's.
 
 ![](c.png)
 
