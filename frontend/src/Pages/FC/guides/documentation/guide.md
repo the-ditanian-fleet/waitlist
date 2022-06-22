@@ -1,13 +1,13 @@
 # FC documentation
 
-## Stuff you need acces to
+## Stuff you need access to
 
-- Full waitlist acces
-- TDF-FCs (channel)
-- tdf-backseat-report
-- FC-chat on discord
-- TDF PILOTS
-- TDF FC
+- Full waitlist site access
+- TDF-FCs (Channel)
+- tdf-backseat-report (Mailing list)
+- FC-chat on discord (FC roles for discord)
+- TDF PILOTS (Mailing list)
+- TDF FC (Mailing list)
 - TDF-Official motd
 
 ## Rules
@@ -16,26 +16,28 @@ Full rules document can be found pinned on FC discord. Most important FC specifi
 
 ### Inviting
 
-Upgrade numbers (check their history to judge !)
+Upgrade numbers (check their history to judge!)
 
 - 50 hours to get out of starter
-- 200 for elite vindicator
-- 250 for elite bastion
+- 100 hours to get to advanced fit (DPS & Logi)
+- 150 hours for elite logi cruisers
+- 200 hours for elite Vindicator + Nestor
+- 250 hours for elite bastion
 
 1. Any pilot who is able to meet basic tank requirements and is able to fly a doctrine fit from one of the TDF FITS mailing lists should always be able to get into the fleet.
-1. 3x times disconnect from game & TeamSpeak -> no invite
+1. 3x times disconnect from game & TeamSpeak -> no re-invite
 
 ### Multiboxing
 
-1. Alts should be dropped in favor of a real player, even starter
+1. Alts should be dropped in favor of a real players, even starter
 2. The active FC is permitted to take two payouts as a reward
 
 ### Logi requirements
 
-1. Full FC: TCRC 3:2 NRF 3:1 / 2:2 TPPH 3:1 / 2:2
-1. PHQ FC: TCRC 3:3 / 4:2 NRF 3:3 / 4:2 TPPH 3:2 / 2:3
+1. **Full FC**: TCRC **3:2** NRF **3:1 / 2:2** TPPH **3:1 / 2:2**
+1. **PHQ FC**: TCRC **3:3 / 4:2** NRF **3:3 / 4:2** TPPH **3:2 / 2:3**
 
-1. Starter skills on logi are all **required** except on the starter fit oneiros.
+1. Starter skills on logi are all **required** except on the Logi4 fit oneiros.
 
 ### Misc
 
@@ -77,8 +79,8 @@ Training FC was responsible for the waitlist: [yes/no]
 Training FC has been debriefed by the backseat: [yes/no]
 
 Number Of Sites (By Type):
-<insert link ISK/h>
-HQ: <all including lost contests>
+
+HQ: <insert link ISK/h>
 TPPH:
 NRF:
 TCRC:
@@ -86,16 +88,15 @@ TCRC:
 General Rating
 1 = Bad, 2 = Not Great, 3 = Average, 4 = Good, 5 = Very Good
 
-Tagging:
-
+Tagging
 - Speed:
 - Order:
-- Contest Reasoning: <trainee/backseat/detail>
-  Control:
+- Contest Reasoning:
+Control
 - Fleet:
 - Comms:
-- Special tasks: <if appointed>
-  Knowledge:
+- Special tasks:
+Knowledge
 - Logistics:
 - NPC:
 - Fittings:
@@ -122,10 +123,16 @@ Example:
 Meeting Notes **YYYY-MM-DD**
 
 Key:
+
 A = Approved during meeting
+
 C = Council will vote on / follow up
+
 N = Discussion / Note. No change or action required
+
 X = topic submitted but not brought up during meeting
+
+Example:
 
 - C - Topic 1
   - topic note 1
