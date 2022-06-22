@@ -375,13 +375,13 @@ requirements:
       elite: 4
     Light Drone Operation:
       min: 3
-      elite: 5
+      elite: 4
     Medium Drone Operation:
       min: 3
-      elite: 5
+      elite: 4
     Heavy Drone Operation:
       min: 3
-      elite: 5
+      elite: 4
     Science:
       min: 3
       elite: 5
@@ -603,11 +603,9 @@ requirements:
       min: 1
     Shield Emission Systems:
       min: 3
-      elite: 4
       gold: 4
     Remote Hull Repair Systems:
       min: 3
-      elite: 4
       gold: 4
     Heavy Drone Operation:
       min: 1
