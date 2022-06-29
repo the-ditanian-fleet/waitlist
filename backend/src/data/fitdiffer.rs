@@ -116,6 +116,9 @@ impl FitDiffer {
         let cargo_missing = cargo_missing
             .into_iter()
             .filter(|(type_id, count)| {
+				// check ignore list (needs to be parsed first)
+				// drug stuff 3h thing
+				
                 let expect = *expect.cargo.get(type_id).unwrap();
                 if expect >= 10 {
                     *count > (expect * 70 / 100) // Integer way of doing *0.7

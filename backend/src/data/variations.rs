@@ -35,6 +35,7 @@ impl Variator {
 struct FromMetaEntry {
     base: String,
     abyssal: Option<String>,
+	alternative: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -126,6 +127,9 @@ impl Builder {
             let mut variations = TypeDB::type_variations(base_id)?;
             if let Some(abyssal) = &entry.abyssal {
                 variations.insert(TypeDB::id_of(abyssal)?, *variations.get(&base_id).unwrap());
+            }
+			if let Some(alternative) = &entry.alternative {
+                variations.insert(TypeDB::id_of(alternative)?, *variations.get(&base_id).unwrap());
             }
             to_merge.push(variations);
         }

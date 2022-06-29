@@ -10,8 +10,8 @@ alternatives:
 
   - - - Agency 'Pyrolancea' DB3 Dose I
     - - Agency 'Pyrolancea' DB5 Dose II
-    - - Agency 'Pyrolancea' DB7 Dose III
-    - - Agency 'Pyrolancea' DB9 Dose IV
+      - Agency 'Pyrolancea' DB7 Dose III
+      - Agency 'Pyrolancea' DB9 Dose IV
 
   - - - Agency 'Overclocker' SB3 Dose I
     - - Agency 'Overclocker' SB5 Dose II
@@ -86,8 +86,10 @@ from_meta:
   # Base is the lowest allowed meta level alternative module
   # If modulegroup is found in the fit & it's equal or higher to the meta level of the standard fit it is allowed
   # You have to manually add it's abyssal variant as shown below
+  # Optional alternative module can be added (does not add all meta's of that alternative)
   - base: Sensor Booster II
   - base: Tracking Computer II
+    alternative: Large Micro Jump Drive
   - base: Supratidal Entropic Disintegrator II
   - base: Imperial Navy Drone Damage Amplifier
   - base: Remote Tracking Computer II
