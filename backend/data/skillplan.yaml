@@ -149,50 +149,6 @@ plans:
         from: Paladin
         tier: elite
 
-  - name: PALADIN ONLY PATH
-    description: >
-      This skill plan will train you from advanced Paladin through to the elite Paladin fits.
-    plan:
-      - type: tank
-        from: min
-      - type: skills
-        from: Paladin
-        tier: min
-      - type: fit
-        hull: Paladin
-        fit: TDF_PALLY_ADVANCED
-      - type: skill
-        from: Cybernetics
-        level: 5
-      - type: fit
-        hull: Paladin
-        fit: TDF_PALLY_ELITE
-      - type: skills
-        from: Paladin
-        tier: elite
-
-  - name: KRONOS ONLY PATH
-    description: >
-      This skill plan will train you from advanced Kronos through to the elite Kronos fits.
-    plan:
-      - type: tank
-        from: min
-      - type: skills
-        from: Kronos
-        tier: min
-      - type: fit
-        hull: Kronos
-        fit: TDF_KRONOS_ADVANCED
-      - type: skill
-        from: Cybernetics
-        level: 5
-      - type: fit
-        hull: Kronos
-        fit: TDF_KRONOS_ELITE
-      - type: skills
-        from: Kronos
-        tier: elite
-
   - name: VINDICATOR ELITE
     description: >
       This skill plan trains the requirements to allow you to fly any elite Vindicator fit.
