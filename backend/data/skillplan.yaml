@@ -149,34 +149,15 @@ plans:
         from: Paladin
         tier: elite
 
-  - name: PALADIN ONLY PATH
+  - name: KRONOS PATH
     description: >
-      This skill plan will train you from advanced Paladin through to the elite Paladin fits.
+      This skill plan will train you from starter Megathron through to the elite Kronos fits skipping the Vindicator.
     plan:
       - type: tank
-        from: min
-      - type: skills
-        from: Paladin
-        tier: min
+        from: starter
       - type: fit
-        hull: Paladin
-        fit: TDF_PALLY_ADVANCED
-      - type: skill
-        from: Cybernetics
-        level: 5
-      - type: fit
-        hull: Paladin
-        fit: TDF_PALLY_ELITE
-      - type: skills
-        from: Paladin
-        tier: elite
-
-  - name: KRONOS ONLY PATH
-    description: >
-      This skill plan will train you from advanced Kronos through to the elite Kronos fits.
-    plan:
-      - type: tank
-        from: min
+        hull: Megathron
+        fit: TDF_MEGA_STARTER
       - type: skills
         from: Kronos
         tier: min
