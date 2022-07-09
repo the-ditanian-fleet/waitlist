@@ -237,7 +237,6 @@ impl Builder {
         Ok(())
     }
 }
-/*  -------------------------------------------------------------*/
 
 #[derive(Debug)]
 pub struct DrugChanger {

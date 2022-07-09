@@ -107,9 +107,8 @@ impl FitDiffer {
     pub fn diff(expect: &Fitting, actual: &Fitting) -> DiffResult {
         let variator = crate::data::variations::get();
         let modules = Self::section_diff(&expect.modules, &actual.modules, &variator);
-        let cargo_changer = crate::data::variations::drug_handling().unwrap();
+        let cargo_changer = crate::data::variations::drug_handling().unwrap_or(BTreeMap::new());
         let mut mexcargo = expect.cargo.clone();
-
         for (detect, drugchange) in &cargo_changer {
             // does fit have the detecting drug?
             if mexcargo.contains_key(&detect) {
@@ -139,10 +138,9 @@ impl FitDiffer {
                 if ignore.contains(type_id) {
                     return false;
                 }
-				info!("test");
-                let expect = *expect.cargo.get(type_id).unwrap(); //err	
+                let expect = *mexcargo.get(type_id).unwrap(); //err
                 if expect >= 10 {
-                    *count > (expect * 70 / 100) // Integer way of doing *0.7
+                    *count > (expect * 80 / 100) // Integer way of doing *0.8
                 } else {
                     true
                 }
