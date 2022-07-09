@@ -281,8 +281,63 @@ theme["Chocola"] = _.merge({}, theme.Dark, {
   logo: {
     filter: "invert(1) drop-shadow(1px 2px 0.5px #80173E)",
   },
-  sticker:
-    "https://raw.githubusercontent.com/doki-theme/doki-theme-github/master/assets/stickers/nekoPara/chocola/dark/chocola_dark.png",
+  sticker: "https://i.imgur.com/ohDedR4.png",
+});
+theme["Vanilla"] = _.merge({}, theme.Dark, {
+  colors: {
+    background: "#2d2f43",
+    active: "#9bf8ff",
+    shadow: "rgba(0, 0, 0, .2)",
+    outline: "hsla(203, 69%, 25%, 0.2)",
+    text: "#6a96e9",
+
+    secondary: {
+      color: "#4b598a",
+      text: "#e6e6e6",
+      accent: "#5e6faa",
+      disabled: "#b0a17f",
+    },
+    success: {
+      color: "#1f6538",
+      text: "#e4eff9 ",
+      accent: "#226d3c",
+      disabled: "#cccccc",
+    },
+
+    input: {
+      color: "#3a425e",
+      text: "#b0a17f",
+      accent: "#3a425e",
+      disabled: "#999999",
+    },
+    warning: {
+      color: "#b79718",
+      text: "white",
+      accent: "red",
+      disabled: "#cccccc",
+    },
+
+    danger: {
+      color: "#8e2c2c",
+      text: "#cdcdcd ",
+      accent: "#ac3939",
+      disabled: "#330a12",
+    },
+    accent1: "#333557",
+    accent2: "#3d5d86",
+    accent3: "#9bf8ff",
+    accent4: "#b0a17f",
+
+    highlight: {
+      text: "#b0a17f",
+      active: "#8a7c5d",
+    },
+  },
+
+  logo: {
+    filter: "invert(1) drop-shadow(1px 2px 0.5px #333446)",
+  },
+  sticker: "https://i.imgur.com/8JN6udB.png",
 });
 
 export default theme;

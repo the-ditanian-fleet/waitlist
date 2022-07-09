@@ -80,7 +80,9 @@ export function Search() {
                         )}
                       {authContext.access["access-manage"] &&
                         authContext.account_id !== character.id && (
-                          <AddACL who={character} authContext={authContext} />
+                          <>
+                            <AddACL who={character} authContext={authContext} />
+                          </>
                         )}
                     </InputGroup>
                   </Buttons>

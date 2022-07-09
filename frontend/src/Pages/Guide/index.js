@@ -3,6 +3,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { Content, PageTitle } from "../../Components/Page";
 import styled from "styled-components";
 import { ToastContext } from "../../contexts";
+import { BadgeData } from "./Badge";
 
 import { errorToaster } from "../../api";
 import { Markdown } from "../../Components/Markdown";
@@ -151,4 +152,8 @@ export function GuideIndex() {
       </CardArray>
     </>
   );
+}
+
+export function BadgeIndex() {
+  return <BadgeData />;
 }

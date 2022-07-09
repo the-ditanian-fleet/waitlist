@@ -9,7 +9,7 @@ const inputStyle = css`
   border-color: ${(props) => props.theme.colors.accent2};
   border-radius: 4px;
   background-color: ${(props) => props.theme.colors[props.variant || "input"].color};
-  color: ${(props) => props.theme.colors[props.variant || "input"].text};
+  color: ${(props) => props.theme.colors[props.variant || "input"].text} !important;
   display: inline-block;
   font: inherit;
 

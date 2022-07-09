@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
 	   content:'';
 	   pointer-events:none;
 	   position:fixed;
-	   z-index:9001;
+	   z-index:100;
 	   width:100%;
 	   height:100%;
 	   background-position:100% 100%;

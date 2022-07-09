@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { Markdown } from "../../Components/Markdown";
 
-const FitCard = styled.div`
+export const FitCard = styled.div`
   border: solid 2px ${(props) => props.theme.colors[props.variant].color};
   border-radius: 5px;
   font-size: 0.9em;
@@ -79,13 +79,12 @@ const DisplayDOM = styled.div`
   }
 `;
 
-const ImplantB = styled.div`
+export const BadgeDOM = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-right: 0.2em;
   width: fit-content;
-  height: 24px;
-  padding: 0.2em 0.2em 0em;
+  padding: 0em 0.2em 0em;
   @media (max-width: 480px) {
     font-size: 1.3em;
   }
@@ -258,6 +257,8 @@ function ImplantButton({ name }) {
               <Title>{name} &nbsp;</Title>
               <Shield color="red" letter={letter} h="33px" />
             </div>
+            <h>Only visible on X-UP page. </h>
+            <br />
             <br />
             <ImplantTable type={name} />
           </Box>
@@ -267,9 +268,9 @@ function ImplantButton({ name }) {
         <FitCard variant={"secondary"} size={"108px"}>
           <a onClick={(evt) => setModalOpen(true)}>
             <FitCard.Content>
-              <ImplantB>
+              <BadgeDOM style={{ position: "relative", top: "0.2em" }}>
                 <Shield color="red" letter={letter} h="18px" />
-              </ImplantB>
+              </BadgeDOM>
               {name}
             </FitCard.Content>
           </a>
