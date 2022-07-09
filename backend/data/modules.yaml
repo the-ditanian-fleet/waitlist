@@ -15,8 +15,8 @@ alternatives:
 
   - - - Agency 'Overclocker' SB3 Dose I
     - - Agency 'Overclocker' SB5 Dose II
-    - - Agency 'Overclocker' SB7 Dose III
-    - - Agency 'Overclocker' SB9 Dose IV
+      - Agency 'Overclocker' SB7 Dose III
+      - Agency 'Overclocker' SB9 Dose IV
 
   - - - Synth Drop Booster
     - - Standard Drop Booster
@@ -176,3 +176,26 @@ identification: # Modules/groups we use to look at to figure out what we're flyi
   - Medium Remote Repair Augmentor II
   - Medium Capacitor Control Circuit II
   - Large Hybrid Locus Coordinator II
+  
+cargo_ignore: # Cargo modules that do not need to be in the fit to be approved
+  -  Large Micro Jump Drive
+  -  Imperial Navy 1600mm Steel Plates
+  
+
+# Make auto approval amount for drugs different
+# To be used togheter with the alternatives config
+# only applies to ship that have the item in detect
+drugs_approve_override:
+  - detect: Agency 'Pyrolancea' DB5 Dose II
+    remove: # These are removed from the expected fit
+      - Agency 'Pyrolancea' DB7 Dose III
+      - Agency 'Pyrolancea' DB9 Dose IV
+    add: # Set new requirements, here 1 db5 or better and 2 db3 or better
+      - name: Agency 'Pyrolancea' DB3 Dose I
+        amount: 2
+      - name: Agency 'Pyrolancea' DB5 Dose II
+        amount: 1
+   
+  
+    
+  

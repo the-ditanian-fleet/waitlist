@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, HashMap};
+use std::collections::{BTreeMap, BTreeSet, HashMap};
 
 use serde::Deserialize;
 
@@ -20,6 +20,7 @@ pub struct Variation {
 #[derive(Debug)]
 pub struct Variator {
     variations: BTreeMap<TypeID, Vec<Variation>>,
+    pub cargo_ignore: BTreeSet<TypeID>,
 }
 
 impl Variator {
@@ -35,7 +36,7 @@ impl Variator {
 struct FromMetaEntry {
     base: String,
     abyssal: Option<String>,
-	alternative: Option<String>,
+    alternative: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -51,10 +52,30 @@ struct ModuleFile {
     from_meta: Vec<FromMetaEntry>,
     from_attribute: Vec<FromAttributeEntry>,
     accept_t1: Vec<String>,
+    cargo_ignore: Vec<String>,
+}
+
+#[derive(Deserialize)]
+struct AddDrug {
+    name: String,
+    amount: i64,
+}
+
+#[derive(Deserialize)]
+struct AddRemove {
+    detect: String,
+    remove: Vec<String>,
+    add: Vec<AddDrug>,
+}
+
+#[derive(Deserialize)]
+struct ModuleFileDrug {
+    drugs_approve_override: Vec<AddRemove>,
 }
 
 struct Builder {
     variations: BTreeMap<TypeID, Vec<Variation>>,
+    cargo_ignore: BTreeSet<TypeID>,
     file: ModuleFile,
 }
 
@@ -62,15 +83,18 @@ impl Builder {
     fn build() -> Result<Variator, TypeError> {
         let mut builder = Builder {
             variations: BTreeMap::new(),
+            cargo_ignore: BTreeSet::new(),
             file: yamlhelper::from_file("./data/modules.yaml"),
         };
         builder.add_alternatives()?;
         builder.add_meta()?;
         builder.add_t1()?;
         builder.add_by_attribute()?;
+        builder.add_cargo_ignore()?;
 
         Ok(Variator {
             variations: builder.variations,
+            cargo_ignore: builder.cargo_ignore,
         })
     }
 
@@ -119,6 +143,12 @@ impl Builder {
         }
         Ok(())
     }
+    fn add_cargo_ignore(&mut self) -> Result<(), TypeError> {
+        for entry in &self.file.cargo_ignore {
+            self.cargo_ignore.insert(TypeDB::id_of(entry)?);
+        }
+        Ok(())
+    }
 
     fn add_meta(&mut self) -> Result<(), TypeError> {
         let mut to_merge = vec![];
@@ -128,8 +158,11 @@ impl Builder {
             if let Some(abyssal) = &entry.abyssal {
                 variations.insert(TypeDB::id_of(abyssal)?, *variations.get(&base_id).unwrap());
             }
-			if let Some(alternative) = &entry.alternative {
-                variations.insert(TypeDB::id_of(alternative)?, *variations.get(&base_id).unwrap());
+            if let Some(alternative) = &entry.alternative {
+                variations.insert(
+                    TypeDB::id_of(alternative)?,
+                    *variations.get(&base_id).unwrap(),
+                );
             }
             to_merge.push(variations);
         }
@@ -203,6 +236,38 @@ impl Builder {
 
         Ok(())
     }
+}
+/*  -------------------------------------------------------------*/
+
+#[derive(Debug)]
+pub struct DrugChanger {
+    pub add: BTreeMap<TypeID, i64>,
+    pub remove: BTreeSet<TypeID>,
+}
+
+pub fn drug_handling() -> Result<BTreeMap<TypeID, DrugChanger>, TypeError> {
+    let data: ModuleFileDrug = yamlhelper::from_file("./data/modules.yaml");
+
+    let mut drugmap = BTreeMap::<TypeID, DrugChanger>::new();
+
+    for itemtype in &data.drugs_approve_override {
+        let mut remove = BTreeSet::<TypeID>::new();
+        let mut add = BTreeMap::<TypeID, i64>::new();
+        for entry in &itemtype.remove {
+            remove.insert(TypeDB::id_of(entry)?);
+        }
+        for entry in &itemtype.add {
+            add.insert(TypeDB::id_of(&entry.name)?, entry.amount);
+        }
+        drugmap.insert(
+            TypeDB::id_of(&itemtype.detect)?,
+            DrugChanger {
+                add: add,
+                remove: remove,
+            },
+        );
+    }
+    Ok(drugmap)
 }
 
 pub fn get() -> &'static Variator {

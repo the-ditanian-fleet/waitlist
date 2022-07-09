@@ -1,6 +1,6 @@
 use std::{cmp::min, collections::BTreeMap};
 
-use crate::data::variations::Variation;
+use crate::data::variations::{Variation, Variator};
 
 use eve_data_core::{Fitting, TypeID};
 
@@ -24,8 +24,12 @@ pub struct DiffResult {
 pub struct FitDiffer {}
 
 impl FitDiffer {
-    fn section_diff(expect: &BTreeMap<TypeID, i64>, actual: &BTreeMap<TypeID, i64>) -> SectionDiff {
-        let variator = crate::data::variations::get();
+    fn section_diff(
+        expect: &BTreeMap<TypeID, i64>,
+        actual: &BTreeMap<TypeID, i64>,
+        variator: &'static Variator,
+    ) -> SectionDiff {
+        // cargo pass
 
         let mut extra = actual.clone();
         let mut missing = expect.clone();
@@ -101,8 +105,22 @@ impl FitDiffer {
     }
 
     pub fn diff(expect: &Fitting, actual: &Fitting) -> DiffResult {
-        let modules = Self::section_diff(&expect.modules, &actual.modules);
-        let cargo = Self::section_diff(&expect.cargo, &actual.cargo);
+        let variator = crate::data::variations::get();
+        let modules = Self::section_diff(&expect.modules, &actual.modules, &variator);
+        let cargo_changer = crate::data::variations::drug_handling().unwrap();
+        let mut mexcargo = expect.cargo.clone();
+
+        for (detect, drugchange) in &cargo_changer {
+            // does fit have the detecting drug?
+            if mexcargo.contains_key(&detect) {
+                mexcargo.retain(|id, _| !drugchange.remove.contains(id));
+                for (id, amount) in drugchange.add.iter() {
+                    mexcargo.insert(*id, *amount);
+                }
+            }
+        }
+
+        let cargo = Self::section_diff(&mexcargo, &actual.cargo, &variator);
 
         // "Downgraded" cargo isn't a thing. Count those as missing
         let mut cargo_missing = cargo.missing;
@@ -116,10 +134,13 @@ impl FitDiffer {
         let cargo_missing = cargo_missing
             .into_iter()
             .filter(|(type_id, count)| {
-				// check ignore list (needs to be parsed first)
-				// drug stuff 3h thing
-				
-                let expect = *expect.cargo.get(type_id).unwrap();
+                // drug stuff 3h thing
+                let ignore = &variator.cargo_ignore;
+                if ignore.contains(type_id) {
+                    return false;
+                }
+				info!("test");
+                let expect = *expect.cargo.get(type_id).unwrap(); //err	
                 if expect >= 10 {
                     *count > (expect * 70 / 100) // Integer way of doing *0.7
                 } else {

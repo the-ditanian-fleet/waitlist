@@ -87,7 +87,7 @@ struct BanListResponseEntry {
     expires_at: Option<i64>,
     name: Option<String>,
     added_by: Option<Character>,
-    reason: Option<String>
+    reason: Option<String>,
 }
 
 #[derive(Debug, Serialize)]
@@ -108,10 +108,11 @@ async fn list_bans(
         .execute(app.get_db())
         .await?;
 
-    let rows =
-        sqlx::query!("SELECT id, kind, expires_at, added_by, reason FROM ban ORDER BY kind ASC, id ASC")
-            .fetch_all(app.get_db())
-            .await?;
+    let rows = sqlx::query!(
+        "SELECT id, kind, expires_at, added_by, reason FROM ban ORDER BY kind ASC, id ASC"
+    )
+    .fetch_all(app.get_db())
+    .await?;
 
     let mut character_ids = HashSet::new();
     for row in &rows {
@@ -142,7 +143,7 @@ async fn list_bans(
                 expires_at: ban.expires_at.map(|ts| ts.timestamp()),
                 name,
                 added_by,
-                reason: ban.reason
+                reason: ban.reason,
             }
         })
         .collect();
