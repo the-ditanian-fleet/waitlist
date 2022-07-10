@@ -97,7 +97,7 @@ const theme = {
       input: {
         color: "#ffffff0a",
         text: "#cccccc",
-        accent: "ffffff0a",
+        accent: "#ffffff0a",
         disabled: "#999999",
       },
       success: {
@@ -319,7 +319,7 @@ theme["Vanilla"] = _.merge({}, theme.Dark, {
     warning: {
       color: "#b79718",
       text: "white",
-      accent: "red",
+      accent: "#c8a51c",
       disabled: "#cccccc",
     },
 
