@@ -45,6 +45,7 @@ function BadgeButton({ name, img, children }) {
                 <div>
                   <img
                     src={BadgeImages[img].default}
+                    alt={name}
                     style={{ width: "1.8em", marginRight: "0.5em" }}
                   />
                 </div>
@@ -60,7 +61,7 @@ function BadgeButton({ name, img, children }) {
         <a onClick={(evt) => setModalOpen(true)}>
           <BadgeDOM.Content>
             <BadgeDOM.Icon>
-              <img src={BadgeImages[img].default} style={{ width: "1.5em" }} />
+              <img src={BadgeImages[img].default} alt={name} style={{ width: "1.5em" }} />
             </BadgeDOM.Icon>
             {name}
           </BadgeDOM.Content>

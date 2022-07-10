@@ -307,7 +307,7 @@ function ImplantButton({ name, img }) {
             <ModalDOM>
               <ModalDOM.Title>
                 <div>
-                  <img src={img} style={{ width: "1.8em", marginRight: "0.5em" }} />
+                  <img src={img} alt={name} style={{ width: "1.8em", marginRight: "0.5em" }} />
                 </div>
                 <Title>{name} &nbsp;</Title>
               </ModalDOM.Title>
@@ -324,7 +324,7 @@ function ImplantButton({ name, img }) {
         <a onClick={(evt) => setModalOpen(true)}>
           <BadgeDOM.Content>
             <BadgeDOM.Icon>
-              <img src={img} style={{ width: "1.5em" }} />
+              <img src={img} alt={name} style={{ width: "1.5em" }} />
             </BadgeDOM.Icon>
             {name}
           </BadgeDOM.Content>
