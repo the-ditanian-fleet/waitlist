@@ -25,7 +25,6 @@ fn load_fits() -> FitData {
         let dna = fit_match.get(1).unwrap().as_str();
         let fit_name = fit_match.get(2).unwrap().as_str();
         let parsed = Fitting::from_dna(dna).unwrap();
-
         fits.entry(parsed.hull)
             .or_insert_with(Vec::new)
             .push(DoctrineFit {

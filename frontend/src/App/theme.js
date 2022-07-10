@@ -23,9 +23,9 @@ const theme = {
       shadow: "hsla(0, 0%, 0%, 0.2)",
 
       input: {
-        color: "transparent",
+        color: "#2020200d",
         text: "#4a4a4a",
-        accent: "transparent",
+        accent: "2020200d",
         disabled: "#cccccc",
       },
       success: {
@@ -95,9 +95,9 @@ const theme = {
       shadow: "hsla(0, 0%, 0%, 0.5)",
 
       input: {
-        color: "transparent",
+        color: "#ffffff0a",
         text: "#cccccc",
-        accent: "transparent",
+        accent: "#ffffff0a",
         disabled: "#999999",
       },
       success: {
@@ -158,7 +158,7 @@ theme.AMOLED = _.merge({}, theme.Dark, {
   colors: {
     text: "#f0f0f0",
     background: "#000000",
-    modal: "hsla(65, 0%, 11%, 0.7)",
+    modal: "hsla(55, 0%, 13%, 0.83)",
   },
 });
 
@@ -190,7 +190,7 @@ theme["Specialist"] = _.merge({}, theme.Light, {
   colors: {
     text: "#666666",
     background: "#fdf3f9",
-    accent1: "#fce4f2",
+    accent1: "#ffcbe9",
     accent2: "#ffbcdf",
     accent3: "#d55f9d",
     active: "#e11891",
@@ -200,9 +200,9 @@ theme["Specialist"] = _.merge({}, theme.Light, {
     shadow: "hsla(315, 100%, 90%, 0.4)",
 
     input: {
-      color: "transparent",
+      color: "#ffc3e536",
       text: "#4a4a4a",
-      accent: "transparent",
+      accent: "#ffc3e536",
       disabled: "#757575",
     },
 
@@ -261,6 +261,12 @@ theme["Chocola"] = _.merge({}, theme.Dark, {
       accent: "#bc577d",
       disabled: "#e8e8e8",
     },
+    input: {
+      color: "#4f3d44",
+      text: "#cccccc",
+      accent: "#4f3d44",
+      disabled: "#999999",
+    },
     success: {
       color: "#1f6538",
       text: "white",
@@ -281,8 +287,64 @@ theme["Chocola"] = _.merge({}, theme.Dark, {
   logo: {
     filter: "invert(1) drop-shadow(1px 2px 0.5px #80173E)",
   },
-  sticker:
-    "https://raw.githubusercontent.com/doki-theme/doki-theme-github/master/assets/stickers/nekoPara/chocola/dark/chocola_dark.png",
+  sticker: "https://i.imgur.com/ohDedR4.png",
+});
+theme["Vanilla"] = _.merge({}, theme.Dark, {
+  colors: {
+    background: "#2d2f43",
+    active: "#9bf8ff",
+    shadow: "rgba(0, 0, 0, .2)",
+    outline: "hsla(203, 69%, 25%, 0.2)",
+    text: "#6a96e9",
+
+    secondary: {
+      color: "#4b598a",
+      text: "#e6e6e6",
+      accent: "#5e6faa",
+      disabled: "#b0a17f",
+    },
+    success: {
+      color: "#1f6538",
+      text: "#e4eff9 ",
+      accent: "#226d3c",
+      disabled: "#cccccc",
+    },
+
+    input: {
+      color: "#3a425e",
+      text: "#b0a17f",
+      accent: "#3a425e",
+      disabled: "#999999",
+    },
+    warning: {
+      color: "#b79718",
+      text: "white",
+      accent: "#c8a51c",
+      disabled: "#cccccc",
+    },
+
+    danger: {
+      color: "#752626",
+      text: "#cdcdcd ",
+      accent: "#842c2c",
+      disabled: "#330a12",
+    },
+    accent1: "#333557",
+    accent2: "#3d5d86",
+    accent3: "#9bf8ff",
+    accent4: "#b0a17f",
+
+    highlight: {
+      text: "#b0a17f",
+      active: "#8a7c5d",
+    },
+  },
+
+  logo: {
+    filter:
+      "invert(62%) sepia(28%) saturate(325%) hue-rotate(4deg) brightness(100%) contrast(84%) drop-shadow(1px 1px 0.3px #000000)",
+  },
+  sticker: "https://i.imgur.com/8JN6udB.png",
 });
 
 export default theme;

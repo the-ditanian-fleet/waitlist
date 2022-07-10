@@ -31,7 +31,7 @@ function waitlistToFormatted(waitlist) {
           var charName = `<a href="showinfo:1377//${charData.character.id}">${charData.character.name}</a>`;
           var fits = charData.fits.map((fit) => {
             const approval = fit.approved ? "" : ", CHECK FIT";
-            return `${fit.category} (${fit.hull.name}${approval})`;
+            return `${fit.hull.name[0]}${approval}`;
           });
           return charName + " " + fits.join(", ");
         })

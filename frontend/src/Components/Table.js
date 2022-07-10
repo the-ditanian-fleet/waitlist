@@ -9,6 +9,10 @@ export const Table = styled.table`
     border-top: solid 1px ${props.theme.colors.accent2};
     border-bottom: solid 1px ${props.theme.colors.accent2};
   `}
+  @media (max-width: 480px) {
+    width: 100%;
+    font-size: 3.4vw;
+  }
 `;
 
 export const TableHead = styled.thead`
@@ -39,6 +43,9 @@ export const SmallCellHead = styled.th`
   padding: 0.5em;
   font-weight: 600;
   width: 75px;
+  @media (max-width: 480px) {
+    width: 60px;
+  }
 `;
 
 export const Cell = styled.td`
@@ -46,5 +53,8 @@ export const Cell = styled.td`
   color: ${(props) => props.theme.colors.text};
   a {
     color: ${(props) => props.theme.colors.text};
+  }
+  @media (max-width: 480px) {
+    padding: 0.3em;
   }
 `;

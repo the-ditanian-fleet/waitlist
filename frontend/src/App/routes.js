@@ -11,7 +11,7 @@ import { Pilot } from "../Pages/Pilot";
 import { Home } from "../Pages/Home";
 import { Legal } from "../Pages/Legal";
 import { Fits } from "../Pages/Fits";
-import { Guide, GuideIndex } from "../Pages/Guide";
+import { Guide, GuideIndex, BadgeIndex } from "../Pages/Guide";
 
 import { FCRoutes } from "../Pages/FC";
 import { AuthRoutes } from "../Pages/Auth";
@@ -30,6 +30,9 @@ export function Routes() {
       <Route exact path="/guide">
         <GuideIndex />
       </Route>
+      <Route exact path="/badges">
+        <BadgeIndex />
+      </Route>
       <Route exact path="/guide/:guideName">
         <Guide />
       </Route>
@@ -45,6 +48,7 @@ export function Routes() {
       <Route exact path="/skills/plans">
         <Plans />
       </Route>
+      <SkillRoutes />
       {authContext && (
         <>
           <Route exact path="/xup">
@@ -56,10 +60,7 @@ export function Routes() {
           <Route exact path="/waitlist">
             <Waitlist />
           </Route>
-
           <FCRoutes />
-
-          <SkillRoutes />
         </>
       )}
 

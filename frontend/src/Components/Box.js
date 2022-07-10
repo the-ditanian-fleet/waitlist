@@ -5,6 +5,7 @@ export const Box = styled.div`
   padding: 1.5em;
   border-radius: 5px;
   @media (max-width: 480px) {
-    padding: 0.6em;
+    padding: ${(props) => (props.mpadding ? props.mpadding : "0.6em")};
+    width: 100%;
   }
 `;

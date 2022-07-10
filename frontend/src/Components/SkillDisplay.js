@@ -213,7 +213,7 @@ export function SkillDisplay({ characterId, ship, setShip = null, filterMin = fa
       </div>
       <SkillHeader>
         {ship === "Nestor" || ship === "Guardian" || ship === "Oneiros" ? (
-          <InfoNote message={"Basic tier skills are required for logistics."} />
+          <InfoNote>Basic tier skills are required for logistics.</InfoNote>
         ) : null}
       </SkillHeader>
       {skills ? (

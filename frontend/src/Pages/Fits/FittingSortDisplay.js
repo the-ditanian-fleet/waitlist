@@ -11,13 +11,17 @@ import { Shield } from "../../Components/Badge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { Markdown } from "../../Components/Markdown";
+import { BadgeDOM, BadgeModal } from "../../Components/Badge";
+import hbadge from "../Guide/badges/h.png";
+import wbadge from "../Guide/badges/w.png";
 
-const FitCard = styled.div`
-  border: solid 2px ${(props) => props.theme.colors[props.variant].color};
+export const FitCard = styled.div`
+  border: solid 2px ${(props) => props.theme.colors.accent2};
+  background-color: ${(props) => props.theme.colors.background};
   border-radius: 5px;
   font-size: 0.9em;
   filter: drop-shadow(0px 3px 4px ${(props) => props.theme.colors.shadow});
-  width: ${(props) => (props.size ? props.size : "360px")};
+  width: 380px;
   a {
   }
   &:hover:not(:disabled):not(.static) {
@@ -25,20 +29,27 @@ const FitCard = styled.div`
     cursor: pointer;
   }
   @media (max-width: 480px) {
-    width: ${(props) => (props.size ? props.size : "320px")};
-    font-size: 0.75em;
+    width: 100%;
   }
 `;
 
 FitCard.Content = styled.div`
   display: flex;
   align-items: center;
-  background-color: ${(props) => props.theme.colors.background};
+  
   color: ${(props) => props.theme.colors.text};
-  border-radius: 3px;
+  p {
+	  @media (max-width: 480px) {
+		  font-size: 3.1vw;
+		}
+		
+	}
+  
+  
   img {
     border-radius: 3px 0px 0px 3px;
     margin-right: 0.5em;
+	
     align-self: flex-start;
   }
 }
@@ -46,13 +57,10 @@ FitCard.Content = styled.div`
 FitCard.Content.Badges = styled.div`
   margin-left: auto;
   display: flex;
-  flex-shrink: 0;
   align-items: center;
   > * {
-    margin-left: 0.1em;
   }
   > *:last-child {
-    margin-left: 0.25em;
     margin-right: 0.5em;
   }
   > span {
@@ -63,9 +71,8 @@ FitCard.Content.Badges = styled.div`
     height: 1.3em;
   }
   @media (max-width: 480px) {
-    font-size: 1.2em;
+    font-size: 1em;
     > *:last-child {
-      margin-left: 0.1em;
       margin-right: 0.4em;
     }
   }
@@ -74,20 +81,9 @@ FitCard.Content.Badges = styled.div`
 const DisplayDOM = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   @media (max-width: 480px) {
     justify-content: center;
-  }
-`;
-
-const ImplantB = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: 0.2em;
-  width: fit-content;
-  height: 24px;
-  padding: 0.2em 0.2em 0em;
-  @media (max-width: 480px) {
-    font-size: 1.3em;
   }
 `;
 
@@ -128,17 +124,9 @@ function Fitout({ data, tier }) {
           fitnote = null;
         }
         if (logiid.includes(parseInt(id))) {
-          logi.push(
-            <div key={ship.name}>
-              <ShipDisplay fit={ship} id={id} note={fitnote} />
-            </div>
-          );
+          logi.push(<ShipDisplay key={ship.name} fit={ship} id={id} note={fitnote} />);
         } else {
-          dps.push(
-            <div key={ship.name}>
-              <ShipDisplay fit={ship} id={id} note={fitnote} />
-            </div>
-          );
+          dps.push(<ShipDisplay key={ship.name} fit={ship} id={id} note={fitnote} />);
         }
       }
     }
@@ -185,7 +173,11 @@ function ShipDisplay({ fit, id, note }) {
                 <DNADisplay dna={fit.dna} name={fit.name} />
               </div>
             </div>
-            {note ? <Note variant={"secondary"}>{note}</Note> : null}
+            {note ? (
+              <Note variant={"secondary"}>
+                <Markdown>{note}</Markdown>
+              </Note>
+            ) : null}
             {fit.name.indexOf("HYBRID") !== -1 ? (
               <Note variant={"danger"}>
                 <p>
@@ -204,29 +196,27 @@ function ShipDisplay({ fit, id, note }) {
           </Box>
         </Modal>
       ) : null}
-      <Box>
-        <div style={{ margin: "0.5em 0" }}>
-          <FitCard variant={"secondary"}>
-            <a onClick={(evt) => setModalOpen(true)}>
-              <FitCard.Content>
-                <img
-                  style={{ height: "64px" }}
-                  src={`https://images.evetech.net/types/${id}/icon`}
-                  alt={fit.name}
-                />
-                {fit.name}
-                <FitCard.Content.Badges>
-                  {note ? <FontAwesomeIcon icon={faExclamationCircle} /> : null}
-                  {fit.name.indexOf("HYBRID") !== -1 ? (
-                    <Shield color="red" letter="H" title="Hybrid Implants" />
-                  ) : fit.name.indexOf("ASCENDANCY") !== -1 ? (
-                    <Shield color="red" letter="W" title="Ascendancy Implants" />
-                  ) : null}
-                </FitCard.Content.Badges>
-              </FitCard.Content>
-            </a>
-          </FitCard>
-        </div>
+      <Box mpadding={"0.2em"} style={{ margin: "0.5em 0" }}>
+        <FitCard variant={"input"}>
+          <a onClick={(evt) => setModalOpen(true)}>
+            <FitCard.Content>
+              <img
+                style={{ height: "64px" }}
+                src={`https://images.evetech.net/types/${id}/icon`}
+                alt={fit.name}
+              />
+              <p>{fit.name}</p>
+              <FitCard.Content.Badges>
+                {note ? <FontAwesomeIcon icon={faExclamationCircle} /> : null}
+                {fit.name.indexOf("HYBRID") !== -1 ? (
+                  <Shield color="red" letter="H" title="Hybrid Implants" />
+                ) : fit.name.indexOf("ASCENDANCY") !== -1 ? (
+                  <Shield color="red" letter="W" title="Ascendancy Implants" />
+                ) : null}
+              </FitCard.Content.Badges>
+            </FitCard.Content>
+          </a>
+        </FitCard>
       </Box>
     </>
   );
@@ -236,45 +226,46 @@ function ImplantOut() {
   return (
     <>
       <DisplayDOM style={{ justifyContent: "initial" }}>
-        <ImplantButton name="Ascendancy" />
-        <ImplantButton name="Hybrid" />
+        <ImplantButton name="Ascendancy" img={wbadge} />
+        <ImplantButton name="Hybrid" img={hbadge} />
       </DisplayDOM>
     </>
   );
 }
 
-function ImplantButton({ name }) {
+function ImplantButton({ name, img }) {
   const [modalOpen, setModalOpen] = React.useState(false);
-  var letter = name[0];
-  if (name === "Ascendancy") {
-    letter = "W";
-  }
   return (
     <>
       {modalOpen ? (
         <Modal open={true} setOpen={setModalOpen}>
-          <Box style={{ width: "max-content" }}>
-            <div style={{ display: "flex" }}>
-              <Title>{name} &nbsp;</Title>
-              <Shield color="red" letter={letter} h="33px" />
-            </div>
+          <Box style={{ width: "100%" }}>
+            <BadgeModal style={{ width: "100%" }}>
+              <BadgeModal.Title>
+                <div>
+                  <img src={img} alt={name} style={{ width: "1.8em", marginRight: "0.5em" }} />
+                </div>
+                <Title>{name} &nbsp;</Title>
+              </BadgeModal.Title>
+            </BadgeModal>
+            <b>Only visible on waitlist X-UP. </b>
+            <br />
             <br />
             <ImplantTable type={name} />
           </Box>
         </Modal>
       ) : null}
-      <div style={{ margin: "0 0.5em 0 0" }}>
-        <FitCard variant={"secondary"} size={"108px"}>
-          <a onClick={(evt) => setModalOpen(true)}>
-            <FitCard.Content>
-              <ImplantB>
-                <Shield color="red" letter={letter} h="18px" />
-              </ImplantB>
-              {name}
-            </FitCard.Content>
-          </a>
-        </FitCard>
-      </div>
+
+      <BadgeDOM>
+        <a onClick={(evt) => setModalOpen(true)}>
+          <BadgeDOM.Content>
+            <BadgeDOM.Icon>
+              <img src={img} alt={name} style={{ width: "1.5em" }} />
+            </BadgeDOM.Icon>
+            {name}
+          </BadgeDOM.Content>
+        </a>
+      </BadgeDOM>
     </>
   );
 }

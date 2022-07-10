@@ -32,7 +32,13 @@ export function NoteAdd() {
   return (
     <>
       <PageTitle>Add note{pilot && `: ${pilot.name}`}</PageTitle>
-      <Textarea onChange={(evt) => setNote(evt.target.value)} value={note} rows="5" cols="60" />
+      <Textarea
+        style={{ width: "100%" }}
+        onChange={(evt) => setNote(evt.target.value)}
+        value={note}
+        rows="5"
+        cols="60"
+      />
 
       <p>
         <em>Remember that notes cannot be removed!</em>

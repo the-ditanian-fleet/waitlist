@@ -56,8 +56,7 @@ export function Search() {
             <Row>
               <CellHead>Name</CellHead>
               <CellHead>Character ID</CellHead>
-              <CellHead></CellHead>
-              <CellHead></CellHead>
+              <CellHead style={{ width: "50%" }}></CellHead>
             </Row>
           </TableHead>
           <TableBody>
@@ -80,12 +79,13 @@ export function Search() {
                         )}
                       {authContext.access["access-manage"] &&
                         authContext.account_id !== character.id && (
-                          <AddACL who={character} authContext={authContext} />
+                          <>
+                            <AddACL who={character} authContext={authContext} />
+                          </>
                         )}
                     </InputGroup>
                   </Buttons>
                 </Cell>
-                <Cell></Cell>
               </Row>
             ))}
           </TableBody>

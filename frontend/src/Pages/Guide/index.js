@@ -3,6 +3,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { Content, PageTitle } from "../../Components/Page";
 import styled from "styled-components";
 import { ToastContext } from "../../contexts";
+import { BadgeData } from "./Badges";
 
 import { errorToaster } from "../../api";
 import { Markdown } from "../../Components/Markdown";
@@ -134,7 +135,7 @@ export function GuideIndex() {
           The Bastion Module offers a great damage increase, but it has to be used safely. Learn
           how!
         </GuideCard>
-        <GuideCard slug="/guide/badges" name="Information about badges" icon={faIdBadge}>
+        <GuideCard slug="/badges" name="Information about badges" icon={faIdBadge}>
           What are all these badges I see?
         </GuideCard>
         <GuideCard slug="/guide/tips" name="General tips" icon={faInfo}>
@@ -151,4 +152,8 @@ export function GuideIndex() {
       </CardArray>
     </>
   );
+}
+
+export function BadgeIndex() {
+  return <BadgeData />;
 }

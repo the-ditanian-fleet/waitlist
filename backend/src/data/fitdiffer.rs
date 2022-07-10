@@ -1,6 +1,6 @@
 use std::{cmp::min, collections::BTreeMap};
 
-use crate::data::variations::Variation;
+use crate::data::variations::{Variation, Variator};
 
 use eve_data_core::{Fitting, TypeID};
 
@@ -24,9 +24,11 @@ pub struct DiffResult {
 pub struct FitDiffer {}
 
 impl FitDiffer {
-    fn section_diff(expect: &BTreeMap<TypeID, i64>, actual: &BTreeMap<TypeID, i64>) -> SectionDiff {
-        let variator = crate::data::variations::get();
-
+    fn section_diff(
+        expect: &BTreeMap<TypeID, i64>,
+        actual: &BTreeMap<TypeID, i64>,
+        variator: &'static Variator,
+    ) -> SectionDiff {
         let mut extra = actual.clone();
         let mut missing = expect.clone();
         let mut downgraded = BTreeMap::new();
@@ -101,9 +103,21 @@ impl FitDiffer {
     }
 
     pub fn diff(expect: &Fitting, actual: &Fitting) -> DiffResult {
-        let modules = Self::section_diff(&expect.modules, &actual.modules);
-        let cargo = Self::section_diff(&expect.cargo, &actual.cargo);
-
+        let variator = crate::data::variations::get();
+        let modules = Self::section_diff(&expect.modules, &actual.modules, &variator);
+        let cargo_changer = crate::data::variations::drug_handling().unwrap_or(BTreeMap::new());
+        let mut mexcargo = expect.cargo.clone();
+        mexcargo.retain(|id, _| !&variator.cargo_ignore.contains(id));
+        // Change expected cargo (yaml config) does fit have the detecting drug?
+        for (detect, drugchange) in &cargo_changer {
+            if mexcargo.contains_key(&detect) {
+                mexcargo.retain(|id, _| !drugchange.remove.contains(id));
+                for (id, amount) in drugchange.add.iter() {
+                    mexcargo.insert(*id, *amount);
+                }
+            }
+        }
+        let cargo = Self::section_diff(&mexcargo, &actual.cargo, &variator);
         // "Downgraded" cargo isn't a thing. Count those as missing
         let mut cargo_missing = cargo.missing;
         for (type_id, to) in cargo.downgraded {
@@ -116,9 +130,9 @@ impl FitDiffer {
         let cargo_missing = cargo_missing
             .into_iter()
             .filter(|(type_id, count)| {
-                let expect = *expect.cargo.get(type_id).unwrap();
+                let expect = *mexcargo.get(type_id).unwrap();
                 if expect >= 10 {
-                    *count > (expect * 70 / 100) // Integer way of doing *0.7
+                    *count > (expect * 80 / 100) // Integer way of doing *0.8
                 } else {
                     true
                 }

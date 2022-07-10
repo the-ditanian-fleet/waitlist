@@ -19,7 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 
-import egoldBadge from "../Guide/guides/badges/egold.png";
+import egoldBadge from "../Guide/badges/egold.png";
 
 import { SkillDisplay } from "../../Components/SkillDisplay";
 import { Box } from "../../Components/Box";
