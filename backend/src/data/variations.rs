@@ -68,6 +68,12 @@ struct AddRemove {
     add: Vec<AddDrug>,
 }
 
+#[derive(Debug)]
+pub struct DrugChanger {
+    pub add: BTreeMap<TypeID, i64>,
+    pub remove: BTreeSet<TypeID>,
+}
+
 #[derive(Deserialize)]
 struct ModuleFileDrug {
     drugs_approve_override: Vec<AddRemove>,
@@ -236,12 +242,6 @@ impl Builder {
 
         Ok(())
     }
-}
-
-#[derive(Debug)]
-pub struct DrugChanger {
-    pub add: BTreeMap<TypeID, i64>,
-    pub remove: BTreeSet<TypeID>,
 }
 
 pub fn drug_handling() -> Result<BTreeMap<TypeID, DrugChanger>, TypeError> {

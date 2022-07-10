@@ -261,6 +261,12 @@ theme["Chocola"] = _.merge({}, theme.Dark, {
       accent: "#bc577d",
       disabled: "#e8e8e8",
     },
+    input: {
+      color: "#4f3d44",
+      text: "#cccccc",
+      accent: "#4f3d44",
+      disabled: "#999999",
+    },
     success: {
       color: "#1f6538",
       text: "white",
@@ -335,7 +341,7 @@ theme["Vanilla"] = _.merge({}, theme.Dark, {
   },
 
   logo: {
-    filter: "invert(1) drop-shadow(1px 2px 0.5px #333446)",
+    filter: "invert(62%) sepia(28%) saturate(325%) hue-rotate(4deg) brightness(100%) contrast(84%)",
   },
   sticker: "https://i.imgur.com/8JN6udB.png",
 });

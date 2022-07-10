@@ -30,7 +30,7 @@ export function Routes() {
       <Route exact path="/guide">
         <GuideIndex />
       </Route>
-      <Route exact path="/badge">
+      <Route exact path="/badges">
         <BadgeIndex />
       </Route>
       <Route exact path="/guide/:guideName">

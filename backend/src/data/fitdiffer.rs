@@ -109,8 +109,9 @@ impl FitDiffer {
         let modules = Self::section_diff(&expect.modules, &actual.modules, &variator);
         let cargo_changer = crate::data::variations::drug_handling().unwrap_or(BTreeMap::new());
         let mut mexcargo = expect.cargo.clone();
+        mexcargo.retain(|id, _| !&variator.cargo_ignore.contains(id));
+        // Change expected cargo (yaml config) does fit have the detecting drug?
         for (detect, drugchange) in &cargo_changer {
-            // does fit have the detecting drug?
             if mexcargo.contains_key(&detect) {
                 mexcargo.retain(|id, _| !drugchange.remove.contains(id));
                 for (id, amount) in drugchange.add.iter() {
@@ -118,9 +119,7 @@ impl FitDiffer {
                 }
             }
         }
-
         let cargo = Self::section_diff(&mexcargo, &actual.cargo, &variator);
-
         // "Downgraded" cargo isn't a thing. Count those as missing
         let mut cargo_missing = cargo.missing;
         for (type_id, to) in cargo.downgraded {
@@ -133,12 +132,7 @@ impl FitDiffer {
         let cargo_missing = cargo_missing
             .into_iter()
             .filter(|(type_id, count)| {
-                // drug stuff 3h thing
-                let ignore = &variator.cargo_ignore;
-                if ignore.contains(type_id) {
-                    return false;
-                }
-                let expect = *mexcargo.get(type_id).unwrap(); //err
+                let expect = *mexcargo.get(type_id).unwrap();
                 if expect >= 10 {
                     *count > (expect * 80 / 100) // Integer way of doing *0.8
                 } else {
