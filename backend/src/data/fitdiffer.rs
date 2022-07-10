@@ -29,8 +29,6 @@ impl FitDiffer {
         actual: &BTreeMap<TypeID, i64>,
         variator: &'static Variator,
     ) -> SectionDiff {
-        // cargo pass
-
         let mut extra = actual.clone();
         let mut missing = expect.clone();
         let mut downgraded = BTreeMap::new();
