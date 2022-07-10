@@ -8,6 +8,7 @@ const inputStyle = css`
   border: solid ${(props) => (props.variant ? "0px" : "1px")};
   border-color: ${(props) => props.theme.colors.accent2};
   border-radius: 4px;
+
   background-color: ${(props) => props.theme.colors[props.variant || "input"].color};
   color: ${(props) => props.theme.colors[props.variant || "input"].text} !important;
   display: inline-block;
@@ -38,6 +39,9 @@ const inputStyle = css`
   &:disabled,
   &.static {
     color: ${(props) => props.theme.colors[props.variant || "input"].disabled};
+  }
+  @media (max-width: 480px) {
+    padding: 0 0.8em;
   }
 `;
 
@@ -113,10 +117,12 @@ export const Textarea = styled.textarea`
 export const InputGroup = styled.div`
   display: flex;
   flex-wrap: wrap;
-
   > * {
     z-index: 1;
     margin: 0;
+    @media (max-width: 480px) {
+      margin-bottom: 0.4em;
+    }
   }
   > :not(:last-child) {
     border-top-right-radius: 0;

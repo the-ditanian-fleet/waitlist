@@ -23,10 +23,13 @@ export const BorderedBox = styled.div`
   margin: 0.4em 0;
 `;
 
-export function InfoNote({ message }) {
+export function InfoNote({ children }) {
   return (
-    <Note variant={"secondary"} width={"fit-content"} display={"block"}>
-      <FontAwesomeIcon icon={faExclamationCircle} /> {message}
+    <Note variant={"secondary"} width={"fit-content"} display={"flex"}>
+      <div style={{ marginRight: "0.5em" }}>
+        <FontAwesomeIcon icon={faExclamationCircle} />
+      </div>
+      {children}
     </Note>
   );
 }

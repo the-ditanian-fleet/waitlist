@@ -3,7 +3,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { Content, PageTitle } from "../../Components/Page";
 import styled from "styled-components";
 import { ToastContext } from "../../contexts";
-import { BadgeData } from "./Badge";
+import { BadgeData } from "./Badges";
 
 import { errorToaster } from "../../api";
 import { Markdown } from "../../Components/Markdown";

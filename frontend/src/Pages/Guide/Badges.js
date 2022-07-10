@@ -3,28 +3,15 @@ import { Box } from "../../Components/Box";
 import { Modal } from "../../Components/Modal";
 import { Title, Content } from "../../Components/Page";
 import styled from "styled-components";
-import { ImplantOut, BadgeDOM } from "../Fits/FittingSortDisplay";
-import { NavButton } from "../../Components/Form";
+import { ImplantOut } from "../Fits/FittingSortDisplay";
+import { NavButton, InputGroup } from "../../Components/Form";
+import { InfoNote } from "../../Components/NoteBox";
 
-//import { Shield, tagBadges } from "../../Components/Badge";
+import { BadgeDOM, BadgeModal } from "../../Components/Badge";
 
 const BadgeDisplay = styled.div`
   display: flex;
   flex-wrap: wrap;
-`;
-
-const ModalDOM = styled.div`
-  width: 480px;
-  @media (max-width: 480px) {
-    width: 100%;
-  }
-`;
-ModalDOM.Title = styled.div`
-  border-bottom: 3px solid;
-  padding-bottom: 5px;
-  margin-bottom: 1em;
-  display: flex;
-  border-color: ${(props) => props.theme.colors.accent3};
 `;
 
 const BadgeImages = {};
@@ -40,9 +27,9 @@ function BadgeButton({ name, img, children }) {
       {modalOpen ? (
         <Modal open={true} setOpen={setModalOpen}>
           <Box>
-            <ModalDOM>
-              <ModalDOM.Title>
-                <div>
+            <BadgeModal>
+              <BadgeModal.Title>
+                <div style={{ display: "flex", alignItems: "center" }}>
                   <img
                     src={BadgeImages[img].default}
                     alt={name}
@@ -50,14 +37,14 @@ function BadgeButton({ name, img, children }) {
                   />
                 </div>
                 <Title>{name} &nbsp;</Title>
-              </ModalDOM.Title>
+              </BadgeModal.Title>
               {children}
-            </ModalDOM>
+            </BadgeModal>
           </Box>
         </Modal>
       ) : null}
 
-      <BadgeDOM variant={"secondary"}>
+      <BadgeDOM>
         <a onClick={(evt) => setModalOpen(true)}>
           <BadgeDOM.Content>
             <BadgeDOM.Icon>
@@ -93,89 +80,152 @@ export function BadgeData() {
         <BadgeDisplay>
           <ImplantOut />
         </BadgeDisplay>
-        <Title>Elite Badge</Title>
+        <Title>Tier Badge</Title>
         <BadgeDisplay>
+          <BadgeButton name="Starter Pilot" img={"./starter.png"}>
+            Pilot is new to TDF & Incursions. <br />
+            To get rid of the starter tag you need to do the following:
+            <br />
+            <br />
+            <Content>
+              <ul>
+                <li>Basic fit or better</li>
+                <li>Basic tier skills or better for the applicable ship</li>
+              </ul>
+            </Content>
+            <br />
+            <InputGroup>
+              <NavButton to={`/skills`}>Check your skills</NavButton>
+              <NavButton to={`/guide/upgrade`}>Upgrade guide and policy</NavButton>
+            </InputGroup>
+          </BadgeButton>
           <BadgeButton name="Elite" img={"./e.png"}>
-            Requirements to get elite badge are: Elite fitting or better WITH implants 1-10 and all
-            skills to elite or better for the applicable ship.
+            <b>Allows you to join elite fleets</b>
+            <br />
+            This badge is a requirement in accordance with our upgrade policy
+            <br />
+            Requirements to aquire the elite badge are:
             <br />
             <br />
-            <NavButton variant={"secondary"} to={`/skills`}>
-              Check your Skills
-            </NavButton>
+            <Content>
+              <ul>
+                <li>Hybrid or Ascendancy implant set badge</li>
+                <li>Elite fit matching your implant set</li>
+                <li>Elite skills or better for the applicable ship</li>
+              </ul>
+            </Content>
+            <InfoNote variant={"secondary"}>
+              You must be scanned by an FC to aquire the teamspeak badge
+            </InfoNote>
+            <br />
+            <InputGroup>
+              <NavButton to={`/skills`}>Check your skills</NavButton>
+              <NavButton to={`/guide/upgrade`}>Upgrade guide and policy</NavButton>
+            </InputGroup>
           </BadgeButton>
           <BadgeButton name="Elite Gold" img={"./egold.png"}>
-            Requirements to get elite gold badge are: Elite badge pre-requisites plus all skills to
-            elite gold for the applicable ship. <br />
+            <b>This badge is optional</b>
             <br />
-            <NavButton variant={"secondary"} to={`/skills`}>
-              Check your Skills
-            </NavButton>
+            Requirements to get elite gold badge are: <br />
+            <br />
+            <Content>
+              <ul>
+                <li>Elite badge for the applicable ship</li>
+                <li>Elite gold skills or better for the applicable ship</li>
+              </ul>
+            </Content>
+            <br />
+            <NavButton to={`/skills`}>Check your skills</NavButton>
           </BadgeButton>
         </BadgeDisplay>
         <Title>Specialist Badges</Title>
         <BadgeDisplay>
           <BadgeButton name="Logi Specialist" img={"./l.png"}>
-            Permitted to fly Nestor Logistics.
+            <b>Permitted to fly Nestor Logistics</b>
             <br />
             Requirements to get logistics specialist badge are:
             <br />
             <br />
             <Content>
               <ul>
-                <li>Elite skills for a Nestor</li>
-                <li>Minimum 20h of logged logi cruiser hours</li>
-                <li>
-                  Completing Nestor &quot;training&quot; of which 3 Full HQ FC +1&apos;s are
-                  required
-                </li>
+                <li>Elite skills for Nestor</li>
+                <li>Minimum of 20 hours in a logi cruiser</li>
+                <li>Complete the Nestor training where three full HQ FC +1&apos;s are required</li>
               </ul>
             </Content>
+            <InfoNote variant={"secondary"}>
+              You can x-up on the waitlist. Make sure to let the fc know you are a training nestor!
+            </InfoNote>
+            <br />
+            <InputGroup>
+              <NavButton to={`/skills?ship=Nestor`}>Check your skills</NavButton>
+              <NavButton to={`/pilot`}>Logged cruiser hours</NavButton>
+            </InputGroup>
           </BadgeButton>
           <BadgeButton name="Bastion Specialist" img={"./bastion.png"}>
+            <b>Gives priority invite to elite fleet</b>
+            <br />
+            This badge is optional
+            <br />
             Requirements to get bastion specialist badge are: <br />
             <br />
             <Content>
               <ul>
-                <li>Elite badge pre-requisites for a Bastion-capable ship</li>
+                <li>Elite badge for a Bastion-capable ship</li>
+                <li>Marauders skill to level 5</li>
                 <li>Abyssal damage modules with a minimum of 29% DPS bonus</li>
-                <li>Marauders skill to 5</li>
                 <li>
-                  abyssal plate with minimum 6k RAW armor HP for single platefits, & 12k RAW
-                  combined HP on dual plate fits.
+                  Abyssal plate: <br />
+                  6k RAW armor HP for single plate fits <br />
+                  12k RAW combined armor HP on dual plate fits
                 </li>
               </ul>
             </Content>
+            <InfoNote variant={"secondary"}>
+              Contact an FC to verify your abyssals and apply the badge on TS and on the website.
+              Badge can be viewed on pilot page.
+            </InfoNote>
           </BadgeButton>
           <BadgeButton name="Web Specialist" img={"./wv.png"}>
+            <b>Gives priority invite to elite fleet</b>
+            <br />
+            This badge is optional
+            <br />
             Requirements to get web specialist badge are: <br />
             <br />
             <Content>
               <ul>
                 <li>Elite badge pre-requisites for a Vindicator</li>
-                <li>Abyssal webifiers with minimum of 16km base range & 62% base strength bonus</li>
-                <li>Gallente BS skill to 5.</li>
+                <li>Gallente Battleship skill level 5</li>
+                <li>
+                  Abyssal webifiers with minimum: <br /> 16km optimal range <br />
+                  62% velocity bonus reduction
+                </li>
               </ul>
             </Content>
+            <InfoNote variant={"secondary"}>
+              Contact an FC to verify your abyssals and apply the badge on TS and on the website.
+              Badge can be viewed on pilot page.
+            </InfoNote>
           </BadgeButton>
         </BadgeDisplay>
         <Title>FC Badges</Title>
         <BadgeDisplay>
           <BadgeButton name="Training FC" img={"./trainee.png"}>
-            Permitted to use TDF comms to run fleets and to take a fleet into sites with SRP cover
-            provided an FC with the badge relevant to the site is in the fleet. <br />
+            Permitted to use TDF comms to run fleets. Only allowed to take a fleet into sites with
+            SRP cover provided an FC with the badge relevant to the site is in the fleet. <br />
             <br />
-            Find out more about becoming Training FC here:
-            <br />
-            <NavButton variant={"secondary"} to={`/guide/fctraining`}>
-              FC Training Program
-            </NavButton>
+            <p style={{ marginBottom: "0.5em" }}>Find out more about becoming a trainee FC here:</p>
+            <NavButton to={`/guide/fctraining`}>FC Training Program</NavButton>
           </BadgeButton>
           <BadgeButton name="PHQ FC" img={"./hqp.png"}>
             Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault
             and Vanguard sites with SRP cover.
             <br />
-            <br /> <b> Cannot take training nestors or do backseats for Trainee FC&apos;s.</b>
+            <br />
+            <InfoNote variant={"secondary"}>
+              Cannot take training nestors or do backseats for Trainee FC&apos;s
+            </InfoNote>
           </BadgeButton>
           <BadgeButton name="VG FC" img={"./vg.png"}>
             Permitted to use TDF comms to run fleets and to take a fleet into Vanguard sites with
@@ -203,16 +253,13 @@ export function BadgeData() {
             and Vanguard sites with SRP cover. <br />
             <br />
             Can promote Full FC&apos;s to FC Trainer and Trainee FC&apos;s to full HQ/AS/VG tags and
-            conduct van/bus fleets for trainee FC&apos;.
+            conduct van/bus fleets for trainee FC&apos;s.
           </BadgeButton>
         </BadgeDisplay>
         <Title>Other</Title>
         <BadgeDisplay>
-          <BadgeButton name="Starter Pilot" img={"./starter.png"}>
-            Pilot is new to TDF & Incursions and/or has starter skills.
-          </BadgeButton>
           <BadgeButton name="Backchannel" img={"./b.png"}>
-            Pilot has access to the back comms channel on TeamSpeak.
+            Pilot has access to the back comms on TeamSpeak.
           </BadgeButton>
         </BadgeDisplay>
       </Content>

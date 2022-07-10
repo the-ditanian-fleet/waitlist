@@ -14,6 +14,64 @@ export const Badge = styled.span`
   white-space: nowrap;
 `;
 
+export const BadgeDOM = styled.div`
+  margin: 0em 0.5em 0.5em 0;
+  border: solid 2px ${(props) => props.theme.colors.accent2};
+  border-radius: 5px;
+  background-color: ${(props) => props.theme.colors.background};
+  font-size: 1em;
+  filter: drop-shadow(0px 3px 4px ${(props) => props.theme.colors.shadow});
+  width: 180px;
+  height: 2.6em;
+  a {
+  }
+  &:hover:not(:disabled):not(.static) {
+    border-color: ${(props) => props.theme.colors.accent3};
+    cursor: pointer;
+  }
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 4em;
+    margin: 0em 0.5em 1em 0;
+  }
+`;
+BadgeDOM.Content = styled.div`
+  display: flex;
+  height: 100%;
+  align-items: center;
+  color: ${(props) => props.theme.colors.text};
+  img {
+    border-radius: 3px 0px 0px 3px;
+    margin-right: 0.5em;
+    align-self: flex-start;
+  }
+}
+`;
+BadgeDOM.Icon = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 0.2em;
+  width: fit-content;
+  padding: 0em 0.4em 0em;
+  @media (max-width: 480px) {
+    font-size: 1.3em;
+  }
+`;
+
+export const BadgeModal = styled.div`
+  width: 480px;
+  @media (max-width: 580px) {
+    width: 100%;
+  }
+`;
+BadgeModal.Title = styled.div`
+  border-bottom: 3px solid;
+  padding-bottom: 5px;
+  margin-bottom: 1em;
+  display: flex;
+  border-color: ${(props) => props.theme.colors.accent3};
+`;
+
 export const tagBadges = {
   WARPSPEED: ["red", "W", "Warp Speed Implants"],
   HYBRID: ["red", "H", "Hybrid Implants"],

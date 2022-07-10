@@ -1,4 +1,3 @@
-import { Content } from "../../Components/Page";
 import { InfoNote } from "../../Components/NoteBox";
 import { Highlight } from "../../Components/Form";
 import { Copyable } from "../../Components/Copy";
@@ -35,16 +34,14 @@ export function ImplantTable({ type }) {
     ];
   }
   return (
-    <Content>
-      <InfoNote
-        message={
-          type === "Hybrid"
-            ? "Hybrid tagged fits require at least Amulet 1 - 5 to be flown."
-            : "Required for Elite badge on non implant specific ships."
-        }
-      />
+    <>
+      <InfoNote>
+        {type === "Hybrid"
+          ? "Hybrid tagged fits require at least Amulet 1 - 5 to be flown."
+          : "Required for Elite badge on non implant specific ships."}
+      </InfoNote>
 
-      <Table fullWidth>
+      <Table style={{ width: "100%" }}>
         <TableHead>
           <Row>
             <SmallCellHead></SmallCellHead>
@@ -82,7 +79,7 @@ export function ImplantTable({ type }) {
           <HardWires toastContext={toastContext} />
         </TableBody>
       </Table>
-    </Content>
+    </>
   );
 }
 

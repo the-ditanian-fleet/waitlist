@@ -56,8 +56,7 @@ export function Search() {
             <Row>
               <CellHead>Name</CellHead>
               <CellHead>Character ID</CellHead>
-              <CellHead></CellHead>
-              <CellHead></CellHead>
+              <CellHead style={{ width: "50%" }}></CellHead>
             </Row>
           </TableHead>
           <TableBody>
@@ -87,7 +86,6 @@ export function Search() {
                     </InputGroup>
                   </Buttons>
                 </Cell>
-                <Cell></Cell>
               </Row>
             ))}
           </TableBody>

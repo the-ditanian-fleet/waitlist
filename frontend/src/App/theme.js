@@ -23,9 +23,9 @@ const theme = {
       shadow: "hsla(0, 0%, 0%, 0.2)",
 
       input: {
-        color: "transparent",
+        color: "#2020200d",
         text: "#4a4a4a",
-        accent: "transparent",
+        accent: "2020200d",
         disabled: "#cccccc",
       },
       success: {
@@ -95,9 +95,9 @@ const theme = {
       shadow: "hsla(0, 0%, 0%, 0.5)",
 
       input: {
-        color: "transparent",
+        color: "#ffffff0a",
         text: "#cccccc",
-        accent: "transparent",
+        accent: "ffffff0a",
         disabled: "#999999",
       },
       success: {
@@ -158,7 +158,7 @@ theme.AMOLED = _.merge({}, theme.Dark, {
   colors: {
     text: "#f0f0f0",
     background: "#000000",
-    modal: "hsla(65, 0%, 11%, 0.7)",
+    modal: "hsla(55, 0%, 13%, 0.83)",
   },
 });
 
@@ -190,7 +190,7 @@ theme["Specialist"] = _.merge({}, theme.Light, {
   colors: {
     text: "#666666",
     background: "#fdf3f9",
-    accent1: "#fce4f2",
+    accent1: "#ffcbe9",
     accent2: "#ffbcdf",
     accent3: "#d55f9d",
     active: "#e11891",
@@ -200,9 +200,9 @@ theme["Specialist"] = _.merge({}, theme.Light, {
     shadow: "hsla(315, 100%, 90%, 0.4)",
 
     input: {
-      color: "transparent",
+      color: "#ffc3e536",
       text: "#4a4a4a",
-      accent: "transparent",
+      accent: "#ffc3e536",
       disabled: "#757575",
     },
 
@@ -324,9 +324,9 @@ theme["Vanilla"] = _.merge({}, theme.Dark, {
     },
 
     danger: {
-      color: "#8e2c2c",
+      color: "#752626",
       text: "#cdcdcd ",
-      accent: "#ac3939",
+      accent: "#842c2c",
       disabled: "#330a12",
     },
     accent1: "#333557",
@@ -341,7 +341,8 @@ theme["Vanilla"] = _.merge({}, theme.Dark, {
   },
 
   logo: {
-    filter: "invert(62%) sepia(28%) saturate(325%) hue-rotate(4deg) brightness(100%) contrast(84%) drop-shadow(1px 1px 0.3px #000000)",
+    filter:
+      "invert(62%) sepia(28%) saturate(325%) hue-rotate(4deg) brightness(100%) contrast(84%) drop-shadow(1px 1px 0.3px #000000)",
   },
   sticker: "https://i.imgur.com/8JN6udB.png",
 });
