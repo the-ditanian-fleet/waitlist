@@ -341,7 +341,7 @@ theme["Vanilla"] = _.merge({}, theme.Dark, {
   },
 
   logo: {
-    filter: "invert(62%) sepia(28%) saturate(325%) hue-rotate(4deg) brightness(100%) contrast(84%)",
+    filter: "invert(62%) sepia(28%) saturate(325%) hue-rotate(4deg) brightness(100%) contrast(84%) drop-shadow(1px 1px 0.3px #000000)",
   },
   sticker: "https://i.imgur.com/8JN6udB.png",
 });

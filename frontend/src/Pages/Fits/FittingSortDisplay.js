@@ -312,7 +312,7 @@ function ImplantButton({ name, img }) {
                 <Title>{name} &nbsp;</Title>
               </ModalDOM.Title>
             </ModalDOM>
-            <h>Only visible on waitlist X-UP. </h>
+            <b>Only visible on waitlist X-UP. </b>
             <br />
             <br />
             <ImplantTable type={name} />
