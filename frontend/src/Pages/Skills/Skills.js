@@ -1,13 +1,28 @@
 import React from "react";
 import { AuthContext } from "../../contexts";
 import { useLocation, useHistory } from "react-router-dom";
-import { PageTitle } from "../../Components/Page";
+import { PageTitle, Content } from "../../Components/Page";
 import { useApi } from "../../api";
 
 import { SkillDisplay } from "../../Components/SkillDisplay";
 
 export function Skills() {
   const authContext = React.useContext(AuthContext);
+  if (!authContext) {
+    return (
+      <Content>
+        <b>Login Required!</b>
+        <p>
+          This page will show tables with TDF related skills comparing to your current skills with a
+          color indicating the progres tier that skill is at.
+        </p>
+      </Content>
+    );
+  }
+  return <SkillsAuth authContext={authContext} />;
+}
+
+function SkillsAuth({ authContext }) {
   const queryParams = new URLSearchParams(useLocation().search);
   const history = useHistory();
 

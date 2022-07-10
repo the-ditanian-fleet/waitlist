@@ -48,6 +48,7 @@ export function Routes() {
       <Route exact path="/skills/plans">
         <Plans />
       </Route>
+      <SkillRoutes />
       {authContext && (
         <>
           <Route exact path="/xup">
@@ -59,10 +60,7 @@ export function Routes() {
           <Route exact path="/waitlist">
             <Waitlist />
           </Route>
-
           <FCRoutes />
-
-          <SkillRoutes />
         </>
       )}
 

@@ -21,7 +21,7 @@ export function Plans() {
   if (!authContext) {
     return (
       <Content>
-        <p>Login Required!</p>
+        <b>Login Required!</b>
         <p>
           This page will show copyable skill plan tables comparing to your current skills with
           checkmarks next to already completed skills.
