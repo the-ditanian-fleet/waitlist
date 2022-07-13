@@ -4,7 +4,7 @@ import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 export const Note = styled.div`
   margin: 0 0 0.5em;
-  display: ${(props) => (props.display ? props.display : "flex")};
+  display: flex;
   background-color: ${(props) => props.theme.colors[props.variant].color};
   color: ${(props) => (props.theme.colors[props.variant] || {}).text || props.theme.colors.text};
   border-radius: 5px;
@@ -23,9 +23,9 @@ export const BorderedBox = styled.div`
   margin: 0.4em 0;
 `;
 
-export function InfoNote({ children }) {
+export function InfoNote({ variant = "secondary", children }) {
   return (
-    <Note variant={"secondary"} width={"fit-content"} display={"flex"}>
+    <Note variant={variant} width={"fit-content"}>
       <div style={{ marginRight: "0.5em" }}>
         <FontAwesomeIcon icon={faExclamationCircle} />
       </div>

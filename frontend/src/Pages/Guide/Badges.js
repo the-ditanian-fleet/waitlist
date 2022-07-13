@@ -96,7 +96,7 @@ export function BadgeData() {
             <br />
             <InputGroup>
               <NavButton to={`/skills`}>Check your skills</NavButton>
-              <NavButton to={`/guide/upgrade`}>Upgrade guide and policy</NavButton>
+              <NavButton to={`/guide/upgrade`}>Upgrade guide & policy</NavButton>
             </InputGroup>
           </BadgeButton>
           <BadgeButton name="Elite" img={"./e.png"}>
@@ -114,17 +114,15 @@ export function BadgeData() {
                 <li>Elite skills or better for the applicable ship</li>
               </ul>
             </Content>
-            <InfoNote variant={"secondary"}>
-              You must be scanned by an FC to aquire the teamspeak badge
-            </InfoNote>
+            <InfoNote>You must be scanned by an FC to aquire the teamspeak badge</InfoNote>
             <br />
             <InputGroup>
               <NavButton to={`/skills`}>Check your skills</NavButton>
-              <NavButton to={`/guide/upgrade`}>Upgrade guide and policy</NavButton>
+              <NavButton to={`/guide/upgrade`}>Upgrade guide & policy</NavButton>
             </InputGroup>
           </BadgeButton>
           <BadgeButton name="Elite Gold" img={"./egold.png"}>
-            <b>This badge is optional</b>
+            This badge is optional
             <br />
             Requirements to get elite gold badge are: <br />
             <br />
@@ -153,7 +151,7 @@ export function BadgeData() {
                 <li>Complete the Nestor training where three full HQ FC +1&apos;s are required</li>
               </ul>
             </Content>
-            <InfoNote variant={"secondary"}>
+            <InfoNote>
               You can x-up on the waitlist. Make sure to let the fc know you are a training nestor!
             </InfoNote>
             <br />
@@ -181,7 +179,7 @@ export function BadgeData() {
                 </li>
               </ul>
             </Content>
-            <InfoNote variant={"secondary"}>
+            <InfoNote>
               Contact an FC to verify your abyssals and apply the badge on TS and on the website.
               Badge can be viewed on pilot page.
             </InfoNote>
@@ -203,7 +201,7 @@ export function BadgeData() {
                 </li>
               </ul>
             </Content>
-            <InfoNote variant={"secondary"}>
+            <InfoNote>
               Contact an FC to verify your abyssals and apply the badge on TS and on the website.
               Badge can be viewed on pilot page.
             </InfoNote>
@@ -223,9 +221,7 @@ export function BadgeData() {
             and Vanguard sites with SRP cover.
             <br />
             <br />
-            <InfoNote variant={"secondary"}>
-              Cannot take training nestors or do backseats for Trainee FC&apos;s
-            </InfoNote>
+            <InfoNote>Cannot take training nestors or do backseats for Trainee FC&apos;s</InfoNote>
           </BadgeButton>
           <BadgeButton name="VG FC" img={"./vg.png"}>
             Permitted to use TDF comms to run fleets and to take a fleet into Vanguard sites with

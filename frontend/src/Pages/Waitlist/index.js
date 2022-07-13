@@ -193,16 +193,20 @@ export function Waitlist() {
           <Button active={displayMode === "rows"} onClick={(evt) => setDisplayMode("rows")}>
             Rows
           </Button>
-          {authContext.access["waitlist-view"] && (
+        </InputGroup>
+        {authContext.access["waitlist-view"] && (
+          <InputGroup>
             <Button active={displayMode === "notepad"} onClick={(evt) => setDisplayMode("notepad")}>
               Notepad
             </Button>
-          )}
-        </InputGroup>
+          </InputGroup>
+        )}
         {displayMode === "columns" && (
-          <Button onClick={handleChange}>
-            <FontAwesomeIcon icon={faColumns} />
-          </Button>
+          <InputGroup>
+            <Button onClick={handleChange}>
+              <FontAwesomeIcon icon={faColumns} />
+            </Button>
+          </InputGroup>
         )}
         {!altCol && (
           <CategoryHeading name="Alts" fleetComposition={fleetComposition} altCol={altCol} />
