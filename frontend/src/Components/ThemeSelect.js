@@ -11,8 +11,11 @@ import { Title } from "./Page";
 
 const themeNames = Object.keys(themes);
 
-export function ThemeSelect({ theme, setTheme }) {
+export function ThemeSelect({ theme, setTheme, sticker, setSticker }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const handleChange = () => {
+    setSticker(!sticker);
+  };
 
   return (
     <>
@@ -31,6 +34,11 @@ export function ThemeSelect({ theme, setTheme }) {
               </label>
             </div>
           ))}
+          {themes[theme].sticker && (
+            <Button style={{ marginTop: "0.5em" }} onClick={handleChange}>
+              {sticker ? "Disable" : "Enable"} Sticker
+            </Button>
+          )}
         </Box>
       </Modal>
       <Button onClick={(evt) => setIsOpen(true)}>

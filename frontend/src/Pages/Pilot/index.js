@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthContext } from "../../contexts";
 import { useLocation } from "react-router-dom";
-import { PageTitle, Title } from "../../Components/Page";
+import { PageTitle, Title, Content } from "../../Components/Page";
 import { PilotHistory } from "./PilotHistory";
 import { useApi } from "../../api";
 import { ActivitySummary } from "./ActivitySummary";
@@ -51,6 +51,21 @@ function PilotTags({ tags }) {
 
 export function Pilot() {
   const authContext = React.useContext(AuthContext);
+  if (!authContext) {
+    return (
+      <Content>
+        <b>Login Required!</b>
+        <p>
+          This page will you your own TDF Fleet statistics like x-up&apos;s, fleet times and skill
+          changes.
+        </p>
+      </Content>
+    );
+  }
+  return <PilotDisplay authContext={authContext} />;
+}
+
+function PilotDisplay({ authContext }) {
   const queryParams = new URLSearchParams(useLocation().search);
 
   var characterId = queryParams.get("character_id") || authContext.current.id;

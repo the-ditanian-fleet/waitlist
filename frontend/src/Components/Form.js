@@ -60,7 +60,7 @@ export const MobileButton = styled.button.attrs((props) => ({
   height: 2.5em;
   width: 3.35em;
   background-color: unset;
-
+  align-self: center;
   cursor: pointer;
   @media (min-width: 481px) {
     display: none;
@@ -120,9 +120,6 @@ export const InputGroup = styled.div`
   > * {
     z-index: 1;
     margin: 0;
-    @media (max-width: 480px) {
-      margin-bottom: 0.4em;
-    }
   }
   > :not(:last-child) {
     border-top-right-radius: 0;
@@ -142,6 +139,17 @@ export const InputGroup = styled.div`
   > :hover {
     z-index: 2;
   }
+  @media (max-width: 480px) {
+    ${(props) =>
+      !props.fixed &&
+      `
+	  * {
+		  padding-right: 0.3em;
+		  padding-left: 0.3em;
+		  font-size: 0.85em;
+	  }
+  `}
+  }
 `;
 
 export const Buttons = styled.div`
@@ -152,7 +160,11 @@ export const Buttons = styled.div`
     margin-bottom: ${(props) => (props.marginb ? props.marginb : "0.5em")};
     margin-right: 0.5em;
   }
-  } 
+  > :not(:last-child) {
+    @media (max-width: 480px) {
+      margin-bottom: 0.4em;
+    }
+  }
 `;
 
 export const CenteredButtons = styled.div`

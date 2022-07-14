@@ -12,10 +12,13 @@ import { Home } from "../Pages/Home";
 import { Legal } from "../Pages/Legal";
 import { Fits } from "../Pages/Fits";
 import { Guide, GuideIndex, BadgeIndex } from "../Pages/Guide";
-
 import { FCRoutes } from "../Pages/FC";
 import { AuthRoutes } from "../Pages/Auth";
 import { ISKh, ISKhCalc } from "../Pages/ISKh";
+
+function LoginRequired() {
+  return <b>Login Required!</b>;
+}
 
 export function Routes() {
   const authContext = React.useContext(AuthContext);
@@ -49,21 +52,16 @@ export function Routes() {
         <Plans />
       </Route>
       <SkillRoutes />
-      {authContext && (
-        <>
-          <Route exact path="/xup">
-            <Xup />
-          </Route>
-          <Route exact path="/pilot">
-            <Pilot />
-          </Route>
-          <Route exact path="/waitlist">
-            <Waitlist />
-          </Route>
-          <FCRoutes />
-        </>
-      )}
-
+      <Route exact path="/pilot">
+        <Pilot />
+      </Route>
+      <Route exact path="/xup">
+        {authContext ? <Xup /> : <LoginRequired />}
+      </Route>
+      <Route exact path="/waitlist">
+        {authContext ? <Waitlist /> : <LoginRequired />}
+      </Route>
+      {authContext && <FCRoutes />}
       <AuthRoutes />
     </>
   );
