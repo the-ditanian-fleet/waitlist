@@ -147,6 +147,10 @@ export const InputGroup = styled.div`
 		  padding-right: 0.3em;
 		  padding-left: 0.3em;
 		  font-size: 0.85em;
+		  svg {
+			  padding: 0;
+			  margin: 0 0.3em 0 0.3em;
+		  }
 	  }
   `}
   }
@@ -163,6 +167,7 @@ export const Buttons = styled.div`
   > :not(:last-child) {
     @media (max-width: 480px) {
       margin-bottom: 0.4em;
+      margin-right: 0.3em;
     }
   }
 `;
