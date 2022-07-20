@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts";
 import logoImage from "./logo.png";
 import styled from "styled-components";
-import { InputGroup, Select, NavButton, Button } from "../Components/Form";
+import { InputGroup, Select, NavButton, AButton } from "../Components/Form";
 import { EventNotifier } from "../Components/Event";
 import { ThemeSelect } from "../Components/ThemeSelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -134,9 +134,9 @@ export function Menu({ onChangeCharacter, theme, setTheme, sticker, setSticker }
                 </>
               )}
               <InputGroup fixed>
-                <Button title="Discord" href="https://discord.gg/YTysdbb">
+                <AButton title="Discord" href="https://discord.gg/YTysdbb">
                   <FontAwesomeIcon icon={faDiscord} />
-                </Button>
+                </AButton>
                 <EventNotifier />
                 <ThemeSelect
                   theme={theme}
