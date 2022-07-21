@@ -66,10 +66,10 @@ export default class App extends React.Component {
           window.localStorage.getItem("theme")) ||
         "Light",
       sticker:
-        (window.localStorage &&
+        ((window.localStorage &&
           window.localStorage.getItem("Sticker") &&
-          window.localStorage.getItem("Sticker") === "true") ||
-        true,
+          window.localStorage.getItem("Sticker")) ||
+          "true") === "true",
     };
   }
 
