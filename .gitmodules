@@ -1,0 +1,3 @@
+[submodule "sse-server"]
+	path = sse-server
+	url = https://github.com/fleischsalatinspace/sse-server
