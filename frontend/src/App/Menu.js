@@ -7,7 +7,7 @@ import { InputGroup, Select, NavButton, AButton } from "../Components/Form";
 import { EventNotifier } from "../Components/Event";
 import { ThemeSelect } from "../Components/ThemeSelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+import { faDiscord, faTeamspeak } from "@fortawesome/free-brands-svg-icons";
 import { NavLinks, MobileNavButton, MobileNav } from "./Navigation";
 
 const NavBar = styled.div`
@@ -134,6 +134,9 @@ export function Menu({ onChangeCharacter, theme, setTheme, sticker, setSticker }
                 </>
               )}
               <InputGroup fixed>
+                <AButton title="Teamspeak" href="ts3server://t-d-f.one">
+                  <FontAwesomeIcon icon={faTeamspeak} />
+                </AButton>
                 <AButton title="Discord" href="https://discord.gg/YTysdbb">
                   <FontAwesomeIcon icon={faDiscord} />
                 </AButton>

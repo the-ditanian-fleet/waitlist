@@ -4,7 +4,6 @@ import { Content, PageTitle } from "../../Components/Page";
 import styled from "styled-components";
 import { ToastContext } from "../../contexts";
 import { BadgeData } from "./Badges";
-
 import { errorToaster } from "../../api";
 import { Markdown } from "../../Components/Markdown";
 import { Card, CardArray, CardMargin } from "../../Components/Card";
