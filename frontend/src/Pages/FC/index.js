@@ -8,6 +8,7 @@ import { Search } from "./Search";
 import { Statistics } from "./Statistics";
 import { FleetCompHistory } from "./FleetCompHistory";
 import { NoteAdd } from "./NoteAdd";
+import { Announcements } from "./Announcements";
 import { FCMenu, GuideFC } from "./FCMenu";
 
 export function FCRoutes() {
@@ -46,6 +47,11 @@ export function FCRoutes() {
       {authContext.access["fleet-view"] && (
         <Route exact path="/fc/trainee">
           <GuideFC />
+        </Route>
+      )}
+      {authContext.access["access-manage"] && (
+        <Route exact path="/fc/announcement">
+          <Announcements />
         </Route>
       )}
     </>
