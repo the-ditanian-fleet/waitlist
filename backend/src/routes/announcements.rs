@@ -78,7 +78,6 @@ async fn change_announcement(
         .fetch_optional(app.get_db())
         .await?;
     if entry.is_none() {
-        account.require_access("access-manage-all")?;
         sqlx::query!(
             "INSERT INTO announcement (id, message, character_id, created_at) VALUES (?, ?, ?, ?)",
             input.id,
