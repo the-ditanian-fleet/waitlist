@@ -18,7 +18,10 @@ export function InfoAnnouncement({ id }) {
     return null;
   }
   return (
-    <InfoNote width={"100%"}>
+    <InfoNote
+      variant={announcement.message.slice(0, 6) === "DANGER" ? "danger" : "secondary"}
+      width={"100%"}
+    >
       <div style={{ width: "100%" }}>
         <AnnounceHeader style={{ marginBottom: "0.5em" }}>
           {" "}

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "styled-components";
 
+// If new entries are wanted they can be added here. Only admins can initialize them (by editing announcement)
 const announcelocations = {
   Home: 1,
   Waitlist: 2,
