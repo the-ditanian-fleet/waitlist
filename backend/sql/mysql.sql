@@ -99,7 +99,7 @@ CREATE TABLE `fleet_activity` (
 
 CREATE TABLE `announcement` (
   `id` bigint NOT NULL,
-  `message` TEXT NOT NULL
+  `message` TEXT NOT NULL,
   `character_id` bigint NOT NULL,
   `created_at` bigint NOT NULL,
   PRIMARY KEY (`id`),
