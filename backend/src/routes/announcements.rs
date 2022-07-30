@@ -26,7 +26,7 @@ async fn read_announcement(
     id: i64,
     app: &rocket::State<Application>,
 ) -> Result<Json<AnnouncementEntry>, Madness> {
-    let announcement = sqlx::query!("SELECT announcement.id, announcement.message, announcement.created_at, character.name FROM announcement INNER JOIN character ON character.id = announcement.character_id WHERE announcement.id=?", id)
+    let announcement = sqlx::query!("SELECT announcement.id, announcement.message, announcement.created_at, character.name FROM announcement INNER JOIN `character` ON character.id = announcement.character_id WHERE announcement.id=?", id)
         .fetch_optional(app.get_db())
         .await?;
     if announcement.is_none() {
@@ -48,7 +48,7 @@ async fn read_announcement(
 async fn list_announcement(
     app: &rocket::State<Application>,
 ) -> Result<Json<AnnouncementResponseList>, Madness> {
-    let announcements = sqlx::query!("SELECT announcement.id, announcement.message, announcement.created_at, character.name FROM announcement INNER JOIN character WHERE character.id = announcement.character_id")
+    let announcements = sqlx::query!("SELECT announcement.id, announcement.message, announcement.created_at, character.name FROM announcement INNER JOIN `character` WHERE character.id = announcement.character_id")
         .fetch_all(app.get_db())
         .await?
 		.into_iter()
