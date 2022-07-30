@@ -1,17 +1,30 @@
 # The Ditanian Fleet Waitlist
-The official incursion waitlist for The Ditanian Fleet, Eve Online's premier armour HQ incursion community. Features include ESI fleet invites, skill checking, as well as fit checking, a doctrine page, and community guides. 
+The official incursion waitlist for The Ditanian Fleet, Eve Online's premier armour HQ incursion community. Features include ESI fleet invites, skill checking, fit checking, a doctrine page, and community guides. 
 
 
-#### Development Setup
-**[Please see the contributing guidelines before making any commits.](./.github/contributing.md)**
+### Contributing
+Report bugs by opening a GitHub issue, or send a message to a TDF HQ FC. Security issues should be reported to an FC directly. 
 
-We highly recommend you use WSL for development as it simplifies working with the `backend` code. This readme is written using Ubuntu but it should cover the basics for most Linux distros, if you haven't got WSL setup see [Installing WSL | Microsoft Docs](https://docs.microsoft.com/en-us/windows/wsl/install).
+If you have a change you would like to implement, have a talk with the FC team first. After we've had a chat, if you choose to go ahead, please develop your code on your own fork. 
+
+Once your feature is ready, check that everything still works. Ensure that the UI and server still compile and interact with the components of the website that you've changed, to make sure they work as expected, then you can open a pull request. 
+
+Pull requests should include:
+- A short title that describes the change (e.g., Added readme /w installation instructions)
+- An optional description that provides more context (if applicable), including any mandatory actions that other developers will need to undertake (e.g., Drop and recreate the Announcments table. The sql/sqllite.sql file has been updated to include the new schema).
+
+We will review your pull request and let you know what happens. 
+
+👍🎉 Thanks for taking the time to contribute! 🎉👍
+
+### Development Setup
+We recommend you use WSL for development as it simplifies working with the `backend` code. This readme is written using Ubuntu but it should cover the basics for most Linux distros, if you haven't got WSL setup see [Installing WSL | Microsoft Docs](https://docs.microsoft.com/en-us/windows/wsl/install).
 
 [Visual Studio Code](https://code.visualstudio.com/) users can use the plugin [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) to edit  code inside of WSL from their native windows VS Code install.
 
 
 ##### 1. Required Software: 
-Check that node, npm, sqlite3, and cargo are installed on your system: 
+Check that nodejs, npm, sqlite3, and cargo are installed on your system: 
 ```
 sudo apt install nodejs npm sqlite3 cargo
 ```
@@ -24,7 +37,7 @@ Register an Eve Swagger API application at [https://developers.eveonline.com](ht
 | Callback URL | `https://<domain>.<tld>/auth/cb` |
 | Scopes       | `esi-skills.read_skills.v1 esi-fleets.read_fleet.v1 esi-fleets.write_fleet.v1 esi-ui.open_window.v1 esi-clones.read_implants.v1` |
 
- _* Valid account: You will need to agree to the [Developer License Agreement](https://developers.eveonline.com/license-agreement). Your account must have a valid credit card that has been used to pay for at least on month of Omega._
+ _* Valid account: You will need to agree to the [Developer License Agreement](https://developers.eveonline.com/license-agreement). Your account must have a valid credit card that has been used to pay for at least one month of Omega._
 
  _*\* Never share your secret key, commit it to a repo, or make it public!_
 
@@ -41,7 +54,7 @@ The Waitlist has three services (see below). Before starting the front end, both
 1. Clone the repo [`the-ditanian-fleet/sse-server`](/the-ditanian-fleet/sse-server)
 2. Build a Docker image
 3. Generate a secret key using `openssl rand -hex 32` and copy it somewhere safe. This key is needed to start the SSE server and the backend process
-4. Start the docker image. **You must** pass the secret key from step three as `SSE_SECRET`
+4. Start the docker image. **You must** pass the secret key from step three as an environment variable called `SSE_SECRET`
 
 <details>
    <summary>CLI Prompts</summary>
@@ -63,7 +76,7 @@ The Waitlist has three services (see below). Before starting the front end, both
 3. Run the `shrink-sde.sh` script
 4. Create a sqlite database called `waitlist.sqlite`
 5. Copy the SQL queries from `sql/sqlite.sql` into the sqlite3 terminal and execute them
-6. Set environment variables using export: `DATABASE_ENGINE=sqlite` and `DATABASE_URL=${DATABASE_ENGINE}:/waitlist.sqlite` 
+6. Set environment variables using export: `DATABASE_ENGINE=sqlite` and `DATABASE_URL=${DATABASE_ENGINE}:./waitlist.sqlite` 
 7. Compile the code using `cargo build --release --no-default-features --features=${DATABASE_ENGINE}`
 8. Run the server
 9. Click on login and complete the SSO workflow with at least one character
