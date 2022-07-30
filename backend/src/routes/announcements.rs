@@ -3,10 +3,16 @@ use rocket::serde::json::Json;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize)]
-struct AnnouncementResponse {
+struct AnnouncementEntry {
+    id: i64,
     created_at: i64,
     created_by: String,
     message: String,
+}
+
+#[derive(Debug, Serialize)]
+struct AnnouncementResponseList {
+    list: Vec<AnnouncementEntry>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -19,8 +25,8 @@ struct ChangeAnnouncement {
 async fn read_announcement(
     id: i64,
     app: &rocket::State<Application>,
-) -> Result<Json<AnnouncementResponse>, Madness> {
-    let announcement = sqlx::query!("SELECT * from announcement WHERE id=?", id)
+) -> Result<Json<AnnouncementEntry>, Madness> {
+    let announcement = sqlx::query!("SELECT announcement.id, announcement.message, announcement.created_at, character.name FROM announcement INNER JOIN character ON character.id = announcement.character_id WHERE announcement.id=?", id)
         .fetch_optional(app.get_db())
         .await?;
     if announcement.is_none() {
@@ -30,15 +36,33 @@ async fn read_announcement(
         )));
     }
     let entry = announcement.unwrap();
-	let character = sqlx::query!("SELECT name from character WHERE id=?", entry.character_id)
-        .fetch_one(app.get_db())
-        .await?;
-	
-
-    Ok(Json(AnnouncementResponse {
+    Ok(Json(AnnouncementEntry {
+        id: entry.id,
         created_at: entry.created_at,
-        created_by: character.name,
+        created_by: entry.name,
         message: entry.message,
+    }))
+}
+
+#[get("/api/announcement/read")]
+async fn list_announcement(
+    app: &rocket::State<Application>,
+) -> Result<Json<AnnouncementResponseList>, Madness> {
+    let announcements = sqlx::query!("SELECT announcement.id, announcement.message, announcement.created_at, character.name FROM announcement INNER JOIN character WHERE character.id = announcement.character_id")
+        .fetch_all(app.get_db())
+        .await?
+		.into_iter()
+    .map(|entry|
+	AnnouncementEntry {
+		id: entry.id,
+        created_at: entry.created_at,
+        created_by: entry.name,
+        message: entry.message,
+     }
+	)
+    .collect();
+    Ok(Json(AnnouncementResponseList {
+        list: announcements,
     }))
 }
 
@@ -54,13 +78,7 @@ async fn change_announcement(
         .fetch_optional(app.get_db())
         .await?;
     if entry.is_none() {
-        if ![1, 2, 3, 4].iter().any(|e| input.id == *e) {
-            return Err(Madness::BadRequest(format!(
-                "Unknown announcement with ID {}",
-                input.id
-            )));
-        }
-
+		account.require_access("access-manage-all")?;
         sqlx::query!(
             "INSERT INTO announcement (id, message, character_id, created_at) VALUES (?, ?, ?, ?)",
             input.id,
@@ -73,18 +91,18 @@ async fn change_announcement(
     }
 
     sqlx::query!(
-            "UPDATE announcement SET message=?, character_id=?, created_at=? WHERE id=?",
-            input.message,
-            account.id,
-            now,
-		    input.id,
-        )
+        "UPDATE announcement SET message=?, character_id=?, created_at=? WHERE id=?",
+        input.message,
+        account.id,
+        now,
+        input.id,
+    )
     .execute(app.get_db())
     .await?;
-	
+
     Ok("OK")
 }
 
 pub fn routes() -> Vec<rocket::Route> {
-    routes![read_announcement, change_announcement]
+    routes![read_announcement, change_announcement, list_announcement]
 }
