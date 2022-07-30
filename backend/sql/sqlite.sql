@@ -84,6 +84,14 @@ CREATE TABLE `fleet_activity` (
   CONSTRAINT `fleet_activity_chk_2` CHECK ((`is_boss` in (0,1)))
 );
 
+CREATE TABLE `announcement` (
+  `id` INTEGER PRIMARY KEY NOT NULL,
+  `message` TEXT NOT NULL,
+  `character_id` bigint NOT NULL,
+  `created_at` bigint NOT NULL,
+   CONSTRAINT `created_by` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
+);
+
 CREATE TABLE `skill_current` (
   `character_id` bigint NOT NULL,
   `skill_id` int4 NOT NULL,
@@ -169,3 +177,7 @@ CREATE TABLE `waitlist_entry_fit` (
   CONSTRAINT `waitlist_entry_fit_ibfk_4` FOREIGN KEY (`implant_set_id`) REFERENCES `implant_set` (`id`),
   CONSTRAINT `waitlist_entry_fit_chk_1` CHECK ((`approved` in (0,1)))
 );
+
+/* Seed Required Records */
+
+INSERT INTO Waitlist (id, name, is_open, is_archived) VALUES (1, 'fleet waitlist', 1, 0);
