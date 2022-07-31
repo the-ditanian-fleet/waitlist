@@ -171,6 +171,7 @@ export function BadgeData() {
               <ul>
                 <li>Elite badge for a Bastion-capable ship</li>
                 <li>Marauders skill to level 5</li>
+                <li>Gun specialization to level 5</li>
                 <li>Abyssal damage modules with a minimum of 29% DPS bonus</li>
                 <li>
                   Abyssal plate: <br />
@@ -195,6 +196,7 @@ export function BadgeData() {
               <ul>
                 <li>Elite badge pre-requisites for a Vindicator</li>
                 <li>Gallente Battleship skill level 5</li>
+                <li>Abyssal MWD with 560% velocity bonus</li>
                 <li>
                   Abyssal webifiers with minimum: <br /> 16km optimal range <br />
                   62% velocity bonus reduction

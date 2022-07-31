@@ -37,9 +37,9 @@ Logistics Specialist badge is the elite badge equivalent for logi, pilots wishin
 
 - The EM-806 Implant is required for all Nestors & Guardians.
 
-- **Basic skills are a minimum** You can not have any starter level skills for logi ships. Skill requirements are listed in the in game logi mailing list & can be found on your [skills page](/skills).
+- **Basic skills are a minimum** You can not have any starter level skills for logi ships. Skill requirements can be found on your [skills page](/skills).
 
-_Exception: TDF_ONI_HQ_STARTER_LOGI4 (Sensor Linking 3, Logistics Cruiser 4 Allowed)_
+- _Exception: **TDF_ONI_HQ_BASIC** (Logistics Cruiser 4 allowed)_
 
 To obtain Logi Specialist badge you will need three +1's from different FCs, and a minimum 20 hours in cruiser logi (we recommend 50 depending on pilot skill level). You also must have your skills for Nestor to elite before you can attain L badge. But you are permitted to fly TN (training nestor) while these skills are training.
 
