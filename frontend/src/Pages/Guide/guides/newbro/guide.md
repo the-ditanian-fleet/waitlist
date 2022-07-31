@@ -14,7 +14,7 @@ To get started in TDF all you need is to be able to **online ALL modules on your
 
 To fly logi with TDF you will need **basic tier skills as a minimum**, you also need to be able to **fully online all modules on your ship**. Any red skills must be trained before you can fly with the exception of the logi4 onieros fit below:
 
-- Exception: **TDF_ONI_HQ_STARTER_LOGI4** (Sensor Linking 3, Logistics Cruiser 4 Allowed)
+- Exception: **TDF_ONI_HQ_BASIC** (Logistics Cruiser 4 allowed)
 
 Logi spots are limited in fleet to 5 or less usually so we recommend getting a DPS ship alongside your logi ship. More logi specific requirements and guidance can be found in the [Logi guide](/guide/logi).
 
@@ -52,7 +52,7 @@ The general tank requirements when we run sites are as follows
 
 - **Headquarters (HQ) you need 17k armor HP + 65% omni resists.**
 
-You still need to fly the correct doctrine fits however. You are allowed to use module variants meta4+ for anything but the following: **Tank modules, this includes rigs**. Upgrading modules is fine in almost all situations except on the nogank doctrine fits.
+You still need to fly the correct doctrine fits however. You are allowed to use module variants meta4+ for anything but the following: **Tank modules, this includes rigs**. Upgrading modules is fine in almost all situations except on the antigank doctrine fits.
 
 ## Ship Settings
 

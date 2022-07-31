@@ -144,15 +144,13 @@ impl<'a> FitChecker<'a> {
         if let Some((doctrine_fit, mut diff)) = fitmatch::find_fit(self.fit) {
             self.doctrine_fit = Some(doctrine_fit);
 
-            if doctrine_fit.name.contains("NOGANK") {
-                // For NOGANK, we consider all upgraded mods actually downgrades, since price is an issue
+            if doctrine_fit.name.contains("ANTIGANK") {
+                // For ANTIGANK, we consider all upgraded mods actually downgrades, since price is an issue
                 diff.module_downgraded.append(&mut diff.module_upgraded);
-                self.tags.insert("NO-GANK");
+                self.tags.insert("ANTIGANK");
             }
 
-            let fit_ok = diff.module_downgraded.is_empty()
-                && diff.module_extra.is_empty()
-                && diff.module_missing.is_empty();
+            let fit_ok = diff.module_downgraded.is_empty() && diff.module_missing.is_empty();
 
             if !(diff.cargo_missing.is_empty() && fit_ok) {
                 self.approved = false;
@@ -379,7 +377,7 @@ impl<'a> FitChecker<'a> {
                         self.tags.insert("WEB");
                     }
                 }
-            } else if self.tags.contains("NO-GANK") {
+            } else if self.tags.contains("ANTIGANK") {
                 // ANTIGANK fleet clutter cleanup
                 self.tags.remove("ELITE-FIT");
             }

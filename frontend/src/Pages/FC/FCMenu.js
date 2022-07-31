@@ -13,6 +13,7 @@ import {
   faUserCheck,
   faBiohazard,
   faChartLine,
+  faCommentAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 const guideData = {};
@@ -116,6 +117,9 @@ export function FCMenu() {
           authContext.access["search"] && ( //any full FC
             <GuideCard slug="documentation" name="FC Documentation" icon={faBiohazard}></GuideCard>
           )}
+        {authContext && authContext.access["access-manage"] && (
+          <GuideCard slug="announcement" name="Announcements" icon={faCommentAlt}></GuideCard>
+        )}
         {authContext && authContext.access["stats-view"] && (
           <GuideCard slug="stats" name="Statistics" icon={faChartLine}></GuideCard>
         )}

@@ -166,7 +166,6 @@ requirements:
       min: 3
       elite: 4
     Electronic Warfare:
-      elite: 4
       gold: 4
     Thermodynamics:
       min: 3
@@ -538,8 +537,10 @@ requirements:
       min: 1
       elite: 5
     CPU Management:
-      min: 4
+      min: 5
     Power Grid Management:
+      min: 5
+    Energy Grid Upgrades:
       min: 5
     Cybernetics:
       min: 5
@@ -555,7 +556,7 @@ requirements:
     Logistics Cruisers:
       min: 5
     Sensor Linking:
-      min: 4
+      min: 3
       elite: 4
     Magnetometric Sensor Compensation:
       elite: 4
@@ -565,7 +566,7 @@ requirements:
       min: 1
       elite: 5
     CPU Management:
-      min: 4
+      min: 3
     Power Grid Management:
       min: 5
     Frequency Modulation:

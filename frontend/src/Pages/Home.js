@@ -1,12 +1,19 @@
 import { Content } from "../Components/Page";
 import { NavLink } from "react-router-dom";
-import { NavButton } from "../Components/Form";
+import { NavButton, InputGroup } from "../Components/Form";
+import { InfoAnnouncement } from "../Components/Announcement";
 
 export function Home() {
   return (
     <>
+      <InfoAnnouncement id={1} />
+      <InputGroup>
+        <NavButton to={`/guide/rules`}>Rules</NavButton>
+        <NavButton to={`/legal`}>Legal</NavButton>
+      </InputGroup>
       <Content>
         <h2>Welcome to The Ditanian Fleet</h2>
+
         <p>
           Hello capsuleers, we would like to introduce you to the EVE Online incursion community
           called The Ditanian Fleet (TDF). We are a new-bro friendly group where all are welcome. We
@@ -68,9 +75,6 @@ export function Home() {
           advantage and this helps to teach you many of the ingame mechanics you may face.
         </p>
       </Content>
-      <NavButton variant={"secondary"} to={`/legal`}>
-        Legal
-      </NavButton>
     </>
   );
 }

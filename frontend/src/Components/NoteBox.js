@@ -8,11 +8,11 @@ export const Note = styled.div`
   background-color: ${(props) => props.theme.colors[props.variant].color};
   color: ${(props) => (props.theme.colors[props.variant] || {}).text || props.theme.colors.text};
   border-radius: 5px;
-  width: ${(props) => (props.width ? props.width : "100%")};
-  max-width: 500px;
+  width: ${(props) => props.width};
   filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
   padding: 0.1em 0.5em 0.2em;
   vertical-align: middle;
+  word-break: break-word;
 `;
 
 export const BorderedBox = styled.div`
@@ -23,9 +23,9 @@ export const BorderedBox = styled.div`
   margin: 0.4em 0;
 `;
 
-export function InfoNote({ variant = "secondary", children }) {
+export function InfoNote({ variant = "secondary", width = "fit-content", children }) {
   return (
-    <Note variant={variant} width={"fit-content"}>
+    <Note variant={variant} width={width}>
       <div style={{ marginRight: "0.5em" }}>
         <FontAwesomeIcon icon={faExclamationCircle} />
       </div>

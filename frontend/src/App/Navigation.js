@@ -102,7 +102,7 @@ export function NavLinks({ whoami }) {
         Fits
       </Links>
       <Links exact to="/isk-h/calc">
-        ISK/h calc
+        ISK/h
       </Links>
       {whoami && whoami.access["fleet-view"] && (
         <Links exact to="/fc/fleet">

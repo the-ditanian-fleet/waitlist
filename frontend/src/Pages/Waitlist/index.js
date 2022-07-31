@@ -2,6 +2,7 @@ import React from "react";
 import { AuthContext, ToastContext, EventContext } from "../../contexts";
 import { apiCall, errorToaster, useApi } from "../../api";
 import { InputGroup, Button, Buttons, NavButton } from "../../Components/Form";
+import { InfoAnnouncement } from "../../Components/Announcement";
 import {
   ColumnWaitlist,
   CompactWaitlist,
@@ -148,7 +149,12 @@ export function Waitlist() {
     return <em>Loading waitlist information.</em>;
   }
   if (!waitlistData.open) {
-    return <em>The waitlist is currently closed.</em>;
+    return (
+      <>
+        <InfoAnnouncement id={2} />
+        <em>The waitlist is currently closed.</em>
+      </>
+    );
   }
   const handleChange = () => {
     setAltCol(!altCol);
@@ -164,6 +170,7 @@ export function Waitlist() {
 
   return (
     <>
+      <InfoAnnouncement id={2} />
       <Buttons>
         <InputGroup>
           <NavButton variant={myEntry ? null : "primary"} to={`/xup?wl=${waitlistId}`}>

@@ -12,13 +12,14 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 
 **You must reach the tier by the time limit set out in the table below:**
 
-|       Tier        | Time Limit |
-| :---------------: | :--------: |
-|       Basic       |    50h     |
-|     Advanced      |    100h    |
-|    Elite(Logi)    |    150h    |
+| Tier              | Time Limit |
+| :---------------- | :--------: |
+| Megathron         |    20h     |
+| Basic             |    50h     |
+| Advanced          |    100h    |
+| Elite(Logi)       |    150h    |
 | Elite(Vindicator) |    200h    |
-|  Elite(Bastion)   |    250h    |
+| Elite(Bastion)    |    250h    |
 
 ## Upgrade guidance
 
@@ -29,7 +30,7 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 (If you are Alpha status and cannot use the MJD in the cargo this is fine, we understand pilots will need time to Omega their accounts) If you're low on ISK, you can start by getting the **Megathron**. If you do, it's important that you focus on upgrading to another ship as soon as possible.
 
 2. Omega your account **ASAP**. Start with one month, its plenty!
-3. If you are still in a Megathron get yourself a Vindi or Nightmare.
+3. If you are still in a Megathron get yourself a Vindi or Nightmare. You must be out of a megathron by 20 hours of fleet time.
 4. Past 30 hours in fleet its important to show progression in your upgrading, either via ship, skills, or fit.
 
 ### Basic
@@ -78,7 +79,7 @@ _(You can choose either Hybrid or Warp speed set, both are acceptable, however y
 
 2. Finish by getting all the **elite skills**. The order is up to you, but we recommend getting the skills that give the biggest damage increase first, and of course maximize your survivability by upgrading the tank skills.
 
-3. This is a good time to get **abyssal modules**. [mutaplasmid.space](https://mutaplasmid.space/) is a good website for finding contracts, but remember abyssals must be "better than faction". See the badges section for [Bastion Badge](/guide/badges) requirements for abyssals should you wish to obtain it. The [General tips](/guide/tips) guide gives advice on what to look for when purchasing abyssals.
+3. This is a good time to get **abyssal modules**. [mutaplasmid.space](https://mutaplasmid.space/) is a good website for finding contracts, but remember abyssals must be "better than faction". See the badges section for [Bastion Badge](/badges) requirements for abyssals should you wish to obtain it. The [General tips](/guide/tips) guide gives advice on what to look for when purchasing abyssals.
 
 **At this point we would like to thank you for upgrading, you can spend your isk as you see fit from this point on.**
 _Dont forget to ask an FC to scan you for your elite badge so that you are eligible to join elite fleets and reap the rewards of your hard work!_
