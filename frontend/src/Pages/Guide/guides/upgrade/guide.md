@@ -14,6 +14,7 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 
 |       Tier        | Time Limit |
 | :---------------: | :--------: |
+|     Megathron     |    20h     |
 |       Basic       |    50h     |
 |     Advanced      |    100h    |
 |    Elite(Logi)    |    150h    |
@@ -29,7 +30,7 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 (If you are Alpha status and cannot use the MJD in the cargo this is fine, we understand pilots will need time to Omega their accounts) If you're low on ISK, you can start by getting the **Megathron**. If you do, it's important that you focus on upgrading to another ship as soon as possible.
 
 2. Omega your account **ASAP**. Start with one month, its plenty!
-3. If you are still in a Megathron get yourself a Vindi or Nightmare.
+3. If you are still in a Megathron get yourself a Vindi or Nightmare. You must be out of a megathron by 20 hours of fleet time.
 4. Past 30 hours in fleet its important to show progression in your upgrading, either via ship, skills, or fit.
 
 ### Basic
