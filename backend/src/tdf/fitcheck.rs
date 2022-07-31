@@ -150,9 +150,7 @@ impl<'a> FitChecker<'a> {
                 self.tags.insert("ANTIGANK");
             }
 
-            let fit_ok = diff.module_downgraded.is_empty()
-                && diff.module_extra.is_empty()
-                && diff.module_missing.is_empty();
+            let fit_ok = diff.module_downgraded.is_empty() && diff.module_missing.is_empty();
 
             if !(diff.cargo_missing.is_empty() && fit_ok) {
                 self.approved = false;

@@ -195,7 +195,7 @@ drugs_approve_override:
         amount: 2
       - name: Agency 'Pyrolancea' DB5 Dose II
         amount: 1
-  - detect: Agency 'Overclocker' SB5 Dose III
+  - detect: Agency 'Overclocker' SB7 Dose III
     remove:
       - Agency 'Overclocker' SB3 Dose I
       - Agency 'Overclocker' SB7 Dose III

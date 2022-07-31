@@ -74,7 +74,7 @@ function CurrentAnnouncement({ announcement }) {
         <div>
           <FontAwesomeIcon style={{ marginRight: "0.4em", color: statuscolor }} icon={faCircle} />
         </div>{" "}
-        <div>{out}</div>
+        <div style={{ wordBreak: "break-word" }}>{out}</div>
       </div>
     </>
   );
