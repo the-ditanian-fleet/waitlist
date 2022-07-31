@@ -135,7 +135,7 @@ export function GuideIndex() {
           The Bastion Module offers a great damage increase, but it has to be used safely. Learn
           how!
         </GuideCard>
-        <GuideCard slug="/badges" name="Information about badges" icon={faIdBadge}>
+        <GuideCard slug="/guide/badges" name="Information about badges" icon={faIdBadge}>
           What are all these badges I see?
         </GuideCard>
         <GuideCard slug="/guide/tips" name="General tips" icon={faInfo}>
