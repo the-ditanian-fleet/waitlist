@@ -94,7 +94,7 @@ function Fitout({ data, tier }) {
   var notes = {};
   var fitnote;
   var ships;
-  if (tier === "Nogank") {
+  if (tier === "Antigank") {
     ships = data.fittingdata;
   } else {
     ships = _.sortBy(data.fittingdata, function (item) {
@@ -116,7 +116,7 @@ function Fitout({ data, tier }) {
       ((tier === "Other" && ship.name.split("_").length === 2) ||
         ship.name.toLowerCase().indexOf(tier.toLowerCase()) !== -1)
     ) {
-      if (!(tier !== "Nogank" && ship.name.toLowerCase().indexOf("nogank") !== -1)) {
+      if (!(tier !== "Antigank" && ship.name.toLowerCase().indexOf("antigank") !== -1)) {
         const id = ship.dna.split(":", 1)[0];
         if (ship.name in notes) {
           fitnote = notes[ship.name];
