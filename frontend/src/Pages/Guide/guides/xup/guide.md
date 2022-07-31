@@ -14,7 +14,7 @@ Sign in on the waitlist with your eve account, login is done through CCP, thus w
 
 ![](pendingapproval.png)
 
-**Skills:** TDF will give out badges based on your progress. The **basic skills** are the skills required to get out of the starter squad which is limited to 4 - 5 people in fleet. See the [Badges Guide](/guide/badges) section to know more about TDF's badges and progress system.
+**Skills:** TDF will give out badges based on your progress. The **basic skills** are the skills required to get out of the starter squad which is limited to 4 - 5 people in fleet. See the [Badges Guide](/badges) section to know more about TDF's badges and progress system.
 
 ## Entering Grid
 

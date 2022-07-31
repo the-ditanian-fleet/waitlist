@@ -79,7 +79,7 @@ _(You can choose either Hybrid or Warp speed set, both are acceptable, however y
 
 2. Finish by getting all the **elite skills**. The order is up to you, but we recommend getting the skills that give the biggest damage increase first, and of course maximize your survivability by upgrading the tank skills.
 
-3. This is a good time to get **abyssal modules**. [mutaplasmid.space](https://mutaplasmid.space/) is a good website for finding contracts, but remember abyssals must be "better than faction". See the badges section for [Bastion Badge](/guide/badges) requirements for abyssals should you wish to obtain it. The [General tips](/guide/tips) guide gives advice on what to look for when purchasing abyssals.
+3. This is a good time to get **abyssal modules**. [mutaplasmid.space](https://mutaplasmid.space/) is a good website for finding contracts, but remember abyssals must be "better than faction". See the badges section for [Bastion Badge](/badges) requirements for abyssals should you wish to obtain it. The [General tips](/guide/tips) guide gives advice on what to look for when purchasing abyssals.
 
 **At this point we would like to thank you for upgrading, you can spend your isk as you see fit from this point on.**
 _Dont forget to ask an FC to scan you for your elite badge so that you are eligible to join elite fleets and reap the rewards of your hard work!_
