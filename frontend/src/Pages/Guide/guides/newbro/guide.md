@@ -52,7 +52,7 @@ The general tank requirements when we run sites are as follows
 
 - **Headquarters (HQ) you need 17k armor HP + 65% omni resists.**
 
-You still need to fly the correct doctrine fits however. You are allowed to use module variants meta4+ for anything but the following: **Tank modules, this includes rigs**. Upgrading modules is fine in almost all situations except on the nogank doctrine fits.
+You still need to fly the correct doctrine fits however. You are allowed to use module variants meta4+ for anything but the following: **Tank modules, this includes rigs**. Upgrading modules is fine in almost all situations except on the antigank doctrine fits.
 
 ## Ship Settings
 

@@ -12,6 +12,7 @@ export const Note = styled.div`
   filter: drop-shadow(0px 4px 5px ${(props) => props.theme.colors.shadow});
   padding: 0.1em 0.5em 0.2em;
   vertical-align: middle;
+  word-break: break-word;
 `;
 
 export const BorderedBox = styled.div`

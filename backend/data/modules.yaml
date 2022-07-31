@@ -80,6 +80,11 @@ alternatives:
     - - Ogre II
     - - "'Augmented' Ogre"
       - Heavy Mutated Drone
+      
+  - - - Federation Navy 1600mm Steel Plates
+      - Syndicate 1600mm Steel Plates
+    - - Imperial Navy 1600mm Steel Plates
+    - - Large Abyssal Armor Plates
 
 from_meta:
   # Automagically determine alternatives
@@ -101,7 +106,6 @@ from_meta:
     abyssal: 500MN Abyssal Microwarpdrive
   - base: Gistum A-Type 10MN Afterburner
     abyssal: 10MN Abyssal Afterburner
-
   - base: Federation Navy Stasis Webifier
     abyssal: Abyssal Stasis Webifier
   - base: True Sansha Heat Sink
@@ -112,9 +116,6 @@ from_meta:
     abyssal: Abyssal Entropic Radiation Sink
   - base: Republic Fleet Large Cap Battery
     abyssal: Large Abyssal Cap Battery
-
-  - base: Imperial Navy 1600mm Steel Plates
-    abyssal: Large Abyssal Armor Plates
   - base: Imperial Navy 800mm Steel Plates
     abyssal: Medium Abyssal Armor Plates
   - base: Damage Control I
@@ -194,7 +195,7 @@ drugs_approve_override:
         amount: 2
       - name: Agency 'Pyrolancea' DB5 Dose II
         amount: 1
-  - detect: Agency 'Overclocker' SB5 Dose III
+  - detect: Agency 'Overclocker' SB7 Dose III
     remove:
       - Agency 'Overclocker' SB3 Dose I
       - Agency 'Overclocker' SB7 Dose III
