@@ -109,7 +109,7 @@ impl From<reqwest::Error> for ESIError {
             return ESIError::Status(error.status().unwrap().as_u16());
         }
         ESIError::HTTPError(error)
-    }    
+    }
 }
 
 impl ESIRawClient {

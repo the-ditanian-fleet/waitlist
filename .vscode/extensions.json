@@ -1,9 +1,9 @@
 {
-	"recommendations": [
+  "recommendations": [
     "dsznajder.es7-react-js-snippets",
-		"ms-vscode-remote.remote-wsl",
+    "ms-vscode-remote.remote-wsl",
     "ms-vsliveshare.vsliveshare",
     "rust-lang.rust-analyzer",
     "vadimcn.vscode-lldb"
-	]
+  ]
 }
