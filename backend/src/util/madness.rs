@@ -62,7 +62,7 @@ impl<'r> rocket::response::Responder<'r, 'static> for Madness {
             ) => Status::InternalServerError,
 
             
-            Self::ESIError( ESIError::InviteError(code, _body) ) => Status { code: *code },
+            Self::ESIError( ESIError::WithMessage(code, _body) ) => Status { code: *code },
 
             Self::NotFound(_) => Status::NotFound,
 
