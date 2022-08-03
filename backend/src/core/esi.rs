@@ -12,6 +12,12 @@ pub struct ESIClient {
     raw: ESIRawClient,
 }
 
+#[derive(Debug, Deserialize)] 
+pub struct EsiErrorReason {
+    #[serde(rename = "error")]
+    pub error: String,
+}
+
 #[derive(Debug, Deserialize)]
 struct OAuthTokenResponse {
     access_token: String,
@@ -37,10 +43,12 @@ pub enum ESIError {
     HTTPError(reqwest::Error),
     #[error("ESI returned {0}")]
     Status(u16),
+    #[error("{1}")]
+    InviteError(u16, String),
     #[error("no ESI token found")]
     NoToken,
     #[error("missing ESI scope")]
-    MissingScope,
+    MissingScope
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -74,7 +82,7 @@ impl From<reqwest::Error> for ESIError {
             return ESIError::Status(error.status().unwrap().as_u16());
         }
         ESIError::HTTPError(error)
-    }
+    }    
 }
 
 impl ESIRawClient {
@@ -201,14 +209,20 @@ impl ESIRawClient {
         input: &E,
         access_token: &str,
     ) -> Result<reqwest::Response, ESIError> {
-        Ok(self
+        let response = self
             .http
             .post(url)
             .bearer_auth(access_token)
             .json(input)
             .send()
-            .await?
-            .error_for_status()?)
+            .await?;
+
+        if let Err(err) = response.error_for_status_ref() {
+            let payload: EsiErrorReason = response.json().await?;
+            return Err(ESIError::InviteError(err.status().unwrap().as_u16(), payload.error));
+        };
+
+        Ok(response)
     }
 }
 

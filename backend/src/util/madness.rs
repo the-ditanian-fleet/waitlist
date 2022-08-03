@@ -61,6 +61,9 @@ impl<'r> rocket::response::Responder<'r, 'static> for Madness {
                 ESIError::HTTPError(_) | ESIError::DatabaseError(_) | ESIError::Status(_),
             ) => Status::InternalServerError,
 
+            
+            Self::ESIError( ESIError::InviteError(code, _body) ) => Status { code: *code },
+
             Self::NotFound(_) => Status::NotFound,
 
             Self::FitError(_) | Self::BadRequest(_) | Self::TypeError(_) => Status::BadRequest,

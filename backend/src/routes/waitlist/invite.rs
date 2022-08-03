@@ -85,7 +85,7 @@ async fn invite(
             input.character_id,
             ESIScope::Fleets_WriteFleet_v1,
         )
-        .await?; // XXX Deal with error 520 which comes with a message indicating what's wrong
+        .await?;
 
     app.sse_client
         .submit(vec![Event::new(
