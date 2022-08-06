@@ -4,13 +4,13 @@ CREATE TABLE `badge` (
 );
 
 CREATE TABLE `badge_assignment` (
-  `CharacterId` BIGINT NOT NULL,
-  `BadgeId` INT NOT NULL,
-  `GrantedById` BIGINT NULL,
-  `GrantedAt` BIGINT NOT NULL,
-  CONSTRAINT `Characterid` FOREIGN KEY (`CharacterId`) REFERENCES `character` (`id`),
-  CONSTRAINT `BadgeId` FOREIGN KEY (`BadgeId`) REFERENCES `badge` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `GrantedById` FOREIGN KEY (`GrantedById`) REFERENCES `character` (`id`)
+  `characterId` BIGINT NOT NULL,
+  `badgeId` INT NOT NULL,
+  `grantedById` BIGINT NULL,
+  `grantedAt` BIGINT NOT NULL,
+  CONSTRAINT `characterId` FOREIGN KEY (`characterId`) REFERENCES `character` (`id`),
+  CONSTRAINT `badgeId` FOREIGN KEY (`badgeId`) REFERENCES `badge` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `grantedById` FOREIGN KEY (`grantedById`) REFERENCES `character` (`id`)
 );
 
 INSERT INTO badge (name) VALUES ('BASTION');
