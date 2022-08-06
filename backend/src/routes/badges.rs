@@ -11,11 +11,13 @@ use serde::{Deserialize, Serialize};
 struct Badge {
   id: i64,
   name: String,
+  #[serde(skip_serializing_if = "is_negative")]
   member_count: i32
 }
 
 #[derive(Debug, Serialize)]
 struct BadgeAssignment {
+    badge: Badge,
     character: Character,
     granted_by: Character,
     granted_at: i64
@@ -26,6 +28,13 @@ struct Character {
     id: i64,
     #[serde(skip_deserializing)]
     name: String
+}
+
+// This is used so we can tell serde
+// not to serialize a field where the
+// number is less than 0
+fn is_negative(num: &i32) -> bool {
+    *num < 0
 }
 
 // Returns an array of badges, used to build
@@ -100,10 +109,22 @@ async fn get_badge_members(
         })
         .collect();
 
+    let badge = sqlx::query!(
+        "SELECT name FROM badge WHERE id=? LIMIT 1",
+        badge_id
+    )
+    .fetch_one(app.get_db())
+    .await?;
+
     let badge_assignments = badge_assignments
         .into_iter()
         .map(|assignment| {
             BadgeAssignment {
+                badge: Badge {
+                    id: badge_id,
+                    name: badge.name.to_string(),
+                    member_count: -1
+                },
                 granted_at: assignment.GrantedAt,
                 character: Character {
                     id: assignment.CharacterId,
