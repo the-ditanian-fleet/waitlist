@@ -202,6 +202,7 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
         vec![
             "bans-view",
             "bans-manage",
+            "badges-manage",
             "fleet-activity-view",
             "fleet-comp-history",
             "fit-history-view",
@@ -230,7 +231,7 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
         vec![
             "access-manage:trainee",
             "access-manage:trainee-advanced",
-            "access-manage:fc",
+            "access-manage:fc"
         ],
     );
     build_level(
