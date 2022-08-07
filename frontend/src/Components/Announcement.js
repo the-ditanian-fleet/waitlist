@@ -2,6 +2,7 @@ import { InfoNote } from "./NoteBox";
 import { useApi } from "../api";
 import { formatDatetime } from "../Util/time";
 import styled from "styled-components";
+import { Markdown } from "./Markdown";
 
 const AnnounceHeader = styled.div`
   margin-bottom: 0.5em;
@@ -28,7 +29,9 @@ export function InfoAnnouncement({ id }) {
           <b>ANNOUNCEMENT&nbsp;</b>
           {formatDatetime(new Date(announcement.created_at * 1000))} by {announcement.created_by}{" "}
         </AnnounceHeader>
-        <div>{announcement.message}</div>
+        <div>
+          <Markdown>{announcement.message}</Markdown>
+        </div>
       </div>
     </InfoNote>
   );

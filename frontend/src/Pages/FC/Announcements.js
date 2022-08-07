@@ -1,12 +1,14 @@
 import React from "react";
 import { apiCall, toaster, useApi } from "../../api";
-import { Button, InputGroup } from "../../Components/Form";
+import { Button, InputGroup, Textarea, Buttons } from "../../Components/Form";
 import { CellHead, Table, TableHead, Row, TableBody, Cell } from "../../Components/Table";
 import { ToastContext } from "../../contexts";
 import { PageTitle } from "../../Components/Page";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "styled-components";
+import { Modal } from "../../Components/Modal";
+import { Box } from "../../Components/Box";
 
 // If new entries are wanted they can be added here. Only admins can initialize them (by editing announcement)
 const announcelocations = {
@@ -26,18 +28,48 @@ async function changeAnnouncement(id, message) {
 }
 
 function AnnounceEdit({ toastContext, id, onAction }) {
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
   return (
-    <Button
-      variant="secondary"
-      onClick={(evt) => {
-        var message = prompt("Enter an announcement");
-        if (message || message === "") {
-          toaster(toastContext, changeAnnouncement(id, message)).then(onAction);
-        }
-      }}
-    >
-      Edit
-    </Button>
+    <>
+      {modalOpen ? (
+        <Modal open={true} setOpen={setModalOpen}>
+          <Box>
+            <Textarea
+              style={{ width: "100%", marginBottom: "1em" }}
+              onChange={(evt) => setMessage(evt.target.value)}
+              value={message}
+              rows="5"
+              cols="60"
+            />
+            <Buttons>
+              <Button
+                variant="success"
+                onClick={(evt) => {
+                  toaster(toastContext, changeAnnouncement(id, message)).then(onAction);
+                  setModalOpen(false);
+                  setMessage("");
+                }}
+              >
+                Confirm
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={(evt) => {
+                  setModalOpen(false);
+                }}
+              >
+                Cancel
+              </Button>
+            </Buttons>
+          </Box>
+        </Modal>
+      ) : null}
+
+      <Button variant="secondary" onClick={(evt) => setModalOpen(true)}>
+        Edit
+      </Button>
+    </>
   );
 }
 
