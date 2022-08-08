@@ -17,19 +17,17 @@ const LinkStyle = styled.span`
 
 function Link({ href, children, ...props }) {
   return (
-    <>
-      <LinkStyle>
-        {href.startsWith("/") ? (
-          <NavLink exact to={href}>
-            {children}
-          </NavLink>
-        ) : (
-          <a href={href} {...props}>
-            {children}
-          </a>
-        )}
-      </LinkStyle>
-    </>
+    <LinkStyle>
+      {href.startsWith("/") ? (
+        <NavLink exact to={href}>
+          {children}
+        </NavLink>
+      ) : (
+        <a href={href} {...props}>
+          {children}
+        </a>
+      )}
+    </LinkStyle>
   );
 }
 
