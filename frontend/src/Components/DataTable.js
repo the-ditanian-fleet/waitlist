@@ -11,7 +11,7 @@ const Table = (props) => {
             secondary: themeContext.colors.secondary
         },
         background: {
-            default: themeContext.colors.accent1,
+            default: themeContext.colors.background,
         }
     }, 'dark')
 

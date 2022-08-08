@@ -76,6 +76,20 @@ export const AButton = styled.a.attrs((props) => ({
   line-height: 2.5em;
 `;
 
+export const Label = styled.label`
+  display: block;
+  margin-bottom: 10px;
+
+  &[required] {
+    ::after {
+      content: '  *';
+      color: red;
+      font-size: 15px;
+      font-weight: bolder;
+    }
+  }
+`;
+
 export const NavButton = styled(NavLink).attrs((props) => ({
   className: `${props.active ? "active" : ""} ${props.static ? "static" : ""}`,
 }))`

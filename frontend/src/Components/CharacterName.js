@@ -1,6 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { ThemeContext } from 'styled-components';
+import styled from 'styled-components';
 
 const Avatar = styled.img`
     border-radius: 25%;
@@ -8,20 +7,18 @@ const Avatar = styled.img`
     vertical-align:middle;
 `;
 
+const A = styled.a`
+, &:visited {
+    color: ${props =>props.theme.colors?.text};
+}
+
+&:hover { 
+    color: ${props =>props.theme.colors?.active};
+    transition: ease-in-out 0.15s
+}
+`;
+
 const CharacterName = ({ avatar, avatarSize, id, name }) => {
-    const themeContext = React.useContext(ThemeContext);
-
-    const A = styled.a`
-        , &:visited {
-            color: ${themeContext?.colors?.text};
-        }
-
-        &:hover { 
-            color: ${themeContext?.colors?.active};
-            transition: ease-in-out 0.15s
-        }
-    `;
-
     return (
         <>
             { avatar && <Avatar src={`https://images.evetech.net/characters/${id}/portrait?size=${avatarSize}`} /> }
@@ -40,7 +37,7 @@ CharacterName.propTypes = {
     avatar: PropTypes.bool,
     avatarSize: PropTypes.number,
     id: PropTypes.number,
-    Name: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
 }
 
 export default CharacterName;
