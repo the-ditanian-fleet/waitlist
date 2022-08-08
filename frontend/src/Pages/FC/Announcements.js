@@ -9,6 +9,7 @@ import { faCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "styled-components";
 import { Modal } from "../../Components/Modal";
 import { Box } from "../../Components/Box";
+import { Title } from "../../Components/Page";
 
 // If new entries are wanted they can be added here. Only admins can initialize them (by editing announcement)
 const announcelocations = {
@@ -35,6 +36,7 @@ function AnnounceEdit({ toastContext, id, onAction }) {
       {modalOpen ? (
         <Modal open={true} setOpen={setModalOpen}>
           <Box>
+            <Title>Edit</Title>
             <Textarea
               style={{ width: "100%", marginBottom: "1em" }}
               onChange={(evt) => setMessage(evt.target.value)}
