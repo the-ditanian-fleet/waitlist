@@ -28,9 +28,9 @@ async function changeAnnouncement(id, message) {
   });
 }
 
-function AnnounceEdit({ toastContext, id, onAction }) {
+function AnnounceEditRemove({ toastContext, announcement, onAction }) {
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = React.useState(announcement.message);
   return (
     <>
       {modalOpen ? (
@@ -48,9 +48,10 @@ function AnnounceEdit({ toastContext, id, onAction }) {
               <Button
                 variant="success"
                 onClick={(evt) => {
-                  toaster(toastContext, changeAnnouncement(id, message)).then(onAction);
+                  toaster(toastContext, changeAnnouncement(announcement.id, message)).then(
+                    onAction
+                  );
                   setModalOpen(false);
-                  setMessage("");
                 }}
               >
                 Confirm
@@ -63,6 +64,12 @@ function AnnounceEdit({ toastContext, id, onAction }) {
               >
                 Cancel
               </Button>
+              <AnnounceRemove
+                toastContext={toastContext}
+                id={announcement.id}
+                onAction={onAction}
+                setMessage={setMessage}
+              />
             </Buttons>
           </Box>
         </Modal>
@@ -71,16 +78,23 @@ function AnnounceEdit({ toastContext, id, onAction }) {
       <Button variant="secondary" onClick={(evt) => setModalOpen(true)}>
         Edit
       </Button>
+      <AnnounceRemove
+        toastContext={toastContext}
+        id={announcement.id}
+        onAction={onAction}
+        setMessage={setMessage}
+      />
     </>
   );
 }
 
-function AnnounceRemove({ toastContext, id, onAction }) {
+function AnnounceRemove({ toastContext, id, onAction, setMessage }) {
   return (
     <Button
       variant="danger"
       onClick={(evt) => {
         toaster(toastContext, changeAnnouncement(id, "")).then(onAction);
+        setMessage("");
       }}
     >
       <FontAwesomeIcon icon={faTimes} />
@@ -108,7 +122,7 @@ function CurrentAnnouncement({ announcement }) {
         <div>
           <FontAwesomeIcon style={{ marginRight: "0.4em", color: statuscolor }} icon={faCircle} />
         </div>{" "}
-        <div style={{ wordBreak: "break-word" }}>{out}</div>
+        <div style={{ wordBreak: "break-word", whiteSpace: "pre-line" }}>{out}</div>
       </div>
     </>
   );
@@ -137,14 +151,11 @@ function ControlTable({ announceList, toastContext, onAction }) {
             </Cell>
             <Cell>
               <InputGroup>
-                <AnnounceEdit
+                <AnnounceEditRemove
                   toastContext={toastContext}
-                  id={announcelocations[key]}
-                  onAction={onAction}
-                />
-                <AnnounceRemove
-                  toastContext={toastContext}
-                  id={announcelocations[key]}
+                  announcement={
+                    announceList.filter((entry) => entry.id === announcelocations[key])[0]
+                  }
                   onAction={onAction}
                 />
               </InputGroup>
