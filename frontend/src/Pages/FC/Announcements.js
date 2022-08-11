@@ -28,9 +28,9 @@ async function changeAnnouncement(id, message) {
   });
 }
 
-function AnnounceEditRemove({ toastContext, announcement, onAction }) {
+function AnnounceEditRemove({ toastContext, id, announcement, onAction }) {
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [message, setMessage] = React.useState(announcement.message);
+  const [message, setMessage] = React.useState(announcement ? announcement.message : "");
   return (
     <>
       {modalOpen ? (
@@ -48,9 +48,7 @@ function AnnounceEditRemove({ toastContext, announcement, onAction }) {
               <Button
                 variant="success"
                 onClick={(evt) => {
-                  toaster(toastContext, changeAnnouncement(announcement.id, message)).then(
-                    onAction
-                  );
+                  toaster(toastContext, changeAnnouncement(id, message)).then(onAction);
                   setModalOpen(false);
                 }}
               >
@@ -66,7 +64,7 @@ function AnnounceEditRemove({ toastContext, announcement, onAction }) {
               </Button>
               <AnnounceRemove
                 toastContext={toastContext}
-                id={announcement.id}
+                id={id}
                 onAction={onAction}
                 setMessage={setMessage}
               />
@@ -80,7 +78,7 @@ function AnnounceEditRemove({ toastContext, announcement, onAction }) {
       </Button>
       <AnnounceRemove
         toastContext={toastContext}
-        id={announcement.id}
+        id={id}
         onAction={onAction}
         setMessage={setMessage}
       />
@@ -153,6 +151,7 @@ function ControlTable({ announceList, toastContext, onAction }) {
               <InputGroup>
                 <AnnounceEditRemove
                   toastContext={toastContext}
+                  id={announcelocations[key]}
                   announcement={
                     announceList.filter((entry) => entry.id === announcelocations[key])[0]
                   }
