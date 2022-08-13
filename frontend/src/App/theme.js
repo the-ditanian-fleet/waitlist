@@ -335,8 +335,8 @@ theme["Vanilla"] = _.merge({}, theme.Dark, {
     accent4: "#b0a17f",
 
     highlight: {
-      text: "#b0a17f",
-      active: "#8a7c5d",
+      text: "#fc9936",
+      active: "#ffad5c",
     },
   },
 
