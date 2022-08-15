@@ -69,7 +69,8 @@ export function BadgeData() {
           Badges are a tool mostly for FCs to quickly see what the fleet composition looks like and
           to check a pilots fitting meets requirements. To join Elite fleets you must have the Elite
           badge on TS and on the waitlist. Specialist badges are not required for any pilot but are
-          there if you wish to upgrade further.
+          there if you wish to upgrade further, specialist badges come with perks of priority invite
+          to elite fleets.
         </p>
 
         <p>
