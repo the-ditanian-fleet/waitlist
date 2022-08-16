@@ -1,24 +1,16 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
-import { AuthContext, ToastContext } from '../../contexts';
-import { Button, Input, Label, Select } from '../../Components/Form';
+import { AuthContext } from '../../contexts';
+import { Button, Input, Select } from '../../Components/Form';
 import CharacterName from '../../Components/CharacterName';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faPlus, faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import Table from '../../Components/DataTable';
-import { apiCall, errorToaster, useApi } from '../../api';
+import { apiCall, useApi } from '../../api';
 import { formatDatetime } from '../../Util/time';
 import { Shield, tagBadges } from '../../Components/Badge';
-import { Modal } from '../../Components/Modal';
-import { Title } from '../../Components/Page';
-import { Box } from '../../Components/Box';
-import PilotSearch from '../../Components/PilotSearch';
-
-/**
- * 5. Setup a badge filter
- * 6. Code cleanup
- */
+import { AddBadge, RevokeButton } from './badges/BadgesPageControls';
 
 const BadgesPage = () => {
     const authContext = React.useContext(AuthContext);
@@ -41,10 +33,6 @@ const Header = styled.div`
     align-content: space-between;
 `;
 
-const FormGroup = styled.div`
-    margin: 15px 0px;
-`;
-
 const A = styled.a`
 , &:visited {
     color: ${props =>props.theme.colors?.text};
@@ -56,7 +44,6 @@ const A = styled.a`
 }
 `;
 
-///// TODO  - probably move some of the structural code to another file, leave this file mostly for logic
 const special_sort = (charA, charB) => {
     const a = charA.name.toLowerCase();
     const b = charB.name.toLowerCase();
@@ -65,109 +52,33 @@ const special_sort = (charA, charB) => {
     else return 0;
 };
 
-// Revokes a badge assignment
-const RevokeButton = ({ badgeId, characterId, refreshFunction }) => {
-    const [ pending, isPending ] = React.useState(false);
-    const toastContext = React.useContext(ToastContext);
-
-    const onClick = () => {
-        if (pending) {
-            return; // stop users from clicking this twice  
-        } 
-        isPending(true);
-        
-        errorToaster(toastContext, apiCall(`/api/badges/${badgeId}/members/${characterId}`, {
-            method: 'DELETE'
-        })
-        .then(() => {
-            isPending(false);
-            refreshFunction()
-        })
-        .catch((err) => {
-            isPending(false);
-            throw err;
-        }));
+const FilterComponents = ({ badgeOptions, filters, onChange, onClear }) => {
+    const handleSelect = evt => {
+        let f = filters;
+        f.type = evt.target.value === '-1' ? null : evt.target.value;
+        onChange(f);
     }
 
-    return (
-        <Button variant='danger' disabled={pending} onClick={onClick}>
-            <FontAwesomeIcon fixedWidth icon={!pending ? faTimes : faSpinner} spin={pending} style={{ marginRight: '10px'}} />
-            Revoke
-        </Button>
-    )
-}
-
-const AddBadge = ({ badgeOptions = [], isOpen, setOpen, refreshFunction }) => {
-    const [ badgeId, setBadgeId ] = React.useState(undefined);
-    const [ characterId, setCharacterId ] = React.useState('');
-    const toastContext = React.useContext(ToastContext);
-    const [_reset, resetSearch] = React.useState(0);
-
-    const onClick = (e) => {
-        e.preventDefault();
-        
-        errorToaster(toastContext, apiCall(`/api/badges/${badgeId}/members`, {
-            method: 'POST', 
-            json: { id: parseInt(characterId) }
-        })
-        .then(() => {
-            refreshFunction();
-        }));
-
-        setBadgeId('');
-        setCharacterId('');
-        setOpen(false);
-        resetSearch(prev => prev+1);
+    const handleNameChange = evt => {
+        let f = filters;
+        f.name = evt.target.value;
+        onChange(f);
     }
 
-    useEffect((badgeOptions) => {
-        if (badgeId === null && badgeOptions && badgeOptions.length > 0) 
-            setBadgeId(badgeOptions[0].id);
-    }, [badgeOptions])
-
-    return <Modal open={isOpen} setOpen={setOpen}>
-        <Box>
-            <Title>Assign a Specialist Badge</Title>
-            <form onSubmit={onClick}>
-                <FormGroup>
-                    <Label required>Search for a pilot:</Label>
-                    <PilotSearch required resetSearch={_reset}
-                        style={{width: '100%'}}                         
-                        onChange={(e) => setCharacterId(e.id)} 
-                    />
-                </FormGroup>
-
-                <FormGroup>
-                    <Label required>Select badge type:</Label>
-                    <Select value={badgeId} defaultValue={"select..."} onChange={(e) => setBadgeId(e.target.value)} style={{width: '100%'}} required>
-                        {
-                            badgeOptions?.map((badge, key) => {
-                                return <option value={badge.id} key={key}>
-                                    {badge.name}
-                                </option>
-                            })
-                        }
-                    </Select>
-                </FormGroup>
-
-                <Button>
-                    <FontAwesomeIcon icon={faCheck} /> Save
-                </Button>
-            </form>
-        </Box>
-    </Modal>
-}
-///// END TODO
-
-
-const FilterComponents = ({ filterText, onClear, onFilter }) => {
     return (
         <>
             <span style={{ fontStyle: 'italic', marginRight: '10px'}}>Filter results by...</span>
-            <Select style={{ marginRight: '10px', marginBottom: '10px'}} disabled> 
-                {/* options here */}
+            <Select value={filters?.type ?? ''} 
+            onChange={handleSelect}
+            style={{ 
+                marginRight: '10px',
+                marginBottom: '10px',
+                appearance: 'auto',
+            }}>
+                <option value={-1}>any type...</option>
+                { badgeOptions?.map((badge, key) => <option value={badge.id} key={key} readOnly>{badge.name}</option>)}
             </Select>
-            <Input value={filterText} onChange={onFilter} placeholder='pilot name' style={{ marginRight: '10px', marginBottom: '10px'}} />
+            <Input value={filters?.name ?? ''} onChange={handleNameChange} placeholder='pilot name' style={{ marginRight: '10px', marginBottom: '10px'}} />
             <Button variant={"primary"} onClick={onClear} style={{ marginBottom: '10px'}}>Clear</Button>       
         </>
     )
@@ -177,7 +88,7 @@ const View = ()  => {
     const [ badges, updateData ] = useApi('/api/badges');
     const [ characters, setChracters ] = React.useState(null);
     const [ modalOpen, setModalOpen ] = React.useState(false);
-    const [filterText, setFilterText] = React.useState('');
+    const [ filters, setFilters ] = React.useState({ type: null, name: '' });
     
     useEffect(() => {
         if (!badges) {
@@ -196,13 +107,13 @@ const View = ()  => {
         });
         
         Promise.all(promises).then((e) => {
-            let c = [];
+            let characters = [];
             for(let i = 0; i < e.length; i++) {
                 if (e[i].length !== 0) {
-                    c = [...c, ...e[i]];
+                    characters = [...characters, ...e[i]];
                 }
             }
-            setChracters(c);
+            setChracters(characters);
         });
     }, [badges])
 
@@ -218,20 +129,21 @@ const View = ()  => {
     ];
 
     const TableHeader = React.useMemo(() => {
-        const handleClear = () => {
-            if (filterText) setFilterText('');
-        }
+        const handleClear = () => setFilters({ type: null, name: '' });
 
         return <FilterComponents
-            onFilter={e => setFilterText(e.target.value)} 
+            badgeOptions={badges}
+            filters={filters}
+            onChange={e => setFilters({
+                ...e
+            })}
             onClear={handleClear}
-            filterText={filterText}
         />
-    }, [filterText, badges])
+    }, [ filters, badges ])
 
-    const filteredData = (characters ?? []).filter(
-        item => item && item.character &&
-            item.character.name.toLowerCase().includes(filterText.toLowerCase())
+    const filteredData = (characters ?? []).filter(row => row && row.character    // filter results by
+        && (!filters.type || row.badge.id == filters.type)                        // badge type and
+        && row.character.name.toLowerCase().includes(filters?.name.toLowerCase()) // pilot assigned name
     );
     
     return (

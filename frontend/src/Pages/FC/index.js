@@ -51,7 +51,7 @@ export function FCRoutes() {
           <GuideFC />
         </Route>
       )}
-      {authContext.access["access-manage"] && (
+      {authContext.access["waitlist-tag:HQ-FC"] && (
         <Route exact path="/fc/announcement">
           <Announcements />
         </Route>

@@ -33,7 +33,7 @@ const NoSuggestions = styled.div`
     width: calc(300px + 1rem);
 `;
 
-const PilotSearch = ({ onChange, style, resetSearch }) => {
+const PilotSearch = ({ id, onChange, style, resetSearch }) => {
     const [ activeSuggestion, setActiveSuggestion ] = React.useState(0);
     const [ showSuggestions, setShowSuggestions ]   = React.useState(false);
     const [ suggestions, setSuggestions ]           = React.useState([]);
@@ -55,7 +55,7 @@ const PilotSearch = ({ onChange, style, resetSearch }) => {
                 suggestion.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
         ));
         setShowSuggestions(true);
-    }, [results]);
+    }, [results, userInput]);
 
     useEffect(() => {
         setUserInput('');
@@ -133,6 +133,7 @@ const PilotSearch = ({ onChange, style, resetSearch }) => {
     return (
         <>
             <Input
+                id={id ?? "pilot-search"}
                 type="text"
                 value={userInput}
                 onChange={(e) => setSearchTerm(e.target.value)}

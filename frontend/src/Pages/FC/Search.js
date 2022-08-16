@@ -16,14 +16,8 @@ import { Title } from "../../Components/Page";
 import { Modal } from "../../Components/Modal";
 import { Box } from "../../Components/Box";
 import { removeAcl } from "./ACL";
-import styled from "styled-components";
-import { AclToRead, fcroles } from "./ACL";
-
-const CheckBoxDOM = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-`;
+import { fcroles } from "./ACL";
+import CharacterBadgeModal from './badges/CharacterBadgeModal';
 
 async function addAcl(id, level) {
   return apiCall("/api/acl/add", { json: { id: parseInt(id), level } });
@@ -83,6 +77,8 @@ export function Search() {
                             <AddACL who={character} authContext={authContext} />
                           </>
                         )}
+
+                        {authContext.access["badges-manage"] && <CharacterBadgeModal character={character} /> }
                     </InputGroup>
                   </Buttons>
                 </Cell>
@@ -101,11 +97,8 @@ export function AddACL({ who, authContext }) {
   const toastContext = React.useContext(ToastContext);
   const [level, setLevel] = React.useState("trainee");
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [fcWindow, setFcWindow] = React.useState(false);
-  const [checkedLogi, setcheckedLogi] = React.useState();
-  const [checkedBastion, setcheckedBastion] = React.useState();
-  const [checkedWeb, setcheckedWeb] = React.useState();
   const [acl, refreshAcl] = useApi("/api/acl/list");
+
   var current = "No level";
   if (acl && who) {
     const find = acl.acl.filter((entry) => entry.id === who.id)[0];
@@ -113,31 +106,11 @@ export function AddACL({ who, authContext }) {
       current = find.level;
     }
   }
-  React.useEffect(() => {
-    if (current && current !== "No level") {
-      if (fcroles.includes(current)) {
-        setFcWindow(true);
-      } else {
-        setcheckedLogi(current.includes("l"));
-        setcheckedBastion(current.includes("b"));
-        setcheckedWeb(current.includes("w"));
-      }
-    }
-  }, [current]);
+
 
   if (!acl || !who) {
     return <Button>ACL</Button>;
   }
-
-  const handleChangeLogi = () => {
-    setcheckedLogi(!checkedLogi);
-  };
-  const handleChangeBastion = () => {
-    setcheckedBastion(!checkedBastion);
-  };
-  const handleChangeWeb = () => {
-    setcheckedWeb(!checkedWeb);
-  };
 
   return (
     <>
@@ -145,59 +118,9 @@ export function AddACL({ who, authContext }) {
         <Modal open={true} setOpen={setModalOpen}>
           <Box style={{ height: "220px" }}>
             <Title>{who.name}</Title>
-            <p>
-              <AclToRead role={current} />
-            </p>
+            <p>{current}</p>
             <br />
-            {!fcWindow ? (
-              <>
-                <CheckBoxDOM>
-                  <label>
-                    <input type="checkbox" checked={checkedLogi} onChange={handleChangeLogi} />
-                    Logi
-                  </label>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={checkedBastion}
-                      onChange={handleChangeBastion}
-                    />
-                    Bastion
-                  </label>
-                  <label>
-                    <input type="checkbox" checked={checkedWeb} onChange={handleChangeWeb} />
-                    Web
-                  </label>
-                </CheckBoxDOM>
-                <br />
-
-                <CenteredButtons>
-                  <Button
-                    variant={"success"}
-                    onClick={(evt) => (
-                      <>
-                        {checkedLogi || checkedBastion || checkedWeb
-                          ? toaster(
-                              toastContext,
-                              addAcl(
-                                who.id,
-                                pilotConditionalToACL(checkedLogi, checkedBastion, checkedWeb)
-                              ).then(refreshAcl)
-                            )
-                          : toaster(toastContext, removeAcl(who.id).then(refreshAcl))}
-                      </>
-                    )}
-                  >
-                    Confirm
-                  </Button>
-                  {authContext.access["access-manage:trainee"] ? (
-                    <Button onClick={(evt) => setFcWindow(true)} style={{ width: "110px" }}>
-                      Assign FC
-                    </Button>
-                  ) : null}
-                </CenteredButtons>
-              </>
-            ) : fcroles.includes(current) ? (
+            {fcroles.includes(current) ? (
               <>
                 <br />
                 <CenteredButtons>
@@ -212,10 +135,7 @@ export function AddACL({ who, authContext }) {
             ) : (
               <>
                 <CenteredButtons>
-                  <label>
-                    Level
-                    <br />
-                  </label>
+                  <label>Level</label>
                   <Select
                     value={level}
                     onChange={(evt) => setLevel(evt.target.value)}
@@ -235,9 +155,6 @@ export function AddACL({ who, authContext }) {
                   >
                     Confirm
                   </Button>
-                  <Button onClick={(evt) => setFcWindow(false)} style={{ width: "110px" }}>
-                    Back
-                  </Button>
                 </CenteredButtons>
               </>
             )}
@@ -247,18 +164,4 @@ export function AddACL({ who, authContext }) {
       <Button onClick={(evt) => setModalOpen(true)}>ACL</Button>
     </>
   );
-}
-
-function pilotConditionalToACL(logi, bastion, web) {
-  var level = "";
-  if (logi) {
-    level += "l";
-  }
-  if (bastion) {
-    level += "b";
-  }
-  if (web) {
-    level += "w";
-  }
-  return level;
 }

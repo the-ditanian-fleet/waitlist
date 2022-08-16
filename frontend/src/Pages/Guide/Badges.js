@@ -259,6 +259,30 @@ export function BadgeData() {
           <BadgeButton name="Backchannel" img={"./b.png"}>
             Pilot has access to the back comms on TeamSpeak.
           </BadgeButton>
+          <BadgeButton name="Retired Logi" img={"./rl.png"}>
+          <b>Logi Specialist status revoked due to three months of inactivity.</b>
+            <br />
+            You can earn an L badge by flying as a Training Nestor and earning one +1 from a full HQ FC.
+            <br />
+            <br />
+            Before you X-up on the waitlist, check that:
+            <br />
+            <br />
+            <Content>
+              <ul>
+                <li>You still have elite skills for Nestor</li>
+                <li>Your fit is still valid</li>
+              </ul>
+            </Content>
+            <InfoNote>
+              You can x-up on the waitlist. Make sure to let the fc know you are a Training Nestor!
+            </InfoNote>
+            <br />
+            <InputGroup>
+              <NavButton to={`/skills?ship=Nestor`}>Check your skills</NavButton>
+              <NavButton to={`/fits?Tier=Elite`}>Fits</NavButton>
+            </InputGroup>
+          </BadgeButton>
         </BadgeDisplay>
       </Content>
     </>

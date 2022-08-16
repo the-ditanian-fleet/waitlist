@@ -18,11 +18,11 @@ const A = styled.a`
 }
 `;
 
-const CharacterName = ({ avatar, avatarSize, id, name }) => {
+const CharacterName = ({ avatar, avatarSize, id, name, noLink }) => {
     return (
         <>
             { avatar && <Avatar src={`https://images.evetech.net/characters/${id}/portrait?size=${avatarSize}`} /> }
-            <A href={`/fc/search?query=${name}`}>{name}</A>
+            { !noLink ? <A href={`/fc/search?query=${name}`}>{name}</A> : name }
         </>
     )
 }
@@ -30,7 +30,8 @@ const CharacterName = ({ avatar, avatarSize, id, name }) => {
 CharacterName.defaultProps = {
     avatar: true,
     avatarSize: 32,
-    id: 1 // This will cause the image server to return the default avatar
+    id: 1, // This will cause the image server to return the default avatar
+    noLink: false
 }
 
 CharacterName.propTypes = {
@@ -38,6 +39,7 @@ CharacterName.propTypes = {
     avatarSize: PropTypes.number,
     id: PropTypes.number,
     name: PropTypes.string.isRequired,
+    noLink: PropTypes.bool
 }
 
 export default CharacterName;

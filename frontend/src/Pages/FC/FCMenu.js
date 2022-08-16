@@ -108,7 +108,7 @@ export function FCMenu() {
           <GuideCard slug="bans" name="Bans" icon={faBan} />
         )}
         { authContext && authContext.access["badges-manage"] && (
-          <GuideCard slug="badges" name="Badges | wip" icon={faShieldAlt} /> 
+          <GuideCard slug="badges" name="Badges" icon={faShieldAlt} /> 
         )}
         { authContext && authContext.access["access-view"] && (
           <GuideCard slug="acl" name="Permissions" icon={faUserCheck} />
@@ -119,7 +119,7 @@ export function FCMenu() {
         { authContext && authContext.access["search"] && ( //any full FC
             <GuideCard slug="documentation" name="FC Documentation" icon={faBiohazard} />
         )}
-        { authContext && authContext.access["access-manage"] && (
+        { authContext && authContext.access["waitlist-tag:HQ-FC"] && (
           <GuideCard slug="announcement" name="Announcements" icon={faCommentAlt} />
         )}
         { authContext && authContext.access["stats-view"] && (
