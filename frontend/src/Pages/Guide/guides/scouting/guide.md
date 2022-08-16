@@ -8,7 +8,13 @@ Scouting is a fairly advanced role that requires multiboxing, so don't try this 
 
 ## Finding sites
 
-First and foremost the job of a scout is to find the fleet a free site before the end of the previous site. You can let the FC know which sites are taken through tags, so the FC can choose a next site. The common tag for "this site is taken" is **X**, though experienced scouts will use all of X/**Y**/**Z** to let the FC know which community is in each site. You can tag a site if you are in a fleet _tagging position_, by right-clicking the beacon, and picking the tag in the tag dropdown, but this is faster if you assign a hotkey (via the settings menu, Shortcuts tab, use the search in the top right).
+First and foremost the job of a scout is to find the fleet a free site before the end of the previous site. You can let the FC know which sites are taken through beacon tags, so the FC can choose a next site. The common tag for "this site is taken" is **X**, though experienced scouts will use all of **X/Y/Z** to let the FC know which community is in each site.
+
+![](taggingsite.png)
+
+You can tag a site if you are in a **squad commander position**, by right-clicking the beacon, and picking the tag in the tag dropdown, but this is faster if you assign a hotkey (via the settings menu, Shortcuts tab, use the search in the top right).
+
+![](tagginghotkey.png)
 
 How you find the sites that are taken can depend on the number of fleets that are running:
 
@@ -16,11 +22,13 @@ How you find the sites that are taken can depend on the number of fleets that ar
 - If only one other fleet is running you can choose to follow them around, tagging their sites as they take them.
 - If two fleets are running you will find that most of the time there is only one clear site. Park your scout on the gate, and when a fleet goes in tag it. Once a new site spawns, warp to it, and repeat.
 
-When the fleet starts a new site the FC will tag the site **A**. Sometimes they forget this, so feel free to tag it yourself, or call them out on their mistake.
+When the fleet starts a new site the FC will tag the site **A**. Sometimes they forget this, so feel free to tag it yourself, or call them out on their mistake. This A tag will help you to quickly remember where the fleet is in relation to your scout. To see this tag you must refresh tags on your scout by either tagging a fresh site or tagging yourself.
 
 Sometimes a fleet will bounce, leaving a tagged site without a fleet in it. It is the scout's job to recognize the situation, and find out which site they bounced from. To tag a site that another fleet bounced from, use **B**, but leave the A tag to differentiate sites that we bounced from ourselves.
 
 Put a J tag on the Kundalini Manifest, so FCs don't accidentally end the focus. The same goes for other anomalies and sites that appear on the overview and aren't related to incursions.
+
+![](taggedexample.png)
 
 ### Most favorable site
 
@@ -30,7 +38,9 @@ The FC will almost always want to go to the most favorable site, which is the si
 
 The easiest way to find out information about the fleet in a site is the Directional Scanner (D-Scan). If you set it to a distance of 0.1 AU with a range of 360 degrees you will find information about who is in a site in all but the smallest incursion systems. The PVP tab can tell you who is in there, and the Drones tab can tell you whether they are about to leave (scan a few times, if drones disappear then they are about to warp).
 
-The Loot tab will tell you how many wrecks there are in a site. Look for the amount of wrecks but also specific types: a TPPH always spawns exactly 15 rats in the first room and 13 in the second room, with _Arnons_ marking the final wave of the last room. The other sites have variable spawns, but the NRF will only spawn _Outunis_ in the final wave. By looking at these wrecks you can quickly figure out the state of a site without having to be in it.
+The Loot tab will tell you how many wrecks there are in a site. Look for the amount of wrecks but also specific types: a TPPH always spawns exactly 15 rats in the first room and 13 in the second room, with _Arnons_ marking the final wave of the last room. The other sites have variable spawns, but the NRF will only spawn _Outunis_ in the final wave. By looking at these wrecks you can quickly figure out the state of a site without having to be in it. Setting your DSCAN window to exactly 28 results will allow you to quickly discern if a fleet is in the 3rd room of a TPPH.
+
+![](dscansettings.png)
 
 Periodically uploading the PVP tab of the D-Scan to a site like [dscan.info](https://dscan.info) also creates valuable information for the FC to help with decisions around contesting sites.
 
