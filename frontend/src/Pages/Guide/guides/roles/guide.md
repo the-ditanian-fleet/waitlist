@@ -13,6 +13,10 @@ Below you can see all the available roles with a brief description, more concise
 | **MTAC/CIVI** | Specific to TCRCs (HQ's) & OCF (Assaults). Used to transport items to complete a site. Held by Nightmares and Paladins                |
 | **MS**        | Short for meatshield, sent into TCRCs to establish aggro to allow for safer entry into a preloaded site. Primarily held by Damnation. |
 
+Roles will be listed in the fleet MOTD.
+
+![](roles.png)
+
 # Role Specifics
 
 ## DDD
