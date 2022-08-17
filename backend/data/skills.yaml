@@ -124,7 +124,6 @@ requirements:
       elite: 4
     Hull Upgrades:
       min: 5
-      elite: 5
     Mechanics:
       min: 4
       elite: 5
@@ -145,7 +144,6 @@ requirements:
       elite: 5
     Drones:
       min: 5
-      elite: 5
     Gallente Drone Specialization:
       elite: 4
     Drone Durability:
@@ -208,6 +206,81 @@ requirements:
     Shield Operation:
       elite: 4
 
+  _booster: &booster # Booster skills: Only boosters need these
+    EM Armor Compensation:
+      min: 5
+    Explosive Armor Compensation:
+      min: 5
+    Thermal Armor Compensation:
+      min: 5
+    Kinetic Armor Compensation:
+      min: 5
+    Armor Layering:
+      min: 3
+      elite: 4
+    Hull Upgrades:
+      min: 5
+    Mechanics:
+      min: 4
+      elite: 5
+    Acceleration Control:
+      min: 3
+      elite: 4
+    Evasive Maneuvering:
+      min: 3
+      elite: 4
+    High Speed Maneuvering:
+      min: 3
+      elite: 4
+    Warp Drive Operation:
+      min: 3
+      elite: 5
+    Navigation:
+      min: 4
+      elite: 5
+    Drones:
+      min: 5
+    Gallente Drone Specialization:
+      elite: 4
+    Drone Durability:
+      elite: 4
+    Drone Navigation:
+      elite: 4
+    Drone Avionics:
+      elite: 4
+    Advanced Drone Avionics:
+      elite: 4
+    Drone Interfacing:
+      elite: 4
+    Drone Sharpshooting:
+      elite: 4
+    Electronic Warfare:
+      gold: 4
+    Thermodynamics:
+      elite: 4
+    Capacitor Management:
+      min: 4
+      elite: 5
+    CPU Management:
+      min: 5
+    Capacitor Systems Operation:
+      min: 3
+      elite: 5
+    Power Grid Management:
+      min: 5
+    Spaceship Command:
+      min: 5
+    Signature Analysis:
+      min: 3
+      elite: 5
+    Cybernetics:
+      min: 5
+      priority: 5
+    Shield Management:
+      elite: 4
+    Shield Operation:
+      elite: 4
+
   _sideeffects: &sideeffects
     Neurotoxin Control:
       elite: 4
@@ -256,7 +329,6 @@ requirements:
       elite: 4
     Hull Upgrades:
       min: 5
-      elite: 5
     Mechanics:
       min: 4
       elite: 5
@@ -295,23 +367,21 @@ requirements:
       elite: 4
     Capacitor Management:
       min: 5
-      elite: 5
     CPU Management:
       min: 3
       elite: 5
     Remote Armor Repair Systems:
       min: 5
-      elite: 5
     Repair Systems:
       min: 2
       gold: 2
     Capacitor Systems Operation:
       min: 5
-      elite: 5
     Power Grid Management:
       min: 3
       elite: 5
     Spaceship Command:
+      min: 3
       elite: 5
     Nanite Interfacing:
       elite: 4
@@ -319,13 +389,10 @@ requirements:
       elite: 4
     Target Management:
       min: 5
-      elite: 5
     Long Range Targeting:
       min: 5
-      elite: 5
     Signature Analysis:
       min: 5
-      elite: 5
     Biology:
       min: 3
       elite: 5
@@ -624,7 +691,7 @@ requirements:
       min: 5
 
   Eos:
-    <<: *generic
+    <<: [*booster]
     Leadership:
       min: 5
     Wing Command:
@@ -641,19 +708,9 @@ requirements:
       min: 5
     Skirmish Command Specialist:
       min: 5
-    EM Armor Compensation:
-      min: 5
-    Explosive Armor Compensation:
-      min: 5
-    Thermal Armor Compensation:
-      min: 5
-    Kinetic Armor Compensation:
-      min: 5
     Command Ships:
       min: 5
     Gallente Battlecruiser:
-      min: 5
-    Cybernetics:
       min: 5
     Frequency Modulation:
       elite: 4
@@ -661,7 +718,7 @@ requirements:
       elite: 4
 
   Damnation:
-    <<: *generic
+    <<: [*booster]
     Leadership:
       min: 5
     Wing Command:
@@ -678,19 +735,9 @@ requirements:
       min: 5
     Skirmish Command Specialist:
       min: 5
-    EM Armor Compensation:
-      min: 5
-    Explosive Armor Compensation:
-      min: 5
-    Thermal Armor Compensation:
-      min: 5
-    Kinetic Armor Compensation:
-      min: 5
     Command Ships:
       min: 5
     Amarr Battlecruiser:
-      min: 5
-    Cybernetics:
       min: 5
     Frequency Modulation:
       elite: 4
