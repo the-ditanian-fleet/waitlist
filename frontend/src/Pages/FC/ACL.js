@@ -33,8 +33,8 @@ function RemoveConfirm({ who, onAction }) {
         <Modal open={true} setOpen={setModalOpen}>
           <Box>
             <Title>Remove {who.name}</Title>
-            <p style={{marginBottom: '15px'}}>{who.level}</p>
-            
+            <p style={{ marginBottom: "15px" }}>{who.level}</p>
+
             <CenteredButtons size={"90px"}>
               <Button variant="secondary" onClick={(evt) => setModalOpen(false)}>
                 Cancel
@@ -96,9 +96,13 @@ function ACLOverview() {
   return (
     <>
       <PageTitle>Access control list</PageTitle>
-      
+
       <Box>
-        <Input value={find} onChange={(evt) => setFind(evt.target.value)} style={{marginBottom: '15px'}} />
+        <Input
+          value={find}
+          onChange={(evt) => setFind(evt.target.value)}
+          style={{ marginBottom: "15px" }}
+        />
 
         <ACLTable
           entries={acl.acl.filter(

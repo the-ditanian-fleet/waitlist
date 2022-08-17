@@ -78,7 +78,7 @@ function PilotDisplay({ authContext }) {
   const [notes] = useApi(
     authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
   );
-  
+
   return (
     <>
       <div style={{ display: "flex", alignItems: "Center", flexWrap: "wrap" }}>
@@ -103,9 +103,7 @@ function PilotDisplay({ authContext }) {
           {authContext.access["bans-manage"] && (
             <NavButton to={`/fc/bans/add?kind=character&id=${characterId}`}>Ban</NavButton>
           )}
-          {authContext.access["badges-manage"] && (
-            <CharacterBadgeModal character={basicInfo} />
-          )}
+          {authContext.access["badges-manage"] && <CharacterBadgeModal character={basicInfo} />}
         </InputGroup>
       )}
       <Row>

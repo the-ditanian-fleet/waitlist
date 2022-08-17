@@ -17,7 +17,7 @@ import { Modal } from "../../Components/Modal";
 import { Box } from "../../Components/Box";
 import { removeAcl } from "./ACL";
 import { fcroles } from "./ACL";
-import CharacterBadgeModal from './badges/CharacterBadgeModal';
+import CharacterBadgeModal from "./badges/CharacterBadgeModal";
 
 async function addAcl(id, level) {
   return apiCall("/api/acl/add", { json: { id: parseInt(id), level } });
@@ -78,7 +78,9 @@ export function Search() {
                           </>
                         )}
 
-                        {authContext.access["badges-manage"] && <CharacterBadgeModal character={character} /> }
+                      {authContext.access["badges-manage"] && (
+                        <CharacterBadgeModal character={character} />
+                      )}
                     </InputGroup>
                   </Buttons>
                 </Cell>
@@ -106,7 +108,6 @@ export function AddACL({ who, authContext }) {
       current = find.level;
     }
   }
-
 
   if (!acl || !who) {
     return <Button>ACL</Button>;

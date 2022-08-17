@@ -82,7 +82,7 @@ export const Label = styled.label`
 
   &[required] {
     ::after {
-      content: '  *';
+      content: "  *";
       color: red;
       font-size: 15px;
       font-weight: bolder;

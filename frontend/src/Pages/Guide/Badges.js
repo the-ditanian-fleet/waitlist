@@ -260,9 +260,10 @@ export function BadgeData() {
             Pilot has access to the back comms on TeamSpeak.
           </BadgeButton>
           <BadgeButton name="Retired Logi" img={"./rl.png"}>
-          <b>Logi Specialist status revoked due to three months of inactivity.</b>
+            <b>Logi Specialist status revoked due to three months of inactivity.</b>
             <br />
-            You can earn an L badge by flying as a Training Nestor and earning one +1 from a full HQ FC.
+            You can earn an L badge by flying as a Training Nestor and earning one +1 from a full HQ
+            FC.
             <br />
             <br />
             Before you X-up on the waitlist, check that:
