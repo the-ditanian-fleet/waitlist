@@ -125,16 +125,16 @@ async fn get_badge_members(
                     name: badge.name.to_string(),
                     member_count: -1
                 },
-                granted_at: assignment.GrantedAt,
+                granted_at: assignment.grantedAt,
                 character: Character {
-                    id: assignment.CharacterId,
-                    name: character_map.get(&assignment.CharacterId)
+                    id: assignment.characterId,
+                    name: character_map.get(&assignment.characterId)
                             .unwrap()
                             .to_string()
                 },
                 granted_by: Character {
-                    id: assignment.GrantedById.unwrap(),
-                    name: character_map.get(&assignment.GrantedById.unwrap())
+                    id: assignment.grantedById.unwrap(),
+                    name: character_map.get(&assignment.grantedById.unwrap())
                             .unwrap()
                             .to_string()
                 }
@@ -161,7 +161,7 @@ async fn assign_badge(
     .fetch_all(app.get_db())
     .await?
     .len() <= 0 {
-        return Err(Madness::BadRequest(format!("Badge not found (ID: {badge_id})")));
+        return Err(Madness::BadRequest(format!("Badge not found (ID: {})", badge_id)));
     }
 
     // Ensure the requested character exists
@@ -169,8 +169,7 @@ async fn assign_badge(
     .fetch_all(app.get_db())
     .await?
     .len() <= 0 {
-        let id = character.id;
-        return Err(Madness::BadRequest(format!("Character not found (ID: {id})")));
+        return Err(Madness::BadRequest(format!("Character not found (ID: {})", character.id)));
     }
 
     // Make sure we don't duplicate this record
