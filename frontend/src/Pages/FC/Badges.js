@@ -141,9 +141,10 @@ const View = ()  => {
         />
     }, [ filters, badges ])
 
-    const filteredData = (characters ?? []).filter(row => row && row.character    // filter results by
-        && (!filters.type || row.badge.id == filters.type)                        // badge type and
-        && row.character.name.toLowerCase().includes(filters?.name.toLowerCase()) // pilot assigned name
+    // filter results by badge type and pilot assigned name
+    const filteredData = (characters ?? []).filter(row => row && row.character    
+        && (!filters.type || row.badge.id == filters.type) // eslint-disable-line                      
+        && row.character.name.toLowerCase().includes(filters?.name.toLowerCase())
     );
     
     return (
