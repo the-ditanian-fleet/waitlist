@@ -436,6 +436,8 @@ requirements:
       min: 5
     Energy Grid Upgrades:
       min: 5
+    CPU Management:
+      min: 5
 
   Kronos:
     <<: [*generic, *gunnery, *sideeffects, *rigging]
