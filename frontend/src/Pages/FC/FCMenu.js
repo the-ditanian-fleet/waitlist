@@ -14,6 +14,7 @@ import {
   faBiohazard,
   faChartLine,
   faCommentAlt,
+  faShieldAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 const guideData = {};
@@ -103,25 +104,26 @@ export function FCMenu() {
     <>
       <PageTitle>FC Dashboard</PageTitle>
       <CardArray>
-        {authContext && authContext.access["bans-view"] && (
-          <GuideCard slug="bans" name="Bans" icon={faBan}></GuideCard>
+        { authContext && authContext.access["bans-view"] && (
+          <GuideCard slug="bans" name="Bans" icon={faBan} />
         )}
-        {authContext && authContext.access["access-view"] && (
-          <GuideCard slug="acl" name="Permissions" icon={faUserCheck}></GuideCard>
+        { authContext && authContext.access["badges-manage"] && (
+          <GuideCard slug="badges" name="Badges" icon={faShieldAlt} /> 
         )}
-        {authContext &&
-          authContext.access["fleet-view"] && ( //fleet view should be any fc
-            <GuideCard slug="trainee" name="FC Training" icon={faGraduationCap}></GuideCard>
-          )}
-        {authContext &&
-          authContext.access["search"] && ( //any full FC
-            <GuideCard slug="documentation" name="FC Documentation" icon={faBiohazard}></GuideCard>
-          )}
-        {authContext && authContext.access["access-manage"] && (
-          <GuideCard slug="announcement" name="Announcements" icon={faCommentAlt}></GuideCard>
+        { authContext && authContext.access["access-view"] && (
+          <GuideCard slug="acl" name="Permissions" icon={faUserCheck} />
         )}
-        {authContext && authContext.access["stats-view"] && (
-          <GuideCard slug="stats" name="Statistics" icon={faChartLine}></GuideCard>
+        { authContext && authContext.access["fleet-view"] && ( //fleet view should be any fc
+            <GuideCard slug="trainee" name="FC Training" icon={faGraduationCap} />
+        )}
+        { authContext && authContext.access["search"] && ( //any full FC
+            <GuideCard slug="documentation" name="FC Documentation" icon={faBiohazard} />
+        )}
+        { authContext && authContext.access["waitlist-tag:HQ-FC"] && (
+          <GuideCard slug="announcement" name="Announcements" icon={faCommentAlt} />
+        )}
+        { authContext && authContext.access["stats-view"] && (
+          <GuideCard slug="stats" name="Statistics" icon={faChartLine} />
         )}
       </CardArray>
     </>

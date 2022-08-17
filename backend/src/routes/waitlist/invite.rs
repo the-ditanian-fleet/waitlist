@@ -66,6 +66,25 @@ async fn invite(
         None => return Err(Madness::BadRequest("Fleet not configured".to_string())),
     };
 
+    // Prevent a trainee from inviting a Training Nestor or Retired Logi to fleet
+    if xup.fitting_hull == type_id!("Nestor") {
+        if let Err(_e) = account.require_access("waitlist-tag:HQ-FC") {
+            // The inviting FC does not have an HQ-FC badge, they are probably a trainee or advanced trainee
+            if sqlx::query!(
+                "SELECT id FROM badge JOIN badge_assignment AS ba ON id=ba.badgeId WHERE badge.name='LOGI' AND ba.characterId=?",
+                xup.wef_character_id
+            )
+            .fetch_all(app.get_db())
+            .await?
+            .len() == 0 {
+                // Pilot does not have an L badge, they are either a Training Nestor or a Retired Logi
+                return Err(Madness::BadRequest("You are not allowed to invite a training Nestor to fleet.".to_string()));    
+            }
+        }
+    }
+
+
+
     #[derive(Debug, Serialize)]
     struct Invite {
         character_id: i64,

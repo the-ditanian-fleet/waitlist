@@ -251,7 +251,18 @@ async fn xup_multi(
             sqlx::query!("DELETE FROM waitlist_entry_fit WHERE id = ?", existing_x.id).execute(&mut tx).await?;
         }
 
-        let fit_checked = tdf::fitcheck::FitChecker::check(this_pilot_data, &fit)?;
+        let badges: Vec<String> = sqlx::query!(
+            "SELECT badge.name FROM badge JOIN badge_assignment ON id=badge_assignment.BadgeId WHERE badge_assignment.CharacterId=?", character_id
+        )
+        .fetch_all(&mut tx)
+        .await?
+        .into_iter()
+        .map(|b| {
+            b.name
+        })
+        .collect();
+        
+        let fit_checked = tdf::fitcheck::FitChecker::check(this_pilot_data, &fit, &badges)?;
         if let Some(error) = fit_checked.errors.into_iter().next() {
             return Err(Madness::BadRequest(error));
         }
