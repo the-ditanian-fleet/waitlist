@@ -62,7 +62,7 @@ const AddBadge = ({ badgeOptions = [], isOpen, setOpen, refreshFunction }) => {
               required
               resetSearch={_reset}
               style={{ width: "100%" }}
-              onChange={e => setCharacterId(e.id)}
+              onChange={(e) => setCharacterId(e.id)}
               hideNotFound
             />
           </FormGroup>
@@ -74,7 +74,7 @@ const AddBadge = ({ badgeOptions = [], isOpen, setOpen, refreshFunction }) => {
             <Select
               id="badge-select"
               value={badgeId}
-              onChange={e => setBadgeId(e.target.value)}
+              onChange={(e) => setBadgeId(e.target.value)}
               style={{ width: "100%", appearance: "auto" }}
               required
             >

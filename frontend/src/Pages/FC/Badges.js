@@ -147,7 +147,7 @@ const View = () => {
       sortable: true,
       sortFunction: (rowA, rowB) => special_sort(rowA.badge, rowB.badge),
       grow: 1,
-      minWidth: 'unset',
+      minWidth: "unset",
       selector: (row) => {
         const badge = tagBadges[row.badge.name];
         return (

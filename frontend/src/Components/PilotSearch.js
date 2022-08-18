@@ -51,18 +51,16 @@ const PilotSearch = ({ id, onChange, style, resetSearch, hideNotFound }) => {
   useEffect(() => {
     let exactMatch = false;
     setSuggestions(
-      results?.results.filter(
-        (suggestion) => {
-          // Exact match, emulate an onClick action so the input acts as expected
-          if (suggestion.name.toLowerCase() === userInput.toLocaleLowerCase()) {
-            onChange(suggestion);
-            setUserInput(suggestion.name);
-            setActiveSuggestion(0);
-            exactMatch = true;
-          }
-          return suggestion.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+      results?.results.filter((suggestion) => {
+        // Exact match, emulate an onClick action so the input acts as expected
+        if (suggestion.name.toLowerCase() === userInput.toLocaleLowerCase()) {
+          onChange(suggestion);
+          setUserInput(suggestion.name);
+          setActiveSuggestion(0);
+          exactMatch = true;
         }
-      )
+        return suggestion.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1;
+      })
     );
     setShowSuggestions(!exactMatch);
   }, [results, userInput, onChange]);
