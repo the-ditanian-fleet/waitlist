@@ -5,14 +5,17 @@ import { ToastContext } from "../../../contexts";
 import styled from "styled-components";
 import PilotSearch from "../../../Components/PilotSearch";
 import { Box } from "../../../Components/Box";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faSpinner, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "../../../Components/Modal";
 import { Title } from "../../../Components/Page";
-import { Button, Label, Select } from "../../../Components/Form";
+import { Button, CenteredButtons, Label, Select } from "../../../Components/Form";
+import CharacterName from "../../../Components/CharacterName";
 
 const FormGroup = styled.div`
   margin: 15px 0px;
+`;
+
+const P = styled.p`
+  margin-bottom: 20px;
 `;
 
 const AddBadge = ({ badgeOptions = [], isOpen, setOpen, refreshFunction }) => {
@@ -59,7 +62,8 @@ const AddBadge = ({ badgeOptions = [], isOpen, setOpen, refreshFunction }) => {
               required
               resetSearch={_reset}
               style={{ width: "100%" }}
-              onChange={(e) => setCharacterId(e.id)}
+              onChange={e => setCharacterId(e.id)}
+              hideNotFound
             />
           </FormGroup>
 
@@ -70,7 +74,7 @@ const AddBadge = ({ badgeOptions = [], isOpen, setOpen, refreshFunction }) => {
             <Select
               id="badge-select"
               value={badgeId}
-              onChange={(e) => setBadgeId(e.target.value)}
+              onChange={e => setBadgeId(e.target.value)}
               style={{ width: "100%", appearance: "auto" }}
               required
             >
@@ -84,16 +88,28 @@ const AddBadge = ({ badgeOptions = [], isOpen, setOpen, refreshFunction }) => {
             </Select>
           </FormGroup>
 
-          <Button>
-            <FontAwesomeIcon icon={faCheck} /> Save
-          </Button>
+          <Button variant="success">Confirm</Button>
         </form>
       </Box>
     </Modal>
   );
 };
 
-const RevokeButton = ({ badgeId, characterId, refreshFunction }) => {
+const RevokeButton = (props) => {
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button variant="danger" onClick={() => setModalOpen(true)}>
+        Revoke
+      </Button>
+
+      <RevokeConfirm isOpen={modalOpen} setOpen={setModalOpen} {...props} />
+    </>
+  );
+};
+
+const RevokeConfirm = ({ badge, character, isOpen, setOpen, refreshFunction }) => {
   const [pending, isPending] = React.useState(false);
   const toastContext = React.useContext(ToastContext);
 
@@ -105,11 +121,12 @@ const RevokeButton = ({ badgeId, characterId, refreshFunction }) => {
 
     errorToaster(
       toastContext,
-      apiCall(`/api/badges/${badgeId}/members/${characterId}`, {
+      apiCall(`/api/badges/${badge.id}/members/${character.id}`, {
         method: "DELETE",
       })
         .then(() => {
           isPending(false);
+          setOpen(false);
           refreshFunction();
         })
         .catch((err) => {
@@ -120,15 +137,24 @@ const RevokeButton = ({ badgeId, characterId, refreshFunction }) => {
   };
 
   return (
-    <Button variant="danger" disabled={pending} onClick={onClick}>
-      <FontAwesomeIcon
-        fixedWidth
-        icon={!pending ? faTimes : faSpinner}
-        spin={pending}
-        style={{ marginRight: "10px" }}
-      />
-      Revoke
-    </Button>
+    <Modal open={isOpen} setOpen={setOpen}>
+      <Box>
+        <Title>Revoke {badge.name}</Title>
+
+        <P>
+          From: <CharacterName {...character} noLink avatar={false} />
+        </P>
+
+        <CenteredButtons size={"90px"}>
+          <Button variant="secondary" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={onClick}>
+            Confirm
+          </Button>
+        </CenteredButtons>
+      </Box>
+    </Modal>
   );
 };
 

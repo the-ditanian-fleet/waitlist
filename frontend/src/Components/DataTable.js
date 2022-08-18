@@ -2,6 +2,24 @@ import React from "react";
 import DataTable, { createTheme } from "react-data-table-component";
 import { ThemeContext } from "styled-components";
 
+const customStyles = {
+  head: {
+    style: {
+      fontSize: "unset",
+    },
+  },
+  subHeader: {
+    style: {
+      paddingLeft: "12px",
+    },
+  },
+  rows: {
+    style: {
+      fontSize: "15px",
+    },
+  },
+};
+
 const Table = (props) => {
   const themeContext = React.useContext(ThemeContext);
 
@@ -19,7 +37,7 @@ const Table = (props) => {
     "dark"
   );
 
-  return <DataTable {...props} theme={"tdf"} />;
+  return <DataTable {...props} theme={"tdf"} customStyles={customStyles} />;
 };
 
 export default Table;

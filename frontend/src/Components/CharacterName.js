@@ -5,6 +5,10 @@ const Avatar = styled.img`
   border-radius: 25%;
   margin-right: 10px;
   vertical-align: middle;
+
+  @media (max-width: 450px) {
+    display: none;
+  }
 `;
 
 const A = styled.a`

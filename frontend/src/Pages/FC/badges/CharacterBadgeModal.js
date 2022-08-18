@@ -3,12 +3,10 @@ import { apiCall, errorToaster, toaster, useApi } from "../../../api";
 import { Box } from "../../../Components/Box";
 import CharacterName from "../../../Components/CharacterName";
 import { Shield, tagBadges } from "../../../Components/Badge";
-import { faCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "../../../Components/Form";
+import { Button, CenteredButtons } from "../../../Components/Form";
 import { Modal } from "../../../Components/Modal";
 import { Title } from "../../../Components/Page";
 import { ToastContext } from "../../../contexts";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 async function assignBadge(badgeId, characterId) {
   return await apiCall(`/api/badges/${badgeId}/members`, {
@@ -28,7 +26,7 @@ const CharacterBadgeModal = ({ character }) => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Badges</Button>
-      {isOpen ? <BadgeModal character={character} isOpen={isOpen} setOpen={setOpen} /> : null}
+      <BadgeModal character={character} isOpen={isOpen} setOpen={setOpen} />
     </>
   );
 };
@@ -36,7 +34,7 @@ const CharacterBadgeModal = ({ character }) => {
 export default CharacterBadgeModal;
 
 const BadgeModal = ({ character, isOpen, setOpen }) => {
-  const [_badges] = useApi("/api/badges"); // Get data from the API
+  const [_badges, refreshBadges] = useApi("/api/badges"); // Get data from the API
   const [badges, setBadges] = React.useState([]); // This data includes bools checked, default
   const [pending, isPending] = React.useState(false);
   const toastContext = React.useContext(ToastContext);
@@ -68,7 +66,7 @@ const BadgeModal = ({ character, isOpen, setOpen }) => {
       else if (badge.default && !badge.checked)
         toaster(toastContext, revokeBadge(badge.id, character.id));
     });
-    setOpen(false);
+    refreshBadges();
     isPending(false);
   };
 
@@ -120,15 +118,12 @@ const BadgeModal = ({ character, isOpen, setOpen }) => {
           </div>
         </div>
 
-        <Button variant="success" onClick={onSubmit} disabled={pending}>
-          <FontAwesomeIcon
-            fixedWidth
-            icon={!pending ? faCheck : faSpinner}
-            spin={pending}
-            style={{ marginRight: "10px" }}
-          />
-          Save Changes
-        </Button>
+        <CenteredButtons>
+          <Button variant="success" onClick={onSubmit} disabled={pending}>
+            Confirm
+          </Button>
+          <Button onClick={() => setOpen(false)}>Close</Button>
+        </CenteredButtons>
       </Box>
     </Modal>
   );

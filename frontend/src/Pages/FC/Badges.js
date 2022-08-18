@@ -68,7 +68,7 @@ const FilterComponents = ({ badgeOptions, filters, onChange, onClear }) => {
   };
 
   return (
-    <>
+    <div style={{ flexGrow: 1 }}>
       <span style={{ fontStyle: "italic", marginRight: "10px" }}>Filter results by...</span>
       <Select
         value={filters?.type ?? ""}
@@ -95,7 +95,7 @@ const FilterComponents = ({ badgeOptions, filters, onChange, onClear }) => {
       <Button variant={"primary"} onClick={onClear} style={{ marginBottom: "10px" }}>
         Clear
       </Button>
-    </>
+    </div>
   );
 };
 
@@ -147,6 +147,7 @@ const View = () => {
       sortable: true,
       sortFunction: (rowA, rowB) => special_sort(rowA.badge, rowB.badge),
       grow: 1,
+      minWidth: 'unset',
       selector: (row) => {
         const badge = tagBadges[row.badge.name];
         return (
@@ -179,11 +180,7 @@ const View = () => {
       grow: 1,
       minWidth: "95",
       selector: (row) => (
-        <RevokeButton
-          badgeId={row.badge.id}
-          characterId={row.character.id}
-          refreshFunction={updateData}
-        />
+        <RevokeButton badge={row.badge} character={row.character} refreshFunction={updateData} />
       ),
     },
   ];
@@ -192,16 +189,27 @@ const View = () => {
     const handleClear = () => setFilters({ type: null, name: "" });
 
     return (
-      <FilterComponents
-        badgeOptions={badges}
-        filters={filters}
-        onChange={(e) =>
-          setFilters({
-            ...e,
-          })
-        }
-        onClear={handleClear}
-      />
+      <>
+        <FilterComponents
+          badgeOptions={badges}
+          filters={filters}
+          onChange={(e) =>
+            setFilters({
+              ...e,
+            })
+          }
+          onClear={handleClear}
+        />
+
+        <Button
+          variant={"primary"}
+          onClick={() => setModalOpen(true)}
+          style={{ marginBottom: "10px" }}
+        >
+          <FontAwesomeIcon fixedWidth icon={faPlus} style={{ marginRight: "10px" }} />
+          Assign Badge
+        </Button>
+      </>
     );
   }, [filters, badges]);
 
@@ -218,10 +226,6 @@ const View = () => {
     <>
       <Header>
         <h1 style={{ fontSize: "32px" }}>Specialist Badges</h1>
-        <Button variant={"primary"} onClick={() => setModalOpen(true)}>
-          <FontAwesomeIcon fixedWidth icon={faPlus} style={{ marginRight: "10px" }} />
-          Assign Badge
-        </Button>
       </Header>
 
       <p style={{ marginBottom: "10px" }}>

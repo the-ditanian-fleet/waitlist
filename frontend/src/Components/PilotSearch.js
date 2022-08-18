@@ -12,7 +12,6 @@ const SuggestionsList = styled.ul`
   max-height: 143px;
   overflow-y: auto;
   padding-left: 0;
-  width: calc(300px + 1rem);
 
   & > li {
     padding: 0.5rem;
@@ -31,10 +30,9 @@ const NoSuggestions = styled.div`
   color: ${(props) => props.theme.colors?.secondary?.text};
   padding: 0.5rem;
   font-style: italic;
-  width: calc(300px + 1rem);
 `;
 
-const PilotSearch = ({ id, onChange, style, resetSearch }) => {
+const PilotSearch = ({ id, onChange, style, resetSearch, hideNotFound }) => {
   const [activeSuggestion, setActiveSuggestion] = React.useState(0);
   const [showSuggestions, setShowSuggestions] = React.useState(false);
   const [suggestions, setSuggestions] = React.useState([]);
@@ -51,13 +49,23 @@ const PilotSearch = ({ id, onChange, style, resetSearch }) => {
   );
 
   useEffect(() => {
+    let exactMatch = false;
     setSuggestions(
       results?.results.filter(
-        (suggestion) => suggestion.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+        (suggestion) => {
+          // Exact match, emulate an onClick action so the input acts as expected
+          if (suggestion.name.toLowerCase() === userInput.toLocaleLowerCase()) {
+            onChange(suggestion);
+            setUserInput(suggestion.name);
+            setActiveSuggestion(0);
+            exactMatch = true;
+          }
+          return suggestion.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+        }
       )
     );
-    setShowSuggestions(true);
-  }, [results, userInput]);
+    setShowSuggestions(!exactMatch);
+  }, [results, userInput, onChange]);
 
   useEffect(() => {
     setUserInput("");
@@ -124,11 +132,11 @@ const PilotSearch = ({ id, onChange, style, resetSearch }) => {
         </SuggestionsList>
       );
     } else {
-      suggestionsUi = (
+      suggestionsUi = !hideNotFound ? (
         <NoSuggestions>
           Could not find <u>{userInput}</u> in the database, sorry.
         </NoSuggestions>
-      );
+      ) : null;
     }
   }
 
@@ -141,6 +149,7 @@ const PilotSearch = ({ id, onChange, style, resetSearch }) => {
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyDown={onKeyDown}
         style={style}
+        autoComplete="off"
       />
 
       {suggestionsUi}
