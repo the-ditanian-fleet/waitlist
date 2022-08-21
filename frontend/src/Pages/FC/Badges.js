@@ -35,14 +35,58 @@ const Header = styled.div`
 `;
 
 const A = styled.a`
-  ,
-  &:visited {
-    color: ${(props) => props.theme.colors?.text};
-  }
+  color: ${(props) => props.theme.colors.highlight.text};
+  text-decoration: none;
 
   &:hover {
-    color: ${(props) => props.theme.colors?.active};
+    cursor: pointer;
+    color: ${(props) => props.theme.colors.highlight.active};
     transition: ease-in-out 0.15s;
+  }
+`;
+
+const TableControls = styled.div`
+  align-content: space-between;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+
+  > button {
+    @media (max-width: 800px) {
+      width: 100%;
+    }
+  }
+
+  #filters {
+    flex-grow: 1;
+
+    span:first-of-type {
+      font-style: italic;
+      margin-right: 10px;
+
+      @media (max-width: 800px) {
+        display: block;
+        margin-bottom: 5px;
+      }
+    }
+
+    @media (max-width: 800px) {
+      input,
+      select {
+        width: calc(calc(100vw - 158px) / 2);
+      }
+    }
+
+    @media (max-width: 500px) {
+      input,
+      select {
+        width: 100%;
+      }
+      button {
+        display: block;
+        width: 100%;
+      }
+    }
   }
 `;
 
@@ -68,8 +112,8 @@ const FilterComponents = ({ badgeOptions, filters, onChange, onClear }) => {
   };
 
   return (
-    <div style={{ flexGrow: 1 }}>
-      <span style={{ fontStyle: "italic", marginRight: "10px" }}>Filter results by...</span>
+    <div id="filters">
+      <span>Filter results by...</span>
       <Select
         value={filters?.type ?? ""}
         onChange={handleSelect}
@@ -189,7 +233,7 @@ const View = () => {
     const handleClear = () => setFilters({ type: null, name: "" });
 
     return (
-      <>
+      <TableControls>
         <FilterComponents
           badgeOptions={badges}
           filters={filters}
@@ -209,7 +253,7 @@ const View = () => {
           <FontAwesomeIcon fixedWidth icon={faPlus} style={{ marginRight: "10px" }} />
           Assign Badge
         </Button>
-      </>
+      </TableControls>
     );
   }, [filters, badges]);
 
@@ -238,11 +282,7 @@ const View = () => {
         defaultSortFieldId={1}
         subHeader
         subHeaderComponent={TableHeader}
-        pagination
-        persistTableHead
         progressPending={!characters}
-        paginationPerPage={25}
-        paginationRowsPerPageOptions={[10, 25, 50, 100]}
       />
 
       <AddBadge

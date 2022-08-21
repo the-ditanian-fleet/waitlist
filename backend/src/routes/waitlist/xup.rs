@@ -261,7 +261,7 @@ async fn xup_multi(
             b.name
         })
         .collect();
-        
+
         let fit_checked = tdf::fitcheck::FitChecker::check(this_pilot_data, &fit, &badges)?;
         if let Some(error) = fit_checked.errors.into_iter().next() {
             return Err(Madness::BadRequest(error));

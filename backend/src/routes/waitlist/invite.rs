@@ -83,8 +83,6 @@ async fn invite(
         }
     }
 
-
-
     #[derive(Debug, Serialize)]
     struct Invite {
         character_id: i64,

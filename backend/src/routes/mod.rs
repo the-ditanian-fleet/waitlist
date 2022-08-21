@@ -1,8 +1,8 @@
 mod acl;
 mod announcements;
 mod auth;
-mod bans;
 mod badges;
+mod bans;
 mod categories;
 mod fittings;
 mod fleet;

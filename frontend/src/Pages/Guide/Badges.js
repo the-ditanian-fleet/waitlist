@@ -152,7 +152,8 @@ export function BadgeData() {
               </ul>
             </Content>
             <InfoNote>
-              You can x-up on the waitlist. Make sure to let the fc know you are a training nestor!
+              If you haven&apos;t acquired the badge yet, make sure to let the fc know you are a
+              Training Nestor!
             </InfoNote>
             <br />
             <InputGroup>
@@ -260,29 +261,17 @@ export function BadgeData() {
             Pilot has access to the back comms on TeamSpeak.
           </BadgeButton>
           <BadgeButton name="Retired Logi" img={"./rl.png"}>
-            <b>Logi Specialist status revoked due to three months of inactivity.</b>
+            <b>Logi Specialist who had their badge revoked due to three months of inactivity.</b>
             <br />
-            You can earn an L badge by flying as a Training Nestor and earning one +1 from a full HQ
-            FC.
-            <br />
-            <br />
-            Before you X-up on the waitlist, check that:
+            Requirements to reacquire logistics specialist badge are:
             <br />
             <br />
             <Content>
               <ul>
-                <li>You still have elite skills for Nestor</li>
-                <li>Your fit is still valid</li>
+                <li>Fit &amp; skills still being valid</li>
+                <li>One full HQ FC +1</li>
               </ul>
             </Content>
-            <InfoNote>
-              You can x-up on the waitlist. Make sure to let the fc know you are a Training Nestor!
-            </InfoNote>
-            <br />
-            <InputGroup>
-              <NavButton to={`/skills?ship=Nestor`}>Check your skills</NavButton>
-              <NavButton to={`/fits?Tier=Elite`}>Fits</NavButton>
-            </InputGroup>
           </BadgeButton>
         </BadgeDisplay>
       </Content>

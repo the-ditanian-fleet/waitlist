@@ -1,18 +1,18 @@
 use std::collections::HashMap;
 
-use crate::{
-    app::Application, core::auth::AuthenticatedAccount, util::madness::Madness,
-};
+use crate::{app::Application, core::auth::AuthenticatedAccount, util::madness::Madness};
 
 use rocket::serde::json::Json;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize)]
 struct Badge {
-  id: i64,
-  name: String,
-  #[serde(skip_serializing_if = "is_negative")]
-  member_count: i32
+    id: i64,
+    name: String,
+    #[serde(skip_serializing_if = "is_negative")]
+    member_count: i32,
+    #[serde(skip_serializing_if = "is_negative")]
+    exclude_badge_id: i32,
 }
 
 #[derive(Debug, Serialize)]
@@ -20,14 +20,14 @@ struct BadgeAssignment {
     badge: Badge,
     character: Character,
     granted_by: Character,
-    granted_at: i64
+    granted_at: i64,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 struct Character {
     id: i64,
     #[serde(skip_deserializing)]
-    name: String
+    name: String,
 }
 
 // This is used so we can tell serde
@@ -42,10 +42,10 @@ fn is_negative(num: &i32) -> bool {
 #[get("/api/badges")]
 async fn list_badges(
     app: &rocket::State<Application>,
-    account: AuthenticatedAccount
+    account: AuthenticatedAccount,
 ) -> Result<Json<Vec<Badge>>, Madness> {
     account.require_access("badges-manage")?;
-    
+
     let rows = sqlx::query!(
         "SELECT badge.id, badge.name, 
             (
@@ -60,12 +60,11 @@ async fn list_badges(
 
     let badges = rows
         .into_iter()
-        .map(|badge| {
-            Badge {
-                id: badge.id,
-                name: badge.name.to_string(),
-                member_count: badge.member_count
-            }
+        .map(|badge| Badge {
+            id: badge.id.unwrap(),
+            name: badge.name.to_string(),
+            member_count: badge.member_count,
+            exclude_badge_id: -1,
         })
         .collect();
 
@@ -78,7 +77,7 @@ async fn list_badges(
 async fn get_badge_members(
     app: &rocket::State<Application>,
     account: AuthenticatedAccount,
-    badge_id: i64
+    badge_id: i64,
 ) -> Result<Json<Vec<BadgeAssignment>>, Madness> {
     account.require_access("badges-manage")?;
 
@@ -99,46 +98,39 @@ async fn get_badge_members(
     .fetch_all(app.get_db())
     .await?;
 
-    let character_map: HashMap<i64, String> = characters 
+    let character_map: HashMap<i64, String> = characters
         .into_iter()
-        .map(|character| {
-            (
-                character.id,
-                character.name
-            )
-        })
+        .map(|character| (character.id, character.name))
         .collect();
 
-    let badge = sqlx::query!(
-        "SELECT name FROM badge WHERE id=? LIMIT 1",
-        badge_id
-    )
-    .fetch_one(app.get_db())
-    .await?;
+    let badge = sqlx::query!("SELECT name FROM badge WHERE id=? LIMIT 1", badge_id)
+        .fetch_one(app.get_db())
+        .await?;
 
     let badge_assignments = badge_assignments
         .into_iter()
-        .map(|assignment| {
-            BadgeAssignment {
-                badge: Badge {
-                    id: badge_id,
-                    name: badge.name.to_string(),
-                    member_count: -1
-                },
-                granted_at: assignment.grantedAt,
-                character: Character {
-                    id: assignment.characterId,
-                    name: character_map.get(&assignment.characterId)
-                            .unwrap()
-                            .to_string()
-                },
-                granted_by: Character {
-                    id: assignment.grantedById.unwrap(),
-                    name: character_map.get(&assignment.grantedById.unwrap())
-                            .unwrap()
-                            .to_string()
-                }
-            }
+        .map(|assignment| BadgeAssignment {
+            badge: Badge {
+                id: badge_id,
+                name: badge.name.to_string(),
+                member_count: -1,
+                exclude_badge_id: -1,
+            },
+            granted_at: assignment.grantedAt,
+            character: Character {
+                id: assignment.characterId,
+                name: character_map
+                    .get(&assignment.characterId)
+                    .unwrap()
+                    .to_string(),
+            },
+            granted_by: Character {
+                id: assignment.grantedById.unwrap(),
+                name: character_map
+                    .get(&assignment.grantedById.unwrap())
+                    .unwrap()
+                    .to_string(),
+            },
         })
         .collect();
 
@@ -147,40 +139,76 @@ async fn get_badge_members(
 
 // Assigns a badge to a given character
 // The character ID should be specified in JSON { "id": 0 }
-#[post("/api/badges/<badge_id>/members", data="<character>")]
+#[post("/api/badges/<badge_id>/members", data = "<character>")]
 async fn assign_badge(
     app: &rocket::State<Application>,
     account: AuthenticatedAccount,
     badge_id: i64,
-    character: Json<Character>
+    character: Json<Character>,
 ) -> Result<&'static str, Madness> {
     account.require_access("badges-manage")?;
-    
+
     // Ensure the requested badge exists
-    if sqlx::query!( "SELECT id FROM badge WHERE id=? LIMIT 1", badge_id )  
-    .fetch_all(app.get_db())
-    .await?
-    .len() <= 0 {
-        return Err(Madness::BadRequest(format!("Badge not found (ID: {})", badge_id)));
+    let badge = sqlx::query!("SELECT * FROM badge WHERE id=? LIMIT 1", badge_id)
+        .fetch_optional(app.get_db())
+        .await?;
+
+    if badge.is_none() {
+        return Err(Madness::BadRequest(format!(
+            "Badge not found (ID: {})",
+            badge_id
+        )));
     }
 
     // Ensure the requested character exists
-    if sqlx::query!( "SELECT id FROM character WHERE id=? LIMIT 1", character.id ) 
-    .fetch_all(app.get_db())
-    .await?
-    .len() <= 0 {
-        return Err(Madness::BadRequest(format!("Character not found (ID: {})", character.id)));
+    if sqlx::query!("SELECT id FROM character WHERE id=? LIMIT 1", character.id)
+        .fetch_all(app.get_db())
+        .await?
+        .len()
+        <= 0
+    {
+        return Err(Madness::BadRequest(format!(
+            "Character not found (ID: {})",
+            character.id
+        )));
     }
 
     // Make sure we don't duplicate this record
-    if sqlx::query!( 
-        "SELECT * FROM badge_assignment WHERE characterid=? AND badgeId=?", 
-        character.id, badge_id
+    if sqlx::query!(
+        "SELECT * FROM badge_assignment WHERE characterid=? AND badgeId=?",
+        character.id,
+        badge_id
     )
     .fetch_all(app.get_db())
     .await?
-    .len() > 0 {
-        return Err(Madness::BadRequest(format!("The pilot already has that badge, it cannot be applied a second time")));
+    .len()
+        > 0
+    {
+        return Err(Madness::BadRequest(format!(
+            "The pilot already has that badge, it cannot be applied a second time"
+        )));
+    }
+
+    // If the badge we are trying to assign has an exclude_badge_id
+    // we need make sure the pilot does not have the excluded badge
+    // if they do we want to return an error. This will prompt the
+    // FC to remove the existing badge before they can assign the new badge.
+    let badge = badge.unwrap();
+    if !badge.exclude_badge_id.is_none() {
+        let exclude_id = badge.exclude_badge_id.unwrap();
+
+        if let Some(excluded_badge) = sqlx::query!(
+            "SELECT b.name FROM badge_assignment JOIN badge AS b ON b.id=badgeId WHERE badgeId=?",
+            exclude_id
+        )
+        .fetch_optional(app.get_db())
+        .await?
+        {
+            return Err(Madness::BadRequest(format!(
+                "Cannot assign {} because pilot has {} and cannot have both at the same time.",
+                badge.name, excluded_badge.name
+            )));
+        }
     }
 
     let now = chrono::Utc::now().timestamp();
@@ -193,7 +221,7 @@ async fn assign_badge(
     )
     .execute(app.get_db())
     .await?;
-    
+
     Ok("Ok")
 }
 
@@ -203,10 +231,10 @@ async fn revoke_badge(
     app: &rocket::State<Application>,
     account: AuthenticatedAccount,
     badge_id: i64,
-    character_id: i64
+    character_id: i64,
 ) -> Result<&'static str, Madness> {
     account.require_access("badges-manage")?;
-    
+
     sqlx::query!(
         "DELETE FROM badge_assignment WHERE characterId=? AND badgeId=?",
         character_id,
@@ -214,7 +242,7 @@ async fn revoke_badge(
     )
     .execute(app.get_db())
     .await?;
-    
+
     Ok("Ok")
 }
 

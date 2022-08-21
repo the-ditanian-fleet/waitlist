@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useApi } from "../api";
-import { useQuery } from "../Util/query";
 import { Input } from "./Form";
 
 const SuggestionsList = styled.ul`
@@ -37,10 +36,10 @@ const PilotSearch = ({ id, onChange, style, resetSearch, hideNotFound }) => {
   const [showSuggestions, setShowSuggestions] = React.useState(false);
   const [suggestions, setSuggestions] = React.useState([]);
   const [userInput, setUserInput] = React.useState("");
+  const [query, setQuery] = React.useState("");
 
-  const [{ query }, setQuery] = useQuery();
   const setSearchTerm = (newTerm) => {
-    setQuery("query", newTerm ?? null, true);
+    setQuery(newTerm);
     setUserInput(newTerm);
   };
 

@@ -1,6 +1,8 @@
 CREATE TABLE `badge` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-  `name` TEXT NOT NULL UNIQUE
+  `name` TEXT NOT NULL UNIQUE,
+  `exclude_badge_id` INTEGER NULL,
+  CONSTRAINT `exclude_badge` FOREIGN KEY ('exclude_badge_id') REFERENCES `badge` (`id`) ON DELETE SET NULL
 );
 
 CREATE TABLE `badge_assignment` (
@@ -17,3 +19,7 @@ INSERT INTO badge (name) VALUES ('BASTION');
 INSERT INTO badge (name) VALUES ('LOGI');
 INSERT INTO badge (name) VALUES ('RETIRED-LOGI');
 INSERT INTO badge (name) VALUES ('WEB');
+
+-- Logi and Retired logi are exclusive, update rows to reflect this
+UPDATE badge SET exclude_badge_id=(SELECT id FROM badge WHERE name='LOGI') WHERE id=(SELECT id WHERE name='RETIRED-LOGI');
+UPDATE badge SET exclude_badge_id=(SELECT id FROM badge WHERE name='RETIRED-LOGI') WHERE id=(SELECT id WHERE name='LOGI');

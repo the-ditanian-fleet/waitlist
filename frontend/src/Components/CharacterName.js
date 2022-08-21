@@ -12,13 +12,11 @@ const Avatar = styled.img`
 `;
 
 const A = styled.a`
-  ,
-  &:visited {
-    color: ${(props) => props.theme.colors?.text};
-  }
-
+  color: ${(props) => props.theme.colors.highlight.text};
+  text-decoration: none;
   &:hover {
-    color: ${(props) => props.theme.colors?.active};
+    cursor: pointer;
+    color: ${(props) => props.theme.colors.highlight.active};
     transition: ease-in-out 0.15s;
   }
 `;

@@ -42,7 +42,7 @@ const BadgeModal = ({ character, isOpen, setOpen }) => {
   useEffect(() => {
     errorToaster(
       toastContext,
-      apiCall(`/api/pilot/info?character_id=${character.id}`, {}).then((res) => {
+      apiCall(`/api/pilot/info?character_id=${character?.id}`, {}).then((res) => {
         if (!res.tags) return; // can't do anything if the tags array is undefined
 
         const tags = res.tags;

@@ -9,6 +9,7 @@ import { Modal } from "../../../Components/Modal";
 import { Title } from "../../../Components/Page";
 import { Button, CenteredButtons, Label, Select } from "../../../Components/Form";
 import CharacterName from "../../../Components/CharacterName";
+import { addToast } from "../../../Components/Toast";
 
 const FormGroup = styled.div`
   margin: 15px 0px;
@@ -20,12 +21,20 @@ const P = styled.p`
 
 const AddBadge = ({ badgeOptions = [], isOpen, setOpen, refreshFunction }) => {
   const [badgeId, setBadgeId] = React.useState(undefined);
-  const [characterId, setCharacterId] = React.useState("");
+  const [characterId, setCharacterId] = React.useState(undefined);
   const toastContext = React.useContext(ToastContext);
   const [_reset, resetSearch] = React.useState(0);
 
   const onClick = (e) => {
     e.preventDefault();
+
+    if (isNaN(characterId)) {
+      return addToast(toastContext, {
+        title: "Error:",
+        message: "You need to search for a pilot... ",
+        variant: "danger",
+      });
+    }
 
     errorToaster(
       toastContext,

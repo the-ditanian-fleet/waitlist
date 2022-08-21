@@ -211,7 +211,7 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
             "access-manage",
             "access-manage:trainee",
             "access-manage:trainee-advanced",
-            "access-manage:fc"
+            "access-manage:fc",
         ],
     );
     build_level(

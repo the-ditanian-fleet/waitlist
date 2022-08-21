@@ -48,7 +48,11 @@ pub struct FitChecker<'a> {
 }
 
 impl<'a> FitChecker<'a> {
-    pub fn check(pilot: &PilotData<'_>, fit: &Fitting, badges: &Vec<String>) -> Result<Output, FitError> {
+    pub fn check(
+        pilot: &PilotData<'_>,
+        fit: &Fitting,
+        badges: &Vec<String>,
+    ) -> Result<Output, FitError> {
         let mut checker = FitChecker {
             approved: true,
             category: None,
@@ -334,8 +338,8 @@ impl<'a> FitChecker<'a> {
             self.tags.insert("TRAINEE");
         }
 
-        // Give Green and Red L badges equal priority as there is 
-        // no error checking to stop FCs from assigning both. 
+        // Give Green and Red L badges equal priority as there is
+        // no error checking to stop FCs from assigning both.
         // This will allow an FC to spot a problem if a pilot has both
         if self.fit.hull == type_id!("Nestor") {
             if self.badges.contains(&String::from("LOGI")) {
@@ -350,7 +354,9 @@ impl<'a> FitChecker<'a> {
             self.tags.insert("WEB-SPECIALIST");
         }
 
-        if (self.fit.hull == type_id!("Kronos") || self.fit.hull == type_id!("Paladin")) && self.badges.contains(&String::from("BASTION")) {
+        if (self.fit.hull == type_id!("Kronos") || self.fit.hull == type_id!("Paladin"))
+            && self.badges.contains(&String::from("BASTION"))
+        {
             self.tags.insert("BASTION-SPECIALIST");
         }
     }

@@ -14,7 +14,6 @@ async fn pilot_info(
 ) -> Result<Json<CharacterAndLevel>, Madness> {
     authorize_character(&app.db, &account, character_id, Some("pilot-view")).await?;
 
-
     let character = sqlx::query!("SELECT id, name FROM `character` WHERE id=?", character_id)
         .fetch_one(app.get_db())
         .await?;
@@ -22,17 +21,20 @@ async fn pilot_info(
     let mut tags: Vec<String> = Vec::new();
 
     // Add the ACL tag to the array
-    if let Some(admin) = sqlx::query!("SELECT level FROM admins WHERE character_id=?", character.id)
-        .fetch_optional(app.get_db())
-        .await? {
-            let keys = get_access_keys(&admin.level).unwrap();
-            if keys.contains("waitlist-tag:HQ-FC") {
-                tags.push("HQ-FC".to_string());
-            }
-            else if keys.contains("waitlist-tag:TRAINEE") {
-                tags.push("TRAINEE".to_string());
-            };
-        }
+    if let Some(admin) = sqlx::query!(
+        "SELECT level FROM admins WHERE character_id=?",
+        character.id
+    )
+    .fetch_optional(app.get_db())
+    .await?
+    {
+        let keys = get_access_keys(&admin.level).unwrap();
+        if keys.contains("waitlist-tag:HQ-FC") {
+            tags.push("HQ-FC".to_string());
+        } else if keys.contains("waitlist-tag:TRAINEE") {
+            tags.push("TRAINEE".to_string());
+        };
+    }
 
     // Add specialist badges to the tags array
     for badge in sqlx::query!("SELECT b.name from badge_assignment AS ba INNER JOIN badge AS b on b.id=ba.BadgeId WHERE ba.CharacterId=?", character.id)
