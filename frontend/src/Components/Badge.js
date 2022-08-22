@@ -80,7 +80,6 @@ export const tagBadges = {
   STARTER: ["neutral", "S", "Starter pilot"],
   "HQ-FC": ["blue", "H", "HQ FC"],
   LOGI: ["green", "L", "Logi Specialist"],
-  "RETIRED-LOGI": ["red", "L", "Retired Logi Specialist"],
   BASTION: ["purple", "B", "Bastion Specialist"],
   WEB: ["cyan", "W", "Web Specialist"],
   TRAINEE: ["neutral", "T", "Training FC"],

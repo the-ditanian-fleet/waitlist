@@ -23,5 +23,5 @@ pub struct WaitlistCategory {
 pub struct CharacterAndLevel {
     pub id: i64,
     pub name: String,
-    pub tags: Vec<String>,
+    pub tags: Vec<&'static str>,
 }

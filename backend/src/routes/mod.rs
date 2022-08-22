@@ -1,7 +1,6 @@
 mod acl;
 mod announcements;
 mod auth;
-mod badges;
 mod bans;
 mod categories;
 mod fittings;
@@ -30,7 +29,6 @@ pub fn routes() -> Vec<rocket::Route> {
         window::routes(),
         acl::routes(),
         bans::routes(),
-        badges::routes(),
         modules::routes(),
         search::routes(),
         categories::routes(),
