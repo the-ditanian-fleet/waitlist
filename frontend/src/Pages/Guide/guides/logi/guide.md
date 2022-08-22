@@ -1,5 +1,7 @@
 # TDF Logistics Guide
 
+---
+
 Logi is what keeps our fleet alive. We depend on our logi to stay alive and so its important to understand this responsibility before setting out as a logi pilot.
 
 _If logi fails, the fleet dies._
@@ -24,8 +26,6 @@ Any cruiser pilot can train to become a trusted Logi pilot, see requirements sec
 
 ## Upgrade Policy
 
----
-
 Upgrading for logi is expected much the same as DPS.
 
 **You must reach the tier by the time limit set out in the table below:**
@@ -40,8 +40,6 @@ Logistics Specialist badge is the elite badge equivalent for logi. Pilots wishin
 
 ## Requirements
 
----
-
 - The EM-806 Implant is required for all Nestors & Guardians.
 
 - **Basic skills are a minimum** You can not have any starter level skills for logi ships. Skill requirements can be found on your [skills page](/skills).
@@ -55,8 +53,6 @@ While flying Training Nestor you will be tested on Logi mechanics, requirements 
 To get started simply purchase the Nestor fit, x-up with the fit on waitlist and inform the FC that you are hoping to get a spot in fleet as Training Nestor and they will add you to the list. TN spots are limited to 1 in fleet and are not guaranteed so please be patient.
 
 ## Fleet Mechanics
-
----
 
 ### Watchlist
 
@@ -101,8 +97,6 @@ As a logi you should always try to follow lasers to see who is currently taking 
 
 ## Logi Guidance
 
----
-
 Upon entering a site, cruiser logi should immediately burn forward in all sites; if you immediately orbit a nestor you will most likely go backwards off the beacon, leaving you behind the rest of the fleet. Once the Nestors are close to their anchors, establish an orbit of **7.5km** on your Nestor of choice. You can do this by holding W and clicking on a Nestor in your watchlist. Make sure you have preset your orbit distance by right clicking on the orbit button on the overview and setting it to a predefined 7.5km. Orbit with your prop mod on always.
 
 Nestors should burn directly to their anchors by using the Q align command in space.
@@ -124,8 +118,6 @@ You will need to learn to manage your locked targets as you learn the logi role.
 In an emergency, such as a late broadcast, you might find that as you lock the target they are already below 50% armor, in this situation cancel ALL running reps and apply them to the target. Overheat your reps a few cycles, **DO NOT BURN THEM OUT!** Once the pilot has reached 100% armor you may return to repping other targets. Always be ready to speak up on teamspeak in such situations and never be afraid to call for battlereps or more reps if needed. You could be what saves that persons ship!
 
 ## Ships
-
----
 
 ### Nestor
 
@@ -189,8 +181,6 @@ Generally speaking, most DDD's will want 2 tracking/1 optimal link, while HHH's 
 
 ## Sites
 
----
-
 ### Vanguards (VG)
 
 For all VG sites, lock all fleet members upon entering site, there will be a max of 12 pilots in fleet during VGs. If you do not have enough locks make sure to let the FC know ASAP! Logi cruisers will set up an orbit on the FC to reduce incoming damage. There is no need for Nestors to move in these sites.
@@ -203,13 +193,13 @@ For all AS sites the FC is your anchor, pilots will stay grouped together on the
 
 Please use the [Anchoring guide](/guide/anchoring) for specifics on positioning but some logi pertinent notes are below.
 
-- ### True Power Provisional Headquarters (TPPH) & Nation Rebirth Facility (NRF)
+### True Power Provisional Headquarters (TPPH) & Nation Rebirth Facility (NRF)
 
 Usually there will be Damnation in fleet AKA meatshield which will sit in a pre-determined position to attempt to consolidate aggro on wave spawns, however pilots will often be arriving into the site late and making their way from the beacon. Keep an eye on these pilots and try to do your best to keep them alive, target broadcast as neccessary and if the pilots ship is still dipping ask for more reps. Nestors can burn toward aggro targets to get within their 29km optimal should it be neccessary but no more than one Nestor should ever need to burn back.
 
 The two major dangers to watch for are pilots jumping with aggro at the entry to a room/site, and or jumping from the beacon with aggro on a new wave spawn, often these pilots will be jumping without boosts or out of logi rep ranges. Its important to try your best to save these pilots either by overheating your prop mod, overheating your reps, or calling it out on Teamspeak.
 
-- ### True Creations Research Center (TCRC)
+### True Creations Research Center (TCRC)
 
 This site can be particularly dangerous, so as a logi you must pay attention to broadcasts/aggro switches, which occur every minute approximately.
 
@@ -229,7 +219,7 @@ This site has a live warp-out, which means that once the scrams are cleared, the
 
 Keep an eye out for your align trajectory and if you are likely to bump into one of the remaining structures during your exit let the FC know promptly, they will usually at this point either ask you to warp yourself or take evasive maneuvers. You should never warp yourself out of a TCRC unless specifically told to do so!
 
-- ### The Kundalini Manifest (MOM)
+### The Kundalini Manifest (MOM)
 
 This is basically a giant TCRC site. And will be run in almost the exact same manner. The only real difference is the appearance of ‘bombers’ called ‘Lirsautton Parachiya’. If you are targeted by these you will be asked to double broadcast for armor. Should you see double armor broadcasts during the MOM site you should immediately lock this person and be prepared to manage the incoming bomber wave.
 

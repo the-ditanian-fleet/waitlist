@@ -1,5 +1,7 @@
 # General Tips
 
+---
+
 ## Item Variants
 
 There are many items in eve that have variants with identical stats but different names. Saved fittings will just save what has been fitted. When looking at saved fittings be sure to check the market for module variants. The module stats are what matters not that the exact same module is used. Very often you can get the same fitting for less isk.

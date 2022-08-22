@@ -1,5 +1,7 @@
 # Bastion guide
 
+---
+
 With the Bastions of War changes, marauders now do double damage while in Bastion. This is obviously huge but comes at the downside of being unable to receive reps from logi. This guide should cover most things you need to know to run Bastion whilst receiving SRP. The bastion specialist badge, which requires full elite skills + abyssal mods is not required to use bastion, but it is encouraged to obtain it.
 
 Pilot error is NOT COVERED under SRP. If you Bastion by mistake at the wrong time, no SRP. If you jump out of rep range, no SRP.

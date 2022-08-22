@@ -1,5 +1,7 @@
 # Scouting guide
 
+---
+
 An important fleet role is the **Scout**, which an FC can do themselves or delegate. Your job as a scout is to give the FC awareness of the other fleets in system, and to preload the TCRC sites so we can run them faster.
 
 Scouting is done from a second omega account (alt) in a ship that's optimized for (warp) speed. A good and cheap place to start is the Atron Scout at the bottom of this guide. It can be trained in about 15 minutes on a fresh character. A more expensive but even faster option is the Astero. However, please understand that losing scout ships is common, especially early on. Once you have been scouting for a while you will likely discover your own scout ship preference, which could involve interceptors or even a Pacifier.

@@ -1,5 +1,7 @@
 # Becoming an FC
 
+---
+
 ## Tryouts
 
 TDF is always looking for new FC's.

@@ -1,5 +1,7 @@
 # Anchoring
 
+---
+
 Below you will find visual and written guidance on anchoring, bastion points and when to Micro Jump Drive. However please remember this is for guidance only, different situations and events can and will change the course of your anchoring, bastion activation and MJD, so it is by no means a "one and only" guide. Hopefully it will serve to help newer pilots to understand where and when to anchor, bastion, & MJD. If you are flying a Megathron you should follow the Vindicator guidance. All guidance is subject to change too so check back as we continue to figure out the best way to keep our ISK/h going up. **Remember, FC instructions overrule any guidance!**
 
 Note: All images are shown as a top-down overview of each room/site with the tactical overlay enabled. Each picture shows the start of 1st wave for each site/room.

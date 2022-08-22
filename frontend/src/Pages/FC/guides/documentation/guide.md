@@ -1,5 +1,7 @@
 # FC documentation
 
+---
+
 ## Things you need access to:
 
 - Full waitlist site access _(ACL permission)_
