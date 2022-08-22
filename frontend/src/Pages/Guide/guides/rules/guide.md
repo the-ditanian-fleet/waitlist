@@ -12,13 +12,13 @@
 
 Bans include, but are not limited to:
 
--  Working against TDF in general
--  Any kind of harassment (e.g. homophobic, racism)
--  Ganking, stealing or scamming of incursion runners
--  Lying about your fit
--  Not upgrading within Policy requirements or attempting to bypass Policy (see Upgrading guide on website)
--  Actively downgrading
--  Sneaking alts in to fleet
--  Flying in two fleets at once
+- Working against TDF in general
+- Any kind of harassment (e.g. homophobic, racism)
+- Ganking, stealing or scamming of incursion runners
+- Lying about your fit
+- Not upgrading within Policy requirements or attempting to bypass Policy (see Upgrading guide on website)
+- Actively downgrading
+- Sneaking alts in to fleet
+- Flying in two fleets at once
 
 All questions and concerns can be mailed to Council listed in TDF-Official MOTD
