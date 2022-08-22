@@ -8,13 +8,13 @@ Due to our [upgrade policy](/guide/upgrade), we highly recommend pilots to creat
 
 ### DPS
 
-To get started in TDF all you need is to be able to **online ALL modules on your ship**, and have the **four armor compensation skills at level 2 for starter fits & 4+ for everything else**. The **basic skills** are the skills you should focus on when you start flying. As long as you still have skills at the starter level and are using a starter fit you will be placed in the starter squad, which is limited to 4 - 5 in fleet. Upgrading is highly encouraged.
+To get started in TDF all you need is to be able to **online ALL modules on your ship**, and have the **four armor compensation skills at level 2 for starter fits & 4+ for everything else**. The **starter skills** are the skills you should focus on when you start flying. As long as you still have skills at the starter level and are using a starter fit you will be placed in the starter squad, which is limited to 4 - 5 in fleet. Upgrading is highly encouraged so you can get into fleet faster.
 
 ### LOGI
 
-To fly logi with TDF you will need **basic tier skills as a minimum**, you also need to be able to **fully online all modules on your ship**. Any red skills must be trained before you can fly with the exception of the logi4 onieros fit below:
+To fly logi with TDF you will need **basic tier skills as a minimum**, you also need to be able to **fully online all modules on your ship**. Any red starter skills must be trained before you can fly with the exception of the basic onieros fit below:
 
-- Exception: **TDF_ONI_HQ_BASIC** (Logistics Cruiser 4 allowed)
+- Exception: **TDF_ONI_HQ_BASIC** (Logistics Cruiser 4 skill allowed)
 
 Logi spots are limited in fleet to 5 or less usually so we recommend getting a DPS ship alongside your logi ship. More logi specific requirements and guidance can be found in the [Logi guide](/guide/logi).
 
@@ -40,7 +40,7 @@ To join the mailing lists open up your evemail and then at the bottom left click
 
 ![](mailinglisthq.png)
 
-The mailing lists have a selection of fits which allow for any budget or skill level and they are all covered by the TDF Ship Replacement Program (SRP). All fittings have their minimum skill requirements in the mailing list. **Basic and above require level 4 armor comps while starters only need level 2**.
+The mailing lists have a selection of fits which allow for any budget or skill level and they are all covered by the TDF Ship Replacement Program (SRP). Starter fits are ALPHA pilot freindly. All fittings have their minimum skill requirements in the mailing list. **Basic and above require level 4 armor comps while starters only need level 2**.
 
 Pick a fit you would like to fly. If you need help just ask in the TDF-Official channel or in Discord for any advice getting set up.
 

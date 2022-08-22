@@ -37,7 +37,10 @@ Upgrade numbers (check their history to judge!)
 
 ### Multiboxing
 
-1. Alts should be dropped in favor of a real players, even starter
+1. Alts should be dropped in favor of a real players, even starter.
+
+_FC's are allowed to invite Elite pilot Bastion alts when starter squad is full to stay competitive VS other communities, dont abuse it though._
+
 2. The active FC is permitted to take two payouts as a reward
 
 ### Logi requirements
@@ -45,7 +48,7 @@ Upgrade numbers (check their history to judge!)
 1. **Full FC**: TCRC **3:2** NRF **3:1 / 2:2** TPPH **3:1 / 2:2**
 1. **PHQ FC**: TCRC **3:3 / 4:2** NRF **3:3 / 4:2** TPPH **3:2 / 2:3**
 
-1. Starter skills on logi are all **required** except on the Logi4 fit oneiros.
+1. Basic skills are all **required** except on the Basic fit oneiros which can be run with Logistics cruisers at level 4.
 
 ### Misc
 

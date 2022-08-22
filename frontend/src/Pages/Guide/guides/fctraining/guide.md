@@ -38,7 +38,7 @@ Progressing to the next stage requires passing **VAN FLEET** (yes seriously), It
 
 In this stage, efficiency, safety and in depth knowledge will be taught and expected. You will need to master contesting, knowing how the agro mechanics work. Knowing NPC's and why we tag them the way we do. Fleet control will also need to be mastered.
 
-Progressing to the next stage requires passing **BUS FLEET** along with getting at least one other +1 from any FC Trainer or council.
+Progressing to the next stage requires passing **BUS FLEET** along with getting at least one other +1 from any FC Trainer or council that was not the active backseat.
 
 ### Probationary FC
 

@@ -19,4 +19,4 @@ Bans include, but are not limited to:
 7.  Sneaking alts in to fleet
 8.  Flying in two fleets at once
 
-All questions and concerns can be mailed to Council listed in TDF-O MOTD
+All questions and concerns can be mailed to Council listed in TDF-Official MOTD
