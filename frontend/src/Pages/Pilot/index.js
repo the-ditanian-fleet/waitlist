@@ -2,6 +2,7 @@ import React from "react";
 import { AuthContext } from "../../contexts";
 import { useLocation } from "react-router-dom";
 import { PageTitle, Title, Content } from "../../Components/Page";
+import CharacterBadgeModal from "../FC/badges/CharacterBadgeModal";
 import { PilotHistory } from "./PilotHistory";
 import { useApi } from "../../api";
 import { ActivitySummary } from "./ActivitySummary";
@@ -77,6 +78,7 @@ function PilotDisplay({ authContext }) {
   const [notes] = useApi(
     authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
   );
+
   return (
     <>
       <div style={{ display: "flex", alignItems: "Center", flexWrap: "wrap" }}>
@@ -97,6 +99,9 @@ function PilotDisplay({ authContext }) {
           )}
           {authContext.access["access-manage"] && (
             <AddACL who={basicInfo} authContext={authContext} />
+          )}
+          {authContext.access["badges-manage"] && (
+            <CharacterBadgeModal character={basicInfo ?? { id: characterId }} />
           )}
           {authContext.access["bans-manage"] && (
             <NavButton to={`/fc/bans/add?kind=character&id=${characterId}`}>Ban</NavButton>

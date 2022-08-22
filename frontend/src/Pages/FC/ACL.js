@@ -2,11 +2,10 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { apiCall, toaster, useApi } from "../../api";
 import { Box } from "../../Components/Box";
-import { Button, InputGroup, Buttons, Input, CenteredButtons } from "../../Components/Form";
+import { Button, Input, CenteredButtons } from "../../Components/Form";
 import { PageTitle, Title } from "../../Components/Page";
 import { CellHead, Table, TableHead, Row, TableBody, Cell } from "../../Components/Table";
 import { ToastContext, AuthContext } from "../../contexts";
-import { useLocation, useHistory } from "react-router-dom";
 import { Modal } from "../../Components/Modal";
 
 export const fcroles = ["trainee", "trainee-advanced", "fc", "fc-trainer", "council", "admin"];
@@ -34,10 +33,8 @@ function RemoveConfirm({ who, onAction }) {
         <Modal open={true} setOpen={setModalOpen}>
           <Box>
             <Title>Remove {who.name}</Title>
-            <p>
-              <AclToRead role={who.level} />
-            </p>
-            <br />
+            <p style={{ marginBottom: "15px" }}>{who.level}</p>
+
             <CenteredButtons size={"90px"}>
               <Button variant="secondary" onClick={(evt) => setModalOpen(false)}>
                 Cancel
@@ -75,9 +72,7 @@ function ACLTable({ entries, onAction }) {
         {entries.map((admin) => (
           <Row key={admin.id}>
             <Cell>{admin.name}</Cell>
-            <Cell>
-              <AclToRead role={admin.level} />
-            </Cell>
+            <Cell>{admin.level}</Cell>
             <Cell>
               {authContext.access["access-manage"] && (
                 <RemoveConfirm who={admin} onAction={onAction} />
@@ -94,15 +89,6 @@ function ACLOverview() {
   const [acl, refreshAcl] = useApi("/api/acl/list");
   const [find, setFind] = React.useState("");
 
-  const queryParams = new URLSearchParams(useLocation().search);
-  const history = useHistory();
-  var category = queryParams.get("Category") || "FC";
-  const setCategory = (newCategory) => {
-    queryParams.set("Category", newCategory);
-    history.push({
-      search: queryParams.toString(),
-    });
-  };
   if (!acl) {
     return <em>Loading</em>;
   }
@@ -110,65 +96,21 @@ function ACLOverview() {
   return (
     <>
       <PageTitle>Access control list</PageTitle>
-      {setCategory != null && (
-        <Buttons style={{ marginBottom: "1em" }}>
-          <InputGroup>
-            <Button active={category === "l"} onClick={(evt) => setCategory("l")}>
-              Logi
-            </Button>
-            <Button active={category === "b"} onClick={(evt) => setCategory("b")}>
-              Bastion
-            </Button>
-            <Button active={category === "w"} onClick={(evt) => setCategory("w")}>
-              Web
-            </Button>
-          </InputGroup>
-          <InputGroup>
-            <Button active={category === "FC"} onClick={(evt) => setCategory("FC")}>
-              FC
-            </Button>
-          </InputGroup>
-        </Buttons>
-      )}
-      <Box>
-        <Input value={find} onChange={(evt) => setFind(evt.target.value)} />
 
-        {category !== "FC" ? (
-          <ACLTable
-            entries={acl.acl.filter(
-              (entry) =>
-                entry.level.includes(category) &&
-                !fcroles.includes(entry.level) &&
-                entry.name.toLowerCase().startsWith(find)
-            )}
-            onAction={refreshAcl}
-          />
-        ) : category === "FC" ? (
-          <ACLTable
-            entries={acl.acl.filter(
-              (entry) => fcroles.includes(entry.level) && entry.name.toLowerCase().startsWith(find)
-            )}
-            onAction={refreshAcl}
-          />
-        ) : null}
+      <Box>
+        <Input
+          value={find}
+          onChange={(evt) => setFind(evt.target.value)}
+          style={{ marginBottom: "15px" }}
+        />
+
+        <ACLTable
+          entries={acl.acl.filter(
+            (entry) => fcroles.includes(entry.level) && entry.name.toLowerCase().startsWith(find)
+          )}
+          onAction={refreshAcl}
+        />
       </Box>
     </>
   );
-}
-
-export function AclToRead({ role }) {
-  if (!fcroles.includes(role) && role !== "No level") {
-    var word = "";
-    if (role.includes("l")) {
-      word += "Logi-";
-    }
-    if (role.includes("b")) {
-      word += "Bastion-";
-    }
-    if (role.includes("w")) {
-      word += "Web-";
-    }
-    word += "Specialist";
-    return word;
-  } else return role;
 }
