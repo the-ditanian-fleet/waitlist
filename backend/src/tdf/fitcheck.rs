@@ -4,6 +4,7 @@ use std::{
 };
 
 use super::{fitmatch, implantmatch, skills::SkillTier};
+
 use crate::data::{categories, fits::DoctrineFit, skills::Skills};
 use eve_data_core::{FitError, Fitting, TypeDB, TypeID};
 use serde::Serialize;
@@ -37,7 +38,6 @@ pub struct PilotData<'a> {
 pub struct FitChecker<'a> {
     approved: bool,
     category: Option<String>,
-    badges: &'a Vec<String>,
     fit: &'a Fitting,
     doctrine_fit: Option<&'static DoctrineFit>,
     pilot: &'a PilotData<'a>,
@@ -48,15 +48,10 @@ pub struct FitChecker<'a> {
 }
 
 impl<'a> FitChecker<'a> {
-    pub fn check(
-        pilot: &PilotData<'_>,
-        fit: &Fitting,
-        badges: &Vec<String>,
-    ) -> Result<Output, FitError> {
+    pub fn check(pilot: &PilotData<'_>, fit: &Fitting) -> Result<Output, FitError> {
         let mut checker = FitChecker {
             approved: true,
             category: None,
-            badges,
             fit,
             doctrine_fit: None,
             pilot,
@@ -336,26 +331,16 @@ impl<'a> FitChecker<'a> {
             self.tags.insert("HQ-FC");
         } else if self.pilot.access_keys.contains("waitlist-tag:TRAINEE") {
             self.tags.insert("TRAINEE");
-        }
-
-        // Give Green and Red L badges equal priority as there is
-        // no error checking to stop FCs from assigning both.
-        // This will allow an FC to spot a problem if a pilot has both
-        if self.fit.hull == type_id!("Nestor") {
-            if self.badges.contains(&String::from("LOGI")) {
-                self.tags.insert("LOGI");
-            }
-            if self.badges.contains(&String::from("RETIRED-LOGI")) {
-                self.tags.insert("RETIRED-LOGI");
-            }
-        }
-
-        if self.fit.hull == type_id!("Vindicator") && self.badges.contains(&String::from("WEB")) {
+        } else if self.pilot.access_keys.contains("waitlist-tag:LOGI")
+            && self.fit.hull == type_id!("Nestor")
+        {
+            self.tags.insert("LOGI");
+        } else if self.pilot.access_keys.contains("waitlist-tag:WEB")
+            && self.fit.hull == type_id!("Vindicator")
+        {
             self.tags.insert("WEB-SPECIALIST");
-        }
-
-        if (self.fit.hull == type_id!("Kronos") || self.fit.hull == type_id!("Paladin"))
-            && self.badges.contains(&String::from("BASTION"))
+        } else if self.pilot.access_keys.contains("waitlist-tag:BASTION")
+            && (self.fit.hull == type_id!("Paladin") || self.fit.hull == type_id!("Kronos"))
         {
             self.tags.insert("BASTION-SPECIALIST");
         }

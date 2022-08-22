@@ -32,7 +32,6 @@ const badgeOrder = [
   "WEB",
   "BASTION",
   "LOGI",
-  "RETIRED-LOGI",
   "AMULET",
   "WARPSPEED",
   "HYBRID",

@@ -72,7 +72,7 @@ async fn change_announcement(
     app: &rocket::State<Application>,
     input: Json<ChangeAnnouncement>,
 ) -> Result<&'static str, Madness> {
-    account.require_access("waitlist-tag:HQ-FC")?;
+    account.require_access("access-manage")?;
     let now = chrono::Utc::now().timestamp();
     let entry = sqlx::query!("SELECT * from announcement WHERE id=?", input.id)
         .fetch_optional(app.get_db())
