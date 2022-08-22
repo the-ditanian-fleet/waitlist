@@ -1,5 +1,7 @@
 # Roles
 
+---
+
 Every fleet has specialty roles that need to be performed to allow our fleets to finish sites quickly and effectively, they range from managing your fleet members drones to acting as bait for an entire site. Irregardless of role, each is vital to our composition, and depending on your chosen ship you may be asked to fill the role so the fleet can continue to get paid. Remember when you join fleet you are automatically signing on to roles specific to your ship, if an FC asks for a role to be filled you should x-up for it immediately by typing xDDD etc for respective roles. Its much appreciated!
 
 ## Role types

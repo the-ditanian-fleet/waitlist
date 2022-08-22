@@ -1,5 +1,7 @@
 # New-Bro Guide
 
+---
+
 ## Requirements
 
 TDF uses a progress system for pilots, Starter, Basic, Elite & Elite Gold are the different tiers you can achieve on your ship specific skills. You can see your current skill tiers for each ship on the [Skill Page](/skills). The actual level of your skill is displayed on the left, while the next tier level is displayed on the right.

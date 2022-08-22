@@ -1,5 +1,7 @@
 # Training help
 
+---
+
 **Please read:**
 
 [Training stages and tagging order](/guide/fctraining)

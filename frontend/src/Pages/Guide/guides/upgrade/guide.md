@@ -1,5 +1,7 @@
 # Upgrading
 
+---
+
 ## Policy
 
 TDF has great affordable starter fits. We will help you get spacerich & we have a SRP to make sure you keep that ship. After you have fully upgraded to elite, spend the isk any way you want.

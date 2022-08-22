@@ -1,5 +1,7 @@
 # General Tips
 
+---
+
 ## Item Variants
 
 There are many items in eve that have variants with identical stats but different names. Saved fittings will just save what has been fitted. When looking at saved fittings be sure to check the market for module variants. The module stats are what matters not that the exact same module is used. Very often you can get the same fitting for less isk.
@@ -128,6 +130,24 @@ When it comes to your MWD, speed is key. We all want to go faster, however it sh
 - Speed > CPU > activation cost > signature radius
 
 ![](abyssalMWD.png)
+
+## Overheating Modules and slot layout
+
+Overheating allows a module to perform better (eg: more DPS for guns, more speed for MWDs) but comes at the cost of the module taking chance based damage and eventually burning out and shutting off completely. Each active module is connected to a "rack", overheating a module results in the rack building up heat thereby increasing the chance of receiving damage per cycle for each module connected to that rack. The longer you overheat a certain module the more damage it will sustain and cause to other modules in the same rack. We ask pilots to use heat alot in TDF so learning this mechanic will go a long way.
+
+![](rackheat.png)
+
+Racks also take time to dissipate heat and docking does not affect it. The indicator is shown on your hud underneath your health bars. Heat damage is displayed on your modules with a red outline. This damage can be repaired at a structure/station or with nanite repair paste.
+
+![](heatbardamage.png)
+
+You can reduce the damage you receive via the thermodynamics skill which gives 5% per level reduced damage received from a cycle. Having this skill at level 5 for example would mean you receive 25% less damage than you would of normally from overheating.
+
+You can also help to reduce heat build up by setting up your slot layouts to absorb heat as efficiently as possible. The proximity of heated active modules to each other for example affects rack heat damage. So guns in slots next to each other would generate more damage than ones that are spread optimally. Other modules also help to soak heat damage, further extending the time you can overheat.
+
+![](gunlayout.png)
+
+The [eve wiki](https://wiki.eveuniversity.org/Overheating) goes into detail on this mechanic and is worth reading.
 
 ## Usefull Links
 
