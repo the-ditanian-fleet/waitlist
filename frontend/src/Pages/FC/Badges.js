@@ -32,6 +32,10 @@ const Header = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: space-between;
+
+  h1 {
+    font-size: 32px;
+  }
 `;
 
 const A = styled.a`
@@ -269,7 +273,7 @@ const View = () => {
   return (
     <>
       <Header>
-        <h1 style={{ fontSize: "32px" }}>Specialist Badges</h1>
+        <h1>Specialist Badges</h1>
       </Header>
 
       <p style={{ marginBottom: "10px" }}>

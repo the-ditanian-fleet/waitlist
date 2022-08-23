@@ -1,6 +1,6 @@
 CREATE TABLE `badge` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-  `name` TEXT NOT NULL UNIQUE,
+  `name` VARCHAR(64) NOT NULL UNIQUE,
   `exclude_badge_id` INTEGER NULL,
   CONSTRAINT `exclude_badge` FOREIGN KEY ('exclude_badge_id') REFERENCES `badge` (`id`) ON DELETE SET NULL
 );

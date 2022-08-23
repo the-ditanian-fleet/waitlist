@@ -338,9 +338,6 @@ impl<'a> FitChecker<'a> {
             self.tags.insert("TRAINEE");
         }
 
-        // Give Green and Red L badges equal priority as there is
-        // no error checking to stop FCs from assigning both.
-        // This will allow an FC to spot a problem if a pilot has both
         if self.fit.hull == type_id!("Nestor") {
             if self.badges.contains(&String::from("LOGI")) {
                 self.tags.insert("LOGI");

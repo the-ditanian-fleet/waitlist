@@ -10,9 +10,9 @@ struct Badge {
     id: i64,
     name: String,
     #[serde(skip_serializing_if = "is_negative")]
-    member_count: i32,
+    member_count: i64,
     #[serde(skip_serializing_if = "is_negative")]
-    exclude_badge_id: i32,
+    exclude_badge_id: i64,
 }
 
 #[derive(Debug, Serialize)]
@@ -33,7 +33,7 @@ struct Character {
 // This is used so we can tell serde
 // not to serialize a field where the
 // number is less than 0
-fn is_negative(num: &i32) -> bool {
+fn is_negative(num: &i64) -> bool {
     *num < 0
 }
 
@@ -47,12 +47,12 @@ async fn list_badges(
     account.require_access("badges-manage")?;
 
     let rows = sqlx::query!(
-        "SELECT badge.id, badge.name, 
+        "SELECT id as `id!`, name as `name!`, 
             (
                 SELECT COUNT(*)
                 FROM badge_assignment AS badge_assignment
                 WHERE badge_assignment.badgeId = badge.id
-            ) AS member_count
+            ) AS `member_count!: i64`
         FROM badge"
     )
     .fetch_all(app.get_db())
@@ -61,8 +61,8 @@ async fn list_badges(
     let badges = rows
         .into_iter()
         .map(|badge| Badge {
-            id: badge.id.unwrap(),
-            name: badge.name.to_string(),
+            id: badge.id,
+            name: badge.name,
             member_count: badge.member_count,
             exclude_badge_id: -1,
         })
@@ -92,7 +92,7 @@ async fn get_badge_members(
     .await?;
 
     let characters = sqlx::query!(
-        "SELECT DISTINCT c.id, c.name FROM character AS c INNER JOIN badge_assignment AS ba ON c.id = ba.characterId OR c.id = ba.grantedById WHERE ba.badgeId=?",
+        "SELECT DISTINCT c.id, c.name FROM `character` AS c INNER JOIN badge_assignment AS ba ON c.id = ba.characterId OR c.id = ba.grantedById WHERE ba.badgeId=?",
         badge_id
     )
     .fetch_all(app.get_db())
@@ -161,10 +161,13 @@ async fn assign_badge(
     }
 
     // Ensure the requested character exists
-    if sqlx::query!("SELECT id FROM character WHERE id=? LIMIT 1", character.id)
-        .fetch_all(app.get_db())
-        .await?
-        .len()
+    if sqlx::query!(
+        "SELECT id FROM `character` WHERE id=? LIMIT 1",
+        character.id
+    )
+    .fetch_all(app.get_db())
+    .await?
+    .len()
         <= 0
     {
         return Err(Madness::BadRequest(format!(
