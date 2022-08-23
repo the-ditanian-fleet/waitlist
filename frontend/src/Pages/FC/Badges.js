@@ -130,7 +130,7 @@ const FilterComponents = ({ badgeOptions, filters, onChange, onClear }) => {
         <option value={-1}>any type...</option>
         {badgeOptions?.map((badge, key) => (
           <option value={badge.id} key={key} readOnly>
-            {badge.name}
+            {badge.name} ({badge?.member_count?.toLocaleString()})
           </option>
         ))}
       </Select>

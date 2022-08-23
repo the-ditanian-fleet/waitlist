@@ -101,7 +101,7 @@ function PilotDisplay({ authContext }) {
             <AddACL who={basicInfo} authContext={authContext} />
           )}
           {authContext.access["badges-manage"] && (
-            <CharacterBadgeModal character={basicInfo ?? { id: characterId }} />
+            <CharacterBadgeModal character={basicInfo ?? { id: parseInt(characterId), name: "" }} />
           )}
           {authContext.access["bans-manage"] && (
             <NavButton to={`/fc/bans/add?kind=character&id=${characterId}`}>Ban</NavButton>

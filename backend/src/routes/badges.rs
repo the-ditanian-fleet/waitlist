@@ -139,12 +139,12 @@ async fn get_badge_members(
 
 // Assigns a badge to a given character
 // The character ID should be specified in JSON { "id": 0 }
-#[post("/api/badges/<badge_id>/members", data = "<character>")]
+#[post("/api/badges/<badge_id>/members", data = "<request_character>")]
 async fn assign_badge(
     app: &rocket::State<Application>,
     account: AuthenticatedAccount,
     badge_id: i64,
-    character: Json<Character>,
+    request_character: Json<Character>,
 ) -> Result<&'static str, Madness> {
     account.require_access("badges-manage")?;
 
@@ -161,6 +161,23 @@ async fn assign_badge(
     }
 
     // Ensure the requested character exists
+    let character = sqlx::query!(
+        "SELECT id as `id!`, name as `name!` FROM `character` WHERE id=? LIMIT 1",
+        request_character.id
+    )
+    .fetch_optional(app.get_db())
+    .await?;
+
+    if character.is_none() {
+        return Err(Madness::BadRequest(format!(
+            "Character not found (ID: {})",
+            request_character.id
+        )));
+    }
+
+    let badge = badge.unwrap();
+    let character = character.unwrap();
+
     if sqlx::query!(
         "SELECT id FROM `character` WHERE id=? LIMIT 1",
         character.id
@@ -172,7 +189,7 @@ async fn assign_badge(
     {
         return Err(Madness::BadRequest(format!(
             "Character not found (ID: {})",
-            character.id
+            request_character.id
         )));
     }
 
@@ -188,7 +205,8 @@ async fn assign_badge(
         > 0
     {
         return Err(Madness::BadRequest(format!(
-            "The pilot already has that badge, it cannot be applied a second time"
+            "{} already has {} and cannot be assigned it a second time",
+            character.name, badge.name
         )));
     }
 
@@ -196,20 +214,22 @@ async fn assign_badge(
     // we need make sure the pilot does not have the excluded badge
     // if they do we want to return an error. This will prompt the
     // FC to remove the existing badge before they can assign the new badge.
-    let badge = badge.unwrap();
     if !badge.exclude_badge_id.is_none() {
         let exclude_id = badge.exclude_badge_id.unwrap();
 
         if let Some(excluded_badge) = sqlx::query!(
-            "SELECT b.name FROM badge_assignment JOIN badge AS b ON b.id=badgeId WHERE badgeId=?",
-            exclude_id
+            "SELECT b.name FROM badge_assignment JOIN badge AS b ON b.id=badgeId WHERE badgeId=? AND characterId=?",
+            exclude_id,
+            character.id
         )
         .fetch_optional(app.get_db())
         .await?
         {
             return Err(Madness::BadRequest(format!(
-                "Cannot assign {} because pilot has {} and cannot have both at the same time.",
-                badge.name, excluded_badge.name
+                "Cannot assign {} to {} while they have been assigned {}",
+                badge.name,
+                character.name,
+                excluded_badge.name
             )));
         }
     }

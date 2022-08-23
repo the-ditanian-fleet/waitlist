@@ -60,14 +60,37 @@ const BadgeModal = ({ character, isOpen, setOpen }) => {
   const onSubmit = () => {
     isPending(true);
 
+    let promises = [];
     badges.forEach((badge) => {
-      if (!badge.default && badge.checked)
-        toaster(toastContext, assignBadge(badge.id, character.id));
-      else if (badge.default && !badge.checked)
-        toaster(toastContext, revokeBadge(badge.id, character.id));
+      // These badges are being revoked
+      if (badge.default && !badge.checked) {
+        promises.push(
+          new Promise((resolve) => {
+            toaster(toastContext, revokeBadge(badge.id, character.id)).then(resolve);
+          })
+        );
+      }
     });
-    refreshBadges();
-    isPending(false);
+
+    Promise.all(promises).then(() => {
+      // All badges revoked, now we need to assign new badges
+      let promises = [];
+      badges.forEach((badge) => {
+        if (!badge.default && badge.checked) {
+          promises.push(
+            new Promise((resolve) => {
+              toaster(toastContext, assignBadge(badge.id, character.id)).then(resolve);
+            })
+          );
+        }
+      });
+
+      Promise.all(promises).then(() => {
+        // All badges updated, refresh page
+        refreshBadges();
+        isPending(false);
+      });
+    });
   };
 
   const onCheck = (evt, i, badge) => {
