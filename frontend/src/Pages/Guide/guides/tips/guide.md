@@ -6,9 +6,9 @@
 
 There are many items in eve that have variants with identical stats but different names. Saved fittings will just save what has been fitted. When looking at saved fittings be sure to check the market for module variants. The module stats are what matters not that the exact same module is used. Very often you can get the same fitting for less isk.
 
-This saved Nightmare fitting could be bought for less if I buy the True Sansha Heat Sinks and the Corpum A-Type MEMs. Drag and drop items into the Compare Tool or go to item variations and click compare.
+You can see the difference in price of module variants using the compare tool. Drag and drop items into the Compare Tool or go to item variations and click compare. See the example below where lots of the various items we use in our fits could be bought cheaper for the same stats. Note that the highlighted Corelum A-Type Multispectrum Energized Membrane has lower statistics than its counter parts, this item is banned from TDF due to its lower resistances.
 
-![](example.png)
+![](comparetool.png)
 
 ![](compare.png)
 
@@ -144,6 +144,8 @@ Racks also take time to dissipate heat and docking does not affect it. The indic
 You can reduce the damage you receive via the thermodynamics skill which gives 5% per level reduced damage received from a cycle. Having this skill at level 5 for example would mean you receive 25% less damage than you would of normally from overheating.
 
 You can also help to reduce heat build up by setting up your slot layouts to absorb heat as efficiently as possible. The proximity of heated active modules to each other for example affects rack heat damage. So guns in slots next to each other would generate more damage than ones that are spread optimally. Other modules also help to soak heat damage, further extending the time you can overheat.
+
+Below is an example of the optimal gun layout you can use when overheating on a Paladin.
 
 ![](gunlayout.png)
 
