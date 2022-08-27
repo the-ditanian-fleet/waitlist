@@ -21,21 +21,21 @@
 
 ## Rules
 
-Full rules document can be found [here](https://docs.google.com/document/d/1_jfuNqXm7LVW5EzO5IY76gdd9coSkZAcT8U2jXX4SE8/edit) & pinned on FC discord. Most important FC specific rules listed below.
+Full rules document can be found in the in game FC channel & pinned on FC discord. Most important FC specific rules listed below.
 
 ### Inviting
 
 Upgrade numbers (check their history to judge!)
 
 - 20 hour limit for megathron
-- 50 hours to get out of starter
+- 60 hours to get out of starter
 - 100 hours to get to advanced fit (DPS & Logi)
 - 150 hours for elite logi cruisers
-- 200 hours for elite Vindicator + Nestor
+- 225 hours for elite Vindicator + Nestor
 - 250 hours for elite bastion
 
 1. Any pilot who is able to meet basic tank requirements and is able to fly a doctrine fit from one of the TDF FITS mailing lists should always be able to get into the fleet.
-1. 3x times disconnect from game & TeamSpeak -> no re-invite
+2. 3x times disconnect from game & TeamSpeak -> no re-invite
 
 ### Multiboxing
 
@@ -47,10 +47,13 @@ _FC's are allowed to invite Elite pilot Bastion alts when starter squad is full 
 
 ### Logi requirements
 
-1. **Full FC**: TCRC **3:2** NRF **3:1 / 2:2** TPPH **3:1 / 2:2**
-1. **PHQ FC**: TCRC **3:3 / 4:2** NRF **3:3 / 4:2** TPPH **3:2 / 2:3**
+1. **Full FC**: TCRC **3:1** NRF **3:1 / 2:2** TPPH **3:1 / 2:2**
+2. **PHQ FC**: TCRC **3:3 / 4:2** NRF **3:2 / 4:1** TPPH **3:2 / 4:1**
+3. **Trainee FC**: TCRC **3:3 / 4:2** NRF **3:3 / 4:2** TPPH **3:2 / 4:1**
 
-1. Basic skills are all **required** except on the Basic fit oneiros which can be run with Logistics cruisers at level 4.
+Nestors can replace cruisers, but not the other way around, you should have cruisers where possible due to their utility and you must still run the correct number of logi.
+
+3. Basic skills are all **required** except on the Basic fit oneiros which can be run with Logistics cruisers at level 4.
 
 ### Misc
 
@@ -62,13 +65,18 @@ _FC's are allowed to invite Elite pilot Bastion alts when starter squad is full 
 
 ## Loss mail
 
+We will help pilots who die in fleet and pay SRP regardless of fault, if you know they run good abyssals mention it in the Abyssal value section of the loss mail. The final decision will still lie with council.
+
 **To:** \<All council members> \<Name of pilot>  
 **Subject:** Loss Mail: \<Name of pilot>
 
 ```
 Date: <YYYY-MM-DD>
 FC:
+
 Killmail:
+
+Abyssal Value:
 
 Logis involved:
 

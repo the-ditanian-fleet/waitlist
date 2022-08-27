@@ -17,10 +17,10 @@ TDF works with a tier system. Pilots can be categorized as starter, basic, elite
 |        Tier        | Time Limit |
 | :----------------: | :--------: |
 |    Megathron\*     |    20h     |
-|       Basic        |    50h     |
+|       Basic        |    60h     |
 |      Advanced      |    100h    |
 |    Elite (Logi)    |    150h    |
-| Elite (Vindicator) |    200h    |
+| Elite (Vindicator) |    225h    |
 |  Elite (Bastion)   |    250h    |
 
 ## Upgrade guidance for DPS
