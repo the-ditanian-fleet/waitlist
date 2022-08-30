@@ -205,3 +205,31 @@ CREATE TABLE `waitlist_entry_fit` (
   CONSTRAINT `waitlist_entry_fit_ibfk_4` FOREIGN KEY (`implant_set_id`) REFERENCES `implant_set` (`id`),
   CONSTRAINT `waitlist_entry_fit_chk_1` CHECK ((`approved` in (0,1)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `badge` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(64) NOT NULL UNIQUE,
+  `exclude_badge_id` BIGINT NULL,
+  CONSTRAINT `exclude_badge` FOREIGN KEY (`exclude_badge_id`) REFERENCES `badge` (`id`) ON DELETE SET NULL
+);
+
+CREATE TABLE `badge_assignment` (
+  `characterId` BIGINT NOT NULL,
+  `badgeId` BIGINT NOT NULL,
+  `grantedById` BIGINT NULL,
+  `grantedAt` BIGINT NOT NULL,
+  CONSTRAINT `characterId` FOREIGN KEY (`characterId`) REFERENCES `character` (`id`),
+  CONSTRAINT `badgeId` FOREIGN KEY (`badgeId`) REFERENCES `badge` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `grantedById` FOREIGN KEY (`grantedById`) REFERENCES `character` (`id`)
+);
+
+INSERT INTO badge (name) VALUES ('BASTION');
+INSERT INTO badge (name) VALUES ('LOGI');
+INSERT INTO badge (name) VALUES ('RETIRED-LOGI');
+INSERT INTO badge (name) VALUES ('WEB');
+
+-- Logi and Retired logi are exclusive, update rows to reflect this
+SELECT @logi_id := id FROM badge WHERE name='LOGI';
+SELECT @retired_logi_id := id FROM badge WHERE name='RETIRED-LOGI';
+UPDATE badge SET exclude_badge_id=@retired_logi_id WHERE id=@logi_id;
+UPDATE badge SET exclude_badge_id=@logi_id WHERE id=@retired_logi_id;

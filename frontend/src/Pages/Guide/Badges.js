@@ -153,7 +153,8 @@ export function BadgeData() {
               </ul>
             </Content>
             <InfoNote>
-              You can x-up on the waitlist. Make sure to let the fc know you are a training nestor!
+              If you haven&apos;t acquired the badge yet, make sure to let the fc know you are a
+              Training Nestor!
             </InfoNote>
             <br />
             <InputGroup>
@@ -259,6 +260,19 @@ export function BadgeData() {
         <BadgeDisplay>
           <BadgeButton name="Backchannel" img={"./b.png"}>
             Pilot has access to the back comms on TeamSpeak.
+          </BadgeButton>
+          <BadgeButton name="Retired Logi" img={"./rl.png"}>
+            <b>Logi Specialist who had their badge revoked due to three months of inactivity.</b>
+            <br />
+            Requirements to reacquire logistics specialist badge are:
+            <br />
+            <br />
+            <Content>
+              <ul>
+                <li>Fit &amp; skills still being valid</li>
+                <li>One full HQ FC +1</li>
+              </ul>
+            </Content>
           </BadgeButton>
         </BadgeDisplay>
       </Content>
