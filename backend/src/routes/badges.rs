@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use crate::{app::Application, core::auth::AuthenticatedAccount, util::madness::Madness};
 
 use rocket::serde::json::Json;
@@ -81,55 +79,44 @@ async fn get_badge_members(
 ) -> Result<Json<Vec<BadgeAssignment>>, Madness> {
     account.require_access("badges-manage")?;
 
-    // note to next dev:  I couldn't work out how to do a relational SELECT
-    //  where I joined with the character table twice to fetch
-    //  the Character and Admin values. You are welcome to fix this
     let badge_assignments = sqlx::query!(
-        "SELECT characterId, grantedAt, grantedById FROM badge_assignment WHERE badge_assignment.badgeId = ?",
+        "SELECT 
+        c.id, 
+        c.name, 
+        g.id AS `grantedById!`, 
+        g.name AS `grantedByName!`, 
+        b.id AS `badge_id`, 
+        b.name AS `badge_name`, 
+        grantedAt 
+      FROM 
+        badge_assignment 
+        JOIN `character` AS c ON characterId = c.id 
+        JOIN `character` AS g ON grantedById = g.id 
+        JOIN badge AS b ON badgeId = b.id 
+      WHERE 
+        badgeId = ?",
         badge_id
     )
     .fetch_all(app.get_db())
     .await?;
-
-    let characters = sqlx::query!(
-        "SELECT DISTINCT c.id, c.name FROM `character` AS c INNER JOIN badge_assignment AS ba ON c.id = ba.characterId OR c.id = ba.grantedById WHERE ba.badgeId=?",
-        badge_id
-    )
-    .fetch_all(app.get_db())
-    .await?;
-
-    let character_map: HashMap<i64, String> = characters
-        .into_iter()
-        .map(|character| (character.id, character.name))
-        .collect();
-
-    let badge = sqlx::query!("SELECT name FROM badge WHERE id=? LIMIT 1", badge_id)
-        .fetch_one(app.get_db())
-        .await?;
 
     let badge_assignments = badge_assignments
         .into_iter()
         .map(|assignment| BadgeAssignment {
             badge: Badge {
-                id: badge_id,
-                name: badge.name.to_string(),
+                id: assignment.badge_id,
+                name: assignment.badge_name,
                 member_count: -1,
                 exclude_badge_id: -1,
             },
             granted_at: assignment.grantedAt,
             character: Character {
-                id: assignment.characterId,
-                name: character_map
-                    .get(&assignment.characterId)
-                    .unwrap()
-                    .to_string(),
+                id: assignment.id,
+                name: assignment.name,
             },
             granted_by: Character {
-                id: assignment.grantedById.unwrap(),
-                name: character_map
-                    .get(&assignment.grantedById.unwrap())
-                    .unwrap()
-                    .to_string(),
+                id: assignment.grantedById,
+                name: assignment.grantedByName,
             },
         })
         .collect();

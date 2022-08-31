@@ -25,7 +25,10 @@ const CharacterName = ({ avatar, avatarSize, id, name, noLink }) => {
   return (
     <>
       {avatar && (
-        <Avatar src={`https://images.evetech.net/characters/${id}/portrait?size=${avatarSize}`} />
+        <Avatar
+          src={`https://images.evetech.net/characters/${id}/portrait?size=${avatarSize}`}
+          loading="lazy"
+        />
       )}
       {!noLink ? <A href={`/fc/search?query=${name}`}>{name}</A> : name}
     </>

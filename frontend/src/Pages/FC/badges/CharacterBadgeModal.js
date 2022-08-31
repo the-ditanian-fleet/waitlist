@@ -7,6 +7,36 @@ import { Button, CenteredButtons } from "../../../Components/Form";
 import { Modal } from "../../../Components/Modal";
 import { Title } from "../../../Components/Page";
 import { ToastContext } from "../../../contexts";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  margin-left: 40px;
+  margin-bottom: 5px;
+
+  &:first-of-type {
+    min-height: 50px;
+  }
+
+  &:nth-of-type(2) {
+    min-height: 100px;
+  }
+
+  @media (min-width: 400px) {
+    min-width: 310px;
+  }
+
+  @media (max-width: 451px) {
+    margin-left: 3px;
+
+    span {
+      display: block;
+    }
+
+    br {
+      display: none;
+    }
+  }
+`;
 
 async function assignBadge(badgeId, characterId) {
   return await apiCall(`/api/badges/${badgeId}/members`, {
@@ -26,7 +56,7 @@ const CharacterBadgeModal = ({ character }) => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Badges</Button>
-      <BadgeModal character={character} isOpen={isOpen} setOpen={setOpen} />
+      {isOpen && <BadgeModal character={character} isOpen={isOpen} setOpen={setOpen} />}
     </>
   );
 };
@@ -34,19 +64,21 @@ const CharacterBadgeModal = ({ character }) => {
 export default CharacterBadgeModal;
 
 const BadgeModal = ({ character, isOpen, setOpen }) => {
-  const [_badges, refreshBadges] = useApi("/api/badges"); // Get data from the API
-  const [badges, setBadges] = React.useState([]); // This data includes bools checked, default
+  const [avaliableBadges, refreshBadges] = useApi("/api/badges"); // Get data from the API
+  const [badges, setBadges] = React.useState(undefined); // This data includes bools checked, default
   const [pending, isPending] = React.useState(false);
   const toastContext = React.useContext(ToastContext);
 
   useEffect(() => {
+    if (!avaliableBadges) return; // Make the call ONLY once when the badge options are known
+
     errorToaster(
       toastContext,
       apiCall(`/api/pilot/info?character_id=${character?.id}`, {}).then((res) => {
         if (!res.tags) return; // can't do anything if the tags array is undefined
 
         const tags = res.tags;
-        const b = _badges;
+        const b = avaliableBadges;
         for (let i = 0; i < b?.length; i++) {
           b[i].default = tags.includes(b[i].name);
           b[i].checked = tags.includes(b[i].name);
@@ -55,7 +87,7 @@ const BadgeModal = ({ character, isOpen, setOpen }) => {
         setBadges(b ?? []);
       })
     );
-  }, [_badges, toastContext, character]);
+  }, [avaliableBadges, toastContext, character?.id]);
 
   const onSubmit = () => {
     isPending(true);
@@ -107,39 +139,45 @@ const BadgeModal = ({ character, isOpen, setOpen }) => {
           <CharacterName {...character} avatarSize={32} noLink />
         </Title>
 
-        <div style={{ marginLeft: "40px" }}>
-          <p>Current Badges:</p>
-          {badges.map((badge, key) => {
-            const b = tagBadges[badge.name];
-            return badge.default ? (
-              <span style={{ marginRight: "5px", display: "inline-block" }} key={key}>
-                <Shield color={b[0]} letter={b[1]} title={b[2]} h={"1.50rem"} />
-              </span>
-            ) : null;
-          })}
+        <Wrapper>
+          {!badges ? (
+            <small style={{ fontStyle: "italic", fontSize: "smaller" }}>Loading...</small>
+          ) : (
+            <>
+              <p>Current Badges:</p>
+              {badges.map((badge, key) => {
+                const b = tagBadges[badge.name];
+                return badge.default ? (
+                  <span style={{ marginRight: "5px", display: "inline-block" }} key={key}>
+                    <Shield color={b[0]} letter={b[1]} title={b[2]} h={"1.50rem"} />
+                  </span>
+                ) : null;
+              })}
+            </>
+          )}
+        </Wrapper>
 
-          <div style={{ marginBottom: "15px" }}>
-            {badges?.map((badge, key) => {
-              return (
-                <span key={key}>
-                  {key % 3 ? null : <br />}
-                  <label
-                    style={{ marginRight: "20px", marginBottom: "15px", display: "inline-block" }}
-                    htmlFor={key}
-                  >
-                    <input
-                      id={key}
-                      type="checkbox"
-                      checked={badge.checked}
-                      onChange={(evt) => onCheck(evt, key, badge)}
-                    />
-                    {badge.name}
-                  </label>
-                </span>
-              );
-            })}
-          </div>
-        </div>
+        <Wrapper>
+          {badges?.map((badge, key) => {
+            return (
+              <span key={key}>
+                {key % 3 ? null : <br />}
+                <label
+                  style={{ marginRight: "20px", marginBottom: "15px", display: "inline-block" }}
+                  htmlFor={key}
+                >
+                  <input
+                    id={key}
+                    type="checkbox"
+                    checked={badge.checked}
+                    onChange={(evt) => onCheck(evt, key, badge)}
+                  />
+                  {badge.name}
+                </label>
+              </span>
+            );
+          })}
+        </Wrapper>
 
         <CenteredButtons>
           <Button variant="success" onClick={onSubmit} disabled={pending}>

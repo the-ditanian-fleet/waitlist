@@ -337,24 +337,27 @@ impl<'a> FitChecker<'a> {
         } else if self.pilot.access_keys.contains("waitlist-tag:TRAINEE") {
             self.tags.insert("TRAINEE");
         }
-
-        if self.fit.hull == type_id!("Nestor") {
-            if self.badges.contains(&String::from("LOGI")) {
-                self.tags.insert("LOGI");
+        else {
+            // To save space on the XUP card,
+            // don't show these badges for FCs
+            if self.fit.hull == type_id!("Nestor") {
+                if self.badges.contains(&String::from("LOGI")) {
+                    self.tags.insert("LOGI");
+                }
+                if self.badges.contains(&String::from("RETIRED-LOGI")) {
+                    self.tags.insert("RETIRED-LOGI");
+                }
             }
-            if self.badges.contains(&String::from("RETIRED-LOGI")) {
-                self.tags.insert("RETIRED-LOGI");
+    
+            if self.fit.hull == type_id!("Vindicator") && self.badges.contains(&String::from("WEB")) {
+                self.tags.insert("WEB-SPECIALIST");
             }
-        }
-
-        if self.fit.hull == type_id!("Vindicator") && self.badges.contains(&String::from("WEB")) {
-            self.tags.insert("WEB-SPECIALIST");
-        }
-
-        if (self.fit.hull == type_id!("Kronos") || self.fit.hull == type_id!("Paladin"))
-            && self.badges.contains(&String::from("BASTION"))
-        {
-            self.tags.insert("BASTION-SPECIALIST");
+    
+            if (self.fit.hull == type_id!("Kronos") || self.fit.hull == type_id!("Paladin"))
+                && self.badges.contains(&String::from("BASTION"))
+            {
+                self.tags.insert("BASTION-SPECIALIST");
+            }
         }
     }
 
