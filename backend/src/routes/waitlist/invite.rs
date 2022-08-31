@@ -34,7 +34,8 @@ async fn invite(
                 wef.character_id wef_character_id,
 				wef.is_alt wef_is_alt,
                 we.account_id we_account_id,
-                fitting.hull fitting_hull
+                fitting.hull fitting_hull,
+                EXISTS (SELECT character_id FROM admins WHERE character_id=we.account_id) as `has_acl!: bool`
             FROM waitlist_entry_fit wef
             JOIN waitlist_entry we ON wef.entry_id=we.id
             JOIN fitting ON wef.fit_id = fitting.id
@@ -67,9 +68,9 @@ async fn invite(
     };
 
     // Prevent a trainee from inviting a Training Nestor or Retired Logi to fleet
-    if xup.fitting_hull == type_id!("Nestor") {
+    if xup.fitting_hull == type_id!("Nestor") && !xup.has_acl {
+        // The inviting FC does not have an HQ-FC badge, they are probably a trainee or advanced trainee
         if let Err(_e) = account.require_access("waitlist-tag:HQ-FC") {
-            // The inviting FC does not have an HQ-FC badge, they are probably a trainee or advanced trainee
             if sqlx::query!(
                 "SELECT id FROM badge JOIN badge_assignment AS ba ON id=ba.badgeId WHERE badge.name='LOGI' AND ba.characterId=?",
                 xup.wef_character_id
