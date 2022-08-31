@@ -4,11 +4,16 @@ import { useApi } from "../api";
 import { Input } from "./Form";
 
 const SuggestionsList = styled.ul`
+  position: absolute;
+  width: 100%;
+  background: ${(props) => props.theme.colors?.accent1};
+  z-index: 500;
+
   border: 1px solid #999;
   border-top-width: 0;
   list-style: none;
   margin-top: 0;
-  max-height: 143px;
+
   overflow-y: auto;
   padding-left: 0;
 
@@ -17,7 +22,6 @@ const SuggestionsList = styled.ul`
 
     &.active,
     &:hover {
-      background-color: ${(props) => props.theme.colors?.accent1};
       color: ${(props) => props.theme.active?.text};
       cursor: pointer;
       font-weight: 700;
@@ -138,7 +142,7 @@ const PilotSearch = ({ id, onChange, style, resetSearch, hideNotFound }) => {
   }
 
   return (
-    <>
+    <div style={{ position: "relative" }}>
       <Input
         id={id ?? "pilot-search"}
         type="text"
@@ -150,7 +154,7 @@ const PilotSearch = ({ id, onChange, style, resetSearch, hideNotFound }) => {
       />
 
       {suggestionsUi}
-    </>
+    </div>
   );
 };
 

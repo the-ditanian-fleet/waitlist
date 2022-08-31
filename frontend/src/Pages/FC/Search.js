@@ -41,7 +41,7 @@ export function Search() {
         <label>
           <strong>Search term:</strong>
           <br />
-          <Input value={query} onChange={(evt) => setSearchTerm(evt.target.value)} />
+          <Input value={query ?? ""} onChange={(evt) => setSearchTerm(evt.target.value)} />
         </label>
       </div>
       {results == null ? null : results.results.length ? (

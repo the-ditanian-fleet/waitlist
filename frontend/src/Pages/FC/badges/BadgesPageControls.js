@@ -60,7 +60,7 @@ const AddBadge = ({ badgeOptions = [], isOpen, setOpen, refreshFunction }) => {
 
   return (
     <Modal open={isOpen} setOpen={setOpen}>
-      <Box>
+      <Box style={{ overflowY: "hidden" }}>
         <Title>Assign a Specialist Badge</Title>
         <form onSubmit={onClick}>
           <FormGroup>
