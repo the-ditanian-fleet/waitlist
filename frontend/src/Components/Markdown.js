@@ -77,15 +77,16 @@ export function Markdown({ ...args }) {
   const Heading = ({ children, level }) => {
     const text = children[0];
 
-    let slug = `${text}`
+    let slug =
+      `${text}`
         .replace(/[^a-zA-Z0-9 ]/g, "")
         ?.replace(/ /g, "-")
         ?.toLowerCase() ?? "";
 
-    if (!headings.some(h => h.slug === slug)) {
+    if (!headings.some((h) => h.slug === slug)) {
       headings.push({
         text,
-        slug
+        slug,
       });
     }
 
