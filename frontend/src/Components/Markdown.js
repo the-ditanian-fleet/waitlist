@@ -17,7 +17,6 @@ const LinkStyle = styled.span`
 `;
 
 const HeadingAnchor = styled.div`
-  h1,
   h2,
   h3,
   h4,
@@ -33,7 +32,7 @@ const HeadingAnchor = styled.div`
     }
 
     a {
-      margin-left: 15px;
+      margin-left: 10px;
       font-size: smaller;
       text-decoration: none;
 
@@ -47,6 +46,10 @@ const HeadingAnchor = styled.div`
 
       &:hover {
         color: ${(props) => props.theme.colors.highlight.active};
+      }
+
+      &::selection {
+        background: none;
       }
     }
   }
@@ -69,31 +72,31 @@ function Link({ href, children, ...props }) {
 }
 
 export function Markdown({ ...args }) {
-  const slugs = [];
+  const headings = [];
 
   const Heading = ({ children, level }) => {
     const text = children[0];
 
-    let slug =
-      text
+    let slug = `${text}`
         .replace(/[^a-zA-Z0-9 ]/g, "")
         ?.replace(/ /g, "-")
         ?.toLowerCase() ?? "";
-    if (slugs.includes(slug)) {
-      console.warn(
-        `An <h${level}> heading with the id "${slug}" already exists. Headings must be unique, omitting this ID`
-      );
-      slug = null;
+
+    if (!headings.some(h => h.slug === slug)) {
+      headings.push({
+        text,
+        slug
+      });
     }
 
     return (
       <HeadingAnchor>
         {React.createElement(
           `h${level}`,
-          { id: slug },
+          { id: `${slug}-${headings.length}` },
           <>
             {text}
-            <a href={window.location.pathname + "#" + slug} />
+            <a href={`${window.location.pathname}#${slug}-${headings.length}`}> </a>
           </>
         )}
       </HeadingAnchor>
@@ -108,7 +111,6 @@ export function Markdown({ ...args }) {
   }, []);
 
   const components = {
-    h1: Heading,
     h2: Heading,
     h3: Heading,
     h4: Heading,
