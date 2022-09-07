@@ -106,22 +106,20 @@ impl<'r> FromRequest<'r> for AuthenticatedAccount {
             },
         };
 
-        let access_level = match sqlx::query!(
-            "SELECT * FROM admins WHERE character_id=?",
-            token.account_id
-        )
-        .fetch_optional(app.get_db())
-        .await
-        {
-            Err(e) => {
-                return Outcome::Failure((
-                    Status::InternalServerError,
-                    AuthenticationError::DatabaseError(e),
-                ))
-            }
-            Ok(Some(r)) => r.level,
-            Ok(None) => "user".to_string(),
-        };
+        let access_level =
+            match sqlx::query!("SELECT * FROM admin WHERE character_id=?", token.account_id)
+                .fetch_optional(app.get_db())
+                .await
+            {
+                Err(e) => {
+                    return Outcome::Failure((
+                        Status::InternalServerError,
+                        AuthenticationError::DatabaseError(e),
+                    ))
+                }
+                Ok(Some(r)) => r.role,
+                Ok(None) => "user".to_string(),
+            };
 
         let access_keys = match ACCESS_LEVELS.get(&access_level) {
             Some(l) => l,
@@ -207,7 +205,6 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
         "fc",
         "fc-trainer",
         vec![
-            "access-view",
             "access-manage",
             "access-manage:trainee",
             "access-manage:trainee-advanced",
@@ -220,7 +217,12 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
         "council",
         vec!["access-manage:fc-trainer"],
     );
-    build_level(&mut result, "council", "admin", vec!["access-manage-all"]);
+    build_level(
+        &mut result,
+        "council",
+        "admin",
+        vec!["access-manage:council"],
+    );
 
     result
 }

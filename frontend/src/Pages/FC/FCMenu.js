@@ -10,11 +10,11 @@ import styled from "styled-components";
 import {
   faGraduationCap,
   faBan,
-  faUserCheck,
   faBiohazard,
   faChartLine,
   faCommentAlt,
   faShieldAlt,
+  faUserShield,
 } from "@fortawesome/free-solid-svg-icons";
 
 const guideData = {};
@@ -110,8 +110,8 @@ export function FCMenu() {
         {authContext && authContext.access["badges-manage"] && (
           <GuideCard slug="badges" name="Badges" icon={faShieldAlt} />
         )}
-        {authContext && authContext.access["access-view"] && (
-          <GuideCard slug="acl" name="Permissions" icon={faUserCheck} />
+        {authContext && authContext.access["access-manage"] && (
+          <GuideCard slug="commanders" name="Commanders" icon={faUserShield} />
         )}
         {authContext &&
           authContext.access["fleet-view"] && ( //fleet view should be any fc

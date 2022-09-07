@@ -24,11 +24,13 @@ CREATE TABLE `refresh_token` (
   CONSTRAINT `refresh_token_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `admins` (
-  `character_id` bigint NOT NULL,
-  `level` varchar(64) NOT NULL,
-  PRIMARY KEY (`character_id`),
-  CONSTRAINT `admins_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
+CREATE TABLE `admin` (
+    `character_id` BIGINT PRIMARY KEY NOT NULL,
+    `role` VARCHAR(64) NOT NULL,
+    `granted_at` BIGINT NOT NULL,
+    `granted_by_id` BIGINT NOT NULL,
+    CONSTRAINT `character_role` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`),
+    CONSTRAINT `admin_character` FOREIGN KEY (`granted_by_id`) REFERENCES `character` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `alt_character` (
