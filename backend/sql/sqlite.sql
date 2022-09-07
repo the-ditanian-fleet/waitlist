@@ -26,9 +26,9 @@ CREATE TABLE `admin` (
   `character_id` bigint PRIMARY KEY NOT NULL, 
   `role` varchar(64) NOT NULL, 
   `granted_at` bigint NOT NULL, 
-  `granted_by_id` bigint NULL, 
-  CONSTRAINT `character_rank`   FOREIGN KEY (`character_id`)  REFERENCES `character` (`id`), 
-  CONSTRAINT `admin_character`  FOREIGN KEY (`granted_by_id`) REFERENCES `character` (`id`)
+  `granted_by_id` bigint NOT NULL, 
+  CONSTRAINT `character_rank` FOREIGN KEY (`character_id`)  REFERENCES `character` (`id`), 
+  CONSTRAINT `admin_character` FOREIGN KEY (`granted_by_id`) REFERENCES `character` (`id`)
 );
 
 CREATE TABLE `alt_character` (
