@@ -131,7 +131,7 @@ async fn callback(
             let account = account.unwrap();
             if account.id != character_id {
                 let is_admin = sqlx::query!(
-                    "SELECT character_id FROM admins WHERE character_id = ?",
+                    "SELECT character_id FROM admin WHERE character_id = ?",
                     character_id
                 )
                 .fetch_optional(app.get_db())

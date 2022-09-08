@@ -35,7 +35,7 @@ async fn invite(
 				wef.is_alt wef_is_alt,
                 we.account_id we_account_id,
                 fitting.hull fitting_hull,
-                EXISTS (SELECT character_id FROM admins WHERE character_id=we.account_id) as `has_acl!: bool`
+                EXISTS (SELECT character_id FROM admin WHERE character_id=we.account_id) as `has_acl!: bool`
             FROM waitlist_entry_fit wef
             JOIN waitlist_entry we ON wef.entry_id=we.id
             JOIN fitting ON wef.fit_id = fitting.id

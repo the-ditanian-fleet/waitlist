@@ -51,6 +51,10 @@ export const Button = styled.button.attrs((props) => ({
   ${inputStyle}
   height: 2.5em;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+  }
 `;
 
 export const MobileButton = styled.button.attrs((props) => ({

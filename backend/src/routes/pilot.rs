@@ -21,14 +21,11 @@ async fn pilot_info(
     let mut tags: Vec<String> = Vec::new();
 
     // Add the ACL tag to the array
-    if let Some(admin) = sqlx::query!(
-        "SELECT level FROM admins WHERE character_id=?",
-        character.id
-    )
-    .fetch_optional(app.get_db())
-    .await?
+    if let Some(admin) = sqlx::query!("SELECT role FROM admin WHERE character_id=?", character.id)
+        .fetch_optional(app.get_db())
+        .await?
     {
-        let keys = get_access_keys(&admin.level).unwrap();
+        let keys = get_access_keys(&admin.role).unwrap();
         if keys.contains("waitlist-tag:HQ-FC") {
             tags.push("HQ-FC".to_string());
         } else if keys.contains("waitlist-tag:TRAINEE") {

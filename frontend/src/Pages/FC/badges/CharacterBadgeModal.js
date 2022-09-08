@@ -51,19 +51,19 @@ async function revokeBadge(badgeId, characterId) {
   });
 }
 
-const CharacterBadgeModal = ({ character }) => {
+const CharacterBadgeModal = ({ character, refreshData }) => {
   const [isOpen, setOpen] = React.useState();
   return (
     <>
       <Button onClick={() => setOpen(true)}>Badges</Button>
-      {isOpen && <BadgeModal character={character} isOpen={isOpen} setOpen={setOpen} />}
+      {isOpen && <BadgeModal {...{ character, isOpen, setOpen, refreshData }} />}
     </>
   );
 };
 
 export default CharacterBadgeModal;
 
-const BadgeModal = ({ character, isOpen, setOpen }) => {
+const BadgeModal = ({ character, isOpen, setOpen, refreshData }) => {
   const [avaliableBadges, refreshBadges] = useApi("/api/badges"); // Get data from the API
   const [badges, setBadges] = React.useState(undefined); // This data includes bools checked, default
   const [pending, isPending] = React.useState(false);
@@ -117,10 +117,11 @@ const BadgeModal = ({ character, isOpen, setOpen }) => {
         }
       });
 
+      // When all revocations and assignments are completed
       Promise.all(promises).then(() => {
-        // All badges updated, refresh page
         refreshBadges();
         isPending(false);
+        if (refreshData) refreshData();
       });
     });
   };
