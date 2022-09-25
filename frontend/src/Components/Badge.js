@@ -81,7 +81,7 @@ export const icons = {
   // FC Roles
   "HQ-FC": { type: "shield", color: "blue", letter: "H", name: "HQ FC" },
   TRAINEE: { type: "shield", color: "neutral", letter: "T", name: "Training FC" },
-  TRAINER: { type: "shield", color: "yellow", letter: "T", name: "FC Trainer" },
+  TRAINER: { type: "shield", color: "purple", letter: "T", name: "FC Trainer" },
   COUNCIL: { type: "image", href: require("../Pages/Guide/badges/c.png"), name: "Council" },
   // Specalist Badges
   LOGI: { type: "shield", color: "green", letter: "L", name: "Logi Specialist" },
@@ -91,7 +91,7 @@ export const icons = {
     name: "Banned from flying logi",
   },
   "RETIRED-LOGI": { type: "shield", color: "red", letter: "L", name: "Retired Logi Specialist" },
-  BASTION: { type: "shield", color: "purple", letter: "B", name: "Bastion Specialist" },
+  BASTION: { type: "shield", color: "cyan", letter: "B", name: "Bastion Specialist" },
   WEB: { type: "shield", color: "cyan", letter: "W", name: "Web Specialist" },
   // Other
   ELITE: { type: "shield", color: "yellow", letter: "E", name: "Elite" },
