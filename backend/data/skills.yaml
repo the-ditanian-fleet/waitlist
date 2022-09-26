@@ -164,6 +164,7 @@ requirements:
       min: 3
       elite: 4
     Electronic Warfare:
+      elite: 4
       gold: 4
     Thermodynamics:
       min: 3
@@ -255,6 +256,7 @@ requirements:
     Drone Sharpshooting:
       elite: 4
     Electronic Warfare:
+      elite: 4
       gold: 4
     Thermodynamics:
       elite: 4
@@ -362,6 +364,7 @@ requirements:
     Drone Sharpshooting:
       elite: 4
     Electronic Warfare:
+      elite: 4
       gold: 4
     Thermodynamics:
       elite: 4
