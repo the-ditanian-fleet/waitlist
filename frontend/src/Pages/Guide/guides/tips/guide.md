@@ -35,7 +35,7 @@ TDF do not recommend using neural Remapping if you have zero bonus neural remaps
 
 ![](remaps.png)
 
-The only way to get a truly optimal remap is to use an optimiser with your characters overall attributes and exact skill queue entered into it. [EveMon](https://github.com/peterhaneve/evemon/releases/) has this function, use at your own risk.
+The only way to get a truly optimal remap is to use an optimiser with your characters overall attributes and exact skill queue entered into it. [EveMon](https://github.com/mgoeppner/evemon/releases/) has this function, use at your own risk.
 
 ![](remapatt.png)
 
@@ -157,7 +157,7 @@ The [eve wiki](https://wiki.eveuniversity.org/Overheating) goes into detail on t
 - [Gank intel](https://eve-gatecheck.space/eve/)
 - [Tool for people who sell their LP themselves](https://www.fuzzwork.co.uk/lpstore/)
 - [Fit tool](https://github.com/pyfa-org/Pyfa/releases/)
-- [Skill plan tool](https://github.com/peterhaneve/evemon/releases/)
+- [Skill plan tool](https://github.com/mgoeppner/evemon/releases/)
 - [Online market tool 1](https://evemarketer.com/)
 - [Online market tool 2](https://market.fuzzwork.co.uk/type/)
 - [Incursion rats](https://eve-incursions.de/rats)
