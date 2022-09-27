@@ -35,7 +35,7 @@ function PilotTags({ tags }) {
   var tagImages = [];
   _.forEach(tags, (tag) => {
     if (tag in icons) {
-      icons.push(
+      tagImages.push(
         <div key={tag} style={{ marginRight: "0.2em" }}>
           <BadgeIcon type={tag} height="40px" />
         </div>
