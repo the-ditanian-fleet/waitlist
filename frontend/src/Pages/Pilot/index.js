@@ -7,7 +7,7 @@ import { PilotHistory } from "./PilotHistory";
 import { useApi } from "../../api";
 import { ActivitySummary } from "./ActivitySummary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Shield, tagBadges } from "../../Components/Badge";
+import BadgeIcon, { icons } from "../../Components/Badge";
 import {
   faClipboard,
   faGraduationCap,
@@ -34,15 +34,10 @@ const FilterButtons = styled.span`
 function PilotTags({ tags }) {
   var tagImages = [];
   _.forEach(tags, (tag) => {
-    if (tag in tagBadges) {
-      tagImages.push(
+    if (tag in icons) {
+      icons.push(
         <div key={tag} style={{ marginRight: "0.2em" }}>
-          <Shield
-            color={tagBadges[tag][0]}
-            letter={tagBadges[tag][1]}
-            title={tagBadges[tag][2]}
-            h="40px"
-          />
+          <BadgeIcon type={tag} height="40px" />
         </div>
       );
     }

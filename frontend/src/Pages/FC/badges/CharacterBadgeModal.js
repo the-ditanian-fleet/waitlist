@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { apiCall, errorToaster, toaster, useApi } from "../../../api";
 import { Box } from "../../../Components/Box";
 import CharacterName from "../../../Components/CharacterName";
-import { Shield, tagBadges } from "../../../Components/Badge";
 import { Button, CenteredButtons } from "../../../Components/Form";
 import { Modal } from "../../../Components/Modal";
 import { Title } from "../../../Components/Page";
 import { ToastContext } from "../../../contexts";
 import styled from "styled-components";
+import BadgeIcon from "../../../Components/Badge";
 
 const Wrapper = styled.div`
   margin-left: 40px;
@@ -147,10 +147,9 @@ const BadgeModal = ({ character, isOpen, setOpen, refreshData }) => {
             <>
               <p>Current Badges:</p>
               {badges.map((badge, key) => {
-                const b = tagBadges[badge.name];
                 return badge.default ? (
                   <span style={{ marginRight: "5px", display: "inline-block" }} key={key}>
-                    <Shield color={b[0]} letter={b[1]} title={b[2]} h={"1.50rem"} />
+                    <BadgeIcon type={badge.name} key={key} />
                   </span>
                 ) : null;
               })}

@@ -4,7 +4,7 @@ import { ToastContext, AuthContext } from "../../contexts";
 import { apiCall, useApi, errorToaster } from "../../api";
 import { NavLink } from "react-router-dom";
 import { TimeDisplay } from "./TimeDisplay.js";
-import { Badge, Shield, tagBadges } from "../../Components/Badge";
+import BadgeIcon, { Badge, icons } from "../../Components/Badge";
 import { Modal } from "../../Components/Modal";
 import { FitDisplay } from "../../Components/FitDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,8 +18,6 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
-
-import egoldBadge from "../Guide/badges/egold.png";
 
 import { SkillDisplay } from "../../Components/SkillDisplay";
 import { Box } from "../../Components/Box";
@@ -338,17 +336,8 @@ export function XCard({ entry, fit, onAction }) {
   var tagText = [];
   var tagImages = [];
   tags.forEach((tag) => {
-    if (tag === "ELITE-GOLD") {
-      tagImages.push(<img key={tag} src={egoldBadge} alt={"Elite GOLD"} title={"Elite GOLD"} />);
-    } else if (tag in tagBadges) {
-      tagImages.push(
-        <Shield
-          key={tag}
-          color={tagBadges[tag][0]}
-          letter={tagBadges[tag][1]}
-          title={tagBadges[tag][2]}
-        />
-      );
+  if (tag in icons) {
+      tagImages.push(<BadgeIcon type={tag} key={tag} />);
     } else {
       tagText.push(tag);
     }

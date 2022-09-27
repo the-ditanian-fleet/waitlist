@@ -9,7 +9,7 @@ import styled from "styled-components";
 import Table from "../../Components/DataTable";
 import { apiCall, useApi } from "../../api";
 import { formatDatetime } from "../../Util/time";
-import { Shield, tagBadges } from "../../Components/Badge";
+import BadgeIcon from "../../Components/Badge";
 import { AddBadge, RevokeButton } from "./badges/BadgesPageControls";
 
 const BadgesPage = () => {
@@ -196,18 +196,7 @@ const View = () => {
       sortFunction: (rowA, rowB) => special_sort(rowA.badge, rowB.badge),
       grow: 1,
       minWidth: "unset",
-      selector: (row) => {
-        const badge = tagBadges[row.badge.name];
-        return (
-          <Shield
-            style={{ verticalAlign: "middle" }}
-            h={"1.8em"}
-            color={badge[0]}
-            letter={badge[1]}
-            title={badge[2]}
-          />
-        );
-      },
+      selector: (row) => <BadgeIcon type={row.badge.name} height="1.8em" />,
     },
     {
       name: "Granted By",
