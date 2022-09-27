@@ -336,7 +336,7 @@ export function XCard({ entry, fit, onAction }) {
   var tagText = [];
   var tagImages = [];
   tags.forEach((tag) => {
-  if (tag in icons) {
+    if (tag in icons) {
       tagImages.push(<BadgeIcon type={tag} key={tag} />);
     } else {
       tagText.push(tag);
