@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled, { ThemeContext } from "styled-components";
 
 export const Badge = styled.span`
@@ -72,19 +73,51 @@ BadgeModal.Title = styled.div`
   border-color: ${(props) => props.theme.colors.accent3};
 `;
 
-export const tagBadges = {
-  WARPSPEED: ["red", "W", "Warp Speed Implants"],
-  HYBRID: ["red", "H", "Hybrid Implants"],
-  AMULET: ["red", "A", "Amulet Implants"],
-  ELITE: ["yellow", "E", "Elite"],
-  STARTER: ["neutral", "S", "Starter pilot"],
-  "HQ-FC": ["blue", "H", "HQ FC"],
-  LOGI: ["green", "L", "Logi Specialist"],
-  "RETIRED-LOGI": ["red", "L", "Retired Logi Specialist"],
-  BASTION: ["purple", "B", "Bastion Specialist"],
-  WEB: ["cyan", "W", "Web Specialist"],
-  TRAINEE: ["neutral", "T", "Training FC"],
+export const icons = {
+  // Implant badges
+  WARPSPEED: { type: "shield", color: "red", letter: "W", name: "Warp Speed Implants" },
+  HYBRID: { type: "shield", color: "red", letter: "H", name: "Hybrid Implants" },
+  AMULET: { type: "shield", color: "red", letter: "A", name: "Amulet Implants" },
+  // FC Roles
+  "HQ-FC": { type: "shield", color: "blue", letter: "H", name: "HQ FC" },
+  TRAINEE: { type: "shield", color: "neutral", letter: "T", name: "Training FC" },
+  TRAINER: { type: "shield", color: "yellow", letter: "T", name: "FC Trainer" },
+  COUNCIL: { type: "image", href: require("../Pages/Guide/badges/c.png"), name: "Council" },
+  // Specalist Badges
+  LOGI: { type: "shield", color: "green", letter: "L", name: "Logi Specialist" },
+  "MUPPET-LOGI": {
+    type: "image",
+    href: require("../Pages/Guide/badges/ml.png"),
+    name: "Banned from flying logi",
+  },
+  "RETIRED-LOGI": { type: "shield", color: "red", letter: "L", name: "Retired Logi Specialist" },
+  BASTION: { type: "shield", color: "purple", letter: "B", name: "Bastion Specialist" },
+  WEB: { type: "shield", color: "cyan", letter: "W", name: "Web Specialist" },
+  // Other
+  ELITE: { type: "shield", color: "yellow", letter: "E", name: "Elite" },
+  "ELITE-GOLD": {
+    type: "image",
+    href: require("../Pages/Guide/badges/egold.png"),
+    name: "Elite GOLD",
+  },
+  STARTER: { type: "shield", color: "neutral", letter: "S", name: "Starter pilot" },
+  UNKNOWN: { type: "shield", color: "neutral", letter: "?", name: null },
 };
+
+const BadgeIcon = ({ type = "UNKNOWN", height = "1.2em" }) => {
+  const badge = icons[type] ?? icons["UNKNOWN"];
+  return badge.type === "shield" ? (
+    <Shield {...badge} h={height} title={badge.name} />
+  ) : (
+    <img src={badge.href.default} title={badge.name} alt={badge.name} style={{ height }} />
+  );
+};
+
+BadgeIcon.propTypes = {
+  type: PropTypes.oneOf(Object.keys(icons)),
+};
+
+export default BadgeIcon;
 
 export function Shield({ color, letter, title, h = "1.2em" }) {
   const theme = React.useContext(ThemeContext);
