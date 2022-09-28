@@ -301,7 +301,7 @@ function NoteButton({ number }) {
 function InviteButton({ fitId, fcId, onAction }) {
   const themeContext = React.useContext(ThemeContext);
   const toastContext = React.useContext(ToastContext);
-  const [ state, setState ] = React.useState(undefined);
+  const [state, setState] = React.useState(undefined);
 
   const colours = {
     success: themeContext?.colors?.success?.color,
@@ -315,26 +315,36 @@ function InviteButton({ fitId, fcId, onAction }) {
     errorToaster(
       toastContext,
       apiCall("/api/waitlist/invite", {
-        json: { id: fitId,  character_id: fcId }
+        json: { id: fitId, character_id: fcId },
       })
-      .then(() => {
-        setState("success");
-        onAction();
-      })
-      .catch((err) => {
-        setState("failed");
-        throw err;
-      })
+        .then(() => {
+          setState("success");
+          onAction();
+        })
+        .catch((err) => {
+          setState("failed");
+          throw err;
+        })
     );
-  }  
+  };
 
-  return <a title="Invite" onClick={onClick} style={{
-    cursor: state == "Pending" ? "not-allowed" : null,
-    backgroundColor: colours[state] ?? null,
-    transition: "background-color 300ms linear"
-  }}>
-    <FontAwesomeIcon fixedWidth icon={state != "pending" ? faPlus : faSpinner} spin={state == "pending"} />
-  </a>
+  return (
+    <a
+      title="Invite"
+      onClick={onClick}
+      style={{
+        cursor: state == "Pending" ? "not-allowed" : null,
+        backgroundColor: colours[state] ?? null,
+        transition: "background-color 300ms linear",
+      }}
+    >
+      <FontAwesomeIcon
+        fixedWidth
+        icon={state != "pending" ? faPlus : faSpinner}
+        spin={state == "pending"}
+      />
+    </a>
+  );
 }
 
 function PilotInformation({ characterId, authContext, id }) {
@@ -471,7 +481,7 @@ export function XCard({ entry, fit, onAction }) {
             </a>
           )}
           {authContext.access["fleet-invite"] && fit.approved && (
-            <InviteButton fitId={fit.id} fcId={authContext.current.id} onAction={onAction} /> 
+            <InviteButton fitId={fit.id} fcId={authContext.current.id} onAction={onAction} />
           )}
           {authContext.access["waitlist-manage"] && !fit.approved && (
             <a
