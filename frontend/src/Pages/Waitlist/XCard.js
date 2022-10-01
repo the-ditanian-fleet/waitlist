@@ -333,15 +333,15 @@ function InviteButton({ fitId, fcId, onAction }) {
       title="Invite"
       onClick={onClick}
       style={{
-        cursor: state == "Pending" ? "not-allowed" : null,
+        cursor: state === "Pending" ? "not-allowed" : null,
         backgroundColor: colours[state] ?? null,
         transition: "background-color 300ms linear",
       }}
     >
       <FontAwesomeIcon
         fixedWidth
-        icon={state != "pending" ? faPlus : faSpinner}
-        spin={state == "pending"}
+        icon={state !== "pending" ? faPlus : faSpinner}
+        spin={state === "pending"}
       />
     </a>
   );
