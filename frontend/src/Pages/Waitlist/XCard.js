@@ -16,6 +16,7 @@ import {
   faPlus,
   faExclamationTriangle,
   faTimes,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 
@@ -53,12 +54,6 @@ async function rejectFit(id, review_comment) {
 async function removeFit(id) {
   return await apiCall("/api/waitlist/remove_fit", {
     json: { id: id },
-  });
-}
-
-async function invite(id, character_id) {
-  return await apiCall("/api/waitlist/invite", {
-    json: { id, character_id },
   });
 }
 
@@ -303,6 +298,55 @@ function NoteButton({ number }) {
   );
 }
 
+function InviteButton({ fitId, fcId, onAction }) {
+  const themeContext = React.useContext(ThemeContext);
+  const toastContext = React.useContext(ToastContext);
+  const [state, setState] = React.useState(undefined);
+
+  const colours = {
+    success: themeContext?.colors?.success?.color,
+    failed: themeContext?.colors?.danger?.color,
+    // pending: themeContext?.colors?.primary?.color,
+  };
+
+  const onClick = async () => {
+    setState("pending");
+
+    errorToaster(
+      toastContext,
+      apiCall("/api/waitlist/invite", {
+        json: { id: fitId, character_id: fcId },
+      })
+        .then(() => {
+          setState("success");
+          onAction();
+        })
+        .catch((err) => {
+          setState("failed");
+          throw err;
+        })
+    );
+  };
+
+  return (
+    <a
+      title="Invite"
+      onClick={onClick}
+      style={{
+        cursor: state === "Pending" ? "not-allowed" : null,
+        backgroundColor: colours[state] ?? null,
+        transition: "background-color 300ms linear",
+      }}
+    >
+      <FontAwesomeIcon
+        fixedWidth
+        icon={state !== "pending" ? faPlus : faSpinner}
+        spin={state === "pending"}
+      />
+    </a>
+  );
+}
+
 function PilotInformation({ characterId, authContext, id }) {
   const [notes] = useApi(
     authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
@@ -437,14 +481,7 @@ export function XCard({ entry, fit, onAction }) {
             </a>
           )}
           {authContext.access["fleet-invite"] && fit.approved && (
-            <a
-              title="Invite"
-              onClick={(evt) =>
-                errorToaster(toastContext, invite(fit.id, authContext.current.id)).then(onAction)
-              }
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </a>
+            <InviteButton fitId={fit.id} fcId={authContext.current.id} onAction={onAction} />
           )}
           {authContext.access["waitlist-manage"] && !fit.approved && (
             <a
