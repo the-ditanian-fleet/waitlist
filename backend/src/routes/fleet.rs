@@ -7,6 +7,7 @@ use crate::{
         esi::{ESIError, ESIScope},
     },
     util::{
+        self,
         madness::Madness,
         types::{Character, Hull},
     },
@@ -245,7 +246,7 @@ async fn close_fleet(
     app: &rocket::State<Application>,
     account: AuthenticatedAccount,
     input: Json<FleetCloseRequest>,
-) -> Result<&'static str, Madness> {
+) -> Result<String, Madness> {
     authorize_character(app.get_db(), &account, input.character_id, None).await?;
     account.require_access("fleet-configure")?;
 
@@ -254,21 +255,49 @@ async fn close_fleet(
     let in_fleet =
         crate::core::esi::fleet_members::get(&app.esi_client, fleet_id, input.character_id).await?;
 
+    let mut success = 0;
+    let total = in_fleet.len();
+
     for member in in_fleet {
         if member.character_id == input.character_id {
             continue;
         }
 
-        app.esi_client
+        let res = app
+            .esi_client
             .delete(
                 &format!("/v1/fleets/{}/members/{}/", fleet_id, member.character_id),
                 input.character_id,
                 ESIScope::Fleets_WriteFleet_v1,
             )
-            .await?;
+            .await;
+
+        if let Err(e) = res {
+            match e {
+                ESIError::Status(code) => match code {
+                    404 => continue,
+                    _ => (),
+                },
+                _ => (),
+            }
+
+            return Err(util::madness::Madness::ESIError(e));
+        }
+
+        if res.is_ok() {
+            success += 1;
+        }
     }
 
-    Ok("OK")
+    if (success + 1) == total {
+        return Ok(format!("All fleet members kicked."));
+    }
+
+    Ok(format!(
+        "Removed {} of {} fleet members.",
+        success,
+        (total - 1)
+    ))
 }
 
 pub fn routes() -> Vec<rocket::Route> {
