@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { AuthContext } from "../../../contexts";
 import { diffForHumans, formatDate } from "../../../Util/time";
-import img from './dead.jpg';
+import img from "./dead.jpg";
 
 const Banner = styled.div`
   margin: 0 0 0.5em;
@@ -82,7 +82,6 @@ const PermaBannedCharacter = styled.div`
   }
 `;
 
-
 const AccountBannedBanner = ({ bans }) => {
   const authContext = React.useContext(AuthContext);
   const ban = Array.isArray(bans) && bans.length > 0 ? bans[0] : null;
@@ -92,16 +91,19 @@ const AccountBannedBanner = ({ bans }) => {
       <FontAwesomeIcon fixedWidth icon={faBan} />
       <div>
         <h3>{ban?.entity?.category} Suspended</h3>
-        <p>Issued on: {formatDate(new Date(ban.issued_at * 1000))} by {ban?.issued_by?.name}.</p>
+        <p>
+          Issued on: {formatDate(new Date(ban.issued_at * 1000))} by {ban?.issued_by?.name}.
+        </p>
         {ban?.revoked_at && (
           <>
             Expires in&nbsp;
             <span title={formatDate(new Date(ban.revoked_at * 1000))}>
               {diffForHumans(new Date(ban.revoked_at * 1000))}
-            </span>.
+            </span>
+            .
           </>
         )}
-        
+
         <p>{ban?.reason}</p>
       </div>
     </Banner>
@@ -115,32 +117,34 @@ const AccountBannedPage = ({ ban }) => {
         <FontAwesomeIcon fixedWidth icon={faBan} />
         <h1>Access is Denied!</h1>
         <p>Because your {category.toLowerCase()} has been permanently banned.</p>
-        { reason && ( <p>{reason}</p> )}
+        {reason && <p>{reason}</p>}
       </BannedPage>
     ) : (
       <PermaBannedCharacter>
         <h1>You&lsquo;ve Been Banned!</h1>
-        <p>We&lsquo;d let you login, but you are as dead to us as the corpse in this image. Think this was a mistake? Contact leadership.</p>
-        { reason && ( <p style={{ paddingTop: "20px", maxWidth: "700px" }}>{reason}</p> )}
+        <p>
+          We&lsquo;d let you login, but you are as dead to us as the corpse in this image. Think
+          this was a mistake? Contact leadership.
+        </p>
+        {reason && <p style={{ paddingTop: "20px", maxWidth: "700px" }}>{reason}</p>}
       </PermaBannedCharacter>
     );
-  }
+  };
 
   const Temporary = ({ category, expires_at, reason }) => {
     return (
       <BannedPage>
         <FontAwesomeIcon fixedWidth icon={faExclamationTriangle} />
         <h1>Your Waitlist Account Has Been Suspended!</h1>
-        <p>Type: {category.toLowerCase()}, expires in: {diffForHumans(new Date(expires_at * 1000))}.</p>
-        { reason && ( <p>{reason}</p> )}
+        <p>
+          Type: {category.toLowerCase()}, expires in: {diffForHumans(new Date(expires_at * 1000))}.
+        </p>
+        {reason && <p>{reason}</p>}
       </BannedPage>
     );
   };
 
   return ban?.expires_at ? <Temporary {...ban} /> : <Permanent {...ban} />;
-}
-
-export {
-  AccountBannedPage,
-  AccountBannedBanner,
 };
+
+export { AccountBannedPage, AccountBannedBanner };
