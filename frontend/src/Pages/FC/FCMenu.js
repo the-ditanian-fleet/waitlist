@@ -9,7 +9,6 @@ import { Markdown } from "../../Components/Markdown";
 import styled from "styled-components";
 import {
   faGraduationCap,
-  faBan,
   faBiohazard,
   faChartLine,
   faCommentAlt,
@@ -104,9 +103,6 @@ export function FCMenu() {
     <>
       <PageTitle>FC Dashboard</PageTitle>
       <CardArray>
-        {authContext && authContext.access["bans-view"] && (
-          <GuideCard slug="bans" name="Bans" icon={faBan} />
-        )}
         {authContext && authContext.access["badges-manage"] && (
           <GuideCard slug="badges" name="Badges" icon={faShieldAlt} />
         )}

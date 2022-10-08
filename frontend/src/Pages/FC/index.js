@@ -1,7 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { AuthContext } from "../../contexts";
-import { BanRoutes } from "./Bans";
 import { Fleet, FleetRegister } from "./Fleet";
 import { Search } from "./Search";
 import { Statistics } from "./Statistics";
@@ -16,7 +15,6 @@ export function FCRoutes() {
   const authContext = React.useContext(AuthContext);
   return (
     <>
-      <BanRoutes />
       <BadgesPage />
       <CommandersPage />
 

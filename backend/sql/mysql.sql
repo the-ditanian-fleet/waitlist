@@ -1,9 +1,22 @@
 -- Permanent data store
 
+CREATE TABLE `alliance` (
+  `id` BIGINT PRIMARY KEY NOT NULL,
+  `name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `corporation` (
+  `id` BIGINT PRIMARY KEY NOT NULL,
+  `name` text NOT NULL,
+  `alliance_id` BIGINT NULL,
+  `updated_at` BIGINT NOT NULL,
+  CONSTRAINT `alliance_id` FOREIGN KEY (`alliance_id`) REFERENCES `alliance` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;;
+
 CREATE TABLE `character` (
-  `id` bigint NOT NULL,
+  `id` bigint PRIMARY KEY,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
+  `corporation_id` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`),
   FULLTEXT KEY `name` (`name`) WITH PARSER `ngram`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -43,13 +56,25 @@ CREATE TABLE `alt_character` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `ban` (
-  `kind` varchar(11) NOT NULL,
-  `id` bigint NOT NULL,
-  `expires_at` datetime DEFAULT NULL,
-  `reason` varchar(255) DeFAULT NULL,
-  `added_by` bigint DEFAULT NULL,
-  PRIMARY KEY (`kind`,`id`),
-  CONSTRAINT `ban_added_by_fk` FOREIGN KEY (`added_by`) REFERENCES `character` (`id`)
+  `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `entity_id` bigint NOT NULL,
+  `entity_name` varchar(64),
+  `entity_type` varchar(16) NOT NULL CHECK (
+    `entity_type` in (
+      'Account',
+      'Character',
+      'Corporation',
+      'Alliance'
+    )
+  ),
+  `issued_at` bigint NOT NULL,
+  `issued_by` bigint NOT NULL,
+  `public_reason` varchar(512),
+  `reason` varchar(512) NOT NULL,
+  `revoked_at` bigint,
+  `revoked_by` bigint NULL,
+  CONSTRAINT `issued_by` FOREIGN KEY (`issued_by`) REFERENCES `character` (`id`),
+  CONSTRAINT `revoked_by` FOREIGN KEY (`revoked_by`) REFERENCES `character` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `fitting` (
