@@ -4,7 +4,7 @@ use crate::{
     util::{
         madness::Madness,
         types::{Ban, Character, Entity},
-    },    
+    },
 };
 
 use rocket::serde::json::Json;

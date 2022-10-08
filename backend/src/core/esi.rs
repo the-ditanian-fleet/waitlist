@@ -221,7 +221,7 @@ impl ESIRawClient {
     pub async fn get_unauthenticated(&self, url: &str) -> Result<reqwest::Response, ESIError> {
         Ok(self.http.get(url).send().await?.error_for_status()?)
     }
-    
+
     pub async fn delete(
         &self,
         url: &str,

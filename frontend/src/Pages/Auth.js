@@ -47,9 +47,7 @@ export function AuthCallback() {
         // Force page refresh
         window.location.href = "/";
       } else if (response.status === 403) {
-        response.json().then((e) => setMessage(
-          <AccountBannedPage ban={e} />
-        ));
+        response.json().then((e) => setMessage(<AccountBannedPage ban={e} />));
       } else {
         setMessage(<p>An error occurred.</p>);
         response.text().then((text) => {
