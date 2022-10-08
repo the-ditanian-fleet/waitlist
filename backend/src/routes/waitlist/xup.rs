@@ -123,6 +123,24 @@ async fn xup_multi(
     for character_id in character_ids {
         authorize_character(app.get_db(), &account, character_id, None).await?;
 
+        if let Some(ban) = app.ban_service.character_bans(character_id).await? {
+            let first = ban.first().unwrap();
+            let entity = first.entity.as_ref().unwrap();
+            let err;
+
+            if entity.category == "Character" {
+                err = "You cannot join fleet as your character is banned.";
+            } else if entity.category == "Corporation" {
+                err = "You cannot join fleet as your corporation is banned.";
+            } else if entity.category == "Alliance" {
+                err = "You cannot join fleet as your alliance is banned.";
+            } else {
+                err = "You cannot join the waitlist as you are banned."
+            }
+
+            return Err(Madness::BadRequest(err.to_string()));
+        }
+
         let time_in_fleet = get_time_in_fleet(app.get_db(), character_id).await?;
         let implants = implants::get_implants(app, character_id).await?;
         let skills = skills::load_skills(&app.esi_client, app.get_db(), character_id).await?;
