@@ -41,10 +41,13 @@ async fn pilot_info(
             tags.push(badge.name.to_string());
         };
 
+    let active_bans = app.ban_service.character_bans(character.id).await?;
+
     Ok(Json(CharacterAndLevel {
         id: character.id,
         name: character.name,
         tags,
+        active_bans,
     }))
 }
 
