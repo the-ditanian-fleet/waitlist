@@ -216,6 +216,10 @@ impl ESIRawClient {
             .error_for_status()?)
     }
 
+    pub async fn get_unauthenticated(&self, url: &str) -> Result<reqwest::Response, ESIError> {
+        Ok(self.http.get(url).send().await?.error_for_status()?)
+    }
+    
     pub async fn delete(
         &self,
         url: &str,
@@ -429,6 +433,14 @@ impl ESIClient {
         let access_token = self.access_token(character_id, scope).await?;
         let url = format!("https://esi.evetech.net{}", path);
         Ok(self.raw.get(&url, &access_token).await?.json().await?)
+    }
+
+    pub async fn get_unauthenticated<D: serde::de::DeserializeOwned>(
+        &self,
+        path: &str,
+    ) -> Result<D, ESIError> {
+        let url = format!("https://esi.evetech.net{}", path);
+        Ok(self.raw.get_unauthenticated(&url).await?.json().await?)
     }
 
     pub async fn delete(
