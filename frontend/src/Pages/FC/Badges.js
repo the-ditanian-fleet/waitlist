@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { AuthContext } from "../../contexts";
 import { Button, Input, Select } from "../../Components/Form";
-import CharacterName from "../../Components/CharacterName";
+import { CharacterName } from "../../Components/EntityLinks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";

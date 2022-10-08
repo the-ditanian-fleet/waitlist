@@ -90,6 +90,7 @@ fn login_url(alt: bool, fc: bool, app: &rocket::State<app::Application>) -> Stri
             ESIScope::Fleets_ReadFleet_v1,
             ESIScope::Fleets_WriteFleet_v1,
             ESIScope::UI_OpenWindow_v1,
+            ESIScope::Search_v1,
         ])
     }
 

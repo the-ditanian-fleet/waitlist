@@ -60,3 +60,26 @@ Table.defaultProps = {
 };
 
 export default Table;
+
+const SortAlphabetical = (a, b) => a.localeCompare(b, { sensitivity: "base" });
+
+const MaxDate = new Date(8640000000000000);
+const SortDate = (a, b) => {
+  if (!a) a = MaxDate;
+  if (!b) b = MaxDate;
+  if (!(a instanceof Date)) a = new Date(a);
+  if (!(b instanceof Date)) b = new Date(b);
+  return a.getTime() - b.getTime();
+};
+
+const order = ["Character", "Corporation", "Alliance"];
+const SortByEntityCategory = (a, b) => {
+  if (order.indexOf(a.category) > order.indexOf(b.category)) {
+    return 1;
+  } else if (order.indexOf(a.category) < order.indexOf(b.category)) {
+    return -1;
+  }
+  return 0;
+};
+
+export { SortAlphabetical, SortByEntityCategory, SortDate };

@@ -7,9 +7,10 @@ import { Statistics } from "./Statistics";
 import { FleetCompHistory } from "./FleetCompHistory";
 import { NoteAdd } from "./NoteAdd";
 import { FCMenu, GuideFC } from "./FCMenu";
-import BadgesPage from "./Badges";
-import CommandersPage from "./Commanders";
 import AnnouncementsPage from "./Announcements";
+import BadgesPage from "./Badges";
+import BansPage from "./Bans";
+import CommandersPage from "./Commanders";
 
 export function FCRoutes() {
   const authContext = React.useContext(AuthContext);
@@ -18,6 +19,7 @@ export function FCRoutes() {
       <AnnouncementsPage />
       <BanRoutes />
       <BadgesPage />
+      <BansPage />
       <CommandersPage />
 
       <Route exact path="/fc">
