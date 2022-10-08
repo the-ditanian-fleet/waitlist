@@ -126,6 +126,11 @@ async fn callback(
         .process_authorization_code(input.code)
         .await?;
 
+    // Update the character's corporation and aliance information
+    app.affiliation_service
+        .update_character_affiliation(character_id)
+        .await?;
+
     let logged_in_account =
         if input.state.is_some() && input.state.unwrap() == "alt" && account.is_some() {
             let account = account.unwrap();
@@ -160,5 +165,5 @@ async fn callback(
 }
 
 pub fn routes() -> Vec<rocket::Route> {
-    routes![whoami, logout, login_url, callback,]
+    routes![whoami, logout, login_url, callback]
 }
