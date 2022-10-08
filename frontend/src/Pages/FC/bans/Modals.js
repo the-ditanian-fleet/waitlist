@@ -148,10 +148,10 @@ const Update = ({ ban, isOpen, setOpen, refreshFunction }) => {
       }
     }
     if (reason !== ban?.reason) {
-      setReason(ban?.reason);
+      setReason(reason);
     }
     if (public_reason !== ban?.public_reason) {
-      setPublicReason(ban?.public_reason);
+      setPublicReason(public_reason);
     }
   }, [ban?.public_reason, ban?.reason, ban?.revoked_at, public_reason, reason, revoked_at]);
 

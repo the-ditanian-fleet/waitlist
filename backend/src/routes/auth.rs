@@ -109,6 +109,14 @@ struct CallbackData<'r> {
     state: Option<&'r str>,
 }
 
+#[derive(Serialize)]
+struct PublicBanPayload {
+    category: String,
+    expires_at: Option<i64>,
+    reason: Option<String>,
+}
+
+
 #[post("/api/auth/cb", data = "<input>")]
 async fn callback(
     input: Json<CallbackData<'_>>,
@@ -131,6 +139,23 @@ async fn callback(
     app.affiliation_service
         .update_character_affiliation(character_id)
         .await?;
+
+    if let Some(ban) = app.ban_service.character_bans(character_id).await? {
+        let ban = ban.first().unwrap();
+
+        let payload = PublicBanPayload { 
+            category: ban.entity.to_owned().unwrap().category,
+            expires_at: ban.revoked_at,
+            reason: ban.public_reason.to_owned()
+        };
+
+        if let Ok(json) = serde_json::to_string(&payload) {
+            return Err(Madness::Forbidden(json));
+        }
+        return Err(Madness::BadRequest(format!(
+            "You cannot login due to a ban. An error occurred when trying to retreive the details, please contact council for more information."
+        )))
+    }
 
     let logged_in_account =
         if input.state.is_some() && input.state.unwrap() == "alt" && account.is_some() {
