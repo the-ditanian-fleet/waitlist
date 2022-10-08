@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { apiCall, errorToaster, toaster, useApi } from "../../../api";
 import { Box } from "../../../Components/Box";
-import CharacterName from "../../../Components/CharacterName";
+import { CharacterName } from "../../../Components/EntityLinks";
 import { Button, CenteredButtons } from "../../../Components/Form";
 import { Modal } from "../../../Components/Modal";
 import { Title } from "../../../Components/Page";

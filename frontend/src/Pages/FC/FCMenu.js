@@ -14,6 +14,7 @@ import {
   faCommentAlt,
   faShieldAlt,
   faUserShield,
+  faBan,
 } from "@fortawesome/free-solid-svg-icons";
 
 const guideData = {};
@@ -103,6 +104,9 @@ export function FCMenu() {
     <>
       <PageTitle>FC Dashboard</PageTitle>
       <CardArray>
+        {authContext && authContext.access["bans-manage"] && (
+          <GuideCard slug="bans" name="Bans" icon={faBan} />
+        )}
         {authContext && authContext.access["badges-manage"] && (
           <GuideCard slug="badges" name="Badges" icon={faShieldAlt} />
         )}

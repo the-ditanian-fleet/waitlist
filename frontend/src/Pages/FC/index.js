@@ -10,12 +10,14 @@ import { Announcements } from "./Announcements";
 import { FCMenu, GuideFC } from "./FCMenu";
 import BadgesPage from "./Badges";
 import CommandersPage from "./Commanders";
+import BansPage from "./Bans";
 
 export function FCRoutes() {
   const authContext = React.useContext(AuthContext);
   return (
     <>
       <BadgesPage />
+      <BansPage />
       <CommandersPage />
 
       <Route exact path="/fc">
