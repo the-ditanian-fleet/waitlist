@@ -9,7 +9,6 @@ import { Markdown } from "../../Components/Markdown";
 import styled from "styled-components";
 import {
   faGraduationCap,
-  faBan,
   faBiohazard,
   faChartLine,
   faShieldAlt,
