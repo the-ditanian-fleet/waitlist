@@ -141,19 +141,13 @@ const Update = ({ ban, isOpen, setOpen, refreshFunction }) => {
   };
 
   useEffect(() => {
-    if (revoked_at !== ban?.revoked_at) {
-      setRevokedAt(revoked_at);
-      if (!revoked_at) {
-        setPermanent(true);
-      }
+    setRevokedAt(ban?.revoked_at);
+    if (!ban?.revoked_at) {
+      setPermanent(true);
     }
-    if (reason !== ban?.reason) {
-      setReason(reason);
-    }
-    if (public_reason !== ban?.public_reason) {
-      setPublicReason(public_reason);
-    }
-  }, [ban?.public_reason, ban?.reason, ban?.revoked_at, public_reason, reason, revoked_at]);
+    setReason(ban?.reason);
+    setPublicReason(ban?.public_reason);
+  }, [ban?.revoked_at, ban?.reason, ban?.public_reason])
 
   return (
     <Modal open={isOpen} setOpen={setOpen}>
@@ -204,6 +198,7 @@ const Update = ({ ban, isOpen, setOpen, refreshFunction }) => {
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               style={TEXTAREA_STYLES}
+              required
             />
           </FormGroup>
 
@@ -219,7 +214,7 @@ const Update = ({ ban, isOpen, setOpen, refreshFunction }) => {
           </FormGroup>
 
           <CenteredButtons size={"90px"}>
-            <Button variant="secondary" onClick={() => setOpen(false)}>
+            <Button variant="secondary" type="button" onClick={() => setOpen(false)}>
               Cancel
             </Button>
             <Button variant="danger" type="submit" disabled={pending}>
