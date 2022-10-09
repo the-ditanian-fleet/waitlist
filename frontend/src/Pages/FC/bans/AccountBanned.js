@@ -68,6 +68,7 @@ const PermaBannedCharacter = styled.div`
   z-index: 10;
   background: url(${img}) no-repeat;
   background-size: cover;
+  color: #d5d5d5;
   h1 {
     text-align: center;
     margin-top: 30vh;

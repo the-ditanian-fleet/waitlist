@@ -89,7 +89,7 @@ impl BanService {
             JOIN
                 `character` as issuer ON issued_by=issuer.id
             WHERE
-                entity_id=? AND entity_type=? AND revoked_at IS NULL OR revoked_at > ?",
+                entity_id=? AND entity_type=? AND (revoked_at IS NULL OR revoked_at > ?)",
             entity_id,
             entity_type,
             now
