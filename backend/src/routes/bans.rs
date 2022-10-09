@@ -99,6 +99,14 @@ async fn create(
         ))
         .await?;
 
+    let expires_at = match req_body.revoked_at.as_ref() {
+        None => None,
+        Some(day) => {
+            let downtime = 60 * 60 * 11;
+            Some(day + downtime)
+        }
+    };
+    
     sqlx::query!(
         "INSERT INTO ban (entity_type, entity_id, entity_name, issued_at, issued_by, reason, public_reason, revoked_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         e.category,
@@ -108,14 +116,7 @@ async fn create(
         account.id,
         req_body.reason,
         req_body.public_reason,
-        match req_body.revoked_at.as_ref() {
-            None => None,
-            Some(day) => {
-                // Bans should expire at downtime - 1100 GMT
-                let downtime = 60 * 60 * 11;
-                Some(day + downtime)
-            }
-        },
+        expires_at,
     )
     .execute(app.get_db())
     .await?;
@@ -162,6 +163,14 @@ async fn update(
         )));
     }
 
+    let expires_at = match req_body.revoked_at.as_ref() {
+        None => None,
+        Some(day) => {
+            let downtime = 60 * 60 * 11;
+            Some(day + downtime)
+        }
+    };
+
     sqlx::query!(
         "UPDATE
             ban
@@ -175,14 +184,7 @@ async fn update(
           id=?",
         req_body.reason,
         req_body.public_reason,
-        match req_body.revoked_at.as_ref() {
-            None => None,
-            Some(day) => {
-                // Bans should expire at downtime - 1100 GMT
-                let downtime = 60 * 60 * 11;
-                Some(day + downtime)
-            }
-        },
+        expires_at,
         account.id,
         now,
         ban_id
