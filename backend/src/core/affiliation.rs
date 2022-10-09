@@ -58,9 +58,10 @@ impl AffiliationService {
             .await?;
         } else {
             sqlx::query!(
-                "UPDATE `character` SET name=?, corporation_id=?",
+                "UPDATE `character` SET name=?, corporation_id=? WHERE id=?",
                 character.name,
-                character.corporation_id
+                character.corporation_id,
+                id
             )
             .execute(self.db.as_ref())
             .await?;
