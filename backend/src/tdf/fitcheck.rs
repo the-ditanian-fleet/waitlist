@@ -217,6 +217,13 @@ impl<'a> FitChecker<'a> {
             ));
         }
 
+        if let Some(fit) = self.doctrine_fit {
+            if fit.name.contains("TDF_GUARD_HQ_BASIC") && self.pilot.skills.get(type_id!("Energy Grid Upgrades")) < 5 {
+                self.errors.push("Missing Engineering Skill: Energy Grid Upgrades 5 required".to_string());
+                self.approved = false;
+            }
+        }
+
         if self
             .fit
             .modules
