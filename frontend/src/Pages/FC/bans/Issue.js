@@ -40,13 +40,13 @@ const Small = styled.div`
 const EntityLink = (entity) => {
   switch (entity.category) {
     case "Character":
-      return <CharacterName {...entity} />;
+      return <CharacterName {...entity} noLink />;
 
     case "Corporation":
-      return <CorporationName {...entity} />;
+      return <CorporationName {...entity} noLink />;
 
     case "Alliance":
-      return <AllianceName {...entity} />;
+      return <AllianceName {...entity} noLink />;
 
     default:
       return entity.name;
