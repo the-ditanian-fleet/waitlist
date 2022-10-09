@@ -1,4 +1,6 @@
-DROP TABLE ban;
+DROP TABLE `ban`;
+DROP TABLE `alliance`;
+DROP TABLE `corporation`;
 
 CREATE TABLE `ban` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,4 +34,4 @@ CREATE TABLE `corporation` (
   `updated_at` bigint NOT NULL
 );
 
-ALTER TABLE ADD `corporation_id` bigint NULL REFERENCES `corporation` (`id`);
+ALTER TABLE `character` ADD `corporation_id` bigint NULL REFERENCES `corporation` (`id`);
