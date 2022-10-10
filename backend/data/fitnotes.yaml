@@ -18,7 +18,7 @@ notes:
       Skill exception: Logistics Cruiser 4
   - name: TDF_GUARD_HQ_BASIC
     description: >
-      Implant Required: EM-806
+      This fit requires the EM-806 Implant & Energy Grid Upgrades 5.
   - name: TDF_GUARD_HQ_ADVANCED
     description: >
       Implant Required: EM-806

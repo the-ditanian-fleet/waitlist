@@ -613,7 +613,7 @@ requirements:
     Power Grid Management:
       min: 5
     Energy Grid Upgrades:
-      min: 5
+      min: 4
     Cybernetics:
       min: 5
 
