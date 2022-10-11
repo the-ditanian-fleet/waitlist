@@ -1,4 +1,3 @@
-mod announcements;
 mod auth;
 mod badges;
 mod bans;
@@ -42,7 +41,6 @@ pub fn routes() -> Vec<rocket::Route> {
         notes::routes(),
         skillplans::routes(),
         fittings::routes(),
-        announcements::routes(),
     ]
     .concat()
 }
