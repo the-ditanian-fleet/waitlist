@@ -225,3 +225,15 @@ SELECT @logi_id := id FROM badge WHERE name='LOGI';
 SELECT @retired_logi_id := id FROM badge WHERE name='RETIRED-LOGI';
 UPDATE badge SET exclude_badge_id=@retired_logi_id WHERE id=@logi_id;
 UPDATE badge SET exclude_badge_id=@logi_id WHERE id=@retired_logi_id;
+
+CREATE TABLE announcement (
+	`id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+  `message` VARCHAR(512) NOT NULL,
+  `is_alert` BOOLEAN NOT NULL DEFAULT FALSE,
+  `created_by_id` BIGINT NOT NULL,
+  `created_at` BIGINT NOT NULL,
+  `revoked_by_id` BIGINT,
+  `revoked_at` BIGINT,
+  CONSTRAINT `announcement_by` FOREIGN KEY (`created_by_id`) REFERENCES `character` (`id`),
+  CONSTRAINT `announcement_revoked_by` FOREIGN KEY (`revoked_by_id`) REFERENCES `character` (`id`)
+);

@@ -1,7 +1,7 @@
 use eve_data_core::TypeID;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Debug, Clone)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
 pub struct Character {
     pub id: i64,
     pub name: String,

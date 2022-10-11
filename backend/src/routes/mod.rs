@@ -1,3 +1,4 @@
+mod announcements;
 mod auth;
 mod badges;
 mod bans;
@@ -21,6 +22,7 @@ mod window;
 
 pub fn routes() -> Vec<rocket::Route> {
     [
+        announcements::routes(),
         auth::routes(),
         sse::routes(),
         skills::routes(),
