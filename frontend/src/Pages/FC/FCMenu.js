@@ -14,6 +14,7 @@ import {
   faChartLine,
   faShieldAlt,
   faUserShield,
+  faBullhorn,
 } from "@fortawesome/free-solid-svg-icons";
 
 const guideData = {};
@@ -103,6 +104,9 @@ export function FCMenu() {
     <>
       <PageTitle>FC Dashboard</PageTitle>
       <CardArray>
+        {authContext && authContext.access["waitlist-tag:HQ-FC"] && (
+          <GuideCard slug="announcements" name="Announcements" icon={faBullhorn} />
+        )}
         {authContext && authContext.access["bans-view"] && (
           <GuideCard slug="bans" name="Bans" icon={faBan} />
         )}

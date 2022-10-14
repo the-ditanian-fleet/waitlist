@@ -10,11 +10,13 @@ import { NoteAdd } from "./NoteAdd";
 import { FCMenu, GuideFC } from "./FCMenu";
 import BadgesPage from "./Badges";
 import CommandersPage from "./Commanders";
+import AnnouncementsPage from "./Announcements";
 
 export function FCRoutes() {
   const authContext = React.useContext(AuthContext);
   return (
     <>
+      <AnnouncementsPage />
       <BanRoutes />
       <BadgesPage />
       <CommandersPage />
