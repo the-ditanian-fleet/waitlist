@@ -1,7 +1,7 @@
 DROP TABLE announcement;
 
 CREATE TABLE `announcement` (
-	`id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `message` VARCHAR(512) NOT NULL,
     `is_alert` BOOLEAN NOT NULL DEFAULT FALSE,
     `pages` TEXT,

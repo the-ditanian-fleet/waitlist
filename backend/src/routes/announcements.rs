@@ -164,10 +164,11 @@ async fn update(
     }
 
     sqlx::query!(
-        "UPDATE announcement SET message=?, is_alert=?, pages=? WHERE id=?",
+        "UPDATE announcement SET message=?, is_alert=?, pages=?, created_by_id=? WHERE id=?",
         body.message,
         body.is_alert,
         body.pages,
+        account.id,
         announcement_id
     )
     .execute(app.get_db())
