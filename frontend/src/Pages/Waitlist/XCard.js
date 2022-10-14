@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import styled, { ThemeContext } from "styled-components";
 import { ToastContext, AuthContext } from "../../contexts";
 import { apiCall, useApi, errorToaster } from "../../api";
@@ -23,7 +23,7 @@ import _ from "lodash";
 import { SkillDisplay } from "../../Components/SkillDisplay";
 import { Box } from "../../Components/Box";
 import { Title } from "../../Components/Page";
-import { Button, InputGroup } from "../../Components/Form";
+import { Button, Buttons } from "../../Components/Form";
 
 const badgeOrder = [
   "HQ-FC",
@@ -164,9 +164,10 @@ function ShipDisplay({ fit, onAction }) {
           <Modal open={true} setOpen={setModalOpen}>
             <Box>
               {authContext.access["waitlist-manage"] && (
-                <InputGroup style={{ marginBottom: "1em" }}>
+                <Buttons style={{ marginBlock: "1em", marginTop: "0px" }}>
                   <Button
                     variant="success"
+                    style={{ minWidth: "95px"}}
                     onClick={(evt) => {
                       setModalOpen(false);
                       errorToaster(toastContext, approveFit(fit.id)).then(onAction);
@@ -174,7 +175,10 @@ function ShipDisplay({ fit, onAction }) {
                   >
                     Approve
                   </Button>
+                  
                   <Button
+                    variant="danger"
+                    style={{ minWidth: "95px"}}
                     onClick={(evt) => {
                       var rejectionReason = prompt(
                         "Why is the fit being rejected? (Will be displayed to pilot)"
@@ -189,7 +193,7 @@ function ShipDisplay({ fit, onAction }) {
                   >
                     Reject
                   </Button>
-                </InputGroup>
+                </Buttons>
               )}
 
               <FitDisplay fit={fit} />
@@ -301,7 +305,8 @@ function NoteButton({ number }) {
 function InviteButton({ fitId, fcId, onAction }) {
   const themeContext = React.useContext(ThemeContext);
   const toastContext = React.useContext(ToastContext);
-  const [state, setState] = React.useState(undefined);
+  const [ state, setState ] = React.useState(undefined);
+  const [ inviteCount, inviteIncrement ] = useReducer((i) => i + 1, 0);
 
   const colours = {
     success: themeContext?.colors?.success?.color,
@@ -311,7 +316,7 @@ function InviteButton({ fitId, fcId, onAction }) {
 
   const onClick = async () => {
     setState("pending");
-
+    inviteIncrement();
     errorToaster(
       toastContext,
       apiCall("/api/waitlist/invite", {
@@ -338,11 +343,15 @@ function InviteButton({ fitId, fcId, onAction }) {
         transition: "background-color 300ms linear",
       }}
     >
-      <FontAwesomeIcon
-        fixedWidth
-        icon={state !== "pending" ? faPlus : faSpinner}
-        spin={state === "pending"}
-      />
+      { inviteCount < 2 ? (
+        <FontAwesomeIcon
+          fixedWidth
+          icon={state !== "pending" ? faPlus : faSpinner}
+          spin={state === "pending"}
+        />
+      ) : (
+        <NoteButton number={inviteCount} />
+      )}
     </a>
   );
 }
