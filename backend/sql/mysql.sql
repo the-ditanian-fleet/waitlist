@@ -99,16 +99,6 @@ CREATE TABLE `fleet_activity` (
   CONSTRAINT `fleet_activity_chk_2` CHECK ((`is_boss` in (0,1)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `announcement` (
-  `id` bigint NOT NULL,
-  `message` TEXT NOT NULL,
-  `character_id` bigint NOT NULL,
-  `created_at` bigint NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `character_id` (`character_id`),
-  CONSTRAINT `created_by` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE `skill_current` (
   `character_id` bigint NOT NULL,
   `skill_id` int NOT NULL,
@@ -235,3 +225,16 @@ SELECT @logi_id := id FROM badge WHERE name='LOGI';
 SELECT @retired_logi_id := id FROM badge WHERE name='RETIRED-LOGI';
 UPDATE badge SET exclude_badge_id=@retired_logi_id WHERE id=@logi_id;
 UPDATE badge SET exclude_badge_id=@logi_id WHERE id=@retired_logi_id;
+
+CREATE TABLE announcement (
+  `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+  `message` VARCHAR(512) NOT NULL,
+  `is_alert` BOOLEAN NOT NULL DEFAULT FALSE,
+  `pages` TEXT,
+  `created_by_id` BIGINT NOT NULL,
+  `created_at` BIGINT NOT NULL,
+  `revoked_by_id` BIGINT,
+  `revoked_at` BIGINT,
+  CONSTRAINT `announcement_by` FOREIGN KEY (`created_by_id`) REFERENCES `character` (`id`),
+  CONSTRAINT `announcement_revoked_by` FOREIGN KEY (`revoked_by_id`) REFERENCES `character` (`id`)
+);

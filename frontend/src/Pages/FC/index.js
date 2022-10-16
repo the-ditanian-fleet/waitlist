@@ -7,15 +7,16 @@ import { Search } from "./Search";
 import { Statistics } from "./Statistics";
 import { FleetCompHistory } from "./FleetCompHistory";
 import { NoteAdd } from "./NoteAdd";
-import { Announcements } from "./Announcements";
 import { FCMenu, GuideFC } from "./FCMenu";
 import BadgesPage from "./Badges";
 import CommandersPage from "./Commanders";
+import AnnouncementsPage from "./Announcements";
 
 export function FCRoutes() {
   const authContext = React.useContext(AuthContext);
   return (
     <>
+      <AnnouncementsPage />
       <BanRoutes />
       <BadgesPage />
       <CommandersPage />
@@ -49,11 +50,6 @@ export function FCRoutes() {
       {authContext.access["fleet-view"] && (
         <Route exact path="/fc/trainee">
           <GuideFC />
-        </Route>
-      )}
-      {authContext.access["waitlist-tag:HQ-FC"] && (
-        <Route exact path="/fc/announcement">
-          <Announcements />
         </Route>
       )}
     </>

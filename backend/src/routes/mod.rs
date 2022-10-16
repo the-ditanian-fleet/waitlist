@@ -22,6 +22,7 @@ mod window;
 
 pub fn routes() -> Vec<rocket::Route> {
     [
+        announcements::routes(),
         auth::routes(),
         sse::routes(),
         skills::routes(),
@@ -42,7 +43,6 @@ pub fn routes() -> Vec<rocket::Route> {
         notes::routes(),
         skillplans::routes(),
         fittings::routes(),
-        announcements::routes(),
     ]
     .concat()
 }

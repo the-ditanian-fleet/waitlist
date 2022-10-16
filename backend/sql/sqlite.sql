@@ -87,14 +87,6 @@ CREATE TABLE `fleet_activity` (
   CONSTRAINT `fleet_activity_chk_2` CHECK ((`is_boss` in (0,1)))
 );
 
-CREATE TABLE `announcement` (
-  `id` INTEGER PRIMARY KEY NOT NULL,
-  `message` TEXT NOT NULL,
-  `character_id` bigint NOT NULL,
-  `created_at` bigint NOT NULL,
-   CONSTRAINT `created_by` FOREIGN KEY (`character_id`) REFERENCES `character` (`id`)
-);
-
 CREATE TABLE `skill_current` (
   `character_id` bigint NOT NULL,
   `skill_id` int4 NOT NULL,
@@ -210,3 +202,16 @@ INSERT INTO badge (name) VALUES ('WEB');
 -- Logi and Retired logi are exclusive, update rows to reflect this
 UPDATE badge SET exclude_badge_id=(SELECT id FROM badge WHERE name='LOGI') WHERE id=(SELECT id WHERE name='RETIRED-LOGI');
 UPDATE badge SET exclude_badge_id=(SELECT id FROM badge WHERE name='RETIRED-LOGI') WHERE id=(SELECT id WHERE name='LOGI');
+
+CREATE TABLE `announcement` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+  `message` VARCHAR(512) NOT NULL,
+  `is_alert` BOOLEAN NOT NULL DEFAULT FALSE,
+  `pages` TEXT,
+  `created_by_id` BIGINT NOT NULL,
+  `created_at` BIGINT NOT NULL,
+  `revoked_by_id` BIGINT,
+  `revoked_at` BIGINT,
+  CONSTRAINT `announcement_by` FOREIGN KEY (`created_by_id`) REFERENCES `character` (`id`),
+  CONSTRAINT `announcement_revoked_by` FOREIGN KEY (`revoked_by_id`) REFERENCES `character` (`id`)
+);

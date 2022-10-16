@@ -10,6 +10,7 @@ import { Container } from "react-awesome-styled-grid";
 import { Menu } from "./Menu";
 import "./reset.css";
 import theme from "./theme.js";
+import AnnouncementBanner from "../Components/AnnouncementBanner";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -131,6 +132,7 @@ export default class App extends React.Component {
                         }
                       }}
                     />
+                    <AnnouncementBanner />
                     <Switch>
                       <Routes />
                     </Switch>

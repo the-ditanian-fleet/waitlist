@@ -1,186 +1,115 @@
-import React from "react";
-import { apiCall, toaster, useApi } from "../../api";
-import { Button, InputGroup, Textarea, Buttons } from "../../Components/Form";
-import { CellHead, Table, TableHead, Row, TableBody, Cell } from "../../Components/Table";
-import { ToastContext } from "../../contexts";
-import { PageTitle } from "../../Components/Page";
+import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { ThemeContext } from "styled-components";
-import { Modal } from "../../Components/Modal";
-import { Box } from "../../Components/Box";
-import { Title } from "../../Components/Page";
+import React from "react";
+import { Route } from "react-router-dom";
+import styled from "styled-components";
+import { apiCall, errorToaster, useApi } from "../../api";
+import CharacterName from "../../Components/CharacterName";
+import Table from "../../Components/DataTable";
+import { Button } from "../../Components/Form";
+import { AuthContext, ToastContext } from "../../contexts";
+import { AddAnnouncement, UpdateAnnouncement } from "./announcements/Modals";
 
-// If new entries are wanted they can be added here. Only admins can initialize them (by editing announcement)
-const announcelocations = {
-  Home: 1,
-  Waitlist: 2,
-  "X-UP": 3,
-  Fits: 4,
+const AnnouncementsPage = () => {
+  const authContext = React.useContext(AuthContext);
+
+  return authContext && authContext.access["waitlist-tag:HQ-FC"] ? (
+    <Route exact path="/fc/announcements">
+      <View />
+    </Route>
+  ) : (
+    <></>
+  );
 };
 
-async function changeAnnouncement(id, message) {
-  await apiCall("/api/announcement/write", {
-    json: {
-      id: id,
-      message,
-    },
+export default AnnouncementsPage;
+
+const Header = styled.div`
+  padding-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+
+  h1 {
+    font-size: 32px;
+  }
+`;
+
+async function deleteAnnouncement(id) {
+  return await apiCall(`/api/v2/announcements/${id}`, {
+    method: "DELETE",
   });
 }
 
-function AnnounceEditRemove({ toastContext, id, announcement, onAction }) {
+const View = () => {
+  const [announcements, updateData] = useApi(`/api/v2/announcements`);
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [message, setMessage] = React.useState(announcement ? announcement.message : "");
-  return (
-    <>
-      {modalOpen ? (
-        <Modal open={true} setOpen={setModalOpen}>
-          <Box>
-            <Title>Edit</Title>
-            <Textarea
-              style={{ width: "100%", marginBottom: "1em" }}
-              onChange={(evt) => setMessage(evt.target.value)}
-              value={message}
-              rows="5"
-              cols="60"
-            />
-            <Buttons>
-              <Button
-                variant="success"
-                onClick={(evt) => {
-                  toaster(toastContext, changeAnnouncement(id, message)).then(onAction);
-                  setModalOpen(false);
-                }}
-              >
-                Confirm
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={(evt) => {
-                  setModalOpen(false);
-                }}
-              >
-                Cancel
-              </Button>
-              <AnnounceRemove
-                toastContext={toastContext}
-                id={id}
-                onAction={onAction}
-                setMessage={setMessage}
-              />
-            </Buttons>
-          </Box>
-        </Modal>
-      ) : null}
 
-      <Button variant="secondary" onClick={(evt) => setModalOpen(true)}>
-        Edit
-      </Button>
-      <AnnounceRemove
-        toastContext={toastContext}
-        id={id}
-        onAction={onAction}
-        setMessage={setMessage}
-      />
-    </>
-  );
-}
-
-function AnnounceRemove({ toastContext, id, onAction, setMessage }) {
-  return (
-    <Button
-      variant="danger"
-      onClick={(evt) => {
-        toaster(toastContext, changeAnnouncement(id, "")).then(onAction);
-        setMessage("");
-      }}
-    >
-      <FontAwesomeIcon icon={faTimes} />
-    </Button>
-  );
-}
-
-function CurrentAnnouncement({ announcement }) {
-  const theme = React.useContext(ThemeContext);
-  var out = "NOT INITIALIZED";
-  var statuscolor = theme.colors.danger.color;
-
-  if (announcement) {
-    out = announcement.message;
-    if (out === "") {
-      out = "Disabled by " + announcement.created_by;
-    } else {
-      statuscolor = theme.colors.success.color;
-    }
-  }
-
-  return (
-    <>
-      <div style={{ display: "flex" }}>
-        <div>
-          <FontAwesomeIcon style={{ marginRight: "0.4em", color: statuscolor }} icon={faCircle} />
-        </div>{" "}
-        <div style={{ wordBreak: "break-word", whiteSpace: "pre-line" }}>{out}</div>
-      </div>
-    </>
-  );
-}
-
-function ControlTable({ announceList, toastContext, onAction }) {
-  return (
-    <Table fullWidth>
-      <TableHead>
-        <Row>
-          <CellHead style={{ width: "15%" }}>Location</CellHead>
-          <CellHead style={{ width: "60%" }}>Current</CellHead>
-          <CellHead></CellHead>
-        </Row>
-      </TableHead>
-      <TableBody>
-        {Object.keys(announcelocations).map((key, index) => (
-          <Row key={index}>
-            <Cell>{key}</Cell>
-            <Cell>
-              <CurrentAnnouncement
-                announcement={
-                  announceList.filter((entry) => entry.id === announcelocations[key])[0]
-                }
-              />
-            </Cell>
-            <Cell>
-              <InputGroup>
-                <AnnounceEditRemove
-                  toastContext={toastContext}
-                  id={announcelocations[key]}
-                  announcement={
-                    announceList.filter((entry) => entry.id === announcelocations[key])[0]
-                  }
-                  onAction={onAction}
-                />
-              </InputGroup>
-            </Cell>
-          </Row>
-        ))}
-      </TableBody>
-    </Table>
-  );
-}
-
-export function Announcements() {
   const toastContext = React.useContext(ToastContext);
-  const [announcements, refreshAnnouncements] = useApi("/api/announcement/read");
 
-  if (!announcements) {
-    return <em>Loading</em>;
-  }
+  const columns = [
+    {
+      name: "Content",
+      grow: 5,
+      selector: (row) => row.message,
+      wrap: true,
+    },
+    {
+      name: "Pages",
+      selector: (row) => {
+        const pages = row.pages;
+        if (!pages) return "All";
+        return JSON.parse(pages).join(", ");
+      },
+      wrap: true,
+    },
+    {
+      name: "Created By",
+      selector: (row) => <CharacterName {...row.created_by} />,
+    },
+    {
+      name: "",
+      maxWidth: "115px",
+      selector: (row) => <UpdateAnnouncement {...{ data: row, refreshFunction: updateData }} />,
+    },
+    {
+      name: "",
+      maxWidth: "110px",
+      selector: (row) => (
+        <Button
+          variant="danger"
+          onClick={() => errorToaster(toastContext, deleteAnnouncement(row.id).then(updateData))}
+        >
+          Delete
+        </Button>
+      ),
+    },
+  ];
+
   return (
     <>
-      <PageTitle>Announcement configurator</PageTitle>
-      <ControlTable
-        announceList={announcements.list}
-        toastContext={toastContext}
-        onAction={refreshAnnouncements}
+      <Header>
+        <h1>Announcements</h1>
+
+        <Button
+          variant={"primary"}
+          onClick={() => setModalOpen(true)}
+          style={{ marginTop: "15px" }}
+        >
+          <FontAwesomeIcon fixedWidth icon={faBullhorn} style={{ marginRight: "10px" }} />
+          New
+        </Button>
+      </Header>
+
+      <Table
+        columns={columns}
+        data={announcements ?? []}
+        pagination={false}
+        progressPending={!announcements}
       />
+
+      <AddAnnouncement isOpen={modalOpen} setOpen={setModalOpen} refreshFunction={updateData} />
     </>
   );
-}
+};

@@ -12,9 +12,9 @@ import {
   faBan,
   faBiohazard,
   faChartLine,
-  faCommentAlt,
   faShieldAlt,
   faUserShield,
+  faBullhorn,
 } from "@fortawesome/free-solid-svg-icons";
 
 const guideData = {};
@@ -104,6 +104,9 @@ export function FCMenu() {
     <>
       <PageTitle>FC Dashboard</PageTitle>
       <CardArray>
+        {authContext && authContext.access["waitlist-tag:HQ-FC"] && (
+          <GuideCard slug="announcements" name="Announcements" icon={faBullhorn} />
+        )}
         {authContext && authContext.access["bans-view"] && (
           <GuideCard slug="bans" name="Bans" icon={faBan} />
         )}
@@ -121,9 +124,6 @@ export function FCMenu() {
           authContext.access["search"] && ( //any full FC
             <GuideCard slug="documentation" name="FC Documentation" icon={faBiohazard} />
           )}
-        {authContext && authContext.access["waitlist-tag:HQ-FC"] && (
-          <GuideCard slug="announcement" name="Announcements" icon={faCommentAlt} />
-        )}
         {authContext && authContext.access["stats-view"] && (
           <GuideCard slug="stats" name="Statistics" icon={faChartLine} />
         )}

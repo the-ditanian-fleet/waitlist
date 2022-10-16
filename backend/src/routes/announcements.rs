@@ -1,107 +1,257 @@
-use crate::{app::Application, core::auth::AuthenticatedAccount, util::madness::Madness};
+use crate::{
+    app::Application,
+    core::{auth::AuthenticatedAccount, sse::Event},
+    util::{madness::Madness, types::Character},
+};
+
 use rocket::serde::json::Json;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize)]
-struct AnnouncementEntry {
+#[derive(Deserialize, Serialize)]
+struct Announcement {
     id: i64,
+    message: String,
+    is_alert: bool,
+    pages: Option<String>,
+    created_by_id: i64,
     created_at: i64,
-    created_by: String,
+    revoked_by_id: Option<i64>,
+    revoked_at: Option<i64>,
+}
+
+#[derive(Deserialize)]
+struct RequestPayload {
     message: String,
+    is_alert: bool,
+    pages: Option<String>,
 }
 
-#[derive(Debug, Serialize)]
-struct AnnouncementResponseList {
-    list: Vec<AnnouncementEntry>,
-}
-
-#[derive(Debug, Deserialize)]
-struct ChangeAnnouncement {
+#[derive(Serialize)]
+struct AnnouncementPayload {
+    id: i64,
     message: String,
-    id: i64,
+    is_alert: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pages: Option<String>,
+    created_by: Option<Character>,
+    created_at: i64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    revoked_by: Option<Character>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    revoked_at: Option<i64>,
 }
 
-#[get("/api/announcement/read?<id>")]
-async fn read_announcement(
-    id: i64,
-    app: &rocket::State<Application>,
-) -> Result<Json<AnnouncementEntry>, Madness> {
-    let announcement = sqlx::query!("SELECT announcement.id, announcement.message, announcement.created_at, character.name FROM announcement INNER JOIN `character` ON character.id = announcement.character_id WHERE announcement.id=?", id)
+async fn get_active_announcements(app: &Application) -> Result<Vec<AnnouncementPayload>, Madness> {
+    let announcements: Vec<Announcement> = sqlx::query_as!(
+        Announcement,
+        "SELECT
+        id,
+        message,
+        is_alert AS `is_alert!: bool`,
+        pages,
+        created_by_id,
+        created_at,
+        revoked_by_id,
+        revoked_at
+      FROM
+        announcement
+      WHERE
+        revoked_at IS NULL"
+    )
+    .fetch_all(app.get_db())
+    .await?;
+
+    let mut payloads = Vec::new();
+
+    for a in announcements {
+        let created_by = sqlx::query_as!(
+            Character,
+            "SELECT * FROM `character` WHERE id=?",
+            a.created_by_id
+        )
         .fetch_optional(app.get_db())
         .await?;
-    if announcement.is_none() {
-        return Err(Madness::BadRequest(format!(
-            "Unknown announcement with ID {}",
-            id
-        )));
+
+        payloads.push(AnnouncementPayload {
+            id: a.id,
+            message: a.message,
+            is_alert: a.is_alert,
+            pages: a.pages,
+            created_by,
+            created_at: a.created_at,
+            revoked_by: None,
+            revoked_at: None,
+        });
     }
-    let entry = announcement.unwrap();
-    Ok(Json(AnnouncementEntry {
-        id: entry.id,
-        created_at: entry.created_at,
-        created_by: entry.name,
-        message: entry.message,
-    }))
+
+    Ok(payloads)
 }
 
-#[get("/api/announcement/read")]
-async fn list_announcement(
-    app: &rocket::State<Application>,
-) -> Result<Json<AnnouncementResponseList>, Madness> {
-    let announcements = sqlx::query!("SELECT announcement.id, announcement.message, announcement.created_at, character.name FROM announcement INNER JOIN `character` WHERE character.id = announcement.character_id")
-        .fetch_all(app.get_db())
-        .await?
-		.into_iter()
-    .map(|entry|
-	AnnouncementEntry {
-		id: entry.id,
-        created_at: entry.created_at,
-        created_by: entry.name,
-        message: entry.message,
-     }
-	)
-    .collect();
-    Ok(Json(AnnouncementResponseList {
-        list: announcements,
-    }))
+#[get("/api/v2/announcements")]
+async fn list(app: &rocket::State<Application>) -> Result<Json<Vec<AnnouncementPayload>>, Madness> {
+    let payloads = get_active_announcements(app).await?;
+    return Ok(Json(payloads));
 }
 
-#[post("/api/announcement/write", data = "<input>")]
-async fn change_announcement(
+#[post("/api/v2/announcements", data = "<body>")]
+async fn create(
     account: AuthenticatedAccount,
     app: &rocket::State<Application>,
-    input: Json<ChangeAnnouncement>,
+    body: Json<RequestPayload>,
 ) -> Result<&'static str, Madness> {
     account.require_access("waitlist-tag:HQ-FC")?;
+
     let now = chrono::Utc::now().timestamp();
-    let entry = sqlx::query!("SELECT * from announcement WHERE id=?", input.id)
-        .fetch_optional(app.get_db())
-        .await?;
-    if entry.is_none() {
-        sqlx::query!(
-            "INSERT INTO announcement (id, message, character_id, created_at) VALUES (?, ?, ?, ?)",
-            input.id,
-            input.message,
-            account.id,
-            now,
-        )
-        .execute(app.get_db())
-        .await?;
-    }
 
     sqlx::query!(
-        "UPDATE announcement SET message=?, character_id=?, created_at=? WHERE id=?",
-        input.message,
+        "INSERT INTO announcement (message, is_alert, pages, created_by_id, created_at) VALUES (?, ?, ?, ?, ?)",
+        body.message,
+        body.is_alert,
+        body.pages,
         account.id,
-        now,
-        input.id,
+        now
     )
     .execute(app.get_db())
     .await?;
 
-    Ok("OK")
+    // Send an updated array of announcements to users active on the site
+    let payloads = get_active_announcements(app).await?;
+
+    app.sse_client
+        .submit(vec![Event::new_json(
+            "announcments",
+            "announcment;new",
+            &payloads,
+        )])
+        .await?;
+
+    return Ok("Ok");
+}
+
+#[put("/api/v2/announcements/<announcement_id>", data = "<body>")]
+async fn update(
+    account: AuthenticatedAccount,
+    app: &rocket::State<Application>,
+    announcement_id: i64,
+    body: Json<RequestPayload>,
+) -> Result<&'static str, Madness> {
+    account.require_access("waitlist-tag:HQ-FC")?;
+
+    let announcement: Option<Announcement> = sqlx::query_as!(
+        Announcement,
+        "SELECT
+          id,
+          message,
+          is_alert AS `is_alert!: bool`,
+          pages,
+          created_by_id,
+          created_at,
+          revoked_by_id,
+          revoked_at
+        FROM
+          announcement
+        WHERE
+          id=? AND revoked_at IS NULL",
+        announcement_id
+    )
+    .fetch_optional(app.get_db())
+    .await?;
+
+    if announcement.is_none() {
+        return Err(Madness::BadRequest(format!(
+            "Announcment could not be found."
+        )));
+    }
+
+    sqlx::query!(
+        "UPDATE announcement SET message=?, is_alert=?, pages=?, created_by_id=? WHERE id=?",
+        body.message,
+        body.is_alert,
+        body.pages,
+        account.id,
+        announcement_id
+    )
+    .execute(app.get_db())
+    .await?;
+
+    // Send an updated array of announcements to users active on the site
+    let payloads = get_active_announcements(app).await?;
+
+    app.sse_client
+        .submit(vec![Event::new_json(
+            "announcments",
+            "announcment;updated",
+            &payloads,
+        )])
+        .await?;
+
+    return Ok("Ok");
+}
+
+#[delete("/api/v2/announcements/<announcement_id>")]
+async fn revoke(
+    account: AuthenticatedAccount,
+    app: &rocket::State<Application>,
+    announcement_id: i64,
+) -> Result<&'static str, Madness> {
+    account.require_access("waitlist-tag:HQ-FC")?;
+
+    let announcement: Option<Announcement> = sqlx::query_as!(
+        Announcement,
+        "SELECT
+          id,
+          message,
+          is_alert AS `is_alert!: bool`,
+          pages,
+          created_by_id,
+          created_at,
+          revoked_by_id,
+          revoked_at
+        FROM
+          announcement
+        WHERE
+          id=? AND revoked_at IS NULL",
+        announcement_id
+    )
+    .fetch_optional(app.get_db())
+    .await?;
+
+    if announcement.is_none() {
+        return Err(Madness::BadRequest(format!(
+            "Announcment could not be found or has already been deleted."
+        )));
+    }
+
+    let now = chrono::Utc::now().timestamp();
+
+    sqlx::query!(
+        "UPDATE announcement SET revoked_by_id=?, revoked_at=? WHERE id=?",
+        account.id,
+        now,
+        announcement_id
+    )
+    .execute(app.get_db())
+    .await?;
+
+    // Send an updated array of announcements to users active on the site
+    let payloads = get_active_announcements(app).await?;
+
+    app.sse_client
+        .submit(vec![Event::new_json(
+            "announcments",
+            "announcment;updated",
+            &payloads,
+        )])
+        .await?;
+
+    return Ok("Ok");
 }
 
 pub fn routes() -> Vec<rocket::Route> {
-    routes![read_announcement, change_announcement, list_announcement]
+    routes![
+        list,   // GET      /api/v2/announcements
+        create, // POST     /api/v2/announcements
+        update, // PUT      /api/v2/announcements/<announcements_id>
+        revoke, // DELETE   /api/v2/announcements/<announcements_id>
+    ]
 }
