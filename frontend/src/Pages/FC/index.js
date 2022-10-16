@@ -11,13 +11,13 @@ import AnnouncementsPage from "./Announcements";
 import BadgesPage from "./Badges";
 import BansPage from "./Bans";
 import CommandersPage from "./Commanders";
+import BansPage from "./Bans";
 
 export function FCRoutes() {
   const authContext = React.useContext(AuthContext);
   return (
     <>
       <AnnouncementsPage />
-      <BanRoutes />
       <BadgesPage />
       <BansPage />
       <CommandersPage />
