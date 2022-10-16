@@ -61,6 +61,7 @@ async fn list(
             issued_by: Some(Character {
                 id: ban.issued_by_id,
                 name: ban.issued_by_name,
+                corporation_id: None,
             }),
             reason: ban.reason,
             public_reason: ban.public_reason,
@@ -106,7 +107,7 @@ async fn create(
             Some(day + downtime)
         }
     };
-    
+
     sqlx::query!(
         "INSERT INTO ban (entity_type, entity_id, entity_name, issued_at, issued_by, reason, public_reason, revoked_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         e.category,

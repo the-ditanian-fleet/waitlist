@@ -167,7 +167,7 @@ function ShipDisplay({ fit, onAction }) {
                 <Buttons style={{ marginBlock: "1em", marginTop: "0px" }}>
                   <Button
                     variant="success"
-                    style={{ minWidth: "95px"}}
+                    style={{ minWidth: "95px" }}
                     onClick={(evt) => {
                       setModalOpen(false);
                       errorToaster(toastContext, approveFit(fit.id)).then(onAction);
@@ -175,10 +175,10 @@ function ShipDisplay({ fit, onAction }) {
                   >
                     Approve
                   </Button>
-                  
+
                   <Button
                     variant="danger"
-                    style={{ minWidth: "95px"}}
+                    style={{ minWidth: "95px" }}
                     onClick={(evt) => {
                       var rejectionReason = prompt(
                         "Why is the fit being rejected? (Will be displayed to pilot)"
@@ -305,8 +305,8 @@ function NoteButton({ number }) {
 function InviteButton({ fitId, fcId, onAction }) {
   const themeContext = React.useContext(ThemeContext);
   const toastContext = React.useContext(ToastContext);
-  const [ state, setState ] = React.useState(undefined);
-  const [ inviteCount, inviteIncrement ] = useReducer((i) => i + 1, 0);
+  const [state, setState] = React.useState(undefined);
+  const [inviteCount, inviteIncrement] = useReducer((i) => i + 1, 0);
 
   const colours = {
     success: themeContext?.colors?.success?.color,
@@ -343,7 +343,7 @@ function InviteButton({ fitId, fcId, onAction }) {
         transition: "background-color 300ms linear",
       }}
     >
-      { inviteCount < 2 ? (
+      {inviteCount < 2 ? (
         <FontAwesomeIcon
           fixedWidth
           icon={state !== "pending" ? faPlus : faSpinner}

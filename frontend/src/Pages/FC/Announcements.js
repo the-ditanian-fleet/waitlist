@@ -4,7 +4,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import styled from "styled-components";
 import { apiCall, errorToaster, useApi } from "../../api";
-import CharacterName from "../../Components/CharacterName";
+import { CharacterName } from "../../Components/EntityLinks";
 import Table from "../../Components/DataTable";
 import { Button } from "../../Components/Form";
 import { AuthContext, ToastContext } from "../../contexts";

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
 import { AuthContext } from "../../../contexts";
-import { diffForHumans, formatDate } from "../../../Util/time";
+import { timeTillNow, formatDate } from "../../../Util/time";
 import img from "./dead.jpg";
 
 const Banner = styled.div`
@@ -99,7 +99,7 @@ const AccountBannedBanner = ({ bans }) => {
           <>
             Expires in&nbsp;
             <span title={formatDate(new Date(ban.revoked_at * 1000))}>
-              {diffForHumans(new Date(ban.revoked_at * 1000))}
+              {timeTillNow(new Date(ban.revoked_at * 1000))}
             </span>
             .
           </>
@@ -138,7 +138,7 @@ const AccountBannedPage = ({ ban }) => {
         <FontAwesomeIcon fixedWidth icon={faExclamationTriangle} />
         <h1>Your Waitlist Account Has Been Suspended!</h1>
         <p>
-          Type: {category.toLowerCase()}, expires in: {diffForHumans(new Date(expires_at * 1000))}.
+          Type: {category.toLowerCase()}, expires in: {timeTillNow(new Date(expires_at * 1000))}.
         </p>
         {reason && <p>{reason}</p>}
       </BannedPage>

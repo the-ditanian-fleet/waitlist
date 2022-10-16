@@ -349,7 +349,7 @@ theme["Vanilla"] = _.merge({}, theme.Dark, {
   sticker: "https://i.imgur.com/8JN6udB.png",
 });
 
-Object.keys(theme).forEach(key => {
+Object.keys(theme).forEach((key) => {
   theme[key].name = key;
 });
 

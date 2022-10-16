@@ -4,7 +4,7 @@ import { apiCall } from "../api";
 import { AuthContext, EventContext } from "../contexts";
 import { useHistory } from "react-router-dom";
 import { options } from "../Pages/FC/announcements/page-options";
-import CharacterName from "./CharacterName";
+import { CharacterName } from "./EntityLinks";
 import { timeTillNow } from "../Util/time";
 
 const AnnouncementBar = styled.div`

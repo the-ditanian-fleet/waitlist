@@ -6,10 +6,10 @@ import { ThemeContext } from "styled-components";
 
 const Table = (props) => {
   const themeContext = React.useContext(ThemeContext);
-  
+
   // Create a table theme for each waitlist theme
-  Object.entries(themes).forEach(entry => {
-    const [ key, value ] = entry;
+  Object.entries(themes).forEach((entry) => {
+    const [key, value] = entry;
     createTheme(
       `TDF-${key}`,
       {

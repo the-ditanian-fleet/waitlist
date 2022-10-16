@@ -1,6 +1,6 @@
-DROP TABLE `ban`;
-DROP TABLE `alliance`;
-DROP TABLE `corporation`;
+DROP TABLE IF EXISTS `ban`;
+DROP TABLE IF EXISTS `alliance`;
+DROP TABLE IF EXISTS `corporation`;
 
 CREATE TABLE `ban` (
   `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,

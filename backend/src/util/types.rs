@@ -5,6 +5,8 @@ use serde::{Deserialize, Serialize};
 pub struct Character {
     pub id: i64,
     pub name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub corporation_id: Option<i64>,
 }
 
 #[derive(Serialize, Debug)]

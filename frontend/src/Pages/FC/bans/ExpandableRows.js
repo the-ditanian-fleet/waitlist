@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { CharacterName } from "../../../Components/EntityLinks";
-import { diffForHumans, formatDate, formatDatetime } from "../../../Util/time";
+import { timeTillNow, formatDate, formatDatetime } from "../../../Util/time";
 import { Buttons } from "../../../Components/Form";
 import { RevokeButton, UpdateButton } from "./TableControls";
 const DetailBlock = styled.div`
@@ -72,7 +72,7 @@ const ExpandableRowsComponent = ({ data, refreshFunction }) => {
           <div>
             <p>Expires In:</p>
             <span title={formatDate(new Date(data.revoked_at * 1000))}>
-              {diffForHumans(new Date(data.revoked_at * 1000))}
+              {timeTillNow(new Date(data.revoked_at * 1000))}
             </span>
           </div>
         )}

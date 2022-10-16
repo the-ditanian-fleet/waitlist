@@ -147,7 +147,7 @@ const Update = ({ ban, isOpen, setOpen, refreshFunction }) => {
     }
     setReason(ban?.reason);
     setPublicReason(ban?.public_reason);
-  }, [ban?.revoked_at, ban?.reason, ban?.public_reason])
+  }, [ban?.revoked_at, ban?.reason, ban?.public_reason]);
 
   return (
     <Modal open={isOpen} setOpen={setOpen}>

@@ -114,6 +114,7 @@ impl BanService {
                 issued_by: Some(Character {
                     id: ban.issued_by_id,
                     name: ban.issued_by_name,
+                    corporation_id: None,
                 }),
                 reason: ban.reason,
                 public_reason: ban.public_reason,
@@ -174,6 +175,7 @@ impl BanService {
                 issued_by: Some(Character {
                     id: ban.issued_by_id,
                     name: ban.issued_by_name,
+                    corporation_id: None,
                 }),
                 reason: ban.reason,
                 public_reason: ban.public_reason,
@@ -182,6 +184,7 @@ impl BanService {
                     Some(id) => Some(Character {
                         id,
                         name: "".to_string(),
+                        corporation_id: None,
                     }),
                     None => None,
                 },
@@ -198,6 +201,7 @@ impl BanService {
                     b.revoked_by = Some(Character {
                         id: revoked_by.id,
                         name: row.unwrap().name,
+                        corporation_id: None,
                     })
                 }
             }

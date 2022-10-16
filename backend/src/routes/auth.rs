@@ -24,6 +24,7 @@ async fn whoami(
     let mut characters = vec![types::Character {
         id: character.id,
         name: character.name,
+        corporation_id: None,
     }];
 
     let alts = sqlx::query!(
@@ -37,6 +38,7 @@ async fn whoami(
         characters.push(types::Character {
             id: alt.id,
             name: alt.name,
+            corporation_id: None,
         });
     }
 

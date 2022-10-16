@@ -128,6 +128,7 @@ async fn list(
                     Some(Character {
                         id: record.char_we_id,
                         name: record.char_we_name.clone(),
+                        corporation_id: None,
                     })
                 } else {
                     None
@@ -172,6 +173,7 @@ async fn list(
             this_fit.character = Some(Character {
                 id: record.char_wef_id,
                 name: record.char_wef_name,
+                corporation_id: None,
             });
             this_fit.hours_in_fleet = Some(record.wef_cached_time_in_fleet / 3600);
             this_fit.review_comment = record.wef_review_comment;

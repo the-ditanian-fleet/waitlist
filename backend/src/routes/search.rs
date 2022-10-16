@@ -49,6 +49,7 @@ async fn query(
     .map(|r| Character {
         id: r.id,
         name: r.name,
+        corporation_id: None,
     })
     .collect();
 

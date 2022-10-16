@@ -14,6 +14,7 @@ import {
   faShieldAlt,
   faUserShield,
   faBullhorn,
+  faBan,
 } from "@fortawesome/free-solid-svg-icons";
 
 const guideData = {};
