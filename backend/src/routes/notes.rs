@@ -43,6 +43,7 @@ async fn list_notes(
             author: Character {
                 id: note.author_id,
                 name: note.author_name,
+                corporation_id: None,
             },
             logged_at: note.logged_at,
             note: note.note,

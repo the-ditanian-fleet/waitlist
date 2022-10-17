@@ -87,6 +87,7 @@ pub enum ESIScope {
     UI_OpenWindow_v1,
     Skills_ReadSkills_v1,
     Clones_ReadImplants_v1,
+    Search_v1,
 }
 
 impl ESIScope {
@@ -99,6 +100,7 @@ impl ESIScope {
             UI_OpenWindow_v1 => "esi-ui.open_window.v1",
             Skills_ReadSkills_v1 => "esi-skills.read_skills.v1",
             Clones_ReadImplants_v1 => "esi-clones.read_implants.v1",
+            Search_v1 => "esi-search.search_structures.v1",
         }
     }
 }
@@ -214,6 +216,10 @@ impl ESIRawClient {
             .send()
             .await?
             .error_for_status()?)
+    }
+
+    pub async fn get_unauthenticated(&self, url: &str) -> Result<reqwest::Response, ESIError> {
+        Ok(self.http.get(url).send().await?.error_for_status()?)
     }
 
     pub async fn delete(
@@ -429,6 +435,14 @@ impl ESIClient {
         let access_token = self.access_token(character_id, scope).await?;
         let url = format!("https://esi.evetech.net{}", path);
         Ok(self.raw.get(&url, &access_token).await?.json().await?)
+    }
+
+    pub async fn get_unauthenticated<D: serde::de::DeserializeOwned>(
+        &self,
+        path: &str,
+    ) -> Result<D, ESIError> {
+        let url = format!("https://esi.evetech.net{}", path);
+        Ok(self.raw.get_unauthenticated(&url).await?.json().await?)
     }
 
     pub async fn delete(

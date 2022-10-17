@@ -82,3 +82,10 @@ export function timeTillNow(dateTime) {
 
   return dateTime.toLocaleDateString("en-GB", { timeZone: "UTC" });
 }
+
+export function formatDate(dateObj) {
+  return dateObj.toLocaleString("en-GB", {
+    timeZone: "UTC",
+    dateStyle: "short",
+  });
+}

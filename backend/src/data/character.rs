@@ -35,6 +35,7 @@ pub async fn lookup(db: &crate::DB, ids: &[i64]) -> Result<HashMap<i64, Characte
                 Character {
                     id: record.id,
                     name: record.name,
+                    corporation_id: None,
                 },
             )
         })

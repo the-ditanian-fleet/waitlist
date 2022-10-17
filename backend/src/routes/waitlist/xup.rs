@@ -5,10 +5,7 @@ use serde::Deserialize;
 
 use crate::{
     app::Application,
-    core::{
-        auth::{authorize_character, AuthenticatedAccount},
-        esi::ESIScope,
-    },
+    core::auth::{authorize_character, AuthenticatedAccount},
     data::{implants, skills},
     tdf,
     util::madness::Madness,
@@ -86,53 +83,6 @@ async fn get_time_in_fleet(db: &crate::DB, character_id: i64) -> Result<i64, sql
     Ok(result.seconds.unwrap_or(0))
 }
 
-async fn am_i_banned_check(db: &crate::DB, kind: &str, id: i64) -> Result<bool, sqlx::Error> {
-    let now = chrono::Utc::now();
-    Ok(sqlx::query!(
-        "SELECT id FROM ban WHERE kind=? AND id=? AND (expires_at IS NULL OR expires_at > ?)",
-        kind,
-        id,
-        now
-    )
-    .fetch_optional(db)
-    .await?
-    .is_some())
-}
-
-async fn am_i_banned(app: &Application, character_id: i64) -> Result<bool, Madness> {
-    if am_i_banned_check(app.get_db(), "character", character_id).await? {
-        return Ok(true);
-    }
-
-    #[derive(Deserialize)]
-    struct ESIInfo {
-        corporation_id: Option<i64>,
-        alliance_id: Option<i64>,
-    }
-
-    let esi_info: ESIInfo = app
-        .esi_client
-        .get(
-            &format!("/v5/characters/{}/", character_id),
-            character_id,
-            ESIScope::PublicData,
-        )
-        .await?;
-
-    if let Some(corporation_id) = esi_info.corporation_id {
-        if am_i_banned_check(app.get_db(), "corporation", corporation_id).await? {
-            return Ok(true);
-        }
-    }
-    if let Some(alliance_id) = esi_info.alliance_id {
-        if am_i_banned_check(app.get_db(), "alliance", alliance_id).await? {
-            return Ok(true);
-        }
-    }
-
-    Ok(false)
-}
-
 async fn xup_multi(
     app: &Application,
     account: AuthenticatedAccount,
@@ -172,8 +122,23 @@ async fn xup_multi(
     let mut character_info = HashMap::new();
     for character_id in character_ids {
         authorize_character(app.get_db(), &account, character_id, None).await?;
-        if am_i_banned(app, character_id).await? {
-            return Err(Madness::BadRequest("You are banned".to_string()));
+
+        if let Some(ban) = app.ban_service.character_bans(character_id).await? {
+            let first = ban.first().unwrap();
+            let entity = first.entity.as_ref().unwrap();
+            let err;
+
+            if entity.category == "Character" {
+                err = "You cannot join fleet as your character is banned.";
+            } else if entity.category == "Corporation" {
+                err = "You cannot join fleet as your corporation is banned.";
+            } else if entity.category == "Alliance" {
+                err = "You cannot join fleet as your alliance is banned.";
+            } else {
+                err = "You cannot join the waitlist as you are banned."
+            }
+
+            return Err(Madness::BadRequest(err.to_string()));
         }
 
         let time_in_fleet = get_time_in_fleet(app.get_db(), character_id).await?;

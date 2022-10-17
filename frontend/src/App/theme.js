@@ -12,6 +12,7 @@ const globals = {
 
 const theme = {
   Light: _.merge({}, globals, {
+    base: "light",
     colors: {
       background: "#ffffff",
       text: "#4a4a4a",
@@ -81,6 +82,7 @@ const theme = {
     },
   }),
   Dark: _.merge({}, globals, {
+    base: "dark",
     logo: {
       filter: "invert(1)",
     },
@@ -345,6 +347,10 @@ theme["Vanilla"] = _.merge({}, theme.Dark, {
       "invert(62%) sepia(28%) saturate(325%) hue-rotate(4deg) brightness(100%) contrast(84%) drop-shadow(1px 1px 0.3px #000000)",
   },
   sticker: "https://i.imgur.com/8JN6udB.png",
+});
+
+Object.keys(theme).forEach((key) => {
+  theme[key].name = key;
 });
 
 export default theme;

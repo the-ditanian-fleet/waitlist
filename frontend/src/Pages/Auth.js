@@ -1,6 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { useQuery } from "../Util/query";
+import { AccountBannedPage } from "./FC/bans/AccountBanned";
 
 function AuthStart({ fc = false, alt = false }) {
   const [message, setMessage] = React.useState("Redirecting to EVE login");
@@ -45,6 +46,8 @@ export function AuthCallback() {
       if (response.status === 200) {
         // Force page refresh
         window.location.href = "/";
+      } else if (response.status === 403) {
+        response.json().then((e) => setMessage(<AccountBannedPage ban={e} />));
       } else {
         setMessage(<p>An error occurred.</p>);
         response.text().then((text) => {

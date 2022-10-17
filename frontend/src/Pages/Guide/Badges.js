@@ -239,7 +239,7 @@ export function BadgeData() {
             Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault
             and Vanguard sites with SRP cover.
           </BadgeButton>
-          <BadgeButton name="FC Trainer" img={"./Trainer.png"}>
+          <BadgeButton name="FC Trainer" img={"./trainer.png"}>
             Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault
             and Vanguard sites with SRP cover. <br />
             <br />

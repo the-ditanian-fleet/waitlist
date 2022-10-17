@@ -14,7 +14,7 @@ import AnnouncementBanner from "../Components/AnnouncementBanner";
 
 const GlobalStyle = createGlobalStyle`
   html {
-    overflow-y: scroll;
+    // overflow-y: scroll;
     text-rendering: optimizeLegibility;
     font-size: 16px;
     min-width: 300px;

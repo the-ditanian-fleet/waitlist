@@ -6,7 +6,7 @@ import Table from "../../Components/DataTable";
 import { useApi } from "../../api";
 import { Buttons } from "../../Components/Form";
 import { formatDatetime } from "../../Util/time";
-import CharacterName from "../../Components/CharacterName";
+import { CharacterName } from "../../Components/EntityLinks";
 import { AddButton, FilterComponents, RevokeButton } from "./commanders/TableControls";
 import CommanderModal from "./commanders/CommanderModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

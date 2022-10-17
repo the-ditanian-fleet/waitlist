@@ -24,6 +24,7 @@ async fn whoami(
     let mut characters = vec![types::Character {
         id: character.id,
         name: character.name,
+        corporation_id: None,
     }];
 
     let alts = sqlx::query!(
@@ -37,6 +38,7 @@ async fn whoami(
         characters.push(types::Character {
             id: alt.id,
             name: alt.name,
+            corporation_id: None,
         });
     }
 
@@ -90,6 +92,7 @@ fn login_url(alt: bool, fc: bool, app: &rocket::State<app::Application>) -> Stri
             ESIScope::Fleets_ReadFleet_v1,
             ESIScope::Fleets_WriteFleet_v1,
             ESIScope::UI_OpenWindow_v1,
+            ESIScope::Search_v1,
         ])
     }
 
@@ -106,6 +109,13 @@ fn login_url(alt: bool, fc: bool, app: &rocket::State<app::Application>) -> Stri
 struct CallbackData<'r> {
     code: &'r str,
     state: Option<&'r str>,
+}
+
+#[derive(Serialize)]
+struct PublicBanPayload {
+    category: String,
+    expires_at: Option<i64>,
+    reason: Option<String>,
 }
 
 #[post("/api/auth/cb", data = "<input>")]
@@ -125,6 +135,28 @@ async fn callback(
         .esi_client
         .process_authorization_code(input.code)
         .await?;
+
+    // Update the character's corporation and aliance information
+    app.affiliation_service
+        .update_character_affiliation(character_id)
+        .await?;
+
+    if let Some(ban) = app.ban_service.character_bans(character_id).await? {
+        let ban = ban.first().unwrap();
+
+        let payload = PublicBanPayload {
+            category: ban.entity.to_owned().unwrap().category,
+            expires_at: ban.revoked_at,
+            reason: ban.public_reason.to_owned(),
+        };
+
+        if let Ok(json) = serde_json::to_string(&payload) {
+            return Err(Madness::Forbidden(json));
+        }
+        return Err(Madness::BadRequest(format!(
+            "You cannot login due to a ban. An error occurred when trying to retreive the details, please contact council for more information."
+        )));
+    }
 
     let logged_in_account =
         if input.state.is_some() && input.state.unwrap() == "alt" && account.is_some() {
@@ -160,5 +192,5 @@ async fn callback(
 }
 
 pub fn routes() -> Vec<rocket::Route> {
-    routes![whoami, logout, login_url, callback,]
+    routes![whoami, logout, login_url, callback]
 }

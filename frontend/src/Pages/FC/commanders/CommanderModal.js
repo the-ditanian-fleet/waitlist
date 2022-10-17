@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { apiCall, errorToaster, toaster, useApi } from "../../../api";
 import { Box } from "../../../Components/Box";
-import CharacterName from "../../../Components/CharacterName";
+import { CharacterName } from "../../../Components/EntityLinks";
 import { Button, CenteredButtons, Label, Select } from "../../../Components/Form";
 import { Modal } from "../../../Components/Modal";
 import { Title } from "../../../Components/Page";

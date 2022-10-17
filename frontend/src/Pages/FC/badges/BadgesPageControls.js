@@ -8,7 +8,7 @@ import { Box } from "../../../Components/Box";
 import { Modal } from "../../../Components/Modal";
 import { Title } from "../../../Components/Page";
 import { Button, CenteredButtons, Label, Select } from "../../../Components/Form";
-import CharacterName from "../../../Components/CharacterName";
+import { CharacterName } from "../../../Components/EntityLinks";
 import { addToast } from "../../../Components/Toast";
 
 const FormGroup = styled.div`

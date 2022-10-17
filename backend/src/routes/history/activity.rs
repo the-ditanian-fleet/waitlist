@@ -135,6 +135,7 @@ async fn fleet_comp(
             character: Character {
                 id: entry.character_id,
                 name: entry.character_name,
+                corporation_id: None,
             },
             logged_at: entry.first_seen,
             time_in_fleet: entry.last_seen - entry.first_seen,

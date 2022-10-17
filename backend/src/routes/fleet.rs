@@ -40,6 +40,7 @@ async fn fleet_status(
         boss: Character{
             id: fleet.boss_id,
             name: fleet.name,
+            corporation_id: None
         }
     }).collect();
 

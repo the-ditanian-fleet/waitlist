@@ -1,24 +1,24 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { AuthContext } from "../../contexts";
-import { BanRoutes } from "./Bans";
 import { Fleet, FleetRegister } from "./Fleet";
 import { Search } from "./Search";
 import { Statistics } from "./Statistics";
 import { FleetCompHistory } from "./FleetCompHistory";
 import { NoteAdd } from "./NoteAdd";
 import { FCMenu, GuideFC } from "./FCMenu";
-import BadgesPage from "./Badges";
-import CommandersPage from "./Commanders";
 import AnnouncementsPage from "./Announcements";
+import BadgesPage from "./Badges";
+import BansPage from "./Bans";
+import CommandersPage from "./Commanders";
 
 export function FCRoutes() {
   const authContext = React.useContext(AuthContext);
   return (
     <>
       <AnnouncementsPage />
-      <BanRoutes />
       <BadgesPage />
+      <BansPage />
       <CommandersPage />
 
       <Route exact path="/fc">

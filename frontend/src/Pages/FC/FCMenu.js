@@ -9,12 +9,12 @@ import { Markdown } from "../../Components/Markdown";
 import styled from "styled-components";
 import {
   faGraduationCap,
-  faBan,
   faBiohazard,
   faChartLine,
   faShieldAlt,
   faUserShield,
   faBullhorn,
+  faBan,
 } from "@fortawesome/free-solid-svg-icons";
 
 const guideData = {};
@@ -107,7 +107,7 @@ export function FCMenu() {
         {authContext && authContext.access["waitlist-tag:HQ-FC"] && (
           <GuideCard slug="announcements" name="Announcements" icon={faBullhorn} />
         )}
-        {authContext && authContext.access["bans-view"] && (
+        {authContext && authContext.access["bans-manage"] && (
           <GuideCard slug="bans" name="Bans" icon={faBan} />
         )}
         {authContext && authContext.access["badges-manage"] && (
