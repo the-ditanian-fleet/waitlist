@@ -85,7 +85,7 @@ const PermaBannedCharacter = styled.div`
 
 const AccountBannedBanner = ({ bans }) => {
   const authContext = React.useContext(AuthContext);
-  const ban = Array.isArray(bans) && bans.length > 0 ? bans[0] : null;
+  const ban = bans?.find(ban => ban.revoked_at === null || ban.revoked_at > new Date());
 
   return !(authContext.access["bans-manage"] && ban) ? null : (
     <Banner>
