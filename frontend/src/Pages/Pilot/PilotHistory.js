@@ -1,17 +1,29 @@
 import _ from "lodash";
 import styled from "styled-components";
 
-import { FitEntry, SkillEntry, FleetEntry, NoteEntry } from "./Entry";
+import { FitEntry, SkillEntry, FleetEntry, NoteEntry, BanEntry } from "./Entry";
 
 const Group = styled.div`
   margin-bottom: 2em;
 `;
 
-function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory, notes }) {
+function CombinedDisplay({ filter, banHistory, fleetHistory, skillHistory, xupHistory, notes  }) {
   var everything = [];
 
-  // Add xups
+  // Add ban history
   var i = 0;
+  for (const entry of banHistory || []) {
+    i++;
+    everything.push({
+      key: `ban-${i}`,
+      entry,
+      time: entry.issued_at,
+      type: "ban"           
+    });
+  }
+  
+  // Add xups
+  i = 0;
   for (const entry of xupHistory || []) {
     i++;
     everything.push({
@@ -58,7 +70,7 @@ function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory, notes
       key: `note-${i}`,
     });
   }
-
+  
   if (filter !== null) {
     everything = everything.filter((entry) => filter(entry.type));
   }
@@ -70,6 +82,7 @@ function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory, notes
   var groups = [];
   var thisGroup = null;
   var maxTime = null;
+  
   for (const { time, entry, type, endTime, key } of everything) {
     if (thisGroup === null || maxTime < time) {
       thisGroup = [];
@@ -79,8 +92,9 @@ function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory, notes
     // Consider it a new group after three hours of inactivity.
     // Why three? Well, nobody should be on the waitlist for that long, but an hour is possible.
     maxTime = (endTime || time) + 3 * 3600;
-
-    if (type === "fit") {
+    if (type === "ban") {
+      thisGroup.push(<BanEntry key={key} {...entry} />);
+    } else if (type === "fit") {
       thisGroup.push(<FitEntry key={key} {...entry} />);
     } else if (type === "fleet") {
       thisGroup.push(<FleetEntry key={key} {...entry} />);
@@ -112,14 +126,15 @@ function CombinedDisplay({ filter, fleetHistory, xupHistory, skillHistory, notes
   return <div>{result}</div>;
 }
 
-export function PilotHistory({ filter, fleetHistory, xupHistory, skillHistory, notes }) {
+export function PilotHistory({ filter, banHistory, fleetHistory, skillHistory, xupHistory, notes }) {
   return (
     <CombinedDisplay
       filter={filter}
+      banHistory={banHistory}
       fleetHistory={fleetHistory}
-      xupHistory={xupHistory}
       skillHistory={skillHistory}
-      notes={notes}
+      xupHistory={xupHistory}
+      notes={notes}      
     />
   );
 }
