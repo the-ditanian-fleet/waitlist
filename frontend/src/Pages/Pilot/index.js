@@ -9,6 +9,7 @@ import { ActivitySummary } from "./ActivitySummary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BadgeIcon, { icons } from "../../Components/Badge";
 import {
+  faBan,
   faClipboard,
   faGraduationCap,
   faPen,
@@ -20,6 +21,7 @@ import { InputGroup, NavButton } from "../../Components/Form";
 import { Row, Col } from "react-awesome-styled-grid";
 import _ from "lodash";
 import CommanderModal from "../FC/commanders/CommanderModal";
+import { AccountBannedBanner } from "../FC/bans/AccountBanned";
 
 const FilterButtons = styled.span`
   font-size: 0.75em;
@@ -65,17 +67,20 @@ function PilotDisplay({ authContext }) {
   const queryParams = new URLSearchParams(useLocation().search);
 
   var characterId = queryParams.get("character_id") || authContext.current.id;
-  const [filter, setFilter] = React.useState(null);
-  const [basicInfo, refreshBasicInfo] = useApi(`/api/pilot/info?character_id=${characterId}`);
-  const [fleetHistory] = useApi(`/api/history/fleet?character_id=${characterId}`);
-  const [xupHistory] = useApi(`/api/history/xup?character_id=${characterId}`);
-  const [skillHistory] = useApi(`/api/history/skills?character_id=${characterId}`);
-  const [notes] = useApi(
+  const [ filter, setFilter ] = React.useState(null);
+  const [ basicInfo, refreshBasicInfo ] = useApi(`/api/pilot/info?character_id=${characterId}`);
+  const [ fleetHistory ] = useApi(`/api/history/fleet?character_id=${characterId}`);
+  const [ banHistory ] = useApi(`/api/v2/bans/${characterId}`);
+  const [ xupHistory ] = useApi(`/api/history/xup?character_id=${characterId}`);
+  const [ skillHistory ] = useApi(`/api/history/skills?character_id=${characterId}`);
+  const [ notes ] = useApi(
     authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
   );
 
   return (
     <>
+      { authContext.access["bans-manage"] && <AccountBannedBanner bans={banHistory} /> }
+
       <div style={{ display: "flex", alignItems: "Center", flexWrap: "wrap" }}>
         <PageTitle style={{ marginRight: "0.2em" }}>{basicInfo && basicInfo.name}</PageTitle>
         <PilotTags tags={basicInfo && basicInfo.tags} />
@@ -86,9 +91,9 @@ function PilotDisplay({ authContext }) {
             alt=""
           />
         </div>
-      </div>
+      </div>    
       {authContext.account_id !== characterId && (
-        <InputGroup>
+        <InputGroup style={{ marginBottom: "20px" }}>
           {authContext.access["notes-add"] && (
             <NavButton to={`/fc/notes/add?character_id=${characterId}`}>Write note</NavButton>
           )}
@@ -105,9 +110,6 @@ function PilotDisplay({ authContext }) {
               refreshData={refreshBasicInfo}
             />
           )}
-          {authContext.access["bans-manage"] && (
-            <NavButton to={`/fc/bans/add?kind=character&id=${characterId}`}>Ban</NavButton>
-          )}
         </InputGroup>
       )}
       <Row>
@@ -115,21 +117,26 @@ function PilotDisplay({ authContext }) {
           <Title>
             History
             <FilterButtons>
-              <a onClick={(evt) => setFilter(null)} style={{ marginRight: "0.5em" }}>
+              <a onClick={(evt) => setFilter(null)} style={{ marginRight: "0.5em" }} title="Clear Filters">
                 <FontAwesomeIcon fixedWidth icon={faTimes} />
               </a>
-              <a onClick={(evt) => setFilter("skill")}>
+              <a onClick={(evt) => setFilter("skill")} title="Skill History">
                 <FontAwesomeIcon fixedWidth icon={faGraduationCap} />
               </a>
-              <a onClick={(evt) => setFilter("fit")}>
+              <a onClick={(evt) => setFilter("fit")} title="X-UP History">
                 <FontAwesomeIcon fixedWidth icon={faPen} />
               </a>
-              <a onClick={(evt) => setFilter("fleet")}>
+              <a onClick={(evt) => setFilter("fleet")} title="Fleet History">
                 <FontAwesomeIcon fixedWidth icon={faPlane} />
               </a>
               {authContext.access["notes-view"] && (
-                <a onClick={(evt) => setFilter("note")}>
+                <a onClick={(evt) => setFilter("note")} title="Pilot Notes">
                   <FontAwesomeIcon fixedWidth icon={faClipboard} />
+                </a>
+              )}
+              {authContext.access["bans-manage"] && (
+                <a onClick={(evt) => setFilter("ban")} title="Character Ban History">
+                  <FontAwesomeIcon fixedWidth icon={faBan} />
                 </a>
               )}
             </FilterButtons>
@@ -137,10 +144,11 @@ function PilotDisplay({ authContext }) {
 
           <PilotHistory
             filter={filter ? (type) => type === filter : null}
+            banHistory={banHistory}
             fleetHistory={fleetHistory && fleetHistory.activity}
-            xupHistory={xupHistory && xupHistory.xups}
             skillHistory={skillHistory && skillHistory.history}
-            notes={notes && notes.notes}
+            xupHistory={xupHistory && xupHistory.xups}            
+            notes={notes && notes.notes}            
           />
         </Col>
         <Col xs={4} md={2}>

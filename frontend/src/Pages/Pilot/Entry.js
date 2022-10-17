@@ -4,11 +4,12 @@ import { Box } from "../../Components/Box";
 import { FitDisplay } from "../../Components/FitDisplay";
 import { Modal } from "../../Components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClipboard, faGraduationCap, faPen, faPlane } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faClipboard, faGraduationCap, faPen, faPlane } from "@fortawesome/free-solid-svg-icons";
 import { Badge } from "../../Components/Badge";
-import { formatDatetime, formatDuration } from "../../Util/time";
+import { formatDate, formatDatetime, formatDuration, timeTillNow } from "../../Util/time";
 import ReactMarkdown from "react-markdown";
 import { Content } from "../../Components/Page";
+import { CharacterName } from "../../Components/EntityLinks";
 
 const Link = styled.a`
   cursor: pointer;
@@ -53,15 +54,33 @@ function Entry({ time, icon, children }) {
   );
 }
 
-export function FleetEntry({ logged_at, hull, time_in_fleet }) {
+export function BanEntry({ issued_at, issued_by, reason, public_reason, revoked_at, revoked_by }) {
+  const isPerma = !revoked_at;
   return (
-    <Entry time={logged_at} icon={faPlane}>
-      <span style={{ display: "inline-block", minWidth: "40%", marginRight: "0.5em" }}>
-        {hull.name}
-      </span>
-      <span>{formatDuration(time_in_fleet)}</span>
+    <Entry time={issued_at} icon={faBan}>       
+      <Content>
+        <p>{ isPerma ? "Permanent" : "Temporary" } ban, issued by: <CharacterName {...issued_by} avatar={false} />.</p>
+
+        { !isPerma && !revoked_by && (
+          <p>Expires: {timeTillNow(new Date(revoked_at * 1000))}.</p>
+        )}
+
+        { !isPerma && revoked_by && (
+          <p>Revoked by: <CharacterName {...revoked_by} avatar={false} /> on the {formatDate(new Date(revoked_at * 1000))}.</p>
+        )}
+
+        <p style={{ marginBottom: "2px", fontWeight: "600"}}>Reason:</p>
+        <p>{reason}</p>
+
+        { public_reason && (
+          <>
+            <p style={{ marginBottom: "2px", fontWeight: "600"}}>Public Reason</p>
+            <p>{public_reason}</p>
+          </>
+        )}
+      </Content>
     </Entry>
-  );
+  )
 }
 
 export function FitEntry({ logged_at, hull, dna, implants }) {
@@ -77,6 +96,17 @@ export function FitEntry({ logged_at, hull, dna, implants }) {
         </Modal>
       )}
       <Link onClick={(evt) => setShowModal(true)}>{hull.name}</Link>
+    </Entry>
+  );
+}
+
+export function FleetEntry({ logged_at, hull, time_in_fleet }) {
+  return (
+    <Entry time={logged_at} icon={faPlane}>
+      <span style={{ display: "inline-block", minWidth: "40%", marginRight: "0.5em" }}>
+        {hull.name}
+      </span>
+      <span>{formatDuration(time_in_fleet)}</span>
     </Entry>
   );
 }
