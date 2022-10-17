@@ -70,7 +70,9 @@ function PilotDisplay({ authContext }) {
   const [ filter, setFilter ] = React.useState(null);
   const [ basicInfo, refreshBasicInfo ] = useApi(`/api/pilot/info?character_id=${characterId}`);
   const [ fleetHistory ] = useApi(`/api/history/fleet?character_id=${characterId}`);
-  const [ banHistory ] = useApi(`/api/v2/bans/${characterId}`);
+  const [ banHistory ] = useApi(
+    authContext.access["bans-manage"] ? `/api/v2/bans/${characterId}` : null
+  );
   const [ xupHistory ] = useApi(`/api/history/xup?character_id=${characterId}`);
   const [ skillHistory ] = useApi(`/api/history/skills?character_id=${characterId}`);
   const [ notes ] = useApi(
