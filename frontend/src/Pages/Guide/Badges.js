@@ -227,14 +227,6 @@ export function BadgeData() {
             <br />
             <InfoNote>Cannot take training nestors or do backseats for Trainee FC&apos;s</InfoNote>
           </BadgeButton>
-          <BadgeButton name="VG FC" img={"./vg.png"}>
-            Permitted to use TDF comms to run fleets and to take a fleet into Vanguard sites with
-            SRP cover.
-          </BadgeButton>
-          <BadgeButton name="Assault FC" img={"./as.png"}>
-            Permitted to use TDF comms to run fleets and to take a fleet into Assault and Vanguard
-            sites with SRP cover.
-          </BadgeButton>
           <BadgeButton name="HQ FC" img={"./hq.png"}>
             Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault
             and Vanguard sites with SRP cover.
@@ -243,7 +235,7 @@ export function BadgeData() {
             Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault
             and Vanguard sites with SRP cover. <br />
             <br />
-            Can promote Trainee FC&apos;s to full HQ/AS/VG tags and conduct van/bus fleets for
+            Can promote Trainee FC&apos;s to full FC tags and conduct van/bus fleets for
             trainee FC&apos;s.
           </BadgeButton>
           <BadgeButton name="Council" img={"./c.png"}>
@@ -252,7 +244,7 @@ export function BadgeData() {
             Permitted to use TDF comms to run fleets and to take a fleet into Headquarters, Assault
             and Vanguard sites with SRP cover. <br />
             <br />
-            Can promote Full FC&apos;s to FC Trainer and Trainee FC&apos;s to full HQ/AS/VG tags and
+            Can promote Full FC&apos;s to FC Trainer and Trainee FC&apos;s to full FC tags and
             conduct van/bus fleets for trainee FC&apos;s.
           </BadgeButton>
         </BadgeDisplay>
