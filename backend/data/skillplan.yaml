@@ -13,12 +13,12 @@ plans:
         fit: TDF_VINDI_STARTER
       - type: tank
         from: min
-      - type: fit
-        hull: Vindicator
-        fit: TDF_VINDI_BASIC
       - type: skills
         from: Vindicator
         tier: min
+      - type: fit
+        hull: Vindicator
+        fit: TDF_VINDI_BASIC
 
   - name: NIGHTMARE BASIC PATH
     description: >
@@ -34,12 +34,12 @@ plans:
         fit: TDF_NM_STARTER
       - type: tank
         from: min
-      - type: fit
-        hull: Nightmare
-        fit: TDF_NM_BASIC
       - type: skills
         from: Nightmare
         tier: min
+      - type: fit
+        hull: Nightmare
+        fit: TDF_NM_BASIC
 
   - name: VINDICATOR ELITE PATH
     description: >
@@ -55,12 +55,12 @@ plans:
         fit: TDF_VINDI_STARTER
       - type: tank
         from: min
-      - type: fit
-        hull: Vindicator
-        fit: TDF_VINDI_BASIC
       - type: skills
         from: Vindicator
         tier: min
+      - type: fit
+        hull: Vindicator
+        fit: TDF_VINDI_BASIC
       - type: fit
         hull: Vindicator
         fit: TDF_VINDI_ADVANCED
@@ -91,12 +91,12 @@ plans:
         fit: TDF_VINDI_STARTER
       - type: tank
         from: min
-      - type: fit
-        hull: Vindicator
-        fit: TDF_VINDI_BASIC
       - type: skills
         from: Vindicator
         tier: min
+      - type: fit
+        hull: Vindicator
+        fit: TDF_VINDI_BASIC
       - type: skills
         from: Kronos
         tier: min
@@ -127,12 +127,12 @@ plans:
         fit: TDF_NM_STARTER
       - type: tank
         from: min
-      - type: fit
-        hull: Nightmare
-        fit: TDF_NM_BASIC
       - type: skills
         from: Nightmare
         tier: min
+      - type: fit
+        hull: Nightmare
+        fit: TDF_NM_BASIC
       - type: skills
         from: Paladin
         tier: min
@@ -158,6 +158,9 @@ plans:
       - type: skill
         from: Cybernetics
         level: 5
+      - type: skills
+        from: Vindicator
+        tier: min
       - type: fit
         hull: Vindicator
         fit: TDF_VINDI_ELITE_HYBRID
@@ -177,6 +180,9 @@ plans:
       - type: skill
         from: Cybernetics
         level: 5
+      - type: skills
+        from: Kronos
+        tier: min
       - type: fit
         hull: Kronos
         fit: TDF_KRONOS_ELITE
@@ -193,6 +199,9 @@ plans:
       - type: skill
         from: Cybernetics
         level: 5
+      - type: skills
+        from: Paladin
+        tier: min
       - type: fit
         hull: Paladin
         fit: TDF_PALLY_ELITE
