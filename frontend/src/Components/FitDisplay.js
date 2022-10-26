@@ -102,7 +102,7 @@ DOM.Warning = styled.div`
   margin: 1em 0;
 `;
 DOM.Slot = styled.div`
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 `;
 DOM.Line = styled.div`
   display: flex;
