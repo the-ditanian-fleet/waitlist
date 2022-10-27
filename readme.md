@@ -80,7 +80,7 @@ The Waitlist has three services (see below). Before starting the front end, both
 7. Compile the code using `cargo build --release --no-default-features --features=${DATABASE_ENGINE}`
 8. Run the server
 9. Click on login and complete the SSO workflow with at least one character
-10. Insert a record in the `Admins` table to give yourself `council` permissions
+10. Insert a record in the `admin` table to give yourself `council` permissions
 11. Navigate to the Fleet page and "ESI re-auth as FC"
 
 <details>
@@ -106,7 +106,13 @@ The Waitlist has three services (see below). Before starting the front end, both
 
    # Final things (step 9-11)
    sqlite3 waitlist.sqlite
-   INSERT INTO Admins (<character_id>, 'council');
+   INSERT INTO admin (character_id, role, granted_at, granted_by_id)
+   SELECT
+       id AS character_id,
+       'council' AS role,
+       CURRENT_TIMESTAMP AS granted_at,
+       id AS granted_by_id
+   FROM character WHERE name = 'YOUR CHARACTER NAME';
    ## Quit the shell using Ctrl+D
    npm run start
    ```
