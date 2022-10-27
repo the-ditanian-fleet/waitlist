@@ -35,7 +35,7 @@ Register an Eve Swagger API application at [https://developers.eveonline.com](ht
 | Setting      | Value |
 | ---: | :---  |
 | Callback URL | `https://<domain>.<tld>/auth/cb` |
-| Scopes       | `esi-skills.read_skills.v1 esi-fleets.read_fleet.v1 esi-fleets.write_fleet.v1 esi-ui.open_window.v1 esi-clones.read_implants.v1` |
+| Scopes       | `publicData esi-skills.read_skills.v1 esi-clones.read_implants.v1 esi-fleets.read_fleet.v1 esi-fleets.write_fleet.v1 esi-ui.open_window.v1 esi-search.search_structures.v1` |
 
  _* Valid account: You will need to agree to the [Developer License Agreement](https://developers.eveonline.com/license-agreement). Your account must have a valid credit card that has been used to pay for at least one month of Omega._
 
