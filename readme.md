@@ -93,10 +93,7 @@ The Waitlist has three services (see below). Before starting the front end, both
    sh shrink-sde.sh
 
    # Setup Database (step 4-5)
-   sqlite3 waitlist.sqlite
-   .database
-   ## Copy the SQL queries from `sql/sqlite.sql` here and press Enter
-   ## Quit the shell using Ctrl+D
+   sqlite3 waitlist.sqlite < sql/sqlite.sql`
    
    # Start backend (step 6-8)
    export DATABASE_ENGINE=sqlite
