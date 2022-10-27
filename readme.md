@@ -79,9 +79,10 @@ The Waitlist has three services (see below). Before starting the front end, both
 6. Set environment variables using export: `DATABASE_ENGINE=sqlite` and `DATABASE_URL=${DATABASE_ENGINE}:./waitlist.sqlite` 
 7. Compile the code using `cargo build --release --no-default-features --features=${DATABASE_ENGINE}`
 8. Run the server
-9. Click on login and complete the SSO workflow with at least one character
-10. Insert a record in the `admin` table to give yourself `council` permissions
-11. Navigate to the Fleet page and "ESI re-auth as FC"
+9. Run the frontend (see section below)
+10. Click on login and complete the SSO workflow with at least one character
+11. Insert a record in the `admin` table to give yourself `council` permissions
+12. Navigate to the Fleet page and "ESI re-auth as FC"
 
 <details>
    <summary>CLI Prompts</summary>
@@ -101,7 +102,9 @@ The Waitlist has three services (see below). Before starting the front end, both
    cargo build --release --no-default-features --features=sqlite
    cargo run
 
-   # Final things (step 9-11)
+   # Now build and run frontend in a separate shell (step 9, also see section below)
+
+   # Final things (step 10-12)
    sqlite3 waitlist.sqlite
    INSERT INTO admin (character_id, role, granted_at, granted_by_id)
    SELECT
@@ -111,7 +114,6 @@ The Waitlist has three services (see below). Before starting the front end, both
        id AS granted_by_id
    FROM character WHERE name = 'YOUR CHARACTER NAME';
    ## Quit the shell using Ctrl+D
-   npm run start
    ```
 </details>
 
