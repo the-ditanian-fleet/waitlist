@@ -34,8 +34,8 @@ Register an Eve Swagger API application at [https://developers.eveonline.com](ht
 
 | Setting      | Value |
 | ---: | :---  |
-| Callback URL | `https://<domain>.<tld>/auth/cb` |
-| Scopes       | `esi-skills.read_skills.v1 esi-fleets.read_fleet.v1 esi-fleets.write_fleet.v1 esi-ui.open_window.v1 esi-clones.read_implants.v1` |
+| Callback URL | `http://localhost:3000/auth/cb` |
+| Scopes       | `publicData esi-skills.read_skills.v1 esi-clones.read_implants.v1 esi-fleets.read_fleet.v1 esi-fleets.write_fleet.v1 esi-ui.open_window.v1 esi-search.search_structures.v1` |
 
  _* Valid account: You will need to agree to the [Developer License Agreement](https://developers.eveonline.com/license-agreement). Your account must have a valid credit card that has been used to pay for at least one month of Omega._
 
@@ -79,9 +79,10 @@ The Waitlist has three services (see below). Before starting the front end, both
 6. Set environment variables using export: `DATABASE_ENGINE=sqlite` and `DATABASE_URL=${DATABASE_ENGINE}:./waitlist.sqlite` 
 7. Compile the code using `cargo build --release --no-default-features --features=${DATABASE_ENGINE}`
 8. Run the server
-9. Click on login and complete the SSO workflow with at least one character
-10. Insert a record in the `Admins` table to give yourself `council` permissions
-11. Navigate to the Fleet page and "ESI re-auth as FC"
+9. Run the frontend (see section below)
+10. Click on login and complete the SSO workflow with at least one character
+11. Insert a record in the `admin` table to give yourself `council` permissions
+12. Navigate to the Fleet page and "ESI re-auth as FC"
 
 <details>
    <summary>CLI Prompts</summary>
@@ -93,10 +94,7 @@ The Waitlist has three services (see below). Before starting the front end, both
    sh shrink-sde.sh
 
    # Setup Database (step 4-5)
-   sqlite3 waitlist.sqlite
-   .database
-   ## Copy the SQL queries from `sql/sqlite.sql` here and press Enter
-   ## Quit the shell using Ctrl+D
+   sqlite3 waitlist.sqlite < sql/sqlite.sql`
    
    # Start backend (step 6-8)
    export DATABASE_ENGINE=sqlite
@@ -104,11 +102,18 @@ The Waitlist has three services (see below). Before starting the front end, both
    cargo build --release --no-default-features --features=sqlite
    cargo run
 
-   # Final things (step 9-11)
+   # Now build and run frontend in a separate shell (step 9, also see section below)
+
+   # Final things (step 10-12)
    sqlite3 waitlist.sqlite
-   INSERT INTO Admins (<character_id>, 'council');
+   INSERT INTO admin (character_id, role, granted_at, granted_by_id)
+   SELECT
+       id AS character_id,
+       'council' AS role,
+       CURRENT_TIMESTAMP AS granted_at,
+       id AS granted_by_id
+   FROM character WHERE name = 'YOUR CHARACTER NAME';
    ## Quit the shell using Ctrl+D
-   npm run start
    ```
 </details>
 
