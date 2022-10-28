@@ -164,7 +164,7 @@ const AnnouncementBanner = () => {
 
         return (
           <AnnouncementBar key={key} data-alert={announcment.is_alert}>
-            <CharacterName {...announcment.created_by} />, {timeTillNow(created_at)}
+            <CharacterName {...announcment.created_by} noLink={!authContext?.access["waitlist-tag:HQ-FC"]} />, {timeTillNow(created_at)}
             <span className="close" onClick={() => handleClose(announcment.id)} />
             <p style={{ paddingLeft: "42px" }}>{announcment.message}</p>
             {authContext && authContext.access["waitlist-tag:HQ-FC"] && (

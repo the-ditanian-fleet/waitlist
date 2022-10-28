@@ -175,7 +175,7 @@ function ShipDisplay({ fit, id, note }) {
     <>
       {modalOpen ? (
         <Modal open={true} setOpen={setModalOpen}>
-          <Box>
+          <Box style={{ maxWidth: "500px" }}>
             <div style={{ display: "flex" }}>
               <div style={{ margin: "0 0.5em" }}>
                 <DNADisplay dna={fit.dna} name={fit.name} />
