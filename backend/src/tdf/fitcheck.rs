@@ -249,12 +249,17 @@ impl<'a> FitChecker<'a> {
             || self.tags.contains("ELITE-GOLD")
             || self.tags.contains("WEB")
             || self.tags.contains("BASTION");
-        if self.fit.hull == type_id!("Vindicator") && self.pilot.time_in_fleet > (225 * 3600) && !pilot_elite  {
-            self.approved = false;
-            self.tags.insert("ELITE-HOURS-REACHED");
-        } else if (self.fit.hull == type_id!("Paladin") || self.fit.hull == type_id!("Kronos")) && self.pilot.time_in_fleet > (250 * 3600) && !pilot_elite {
-            self.approved = false;
-            self.tags.insert("ELITE-HOURS-REACHED");
+            
+        if self.fit.hull == type_id!("Vindicator") {
+            if self.pilot.time_in_fleet > (225 * 3600) && !pilot_elite {
+                self.approved = false;
+                self.tags.insert("ELITE-HOURS-REACHED");
+            }
+        } else if self.fit.hull == type_id!("Paladin") || self.fit.hull == type_id!("Kronos") {
+            if self.pilot.time_in_fleet > (250 * 3600) && !pilot_elite {
+                self.approved = false;
+                self.tags.insert("ELITE-HOURS-REACHED");
+            }
         } else if self.pilot.time_in_fleet > (150 * 3600) && !pilot_elite {
             self.approved = false;
             self.tags.insert("ELITE-HOURS-REACHED");
