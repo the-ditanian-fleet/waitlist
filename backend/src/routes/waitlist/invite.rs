@@ -105,12 +105,17 @@ async fn invite(
         )
         .await?;
 
+    let fc = sqlx::query!("SELECT name FROM `character` WHERE id=?", account.id)
+        .fetch_one(app.get_db())
+        .await?;
+
     app.sse_client
         .submit(vec![Event::new(
             &format!("account;{}", xup.we_account_id),
             "wakeup",
             format!(
-                "You have been invited to fleet with {}",
+                "{} has invited your {} to fleet.",
+                fc.name,
                 TypeDB::name_of(xup.fitting_hull as TypeID)?
             ),
         )])

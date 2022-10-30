@@ -10,9 +10,6 @@ fn stream(app: &rocket::State<crate::app::Application>, account: AuthenticatedAc
         format!("account;{}", account.id),
     ];
 
-    if account.access.contains("waitlist-view") {
-        topics.push("xup".to_string());
-    }
     if account.access.contains("fleet-view") {
         topics.push("fleet_comp".to_string());
     }
