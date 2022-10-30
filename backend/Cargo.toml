@@ -33,6 +33,4 @@ rand = "*"
 thiserror = "*"
 
 [features]
-default = ["sqlite"]
 mysql = ["sqlx/mysql"]
-sqlite = ["sqlx/sqlite"]

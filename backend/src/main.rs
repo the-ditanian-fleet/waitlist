@@ -16,20 +16,14 @@ extern crate rocket;
 extern crate eve_data_macros;
 
 extern crate sqlx;
-
-#[cfg(feature = "mysql")]
 type DBEngine = sqlx::MySql;
-#[cfg(not(feature = "mysql"))]
-type DBEngine = sqlx::Sqlite;
+
 
 pub type DB = sqlx::Pool<DBEngine>;
 pub type DBTX<'c> = sqlx::Transaction<'c, DBEngine>;
 
 #[tokio::main]
 async fn main() {
-    #[cfg(feature = "sqlite")]
-    let options = sqlx::sqlite::SqlitePoolOptions::new();
-    #[cfg(feature = "mysql")]
     let options = sqlx::mysql::MySqlPoolOptions::new();
 
     let config_file = env::var("WAITLIST_CONFIG").unwrap_or_else(|_| "./config.toml".to_string());
