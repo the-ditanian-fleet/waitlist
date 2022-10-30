@@ -9,6 +9,7 @@ import Table from "../../Components/DataTable";
 import { Button } from "../../Components/Form";
 import { AuthContext, ToastContext } from "../../contexts";
 import { AddAnnouncement, UpdateAnnouncement } from "./announcements/Modals";
+import { usePageTitle } from "../../Util/title";
 
 const AnnouncementsPage = () => {
   const authContext = React.useContext(AuthContext);
@@ -87,6 +88,7 @@ const View = () => {
     },
   ];
 
+  usePageTitle("Announcements");
   return (
     <>
       <Header>

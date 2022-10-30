@@ -22,6 +22,7 @@ import {
   faUserGraduate,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+import { replaceTitle, parseMarkdownTitle, usePageTitle } from "../../Util/title";
 
 const guideData = {};
 function importAll(r) {
@@ -43,13 +44,18 @@ export function Guide() {
   React.useEffect(() => {
     setLoadedData(null);
     if (!(filename in guideData)) return;
+    let title = document.title;
 
     errorToaster(
       toastContext,
       fetch(guideData[filename].default)
         .then((response) => response.text())
-        .then(setLoadedData)
+        .then((data) => {
+          setLoadedData(data);
+          replaceTitle(parseMarkdownTitle(data));
+        })
     );
+    return () => document.title = title;
   }, [toastContext, filename]);
 
   const resolveImage = (name) => {
@@ -104,6 +110,7 @@ function GuideCard({ icon, slug, name, children }) {
 }
 
 export function GuideIndex() {
+  usePageTitle("Guides");
   return (
     <>
       <PageTitle>Guides</PageTitle>

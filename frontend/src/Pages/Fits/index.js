@@ -3,6 +3,7 @@ import { InputGroup, Button, Buttons } from "../../Components/Form";
 import { Fitout, ImplantOut } from "./FittingSortDisplay";
 import { PageTitle } from "../../Components/Page";
 import { useLocation, useHistory } from "react-router-dom";
+import { usePageTitle } from "../../Util/title";
 
 export function Fits() {
   const queryParams = new URLSearchParams(useLocation().search);
@@ -19,6 +20,7 @@ export function Fits() {
 }
 
 function FitsDisplay({ tier, setTier = null }) {
+  usePageTitle(`${tier} Fits`);
   const [fitData] = useApi(`/api/fittings`);
   if (fitData === null) {
     return <em>Loading fits...</em>;

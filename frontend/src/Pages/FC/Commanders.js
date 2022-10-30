@@ -11,6 +11,7 @@ import { AddButton, FilterComponents, RevokeButton } from "./commanders/TableCon
 import CommanderModal from "./commanders/CommanderModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import { usePageTitle } from "../../Util/title";
 
 const Header = styled.div`
   padding-bottom: 10px;
@@ -185,6 +186,7 @@ const View = () => {
     );
   }, [filters, data, refreshData]);
 
+  usePageTitle("Commanders");
   return (
     <>
       <Header>

@@ -16,6 +16,7 @@ import {
   faBullhorn,
   faBan,
 } from "@fortawesome/free-solid-svg-icons";
+import { replaceTitle, parseMarkdownTitle, usePageTitle } from "../../Util/title";
 
 const guideData = {};
 function importAll(r) {
@@ -42,13 +43,18 @@ export function GuideFC() {
   React.useEffect(() => {
     setLoadedData(null);
     if (!(filename in guideData)) return;
+    const title = document.title;
 
     errorToaster(
       toastContext,
       fetch(guideData[filename].default)
         .then((response) => response.text())
-        .then(setLoadedData)
+        .then((data) => {
+          setLoadedData(data);
+          replaceTitle(parseMarkdownTitle(data));
+        })
     );
+    return () => document.title = title;
   }, [toastContext, filename]);
 
   const resolveImage = (name) => {
@@ -100,6 +106,7 @@ function GuideCard({ icon, slug, name, children }) {
 
 export function FCMenu() {
   const authContext = React.useContext(AuthContext);
+  usePageTitle("FC Menu");
   return (
     <>
       <PageTitle>FC Dashboard</PageTitle>
