@@ -200,14 +200,17 @@ export function BadgeData() {
                 <li>Gallente Battleship skill level 5</li>
                 <li>Abyssal MWD with 560% velocity bonus</li>
                 <li>
-                  Abyssal webifiers with minimum: <br /> 16km optimal range <br />
-                  62% velocity bonus reduction
+                  Abyssal webifiers with minimum: <br /> 14km optimal range <br />
+                  64% velocity bonus reduction
                 </li>
               </ul>
             </Content>
             <InfoNote>
               Contact an FC to verify your abyssals and apply the badge on TS and on the website.
               Badge can be viewed on pilot page.
+            </InfoNote>
+            <InfoNote variant="warning">
+              New web requirements from the 13th of November. Existing web specialists can continue to use their old webs beyond this date.
             </InfoNote>
           </BadgeButton>
         </BadgeDisplay>

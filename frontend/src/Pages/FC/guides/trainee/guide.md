@@ -34,8 +34,12 @@
   1. Cannot fly if the influence is below 75%.
   1. Should be responsible for initial fleet form-up when possible. (FC able to update TDF-O) unless a trainer states otherwise.
 - HQ
-  1. Must have 6 logi for TCRC & NRF, 5 for TPPH
-  1. Must be flying 1 Battleship and 1 fully skilled booster (Primary Armor/Skirmish).
+  1. Must have the minimum logi
+     - TCRC &amp; NRF: 3/3
+     - TPPH: 3/1 (Can fly 2/2 if the backseat is flying a Nestor) 
+     - FC Trainers and Council can override logi requirements while in fleet
+     - Nestors can replace cruisers, but not the other way around 
+  1. Must be flying 1 fully skilled primary booster and 1 other doctrine non booster ship.
   1. Must have 2 backseats / 1 FC trainer/ 1 council to run the Kundalini for the first time even if fully tagged HQ FC.
   1. Cannot fly if the influence is below 75% blue bar.
   1. Should be responsible for initial fleet form-up when possible. (FC able to update TDF-O) unless a trainer states otherwise.

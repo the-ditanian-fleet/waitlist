@@ -47,12 +47,10 @@ _FC's are allowed to invite Elite pilot Bastion alts when starter squad is full 
 
 ### Logi requirements
 
-1. **Full FC**: TCRC **3:1** NRF **3:1 / 2:2** TPPH **3:1 / 2:2**
-2. **PHQ FC**: TCRC **3:3 / 4:2** NRF **3:2 / 4:1** TPPH **3:2 / 4:1**
-3. **Trainee FC**: TCRC **3:3 / 4:2** NRF **3:3 / 4:2** TPPH **3:2 / 4:1**
-
-Nestors can replace cruisers, but not the other way around, you should have cruisers where possible due to their utility and you must still run the correct number of logi.
-
+1. **Full FC**: TCRC &amp; NRF **3:1**, TPPH **2:2**
+2. **PHQ/Trainee FC**: TCRC &amp; NRF **3:3**, TPPH **2:2**
+    - Nestors can replace cruisers, but not the other way around, you should have cruisers where possible due to their utility and you must still run the correct number of logi. 
+    - FC Trainers and Council can override these requirements while in fleet.
 3. Basic skills are all **required** except on the Basic fit oneiros which can be run with Logistics cruisers at level 4.
 
 ### Misc
