@@ -1,5 +1,4 @@
--- Permanent data store
-
+-- Character & Auth related tables
 CREATE TABLE `alliance` (
   `id` BIGINT PRIMARY KEY NOT NULL,
   `name` text NOT NULL
@@ -11,13 +10,14 @@ CREATE TABLE `corporation` (
   `alliance_id` BIGINT NULL,
   `updated_at` BIGINT NOT NULL,
   CONSTRAINT `alliance_id` FOREIGN KEY (`alliance_id`) REFERENCES `alliance` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `character` (
   `id` bigint PRIMARY KEY,
   `name` varchar(255) NOT NULL,
-  `corporation_id` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`),
-  FULLTEXT KEY `name` (`name`) WITH PARSER `ngram`
+  `corporation_id` BIGINT NULL,
+  FULLTEXT KEY `name` (`name`) WITH PARSER `ngram`,
+  CONSTRAINT `character_corporation` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `access_token` (
@@ -55,6 +55,20 @@ CREATE TABLE `alt_character` (
   CONSTRAINT `alt_character_ibfk_2` FOREIGN KEY (`alt_id`) REFERENCES `character` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Feature tables
+CREATE TABLE `announcement` (
+  `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+  `message` VARCHAR(512) NOT NULL,
+  `is_alert` BOOLEAN NOT NULL DEFAULT FALSE,
+  `pages` TEXT,
+  `created_by_id` BIGINT NOT NULL,
+  `created_at` BIGINT NOT NULL,
+  `revoked_by_id` BIGINT,
+  `revoked_at` BIGINT,
+  CONSTRAINT `announcement_by` FOREIGN KEY (`created_by_id`) REFERENCES `character` (`id`),
+  CONSTRAINT `announcement_revoked_by` FOREIGN KEY (`revoked_by_id`) REFERENCES `character` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE `ban` (
   `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `entity_id` bigint NOT NULL,
@@ -76,6 +90,33 @@ CREATE TABLE `ban` (
   CONSTRAINT `issued_by` FOREIGN KEY (`issued_by`) REFERENCES `character` (`id`),
   CONSTRAINT `revoked_by` FOREIGN KEY (`revoked_by`) REFERENCES `character` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `badge` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(64) NOT NULL UNIQUE,
+  `exclude_badge_id` BIGINT NULL,
+  CONSTRAINT `exclude_badge` FOREIGN KEY (`exclude_badge_id`) REFERENCES `badge` (`id`) ON DELETE SET NULL
+);
+
+CREATE TABLE `badge_assignment` (
+  `characterId` BIGINT NOT NULL,
+  `badgeId` BIGINT NOT NULL,
+  `grantedById` BIGINT NULL,
+  `grantedAt` BIGINT NOT NULL,
+  CONSTRAINT `characterId` FOREIGN KEY (`characterId`) REFERENCES `character` (`id`),
+  CONSTRAINT `badgeId` FOREIGN KEY (`badgeId`) REFERENCES `badge` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `grantedById` FOREIGN KEY (`grantedById`) REFERENCES `character` (`id`)
+);
+
+-- Seed the database with some starting badges
+INSERT INTO badge (name) VALUES ('BASTION'), ('LOGI'), ('RETIRED-LOGI'), ('WEB');
+
+--- A pilot cannot have Logi and RETIRED-LOGI at once, update our seed
+SELECT @logi_id := id FROM badge WHERE name='LOGI';
+SELECT @retired_logi_id := id FROM badge WHERE name='RETIRED-LOGI';
+UPDATE badge SET exclude_badge_id=@retired_logi_id WHERE id=@logi_id;
+UPDATE badge SET exclude_badge_id=@logi_id WHERE id=@retired_logi_id;
+
 
 CREATE TABLE `fitting` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -186,6 +227,9 @@ CREATE TABLE `waitlist` (
   CONSTRAINT `waitlist_chk_2` CHECK ((`is_archived` in (0,1)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- We need to add a waitlist to the database, otherwise some features wont work
+INSERT INTO waitlist (name, is_open, is_archived) values ("TDF HQ", 0, 0);
+
 CREATE TABLE `waitlist_entry` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `waitlist_id` bigint NOT NULL,
@@ -222,44 +266,3 @@ CREATE TABLE `waitlist_entry_fit` (
   CONSTRAINT `waitlist_entry_fit_ibfk_4` FOREIGN KEY (`implant_set_id`) REFERENCES `implant_set` (`id`),
   CONSTRAINT `waitlist_entry_fit_chk_1` CHECK ((`approved` in (0,1)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `badge` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `name` VARCHAR(64) NOT NULL UNIQUE,
-  `exclude_badge_id` BIGINT NULL,
-  CONSTRAINT `exclude_badge` FOREIGN KEY (`exclude_badge_id`) REFERENCES `badge` (`id`) ON DELETE SET NULL
-);
-
-CREATE TABLE `badge_assignment` (
-  `characterId` BIGINT NOT NULL,
-  `badgeId` BIGINT NOT NULL,
-  `grantedById` BIGINT NULL,
-  `grantedAt` BIGINT NOT NULL,
-  CONSTRAINT `characterId` FOREIGN KEY (`characterId`) REFERENCES `character` (`id`),
-  CONSTRAINT `badgeId` FOREIGN KEY (`badgeId`) REFERENCES `badge` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `grantedById` FOREIGN KEY (`grantedById`) REFERENCES `character` (`id`)
-);
-
-INSERT INTO badge (name) VALUES ('BASTION');
-INSERT INTO badge (name) VALUES ('LOGI');
-INSERT INTO badge (name) VALUES ('RETIRED-LOGI');
-INSERT INTO badge (name) VALUES ('WEB');
-
--- Logi and Retired logi are exclusive, update rows to reflect this
-SELECT @logi_id := id FROM badge WHERE name='LOGI';
-SELECT @retired_logi_id := id FROM badge WHERE name='RETIRED-LOGI';
-UPDATE badge SET exclude_badge_id=@retired_logi_id WHERE id=@logi_id;
-UPDATE badge SET exclude_badge_id=@logi_id WHERE id=@retired_logi_id;
-
-CREATE TABLE announcement (
-  `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
-  `message` VARCHAR(512) NOT NULL,
-  `is_alert` BOOLEAN NOT NULL DEFAULT FALSE,
-  `pages` TEXT,
-  `created_by_id` BIGINT NOT NULL,
-  `created_at` BIGINT NOT NULL,
-  `revoked_by_id` BIGINT,
-  `revoked_at` BIGINT,
-  CONSTRAINT `announcement_by` FOREIGN KEY (`created_by_id`) REFERENCES `character` (`id`),
-  CONSTRAINT `announcement_revoked_by` FOREIGN KEY (`revoked_by_id`) REFERENCES `character` (`id`)
-);

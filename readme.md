@@ -5,13 +5,26 @@ The official incursion waitlist for The Ditanian Fleet, Eve Online's premier arm
 ### Contributing
 Report bugs by opening a GitHub issue, or send a message to a TDF HQ FC. Security issues should be reported to an FC directly. 
 
-If you have a change you would like to implement, have a talk with the FC team first. After we've had a chat, if you choose to go ahead, please develop your code on your own fork. 
+#### A One-Time Change
+If you only want to make a one-time contribution, have a chat with the FC team. We will discuss your idea, any potential issues and may make some requests. After our chat, fork the repository and get to work.
 
-Once your feature is ready, check that everything still works. Ensure that the UI and server still compile and interact with the components of the website that you've changed, to make sure they work as expected, then you can open a pull request. 
+#### Regular Contributions
+If you want to make regular contributions, please reach out to Reoze or Lyari on Discord.
 
-Pull requests should include:
-- A short title that describes the change (e.g., Added readme /w installation instructions)
-- An optional description that provides more context (if applicable), including any mandatory actions that other developers will need to undertake (e.g., Drop and recreate the Announcments table. The sql/sqllite.sql file has been updated to include the new schema).
+#### Creating a Pull Request
+Once you think you are ready, please check:
+* the backend and front end still compile
+* your code works as expected
+* other features your changes might affect still work correctly
+
+_If you aren't sure about the expected behaviour, talk to an FC._
+
+---
+
+Then you can create a pull request against upstream/main. Remember to include:
+* A title that describes your change - example "Updated announcement system"
+* A description that describes the rational for change, any additional context (if applicable), and any steps that other developers need to take - example "Run migration 006"
+
 
 We will review your pull request and let you know what happens. 
 
@@ -24,9 +37,9 @@ We recommend you use WSL for development as it simplifies working with the `back
 
 
 ##### 1. Required Software: 
-Check that nodejs, npm, sqlite3, and cargo are installed on your system: 
+Check that mysql-server, nodejs, npm, sqlite3, and cargo are installed on your system: 
 ```
-sudo apt install nodejs npm sqlite3 cargo
+sudo apt install mysql-server nodejs npm sqlite3 cargo
 ```
 
 ##### 2. Register an ESI Application
@@ -74,10 +87,10 @@ The Waitlist has three services (see below). Before starting the front end, both
    * ESI `client_id` and `client_secret` values come from step 2
    * SSE `secret` should be the same as the `SSE_SECRET` used when launching the SSE server
 3. Run the `shrink-sde.sh` script
-4. Create a sqlite database called `waitlist.sqlite`
-5. Copy the SQL queries from `sql/sqlite.sql` into the sqlite3 terminal and execute them
-6. Set environment variables using export: `DATABASE_ENGINE=sqlite` and `DATABASE_URL=${DATABASE_ENGINE}:./waitlist.sqlite` 
-7. Compile the code using `cargo build --release --no-default-features --features=${DATABASE_ENGINE}`
+4. Login to mysql, and create a database called `waitlist`
+5. Copy the SQL queries from `sql/mysql.sql` into the mysql terminal and execute them
+6. Set environment variables using export: `DATABASE_ENGINE=mysql` and `DATABASE_URL=mysql://usrname:passwd@localhost/waitlist?ssl-mode=disabled` 
+7. Compile the code using `cargo build --release --no-default-features --features=mysql`
 8. Run the server
 9. Run the frontend (see section below)
 10. Click on login and complete the SSO workflow with at least one character
@@ -94,26 +107,32 @@ The Waitlist has three services (see below). Before starting the front end, both
    sh shrink-sde.sh
 
    # Setup Database (step 4-5)
-   sqlite3 waitlist.sqlite < sql/sqlite.sql`
+   mysql -u root -p
+   CREATE DATABASE IF NOT EXISTS waitlist;
+   use waitlist;
+   
+   # Now copy and paste and run the mysql.sql script
+
    
    # Start backend (step 6-8)
-   export DATABASE_ENGINE=sqlite
-   export DATABASE_URL=sqlite:./waitlist.sqlite
-   cargo build --release --no-default-features --features=sqlite
+   export DATABASE_ENGINE=mysql
+   export DATABASE_URL=mysql://usrname:passwd@localhost/waitlist?ssl-mode=disabled
+   cargo build --release --no-default-features --features=mysql
    cargo run
 
    # Now build and run frontend in a separate shell (step 9, also see section below)
 
    # Final things (step 10-12)
-   sqlite3 waitlist.sqlite
+   mysql -u root -p
+   use waitlist;
    INSERT INTO admin (character_id, role, granted_at, granted_by_id)
    SELECT
        id AS character_id,
        'council' AS role,
-       CURRENT_TIMESTAMP AS granted_at,
+       CURRENT_TIMESTAMP() AS granted_at,
        id AS granted_by_id
-   FROM character WHERE name = 'YOUR CHARACTER NAME';
-   ## Quit the shell using Ctrl+D
+   FROM `character` WHERE name = 'YOUR CHARACTER NAME';
+   ## Quit the shell using 'exit;'
    ```
 </details>
 
