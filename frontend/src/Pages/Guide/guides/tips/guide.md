@@ -101,7 +101,7 @@ Abyssal modules are created using different tiers of mutaplasmid; decayed, gravi
 
 ### Damage modules
 
-When purchasing these you should prioritise the "damage modifier" vs "rate of fire". Due to your implants and the bastion module your stacking penalties for rate of fire are high, so an abyssal module with a higher damage modifier vs rate of fire will give you more DPS. However you should not ignore rate of fire as any increase in overall DPS should be considered. As with all abyssal modules, you should simulate your fit with any potential abyssals to check your fitting and that you gain DPS. Base faction modules give 25.8% DPS, your abyssals should be higher than this or it will be rejected. You can use the [abyssal apraisals](https://mutaplasmid.space/appraisal/) to check your modules DPS%. The bastion specialist badge requires damage modules with 29% or better DPS.
+When purchasing these you should prioritise the "damage modifier" vs "rate of fire". Due to your stacking penalties for rate of fire from your aerator rig, an abyssal module with a higher damage modifier vs rate of fire will give you more DPS to begin with. However you should not ignore rate of fire as any increase in overall DPS should be considered and its important to strike the right balance. As with all abyssal modules, you should simulate your fit with any potential abyssals to check your fitting and that you gain DPS. Base faction modules give 25.8% DPS, your abyssals should be higher than this or it will be rejected. You can use the [abyssal apraisals](https://mutaplasmid.space/appraisal/) to check your modules DPS%. The bastion specialist badge requires damage modules with 29% or better DPS.
 
 - Damage modifier > ROF > CPU
 
