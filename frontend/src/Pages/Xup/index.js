@@ -11,6 +11,7 @@ import { Box } from "../../Components/Box";
 import { Modal } from "../../Components/Modal";
 
 import howToX from "./howtox.png";
+import { usePageTitle } from "../../Util/title";
 
 const exampleFit = String.raw`
 [Vindicator, Vindicator]
@@ -72,6 +73,7 @@ async function xUp({ character, eft, toastContext, waitlist_id, alt }) {
 }
 
 export function Xup() {
+  usePageTitle("X-up");
   const toastContext = React.useContext(ToastContext);
   const authContext = React.useContext(AuthContext);
   const queryParams = new URLSearchParams(useLocation().search);

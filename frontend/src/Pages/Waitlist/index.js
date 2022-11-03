@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faColumns } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 import { useQuery } from "../../Util/query";
+import { usePageTitle } from "../../Util/title";
 
 function coalesceCalls(func, wait) {
   var nextCall = null;
@@ -128,6 +129,8 @@ export function Waitlist() {
   const [waitlistData, refreshWaitlist] = useWaitlist(waitlistId);
   const fleetComposition = useFleetComposition();
   const displayMode = query.mode || "columns";
+
+  usePageTitle("Waitlist");
 
   const setDisplayMode = (newMode) => {
     setQuery("mode", newMode);

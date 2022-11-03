@@ -8,6 +8,7 @@ import { NavButton, InputGroup } from "../../Components/Form";
 import { InfoNote } from "../../Components/NoteBox";
 
 import { BadgeDOM, BadgeModal } from "../../Components/Badge";
+import { usePageTitle } from "../../Util/title";
 
 const BadgeDisplay = styled.div`
   display: flex;
@@ -59,6 +60,7 @@ function BadgeButton({ name, img, children }) {
 }
 
 export function BadgeData() {
+  usePageTitle("Badges");
   return (
     <>
       <Content style={{ marginBottom: "2em" }}>

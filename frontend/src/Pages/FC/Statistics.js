@@ -4,6 +4,7 @@ import { useApi } from "../../api";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import styled, { ThemeContext } from "styled-components";
 import { Row, Col } from "react-awesome-styled-grid";
+import { usePageTitle } from "../../Util/title";
 
 const Graph = styled(Col).attrs({ md: 4 })`
   max-height: 350px;
@@ -307,6 +308,7 @@ function TimeSpentByHull28d({ data }) {
 }
 
 export function Statistics() {
+  usePageTitle("Statistics");
   const [statsData] = useApi("/api/stats");
 
   if (!statsData) {

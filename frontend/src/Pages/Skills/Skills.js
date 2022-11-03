@@ -3,6 +3,7 @@ import { AuthContext } from "../../contexts";
 import { useLocation, useHistory } from "react-router-dom";
 import { PageTitle, Content } from "../../Components/Page";
 import { useApi } from "../../api";
+import { usePageTitle } from "../../Util/title";
 
 import { SkillDisplay } from "../../Components/SkillDisplay";
 
@@ -38,6 +39,7 @@ function SkillsAuth({ authContext }) {
     });
   };
 
+  usePageTitle(`${ship} Skills`);
   return (
     <>
       <PageTitle>{basicInfo ? `Skills for ${basicInfo.name}` : "Skills"}</PageTitle>
