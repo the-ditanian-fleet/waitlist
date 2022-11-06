@@ -10,13 +10,29 @@ import { useLocation } from "react-router";
 import { formatDatetime, formatDuration } from "../Util/time";
 import { formatNumber } from "../Util/number";
 import _ from "lodash";
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import { usePageTitle } from "../Util/title";
+import { Line } from "react-chartjs-2";
+
+// Use standard HQ site income as baseIsk
+const baseIskPerSite = 31500000;
 
 function encodeArray(numbers) {
   var buffer = [];
+  var walletLines = numbers.pop();
   for (const number of numbers) {
     varint.encode(Math.round(number), buffer, buffer.length);
+  }
+
+  // walletLines were sorted before this, use 1st line as the base timestamp
+  var baseTimestamp = walletLines[0].time;
+  for (const line of walletLines) {
+    // Calculate time delta from base timestamp, in minutes
+    var timeDelta = (line.time - baseTimestamp) / 60000;
+    // Substract the base ISK per site so that the encoded string won't be too long
+    var iskDelta = line.value - baseIskPerSite;
+    varint.encode(Math.round(timeDelta), buffer, buffer.length);
+    varint.encode(Math.round(iskDelta), buffer, buffer.length);
   }
 
   // Add a checksum byte with a simple xor
@@ -67,6 +83,7 @@ function encodeData(input) {
       input.minTime,
       input.maxTime,
       input.chars,
+      input.walletLines,
     ])
   );
 }
@@ -83,6 +100,7 @@ function decodeData(encoded) {
       minTime: numbers[5],
       maxTime: numbers[6],
       chars: numbers[7],
+      walletLines: numbers.slice(8),
     };
   } else {
     throw new Error("Cannot decode input");
@@ -200,6 +218,7 @@ function parseWallet(input) {
   result.maxTime = Math.max(...siteTimes);
   result.startTime = Math.min(...result.raw.map((row) => row.time));
   result.endTime = Math.max(...result.raw.map((row) => row.time));
+  result.walletLines = lines;
 
   return result;
 }
@@ -307,6 +326,7 @@ const ResultDOM = styled.div`
       font-size: 0.8em;
       margin-top: 1em;
       margin-bottom: 0.3em;
+      overflow-wrap: break-word;
 	  padding-top: 0.3em;
 	  &:hover:not(:disabled):not(.static) {
 		color: ${props.theme.colors.accent4};
@@ -320,7 +340,85 @@ const ResultDOM = styled.div`
   `}
 `;
 
+function GetReadableTime(t) {
+  var h = Math.floor(t / 60);
+  var m = Math.floor(t % 60);
+  return `${h}H ${m}M`;
+}
+
+function GetGraphDataPoints(walletLines, borderColor, backgroundColor) {
+  // Even index numbers are time deltas; Odd are ISK deltas. Skip the 1st site
+  var timeDeltas = [];
+  var iskPaid = [];
+  for (var i = 0; i < walletLines.length; i += 2){
+    // Combine payments if two or more happened at the same time
+    if (i !== 0 && walletLines[i] === timeDeltas[timeDeltas.length - 1]) {
+      iskPaid[iskPaid.length - 1] += walletLines[i + 1] + baseIskPerSite;
+    } else {
+      timeDeltas.push(walletLines[i]);
+      iskPaid.push(walletLines[i + 1] + baseIskPerSite);
+    }
+  }
+  
+  /* TODO: The algorithm does not correctly reflect breaks
+     e.g. When there is no payment in an hour, the curve will not flat out to reflect that.
+     Similarly, when activity/payment resumes, the curve's uptake does not reflect real ISK/h.
+     A way to solve this would be to only calculate ISK/h within last 15 mins for example.
+  */
+  // Smooth the line with 100 data points, so it looks more curvy
+  const samplePoints = 100;
+  var fullTimeSpan = timeDeltas[timeDeltas.length - 1];
+  var timeInterval = fullTimeSpan/(samplePoints - 1);
+  // Set initial data to 0.
+  var dataLabels = ['0'];
+  var dataPoints = [0];
+  var nextPaymentTimeIndex = 1;
+  var iskToTime = iskPaid[0];
+  for (i = 1; i < samplePoints; i++) {
+    var currentTime = i * timeInterval;
+    dataLabels.push(GetReadableTime(currentTime));
+    // Add up all payments during the time interval
+    while (timeDeltas[nextPaymentTimeIndex] <= currentTime) {
+      iskToTime += iskPaid[nextPaymentTimeIndex];
+      nextPaymentTimeIndex++;
+      if (nextPaymentTimeIndex === timeDeltas.length) break;
+    }
+    dataPoints.push(Math.floor(iskToTime / currentTime * 60));
+  }
+
+  return {
+    dataLabels,
+    datasets: [
+      {
+        fill: true,
+        label: 'ISK/h over time',
+        data: dataPoints,
+        borderColor: borderColor,
+        backgroundColor: backgroundColor,
+      },
+    ],
+  };
+
+  // Don't look over here. Nothing to see.
+  // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  // return {
+  //   labels,
+  //   datasets: [
+  //     {
+  //       fill: true,
+  //       label: 'ISK/h over time',
+  //       data: [100000000,200000000,300000000,400000000,500000000,600000000,300000000],
+  //       borderColor: borderColor,
+  //       backgroundColor: backgroundColor,
+  //     },
+  //   ],
+  // };
+}
+
 function ResultDisplay({ dataStr }) {
+  const themeContext = React.useContext(ThemeContext);
+  const borderColor = themeContext.colors.accent3;
+  const backgroundColor = themeContext.colors.accent4;
   const toastContext = React.useContext(ToastContext);
   if (!dataStr) {
     return null;
@@ -355,6 +453,9 @@ function ResultDisplay({ dataStr }) {
         </p>
         <p>
           {formatDatetime(new Date(decoded.startTime * 1000))} ++ {formatDuration(duration)}
+        </p>
+        <p>
+          <Line data={GetGraphDataPoints(decoded.walletLines, borderColor, backgroundColor)} />
         </p>
         <p
           onClick={(evt) => {
