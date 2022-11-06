@@ -387,7 +387,7 @@ function GetGraphDataPoints(walletLines, borderColor, backgroundColor) {
   }
 
   return {
-    dataLabels,
+    labels: dataLabels,
     datasets: [
       {
         fill: true,
@@ -398,21 +398,6 @@ function GetGraphDataPoints(walletLines, borderColor, backgroundColor) {
       },
     ],
   };
-
-  // Don't look over here. Nothing to see.
-  // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  // return {
-  //   labels,
-  //   datasets: [
-  //     {
-  //       fill: true,
-  //       label: 'ISK/h over time',
-  //       data: [100000000,200000000,300000000,400000000,500000000,600000000,300000000],
-  //       borderColor: borderColor,
-  //       backgroundColor: backgroundColor,
-  //     },
-  //   ],
-  // };
 }
 
 function ResultDisplay({ dataStr }) {
