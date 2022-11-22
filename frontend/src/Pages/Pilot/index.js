@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthContext, ToastContext } from "../../contexts";
 import { useLocation } from "react-router-dom";
-import { PageTitle, Title, Content } from "../../Components/Page";
+import { Title, Content } from "../../Components/Page";
 import CharacterBadgeModal from "../FC/badges/CharacterBadgeModal";
 import { PilotHistory } from "./PilotHistory";
 import { apiCall, errorToaster, useApi } from "../../api";
@@ -23,6 +23,7 @@ import { Row, Col } from "react-awesome-styled-grid";
 import _ from "lodash";
 import CommanderModal from "../FC/commanders/CommanderModal";
 import { AccountBannedBanner } from "../FC/bans/AccountBanned";
+import AltCharacters from "./AltCharacters";
 
 const FilterButtons = styled.span`
   font-size: 0.75em;
@@ -51,7 +52,9 @@ function PilotTags({ tags }) {
       );
     }
   });
-  return <div style={{ display: "flex", marginBottom: "0.6em" }}>{tagImages}</div>;
+  return (
+    <div style={{ display: "flex", marginBottom: "0.6em", flexWrap: "wrap" }}>{tagImages}</div>
+  );
 }
 
 export function Pilot() {
@@ -70,46 +73,85 @@ export function Pilot() {
   return <PilotDisplay authContext={authContext} />;
 }
 
+const PageMast = styled.div`
+  display: flex;
+  align-items: center;
+  padding-bottom: 30px;
+
+  @media (max-width: 400px) {
+    flex-direction: column;
+  }
+
+  img {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin-right: 10px;
+    vertical-align: bottom;
+
+    @media (max-width: 400px) {
+      margin-right: 0px;
+    }
+  }
+
+  div:first-of-type {
+    display: flex;
+    flex-direction: column;
+
+    div:first-of-type {
+      display: flex;
+      flex-direction: row;
+
+      @media (max-width: 400px) {
+        flex-direction: column;
+        padding-bottom: 15px;
+
+        h1 {
+          text-align: center;
+        }
+      }
+
+      h1 {
+        font-size: 1.9em;
+        margin-right: 10px;
+      }
+    }
+  }
+`;
+
 function PilotDisplay({ authContext }) {
   const queryParams = new URLSearchParams(useLocation().search);
 
   var characterId = queryParams.get("character_id") || authContext.current.id;
-  const [ filter, setFilter ] = React.useState(null);
-  const [ basicInfo, refreshBasicInfo ] = useApi(`/api/pilot/info?character_id=${characterId}`);
-  const [ fleetHistory ] = useApi(`/api/history/fleet?character_id=${characterId}`);
-  const [ banHistory ] = useApi(
+  const [filter, setFilter] = React.useState(null);
+  const [basicInfo, refreshBasicInfo] = useApi(`/api/pilot/info?character_id=${characterId}`);
+  const [fleetHistory] = useApi(`/api/history/fleet?character_id=${characterId}`);
+  const [banHistory] = useApi(
     authContext.access["bans-manage"] ? `/api/v2/bans/${characterId}` : null
   );
-  const [ xupHistory ] = useApi(`/api/history/xup?character_id=${characterId}`);
-  const [ skillHistory ] = useApi(`/api/history/skills?character_id=${characterId}`);
-  const [ notes ] = useApi(
+  const [xupHistory] = useApi(`/api/history/xup?character_id=${characterId}`);
+  const [skillHistory] = useApi(`/api/history/skills?character_id=${characterId}`);
+  const [notes] = useApi(
     authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
   );
 
   return (
     <>
-      { authContext.access["bans-manage"] && <AccountBannedBanner bans={banHistory} /> }
+      {authContext.access["bans-manage"] && <AccountBannedBanner bans={banHistory} />}
 
-      <div style={{ display: "flex", alignItems: "Center", flexWrap: "wrap" }}>
-        <PageTitle style={{ marginRight: "0.2em", marginBottom: "0.25em" }}>{basicInfo && basicInfo.name}</PageTitle>
-        { authContext.access["waitlist-tag:TRAINEE"] && (
-          <Button
-            title="Open Show Info Window"
-            onClick={(evt) => 
-              errorToaster(ToastContext, OpenWindow(basicInfo.id, authContext.current.id))
-          }>
-            <FontAwesomeIcon fixedWidth icon={faExternalLinkAlt} />
-          </Button>
-        )}
-        <PilotTags tags={basicInfo && basicInfo.tags} />
-        <div style={{ marginLeft: "auto" }}>
-          <img
-            src={`https://images.evetech.net/characters/${characterId}/portrait?size=256`}
-            style={{ borderRadius: "5px", height: "128px" }}
-            alt=""
-          />
+      <PageMast>
+        <img
+          src={`https://images.evetech.net/characters/${basicInfo?.id ?? 1}/portrait?size=128`}
+          alt="Character Portrait"
+        />
+        <div>
+          <div>
+            <h1>{basicInfo && basicInfo.name}</h1>
+          </div>
+          <PilotTags style={{ flexWrap: "flex" }} tags={basicInfo && basicInfo.tags} />
         </div>
-      </div>    
+      </PageMast>
+
       {authContext.account_id !== characterId && (
         <InputGroup style={{ marginBottom: "20px" }}>
           {authContext.access["notes-add"] && (
@@ -128,6 +170,16 @@ function PilotDisplay({ authContext }) {
               refreshData={refreshBasicInfo}
             />
           )}
+          {authContext.access["waitlist-tag:TRAINEE"] && (
+            <Button
+              title="Open Show Info Window"
+              onClick={(evt) =>
+                errorToaster(ToastContext, OpenWindow(basicInfo.id, authContext.current.id))
+              }
+            >
+              Show Info <FontAwesomeIcon fixedWidth icon={faExternalLinkAlt} />
+            </Button>
+          )}
         </InputGroup>
       )}
       <Row>
@@ -135,7 +187,11 @@ function PilotDisplay({ authContext }) {
           <Title>
             History
             <FilterButtons>
-              <a onClick={(evt) => setFilter(null)} style={{ marginRight: "0.5em" }} title="Clear Filters">
+              <a
+                onClick={(evt) => setFilter(null)}
+                style={{ marginRight: "0.5em" }}
+                title="Clear Filters"
+              >
                 <FontAwesomeIcon fixedWidth icon={faTimes} />
               </a>
               <a onClick={(evt) => setFilter("skill")} title="Skill History">
@@ -165,13 +221,15 @@ function PilotDisplay({ authContext }) {
             banHistory={banHistory}
             fleetHistory={fleetHistory && fleetHistory.activity}
             skillHistory={skillHistory && skillHistory.history}
-            xupHistory={xupHistory && xupHistory.xups}            
-            notes={notes && notes.notes}            
+            xupHistory={xupHistory && xupHistory.xups}
+            notes={notes && notes.notes}
           />
         </Col>
         <Col xs={4} md={2}>
           <Title>Time in fleet</Title>
           <ActivitySummary summary={fleetHistory && fleetHistory.summary} />
+
+          <AltCharacters character={basicInfo?.id} />
         </Col>
       </Row>
     </>

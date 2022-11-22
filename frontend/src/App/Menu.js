@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts";
 import logoImage from "./logo.png";
@@ -92,6 +92,21 @@ NavBar.Name = styled.div`
   }
 `;
 
+const Teamspeak = () => {
+  const authContext = useContext(AuthContext);
+
+  return (
+    <AButton
+      title="Join our Teamspeak Server"
+      href={`ts3server://t-d-f.one${
+        authContext?.current ? `?nickname=${authContext.current.name}` : ""
+      }`}
+    >
+      <FontAwesomeIcon icon={faTeamspeak} />
+    </AButton>
+  );
+};
+
 export function Menu({ onChangeCharacter, theme, setTheme, sticker, setSticker }) {
   const [isOpenMobileView, setOpenMobileView] = React.useState(false);
   return (
@@ -134,9 +149,7 @@ export function Menu({ onChangeCharacter, theme, setTheme, sticker, setSticker }
                 </>
               )}
               <InputGroup fixed>
-                <AButton title="Teamspeak" href="ts3server://t-d-f.one">
-                  <FontAwesomeIcon icon={faTeamspeak} />
-                </AButton>
+                <Teamspeak />
                 <AButton title="Discord" href="https://discord.gg/YTysdbb">
                   <FontAwesomeIcon icon={faDiscord} />
                 </AButton>
