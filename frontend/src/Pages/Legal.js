@@ -1,6 +1,8 @@
 import { Content } from "../Components/Page";
+import { usePageTitle } from "../Util/title";
 
 export function Legal() {
+  usePageTitle("Legal Notice");
   return (
     <Content>
       <h2>CCP Copyright Notice</h2>

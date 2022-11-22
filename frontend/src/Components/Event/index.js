@@ -6,7 +6,7 @@ import { faBell, faBellSlash } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "../Modal";
 import { Button } from "../Form";
 import { Box } from "../Box";
-
+import iconFile from "./notification-icon.png";
 import soundFile from "./bell-ringing-04.mp3";
 const storageKey = "EventNotifierSettings";
 
@@ -50,7 +50,13 @@ export function EventNotifier() {
   const handleWakeup = React.useCallback(
     (event) => {
       if (window.Notification && Notification.permission === "granted") {
-        new Notification(event.data);
+        new Notification("The Ditanian Fleet", {
+          body: event.data,
+          icon: iconFile,
+          tag: event.data,
+          renotify: true,
+          timestamp: Math.floor(Date.now())
+        });
       } else if (window.Notification && Notification.permission === "default") {
         // RIP, we didn't ask for permission first!?
         Notification.requestPermission();
@@ -96,8 +102,8 @@ export function EventNotifier() {
         </Box>
       </Modal>
       <Modal open={isPlaying} setOpen={setIsPlaying}>
-        <Box>
-          <p>{isPlaying}</p>
+        <Box  style={{ minHeight: "50px", height: "auto" }}>
+          <p style={{ marginBottom: "20px" }}>{isPlaying}</p>
           <Button onClick={(evt) => setIsPlaying(false)} variant="success">
             OK
           </Button>

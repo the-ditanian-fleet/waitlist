@@ -24,6 +24,7 @@ import _ from "lodash";
 import CommanderModal from "../FC/commanders/CommanderModal";
 import { AccountBannedBanner } from "../FC/bans/AccountBanned";
 import AltCharacters from "./AltCharacters";
+import { usePageTitle } from "../../Util/title";
 
 const FilterButtons = styled.span`
   font-size: 0.75em;
@@ -135,6 +136,7 @@ function PilotDisplay({ authContext }) {
     authContext.access["notes-view"] ? `/api/notes?character_id=${characterId}` : null
   );
 
+  usePageTitle("Pilot");
   return (
     <>
       {authContext.access["bans-manage"] && <AccountBannedBanner bans={banHistory} />}

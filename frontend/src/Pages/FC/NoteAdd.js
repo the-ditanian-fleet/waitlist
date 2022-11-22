@@ -4,6 +4,7 @@ import { apiCall, errorToaster, useApi } from "../../api";
 import { Button, InputGroup, Textarea } from "../../Components/Form";
 import { PageTitle } from "../../Components/Page";
 import { ToastContext } from "../../contexts";
+import { usePageTitle } from "../../Util/title";
 
 async function saveNote(characterId, note) {
   await apiCall("/api/notes/add", {
@@ -15,6 +16,7 @@ async function saveNote(characterId, note) {
 }
 
 export function NoteAdd() {
+  usePageTitle("Add Note");
   const toastContext = React.useContext(ToastContext);
   const [note, setNote] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);

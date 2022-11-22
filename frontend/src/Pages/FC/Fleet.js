@@ -7,6 +7,7 @@ import { apiCall, errorToaster, toaster, useApi } from "../../api";
 import { Cell, CellHead, Row, Table, TableBody, TableHead } from "../../Components/Table";
 import { BorderedBox } from "../../Components/NoteBox";
 import _ from "lodash";
+import { usePageTitle } from "../../Util/title";
 
 const marauders = ["Paladin", "Kronos"];
 const logi = ["Nestor", "Guardian", "Oneiros"];
@@ -44,6 +45,7 @@ export function Fleet() {
     }
   }, []);
 
+  usePageTitle("Fleet");
   return (
     <>
       <Buttons>

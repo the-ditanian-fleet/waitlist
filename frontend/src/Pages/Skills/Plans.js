@@ -15,6 +15,7 @@ import styled from "styled-components";
 import { useQuery } from "../../Util/query";
 import { Card, CardMargin, CardArray } from "../../Components/Card";
 import { NavLink } from "react-router-dom";
+import { titleCase, usePageTitle } from "../../Util/title";
 
 export function Plans() {
   const authContext = React.useContext(AuthContext);
@@ -88,6 +89,7 @@ function ShowPlan({ plan, mySkills }) {
     );
   });
 
+  usePageTitle(titleCase(plan.source.name));
   return (
     <GridRow>
       <Col xs={4} md={4}>
@@ -170,6 +172,7 @@ const CardImages = styled.div`
 `;
 
 function PlanList({ plans, mySkills }) {
+  usePageTitle("Skill Plans");
   return (
     <>
       <PageTitle>Skill plans</PageTitle>

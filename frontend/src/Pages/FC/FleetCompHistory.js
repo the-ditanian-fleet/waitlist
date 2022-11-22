@@ -7,6 +7,7 @@ import { Cell, CellHead, Row, Table, TableBody, TableHead } from "../../Componen
 import { formatDatetime, formatDuration } from "../../Util/time";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { usePageTitle } from "../../Util/title";
 
 export function FleetCompHistory() {
   const [date, setDate] = React.useState("");
@@ -17,6 +18,7 @@ export function FleetCompHistory() {
 
   const [result] = useApi(parsedDateUnix ? `/api/history/fleet-comp?time=${parsedDateUnix}` : null);
 
+  usePageTitle("Fleet History");
   return (
     <Content>
       <h2>Fleet history lookup</h2>

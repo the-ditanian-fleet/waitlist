@@ -11,6 +11,7 @@ import { formatDatetime, formatDuration } from "../Util/time";
 import { formatNumber } from "../Util/number";
 import _ from "lodash";
 import styled from "styled-components";
+import { usePageTitle } from "../Util/title";
 
 function encodeArray(numbers) {
   var buffer = [];
@@ -208,6 +209,7 @@ export function ISKhCalc() {
   const parsed = parseWallet(input);
   const dataStr = parsed ? encodeData(parsed) : null;
 
+  usePageTitle("ISK/h");
   return (
     <>
       <PageTitle>ISK/h calculator</PageTitle>

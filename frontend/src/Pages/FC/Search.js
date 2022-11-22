@@ -6,6 +6,7 @@ import { AuthContext } from "../../contexts";
 import { useQuery } from "../../Util/query";
 import CharacterBadgeModal from "./badges/CharacterBadgeModal";
 import CommanderModal from "./commanders/CommanderModal";
+import { usePageTitle } from "../../Util/title";
 
 export function Search() {
   const authContext = React.useContext(AuthContext);
@@ -19,6 +20,7 @@ export function Search() {
     query && query.length >= 3 ? "/api/search?" + new URLSearchParams({ query }) : null
   );
 
+  usePageTitle("Search");
   return (
     <>
       <div style={{ marginBottom: "1em" }}>

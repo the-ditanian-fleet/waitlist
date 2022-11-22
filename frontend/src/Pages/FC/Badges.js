@@ -11,6 +11,7 @@ import { apiCall, useApi } from "../../api";
 import { formatDatetime } from "../../Util/time";
 import BadgeIcon from "../../Components/Badge";
 import { AddBadge, RevokeButton } from "./badges/BadgesPageControls";
+import { usePageTitle } from "../../Util/title";
 
 const BadgesPage = () => {
   const authContext = React.useContext(AuthContext);
@@ -259,6 +260,7 @@ const View = () => {
       row.character.name.toLowerCase().includes(filters?.name.toLowerCase())
   );
 
+  usePageTitle("Specialist Badges");
   return (
     <>
       <Header>

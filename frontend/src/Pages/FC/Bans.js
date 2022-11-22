@@ -12,6 +12,7 @@ import { FilterComponents, SusspendButton } from "./bans/TableControls";
 import ExpandableRowsComponent from "./bans/ExpandableRows";
 import { AllianceName, CharacterName, CorporationName } from "../../Components/EntityLinks";
 import { formatDate } from "../../Util/time";
+import { usePageTitle } from "../../Util/title";
 
 const Header = styled.div`
   padding-bottom: 10px;
@@ -166,6 +167,7 @@ const View = () => {
     );
   }, [filters, refreshData]); // is data needed?
 
+  usePageTitle("Bans");
   return (
     <>
       <Header>
