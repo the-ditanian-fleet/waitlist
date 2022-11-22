@@ -1,23 +1,24 @@
 import React from "react";
-import { AuthContext } from "../../contexts";
+import { AuthContext, ToastContext } from "../../contexts";
 import { useLocation } from "react-router-dom";
 import { PageTitle, Title, Content } from "../../Components/Page";
 import CharacterBadgeModal from "../FC/badges/CharacterBadgeModal";
 import { PilotHistory } from "./PilotHistory";
-import { useApi } from "../../api";
+import { apiCall, errorToaster, useApi } from "../../api";
 import { ActivitySummary } from "./ActivitySummary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BadgeIcon, { icons } from "../../Components/Badge";
 import {
   faBan,
   faClipboard,
+  faExternalLinkAlt,
   faGraduationCap,
   faPen,
   faPlane,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { InputGroup, NavButton } from "../../Components/Form";
+import { Button, InputGroup, NavButton } from "../../Components/Form";
 import { Row, Col } from "react-awesome-styled-grid";
 import _ from "lodash";
 import CommanderModal from "../FC/commanders/CommanderModal";
@@ -32,6 +33,12 @@ const FilterButtons = styled.span`
     padding: 0 0.2em;
   }
 `;
+
+async function OpenWindow(target_id, character_id) {
+  return await apiCall(`/api/open_window`, {
+    json: { target_id, character_id },
+  });
+}
 
 function PilotTags({ tags }) {
   var tagImages = [];
@@ -84,7 +91,16 @@ function PilotDisplay({ authContext }) {
       { authContext.access["bans-manage"] && <AccountBannedBanner bans={banHistory} /> }
 
       <div style={{ display: "flex", alignItems: "Center", flexWrap: "wrap" }}>
-        <PageTitle style={{ marginRight: "0.2em" }}>{basicInfo && basicInfo.name}</PageTitle>
+        <PageTitle style={{ marginRight: "0.2em", marginBottom: "0.25em" }}>{basicInfo && basicInfo.name}</PageTitle>
+        { authContext.access["waitlist-tag:TRAINEE"] && (
+          <Button
+            title="Open Show Info Window"
+            onClick={(evt) => 
+              errorToaster(ToastContext, OpenWindow(basicInfo.id, authContext.current.id))
+          }>
+            <FontAwesomeIcon fixedWidth icon={faExternalLinkAlt} />
+          </Button>
+        )}
         <PilotTags tags={basicInfo && basicInfo.tags} />
         <div style={{ marginLeft: "auto" }}>
           <img
