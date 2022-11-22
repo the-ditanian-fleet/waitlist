@@ -66,7 +66,7 @@ You still need to fly the correct doctrine fits however. You are allowed to use 
 
 ![](healthalert.png)
 
-**Drones:** Lastly; while in space set your drones to passive and focus fire. You must have drones in your drone bay for the drone window to appear. Click the hamburger menu in the top left of your drone window and select "passive" "focus fire." Passive is a requirement as aggressive drones can cause aggro splits in sites and we dont want that. This gets your expensive drones killed.
+**Drones:** Lastly; while in space click the cog button on the "Drones in Space" bar of the drone window. Untick "Auto Attack" and set your drones to focus fire.
 
 ![](drones.png)
 
