@@ -1,1 +1,0 @@
-ALTER TABLE ban ADD reason varchar(255) DEFAULT NULL;

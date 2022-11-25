@@ -7,25 +7,12 @@ use crate::{app::Application, core::auth::AuthenticatedAccount, util::madness::M
 
 use serde::Serialize;
 
-#[cfg(feature = "sqlite")]
-macro_rules! from_unixtime {
-    ( $a:expr ) => {
-        concat!("datetime(", $a, ", \"unixepoch\")")
-    };
-}
-#[cfg(feature = "sqlite")]
-macro_rules! year_month {
-    ( $a:expr ) => {
-        concat!("strftime(\"%Y-%m\", ", $a, ")")
-    };
-}
-#[cfg(feature = "mysql")]
 macro_rules! from_unixtime {
     ( $a:expr ) => {
         concat!("from_unixtime(", $a, ")")
     };
 }
-#[cfg(feature = "mysql")]
+
 macro_rules! year_month {
     ( $a:expr ) => {
         concat!("date_format(", $a, ", '%Y-%m')")

@@ -3,7 +3,10 @@ use rocket::serde::json::Json;
 use crate::{
     app,
     core::auth::{authorize_character, get_access_keys, AuthenticatedAccount},
-    util::{madness::Madness, types::CharacterAndLevel},
+    util::{
+        madness::Madness,
+        types::{Character, CharacterAndLevel},
+    },
 };
 
 #[get("/api/pilot/info?<character_id>")]
@@ -51,6 +54,39 @@ async fn pilot_info(
     }))
 }
 
+#[get("/api/pilot/alts?<character_id>")]
+async fn alt_info(
+    account: AuthenticatedAccount,
+    character_id: i64,
+    app: &rocket::State<app::Application>,
+) -> Result<Json<Vec<Character>>, Madness> {
+    account.require_access("waitlist-tag:HQ-FC")?;
+
+    let characters = sqlx::query_as!(
+        Character,
+        "SELECT
+            `id`,`name`,`corporation_id`
+        FROM
+            `character`
+        JOIN
+            `alt_character`AS `alt` ON (alt.alt_id=id OR alt.account_id=id)       
+        WHERE
+            (alt.alt_id=? OR alt.account_id=?) AND id!=?
+        ORDER BY 
+            `name` ASC",
+        character_id,
+        character_id,
+        character_id
+    )
+    .fetch_all(app.get_db())
+    .await?;
+
+    Ok(Json(characters))
+}
+
 pub fn routes() -> Vec<rocket::Route> {
-    routes![pilot_info]
+    routes![
+        alt_info,   //  GET     /api/pilot/alts
+        pilot_info  //  GET     /api/pilot/info
+    ]
 }
