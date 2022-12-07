@@ -82,9 +82,9 @@ export function Fleet() {
               </div>
             ))}
       </Content>
-      {authContext.access["fleet-comp-history"] && (
+      {authContext.access["fleet-history-view"] && (
         <Buttons>
-          <NavButton to="/fc/fleet-comp-history">Fleet comp history</NavButton>
+          <NavButton to="/fc/fleet/history">Fleet comp history</NavButton>
         </Buttons>
       )}
 

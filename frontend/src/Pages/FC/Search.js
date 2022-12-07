@@ -54,12 +54,6 @@ export function Search() {
                       {authContext.access["access-manage"] && (
                         <CommanderModal character={character} isRevokeable />
                       )}
-                      {authContext.access["bans-manage"] &&
-                        authContext.account_id !== character.id && (
-                          <NavButton to={"/fc/bans/add?kind=character&id=" + character.id}>
-                            Ban
-                          </NavButton>
-                        )}
                       {authContext.access["badges-manage"] && (
                         <CharacterBadgeModal character={character} />
                       )}

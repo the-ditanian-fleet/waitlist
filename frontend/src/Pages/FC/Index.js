@@ -54,7 +54,7 @@ export function GuideFC() {
           replaceTitle(parseMarkdownTitle(data));
         })
     );
-    return () => document.title = title;
+    return () => (document.title = title);
   }, [toastContext, filename]);
 
   const resolveImage = (name) => {
