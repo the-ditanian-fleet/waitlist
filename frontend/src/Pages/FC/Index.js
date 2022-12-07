@@ -47,7 +47,7 @@ export function GuideFC() {
 
     errorToaster(
       toastContext,
-      fetch(guideData[filename].default)
+      fetch(guideData[filename])
         .then((response) => response.text())
         .then((data) => {
           setLoadedData(data);
