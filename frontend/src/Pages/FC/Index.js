@@ -120,7 +120,7 @@ export function FCMenu() {
         {authContext && authContext.access["badges-manage"] && (
           <GuideCard slug="badges" name="Badges" icon={faShieldAlt} />
         )}
-        {authContext && authContext.access["access-manage"] && (
+        {authContext && authContext.access["commanders-view"] && (
           <GuideCard slug="commanders" name="Commanders" icon={faUserShield} />
         )}
         {authContext &&

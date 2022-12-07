@@ -110,7 +110,7 @@ export function Routes() {
         <AuthenticatedRoute component={<BansPage />} access="bans-manage" />
       </Route>
       <Route exact path="/fc/commanders">
-        <AuthenticatedRoute component={<CommandersPage />} access="access-manage" />
+        <AuthenticatedRoute component={<CommandersPage />} access="commanders-view" />
       </Route>
       <Route exact path="/fc/documentation">
         <AuthenticatedRoute component={<GuideFC />} access="waitlist-tag:HQ-FC" />

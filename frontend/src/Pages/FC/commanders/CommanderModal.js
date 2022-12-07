@@ -38,7 +38,7 @@ const CommanderModal = ({
   const [isOpen, setOpen] = React.useState(false);
   const [_current, _setCurrent] = React.useState(undefined);
   const [index, setIndex] = React.useState(0);
-
+  
   const authContext = React.useContext(AuthContext);
 
   useEffect(() => {
@@ -51,8 +51,8 @@ const CommanderModal = ({
     });
   }, [character?.id, currentRole, index]);
 
-  let required_scope = authContext.access[`access-manage:${_current}`];
-
+  let required_scope = authContext.access[`commanders-manage:${_current}`];
+  
   const _refresh = () => {
     setIndex(index + 1);
     if (handleRefresh) {
