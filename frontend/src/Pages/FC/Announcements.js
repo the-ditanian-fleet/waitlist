@@ -1,29 +1,14 @@
 import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Route } from "react-router-dom";
 import styled from "styled-components";
 import { apiCall, errorToaster, useApi } from "../../api";
 import { CharacterName } from "../../Components/EntityLinks";
 import Table from "../../Components/DataTable";
 import { Button } from "../../Components/Form";
-import { AuthContext, ToastContext } from "../../contexts";
+import { ToastContext } from "../../contexts";
 import { AddAnnouncement, UpdateAnnouncement } from "./announcements/Modals";
 import { usePageTitle } from "../../Util/title";
-
-const AnnouncementsPage = () => {
-  const authContext = React.useContext(AuthContext);
-
-  return authContext && authContext.access["waitlist-tag:HQ-FC"] ? (
-    <Route exact path="/fc/announcements">
-      <View />
-    </Route>
-  ) : (
-    <></>
-  );
-};
-
-export default AnnouncementsPage;
 
 const Header = styled.div`
   padding-bottom: 10px;
@@ -43,7 +28,7 @@ async function deleteAnnouncement(id) {
   });
 }
 
-const View = () => {
+const AnnouncementsPage = () => {
   const [announcements, updateData] = useApi(`/api/v2/announcements`);
   const [modalOpen, setModalOpen] = React.useState(false);
 
@@ -115,3 +100,5 @@ const View = () => {
     </>
   );
 };
+
+export default AnnouncementsPage;

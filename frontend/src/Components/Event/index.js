@@ -55,7 +55,7 @@ export function EventNotifier() {
           icon: iconFile,
           tag: event.data,
           renotify: true,
-          timestamp: Math.floor(Date.now())
+          timestamp: Math.floor(Date.now()),
         });
       } else if (window.Notification && Notification.permission === "default") {
         // RIP, we didn't ask for permission first!?
@@ -102,7 +102,7 @@ export function EventNotifier() {
         </Box>
       </Modal>
       <Modal open={isPlaying} setOpen={setIsPlaying}>
-        <Box  style={{ minHeight: "50px", height: "auto" }}>
+        <Box style={{ minHeight: "50px", height: "auto" }}>
           <p style={{ marginBottom: "20px" }}>{isPlaying}</p>
           <Button onClick={(evt) => setIsPlaying(false)} variant="success">
             OK

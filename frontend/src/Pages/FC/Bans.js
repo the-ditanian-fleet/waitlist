@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Route } from "react-router-dom";
-import { AuthContext } from "../../contexts";
 import Table, {
   SortAlphabetical,
   SortByEntityCategory,
@@ -72,18 +70,6 @@ const TableControls = styled.div`
 `;
 
 const BansPage = () => {
-  const authContext = React.useContext(AuthContext);
-
-  return authContext && authContext.access["bans-manage"] ? (
-    <Route exact path="/fc/bans">
-      <View />
-    </Route>
-  ) : null;
-};
-
-export default BansPage;
-
-const View = () => {
   const [data, refreshData] = useApi("/api/v2/bans");
   const [filters, setFilters] = React.useState({ type: null, name: "", entity_type: "" });
 
@@ -195,3 +181,5 @@ const View = () => {
     </>
   );
 };
+
+export default BansPage;

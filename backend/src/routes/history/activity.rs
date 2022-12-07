@@ -109,7 +109,7 @@ async fn fleet_comp(
     account: AuthenticatedAccount,
     app: &rocket::State<Application>,
 ) -> Result<Json<FleetCompResponse>, Madness> {
-    account.require_access("fleet-comp-history")?;
+    account.require_access("fleet-history-view")?;
 
     let comp = sqlx::query!(
         "

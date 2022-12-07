@@ -1,9 +1,8 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import { useQuery } from "../Util/query";
 import { AccountBannedPage } from "./FC/bans/AccountBanned";
 
-function AuthStart({ fc = false, alt = false }) {
+export function AuthStart({ fc = false, alt = false }) {
   const [message, setMessage] = React.useState("Redirecting to EVE login");
 
   React.useEffect(() => {
@@ -97,26 +96,4 @@ export async function processAuth(callback) {
     current: whoami.characters[0],
     access: access,
   });
-}
-
-export function AuthRoutes({ value }) {
-  return (
-    <>
-      <Route exact path="/auth/start">
-        <AuthStart />
-      </Route>
-      <Route exact path="/auth/start/fc">
-        <AuthStart fc={true} alt={true} />
-      </Route>
-      <Route exact path="/auth/start/alt">
-        <AuthStart alt={true} />
-      </Route>
-      <Route exact path="/auth/cb">
-        <AuthCallback />
-      </Route>
-      <Route exact path="/auth/logout">
-        <AuthLogout />
-      </Route>
-    </>
-  );
 }

@@ -188,7 +188,7 @@ fn build_access_levels() -> BTreeMap<String, BTreeSet<String>> {
             "bans-manage",
             "badges-manage",
             "fleet-activity-view",
-            "fleet-comp-history",
+            "fleet-history-view",
             "fit-history-view",
             "search",
             "skill-history-view",

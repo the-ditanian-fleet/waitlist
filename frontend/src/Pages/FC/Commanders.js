@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Route } from "react-router-dom";
-import { AuthContext } from "../../contexts";
 import Table from "../../Components/DataTable";
 import { useApi } from "../../api";
 import { Buttons } from "../../Components/Form";
@@ -93,20 +91,6 @@ const special_sort = (charA, charB) => {
 };
 
 const CommandersPage = () => {
-  const authContext = React.useContext(AuthContext);
-
-  return authContext && authContext.access["access-manage"] ? (
-    <Route exact path="/fc/commanders">
-      <View />
-    </Route>
-  ) : (
-    <></>
-  );
-};
-
-export default CommandersPage;
-
-const View = () => {
   const [data, refreshData] = useApi("/api/commanders");
   const [filters, setFilters] = React.useState({ role: null, name: "" });
 
@@ -204,3 +188,5 @@ const View = () => {
     </>
   );
 };
+
+export default CommandersPage;
