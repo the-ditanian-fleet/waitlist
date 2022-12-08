@@ -195,7 +195,7 @@ const RevokeButton = (props) => {
   const [modalOpen, setModalOpen] = React.useState(false);
   const authContext = React.useContext(AuthContext);
 
-  let required_scope = `access-manage:${props.role}`;
+  let required_scope = `commanders-manage:${props.role}`;
   let has_required_scope = authContext && authContext.access[required_scope];
 
   const RevokeConfirm = ({ character, role, isOpen, setOpen, refreshData }) => {

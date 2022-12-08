@@ -48,8 +48,6 @@ const AuthenticatedRoute = ({ component, loginRequired = false, access = null })
 };
 
 export function Routes() {
-  // const authContext = React.useContext(AuthContext);
-
   return (
     <Switch>
       <Route exact path="/">
@@ -112,10 +110,10 @@ export function Routes() {
         <AuthenticatedRoute component={<BansPage />} access="bans-manage" />
       </Route>
       <Route exact path="/fc/commanders">
-        <AuthenticatedRoute component={<CommandersPage />} access="access-manage" />
+        <AuthenticatedRoute component={<CommandersPage />} access="commanders-view" />
       </Route>
       <Route exact path="/fc/documentation">
-        <AuthenticatedRoute component={<GuideFC />} access="access-manage" />
+        <AuthenticatedRoute component={<GuideFC />} access="waitlist-tag:HQ-FC" />
       </Route>
       <Route exact path="/fc/fleet">
         <AuthenticatedRoute component={<Fleet />} access="fleet-view" />

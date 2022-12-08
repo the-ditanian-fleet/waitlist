@@ -1,6 +1,5 @@
-use std::{env, sync::Arc, fmt::format};
+use std::{env, sync::Arc};
 use rocket::Request;
-// use reqwest::Request;
 
 mod app;
 mod config;
@@ -25,17 +24,17 @@ pub type DB = sqlx::Pool<DBEngine>;
 pub type DBTX<'c> = sqlx::Transaction<'c, DBEngine>;
 
 #[catch(401)]
-fn not_authorized(req: &Request) -> String {
+fn not_authorized(_req: &Request) -> String {
     format!("401 Authorization Required")
 }
 
 #[catch(403)]
-fn forbidden(req: &Request) -> String {
+fn forbidden(_req: &Request) -> String {
     format!("403 Forbidden")
 }
 
 #[catch(404)]
-fn not_found(req: &Request) -> String {
+fn not_found(_req: &Request) -> String {
     format!("404 Not Found")
 }
 

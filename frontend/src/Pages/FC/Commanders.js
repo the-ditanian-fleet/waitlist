@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Table from "../../Components/DataTable";
 import { useApi } from "../../api";
@@ -10,6 +10,7 @@ import CommanderModal from "./commanders/CommanderModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { usePageTitle } from "../../Util/title";
+import { AuthContext } from "../../contexts";
 
 const Header = styled.div`
   padding-bottom: 10px;
@@ -91,6 +92,7 @@ const special_sort = (charA, charB) => {
 };
 
 const CommandersPage = () => {
+  const authContext = useContext(AuthContext);
   const [data, refreshData] = useApi("/api/commanders");
   const [filters, setFilters] = React.useState({ role: null, name: "" });
 
@@ -127,7 +129,7 @@ const CommandersPage = () => {
       compact: true,
       grow: 1,
       minWidth: "46",
-      selector: (row) => (
+      selector: (row) => authContext && authContext.access['commanders-manage'] && (
         <Buttons>
           <CommanderModal character={row.character} current={row.role} handleRefresh={refreshData}>
             <IconBtn>
@@ -165,7 +167,9 @@ const CommandersPage = () => {
           onClear={handleClear}
         />
 
-        <AddButton refreshData={refreshData} />
+        { authContext && authContext.access['commanders-manage'] && (
+          <AddButton refreshData={refreshData} />
+        )}
       </TableControls>
     );
   }, [filters, data, refreshData]);

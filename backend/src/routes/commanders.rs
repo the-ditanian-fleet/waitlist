@@ -46,7 +46,7 @@ async fn list(
     account: AuthenticatedAccount,
     app: &rocket::State<Application>,
 ) -> Result<Json<CommanderList>, Madness> {
-    account.require_access("access-manage")?;
+    account.require_access("commanders-view")?;
 
     let mut filters = Vec::new();
 
@@ -106,7 +106,7 @@ async fn assign(
     app: &rocket::State<Application>,
     body: Json<RequestPayload>,
 ) -> Result<&'static str, Madness> {
-    account.require_access("access-manage")?;
+    account.require_access("commanders-manage")?;
 
     // Because character_id in the RequestPayload struct is optional
     // so we need to add additional error handling for this method
@@ -127,7 +127,7 @@ async fn assign(
     }
 
     // Ensure the authenticated user has permission to assign this role
-    let required_scope = format!("access-manage:{}", body.role);
+    let required_scope = format!("commanders-manage:{}", body.role);
     if !account.access.contains(&required_scope) {
         return Err(Madness::Forbidden(format!(
             "You do not have permission to grant the role \"{}\"",
@@ -171,15 +171,15 @@ async fn assign(
 
 #[get("/api/commanders/roles")]
 async fn assignable(account: AuthenticatedAccount) -> Result<Json<Vec<&'static str>>, Madness> {
-    account.require_access("access-manage")?;
+    account.require_access("commanders-manage")?;
 
     let role_order = vec!["trainee", "trainee-advanced", "fc", "fc-trainer", "council"];
 
     let mut options = Vec::new();
     for scope in account.access.into_iter() {
-        if scope.contains("access-manage:") {
+        if scope.contains("commanders-manage:") {
             // 14 is the index of ":".
-            let (_, b) = scope.split_at(14);
+            let (_, b) = scope.split_at(18);
 
             options.push(b);
         }
@@ -208,7 +208,7 @@ async fn lookup(
     app: &rocket::State<Application>,
     character_id: i64,
 ) -> Result<String, Madness> {
-    account.require_access("access-manage")?;
+    account.require_access("commanders-manage")?;
 
     if let Some(role) = sqlx::query!("Select * FROM admin WHERE character_id=?", character_id)
         .fetch_optional(app.get_db())
@@ -227,7 +227,7 @@ async fn revoke(
     app: &rocket::State<Application>,
     character_id: i64,
 ) -> Result<&'static str, Madness> {
-    account.require_access("access-manage")?;
+    account.require_access("commanders-manage")?;
 
     // Stop user from revoking their own role
     if account.id == character_id {
@@ -242,7 +242,7 @@ async fn revoke(
         .await?
     {
         // Ensure the authenticated user is allowed to revoke the role
-        let required_scope = format!("access-manage:{}", role.role);
+        let required_scope = format!("commanders-manage:{}", role.role);
         if !account.access.contains(&required_scope) {
             return Err(Madness::Forbidden(format!(
                 "You do not have permission to revoke the role \"{}\"",
